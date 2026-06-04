@@ -114,7 +114,7 @@ The course draws on the following core texts:
 
 :::{.callout-important}
 
-All readings for a given sesssion are to be completed before the close. It is ok to not understand some parts when doing the readings before class. The goals of the readings is to get to primed about the content that will be discussed in the class.
+All readings for a given session are to be completed before the close. It is ok to not understand some parts when doing the readings before class. The goals of the readings is to get to primed about the content that will be discussed in the class.
 
 :::
 ### Week 1: Why Data? Stories vs Evidence
@@ -248,7 +248,7 @@ Readings:
 
 - **Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund.** *R for Data Science* (2nd ed.). Chapter 10: *Exploratory data analysis*.
 
-- **Çetinkaya-Rundel, Mine, and Johanna Hardin.** *Introduction to Modern Statistics* (2nd ed.). Chapter 7: *Linear regresion*.
+- **Çetinkaya-Rundel, Mine, and Johanna Hardin.** *Introduction to Modern Statistics* (2nd ed.). Chapter 7: *Linear regression*.
 
 
 ### Week 6: Probability and Uncertainty
@@ -259,7 +259,7 @@ Interpret probability as a measure of uncertainty, not just frequency; explain w
 
 Readings:
 
-- **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 8: *Probablility -- the Language of Uncertainity*
+- **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 8: *Probablility -- the Language of uncertainty*
 
 - **Ellenberg, Jordan.** *How Not to Be Wrong: The Power of Mathematical Thinking*. Chapter 8: *Reductio ad Unlikely* and Chapter 10: *Are Yoy There, God? Bayesian inference*
 
@@ -272,7 +272,7 @@ Use R to simulate coin flips and dice rolls; visualise how sample proportions st
 
 Readings:
 
--  **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 9: *Putting Probablility and Statistics Together -- the Language of Uncertainity*. Section 9.1 and 9.2 only.
+-  **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 9: *Putting Probablility and Statistics Together -- the Language of uncertainty*. Section 9.1 and 9.2 only.
 
 ### Week 7: Sampling and Bias
 

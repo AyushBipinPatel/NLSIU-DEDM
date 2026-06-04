@@ -1,7 +1,7 @@
 /*-- scss:defaults --*/
 
 // ─── 1. Palette ───────────────────────────────────────────────────────────────
-$brand-accent:    #2c2c2a;          // deep charcoal — links, active states, headings
+$brand-accent:    #044191;          // deep charcoal — links, active states, headings
 $brand-accent-lt: #f1efeb;          // very light warm grey — tag fills, callout bg
 $brand-accent-md: #5f5e5a;          // mid charcoal — hover, secondary accent
 $brand-ink:       #1c1a17;          // near-black warm body text
@@ -254,4 +254,12 @@ div.callout-tip {
   background: $brand-stone;
   font-size: 0.8rem;
   color: $brand-muted;
+}
+
+// ─── 15. Footer ───────────────────────────────────────────────────────────────
+
+.reveal .footer {
+  font-size: 0.35em !important;
+  text-align: left !important;
+  padding-left: 60px !important;
 }

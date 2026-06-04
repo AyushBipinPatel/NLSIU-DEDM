@@ -1,0 +1,257 @@
+/*-- scss:defaults --*/
+
+// ─── 1. Palette ───────────────────────────────────────────────────────────────
+$brand-accent:    #2c2c2a;          // deep charcoal — links, active states, headings
+$brand-accent-lt: #f1efeb;          // very light warm grey — tag fills, callout bg
+$brand-accent-md: #5f5e5a;          // mid charcoal — hover, secondary accent
+$brand-ink:       #1c1a17;          // near-black warm body text
+$brand-stone:     #fafaf7;          // off-white warm page background
+$brand-muted:     #7a7568;          // secondary / meta text
+$brand-border:    #e0dcd4;          // warm light border
+$brand-border-lt: #edeae4;          // even lighter border
+
+// ─── 2. Bootstrap / Quarto core variables ─────────────────────────────────────
+$primary:                   $brand-accent;
+$link-color:                $brand-accent;
+$link-hover-color:          $brand-accent-md;
+
+$body-bg:                   $brand-stone;
+$body-color:                $brand-ink;
+
+$font-family-sans-serif:    "Inter", "Nunito Sans", system-ui, -apple-system, sans-serif;
+$font-family-serif:         "Lora", "Georgia", serif;
+$font-family-monospace:     "JetBrains Mono", "Fira Code", "Courier New", monospace;
+
+$font-size-base:            1rem;
+$line-height-base:          1.75;
+$headings-font-weight:      500;
+$headings-color:            $brand-ink;
+$headings-line-height:      1.25;
+
+// ─── 3. Navbar ────────────────────────────────────────────────────────────────
+$navbar-bg:                 #ffffff;
+$navbar-fg:                 $brand-muted;
+$navbar-hl:                 $brand-accent;
+
+// ─── 4. Code blocks ───────────────────────────────────────────────────────────
+$code-bg:                   #f4f2ee;
+$code-color:                $brand-ink;
+$code-block-bg:             #f4f2ee;
+$code-block-border-left:    $brand-accent;
+$code-block-border-left-size: 3px;
+
+// ─── 5. Tables ────────────────────────────────────────────────────────────────
+$table-border-color:        $brand-border;
+$table-hover-bg:            $brand-accent-lt;
+
+// ─── 6. Callouts ──────────────────────────────────────────────────────────────
+$callout-color-note:        $brand-accent;
+$callout-color-tip:         $brand-accent-md;
+
+
+/*-- scss:rules --*/
+
+// ─── 7. Google Fonts import ───────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+
+// ─── 8. Navbar refinements ────────────────────────────────────────────────────
+.navbar {
+  border-bottom: 0.5px solid $brand-border;
+  box-shadow: none;
+}
+
+.navbar-brand {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: $brand-ink !important;
+}
+
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:hover {
+  color: $brand-accent !important;
+  border-bottom: 1.5px solid $brand-accent;
+  padding-bottom: 2px;
+}
+
+
+// ─── 9. Homepage / about layout ───────────────────────────────────────────────
+.about-entity .about-image {
+  border-radius: 10px;
+}
+
+.skill-tag {
+  display: inline-block;
+  background: $brand-accent-lt;
+  color: $brand-accent;
+  font-size: 0.75rem;
+  padding: 2px 10px;
+  border-radius: 999px;
+  margin: 2px 3px 2px 0;
+  font-weight: 500;
+}
+
+
+// ─── 10. Training cards ───────────────────────────────────────────────────────
+.training-card {
+  border: 0.5px solid $brand-border;
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 0.75rem;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+
+  &:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    border-color: darken($brand-border, 8%);
+  }
+
+  .training-card-title a {
+    font-weight: 500;
+    color: $brand-accent;
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+  }
+
+  .training-card-venue {
+    font-size: 0.82rem;
+    color: $brand-muted;
+    margin: 3px 0;
+  }
+
+  .training-card-desc {
+    font-size: 0.85rem;
+    color: lighten($brand-ink, 18%);
+    line-height: 1.55;
+  }
+
+  .training-card-year {
+    float: right;
+    background: $brand-accent-lt;
+    color: $brand-accent-md;
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 1px 8px;
+    border-radius: 999px;
+    margin-top: 2px;
+  }
+}
+
+
+// ─── 11. Blog article reading experience ──────────────────────────────────────
+.quarto-document-content p,
+.quarto-document-content li,
+.quarto-document-content blockquote {
+  max-width: 68ch;
+  font-family: $font-family-serif;
+  font-size: 1.0rem;
+  line-height: 1.8;
+  color: #3a3830;
+}
+
+.quarto-document-content h2 {
+  font-weight: 500;
+  font-size: 1.25rem;
+  border-bottom: 0.5px solid $brand-border;
+  padding-bottom: 0.3rem;
+  margin-top: 2rem;
+  margin-bottom: 0.9rem;
+}
+
+.quarto-document-content h3 {
+  font-weight: 500;
+  font-size: 1.05rem;
+  color: $brand-muted;
+  margin-top: 1.5rem;
+}
+
+.quarto-category {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: $brand-accent-md;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+
+  &::after { content: " ·"; color: $brand-border; }
+  &:last-child::after { content: ""; }
+}
+
+.quarto-title-meta {
+  font-size: 0.82rem;
+  color: $brand-muted;
+}
+
+
+// ─── 12. Callout blocks ───────────────────────────────────────────────────────
+div.callout-note {
+  border-left: 3px solid $brand-accent !important;
+  background: $brand-accent-lt !important;
+
+  .callout-header { color: $brand-accent; font-weight: 500; }
+  .callout-body p { color: $brand-accent; max-width: 100%; }
+}
+
+div.callout-tip {
+  border-left: 3px solid $brand-accent-md !important;
+  background: lighten($brand-accent-lt, 2%) !important;
+}
+
+.callout-stat {
+  border-left: 3px solid $brand-accent;
+  background: $brand-accent-lt;
+  padding: 0.6rem 1rem;
+  border-radius: 0 6px 6px 0;
+  font-family: $font-family-sans-serif;
+  font-size: 0.88rem;
+  color: $brand-accent;
+  margin: 1rem 0;
+}
+
+
+// ─── 13. Figures and tables ───────────────────────────────────────────────────
+.quarto-figure,
+.quarto-document-content figure,
+.quarto-document-content .cell-output {
+  max-width: 100%;
+}
+
+.quarto-document-content figcaption {
+  font-size: 0.8rem;
+  color: $brand-muted;
+  font-style: italic;
+  margin-top: 0.4rem;
+}
+
+.quarto-document-content table {
+  font-size: 0.85rem;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+
+  th {
+    background: $brand-accent-lt;
+    color: $brand-accent;
+    font-weight: 500;
+    border-bottom: 1.5px solid $brand-accent;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+  }
+
+  td {
+    padding: 0.45rem 0.75rem;
+    border-bottom: 0.5px solid $brand-border;
+    color: $brand-ink;
+  }
+
+  tr:hover td { background: $brand-accent-lt; }
+}
+
+
+// ─── 14. Footer ───────────────────────────────────────────────────────────────
+.nav-footer {
+  border-top: 0.5px solid $brand-border;
+  background: $brand-stone;
+  font-size: 0.8rem;
+  color: $brand-muted;
+}

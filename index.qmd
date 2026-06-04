@@ -2,5 +2,419 @@
 title: "Data, Evidence, and Decision Making"
 format: html
 theme: [lux, custom.scss]
+institute: "NLSIU, Bengaluru"
+author: "Ayush Patel"
+toc: true
+embed-resources: true
 ---
 
+## Course Description
+
+This elective course is designed for undergraduate students at the National Law School of India University, Bangalore, with diverse academic backgrounds including law, economics, and public policy. Students are not expected to have prior experience in programming or advanced mathematics.
+
+The course introduces data analysis as a tool for reasoning, argumentation, and decision-making. It integrates three core strands[^1]:
+
+- Statistical thinking (understanding uncertainty, variation, and evidence)
+- Programming in R (practical data analysis skills)
+- Data storytelling (clear communication and visualization)
+
+The course emphasizes learning through real-world data sets, encouraging students to critically evaluate claims, identify misleading uses of data, and construct evidence-based arguments.
+
+
+## Course Objectives
+
+By the end of this course, students will be able to:
+
+- Understand and critically evaluate data-driven arguments
+- Clean, manipulate, and analyze data sets using R
+- Create clear and effective data visualizations
+- Distinguish between correlation and causation and identify common statistical pitfalls
+- Reason about uncertainty, probability, and risk in real-world contexts
+- Conduct basic statistical analyses, including summary statistics and simple regression
+- Communicate findings through written reports and visualizations
+- Produce reproducible data analysis workflows using RMarkdown/Quarto
+
+## Course Pre-requisites
+
+Students are expected to have:
+
+- Basic number sense (comfort with percentages, averages, and simple arithmetic)
+- No prior programming experience is required
+- No formal training in statistics is assumed
+
+## Evaluation Pattern
+
+This course is a quantitative-reasoning and skill-based course and accordingly follows an exercise-and-project model of evaluation, as permitted under the NLSIU Continuing Evaluation Guidelines (Guideline 8, Trimester III, AY2025-26).
+
+The course will be evaluated through four components:
+
+### Component 1 — Weekly Lab Exercises (30%)
+
+Short exercises involving data analysis and interpretation in R, submitted via the LMS after each week's lab session. These are skill-based tasks; no oral component is required.
+
+- Frequency: Weekly (Weeks 1–9)
+- Format: R scripts or Quarto documents submitted via LMS
+- Grading: Assessed on correctness, clarity of code, and interpretation of output
+
+### Component 2 — Midterm Mini-Project (20%)
+
+A take-home applied data analysis task submitted via the LMS, **linked to a Small Group Discussion** in which the instructor will discuss the submission with each student individually. This oral discussion is a mandatory component of the midterm.
+
+- Submission: End of Week 5 (aligned to Assessment Window 1)
+- Format: Written report as a Quarto/RMarkdown document (1,000–2,000 words)
+- Oral component: Small Group Discussion in Week 6, scheduled by the instructor
+- Grading: Written submission (75%) + SGD discussion (25%)
+
+> **Mandatory written submission.** Students must submit the midterm report via LMS by the notified deadline. 
+
+### Component 3 — Final Project (40%)
+
+Students will independently undertake a data analysis project culminating in a written report and an in-class presentation. The in-class presentation (Week 10, Session 2) serves as the oral component of this submission.
+
+Students will:
+
+- Formulate a research question
+- Analyze a dataset using R
+- Submit a written report in Quarto/RMarkdown (2,000–3,000 words)
+- Present findings in class (Week 10, Session 2)
+
+- Submission deadline: End of Week 9 / start of Week 10 (aligned to Assessment Window 2)
+- Oral component: In-class presentation, Week 10
+
+> **Mandatory written submission.** The report must be submitted via LMS before the presentation session. Detailed guidelines on structure, dataset selection, and expectations will be posted on the LMS within the first two weeks of the term.
+
+### Component 4 — Participation (10%)
+
+Engagement in class discussions, lab sessions, and peer feedback during the Week 10 presentations.
+
+
+### Assessment Summary[^2]
+
+| Component | Weight | Submission | Oral Component |
+|---|---|---|---|
+| Weekly Lab Exercises | 30% | Weekly via LMS | Not required (skill-based) |
+| Midterm Mini-Project | 20% | End of Week 5 | Small Group Discussion, Week 6 |
+| Final Project | 40% | End of Week 9 | In-class presentation, Week 10 |
+| Participation | 10% | Ongoing | — |
+
+## Basic Readings
+
+The course draws on the following core texts:
+
+- *[Telling Stories with Data](https://tellingstorieswithdata.com/)* — Rohan Alexander
+- *The Art of Statistics* — David Spiegelhalter
+- *How Not to Be Wrong* — Jordan Ellenberg
+- *[R for Data Science (2e)](https://r4ds.hadley.nz/)* —  Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund
+- *[Data Visualization: A Practical Introduction](https://socviz.co/)* — Kieran Healy
+- *[Introduction to Modern Statistics (2e)](https://openintro-ims.netlify.app/)* — OpenIntro (IMS)
+
+**The two books with that are not open-source should be available at the library.**
+
+## Weekly Distribution of Course Syllabus
+
+:::{.callout-important}
+
+All readings for a given sesssion are to be completed before the close. It is ok to not understand some parts when doing the readings before class. The goals of the readings is to get to primed about the content that will be discussed in the class.
+
+:::
+### Week 1: Why Data? Stories vs Evidence
+
+**Session 1: Stories, Evidence, and Claims**
+
+Distinguish a claim from evidence; identify when a statistic is being used to tell a story rather than establish a fact; understand why linear extrapolation misleads (obesity projections); articulate why data analysis requires both technical and critical thinking skills.
+
+> 🎯 **Classroom activity — "Claim or evidence?" (15 min)**
+> The instructor presents five short excerpts from news articles, court judgments, or policy reports, each making a factual claim. In pairs/groups, students discuss: Is there data behind this claim? What would you need to verify it? What story is being told, and what might be left out? Pairs share one example with the class. The goal is to surface students' existing instincts about evidence before any formal tools are introduced.
+
+Readings:
+
+- **Ellenberg, Jordan.** *How Not to Be Wrong: The Power of Mathematical Thinking*. *Introduction: When Am I Going to use This?* and *Ch3 Everyone is Obese*.
+
+- **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. *Introduction*
+
+- **Alexander, Rohan.** *Telling Stories with Data: With Applications to Data Science Using R and the Tidyverse*. Chapter 1: *Telling Stories with Data*, Only section 1.4 and 1.5
+
+
+**Session 2: Getting Started with R**
+
+Navigate the RStudio interface (console, script, environment, files panes); understand what R objects and functions are; load a built-in dataset and inspect it; run basic commands without fear, this session is about orientation, not output.
+
+Readings:
+
+- **Healy, Kieran.** *Data Visualization: A Practical Introduction*. Chapter 1: *Get Started*.
+
+- **Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund.** *R for Data Science* (2nd ed.). Chapter 2: *Workflow: basics*.
+
+### Week 2: Describing Data
+
+**Session 3: Understanding Data**
+
+Distinguish categorical from numerical variables; read and interpret bar charts, histograms, and boxplots; calculate and interpret mean, median, and standard deviation; understand why averages conceal variation and what distributions reveal that a single number cannot.
+
+Readings:
+
+- **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 1: *Getting things in proportion: Categorical Data and Percentages*.
+
+- **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 2: *Summarising and Communicating Numbers*.
+
+- **Çetinkaya-Rundel, Mine, and Johanna Hardin.** *Introduction to Modern Statistics* (2nd ed.). Chapter 1: *Hello Data*. Section 1.1 to 1.3 only.  
+
+
+**Session 4: Working with Data in R**
+
+Use filter(), select(), mutate(), summarise(), and group_by() to interrogate a dataset; apply the pipe operator |> to chain operations; write readable, well-styled code; reproduce the "What does this number hide?" activity computationally by computing group-level summaries.
+
+> 🎯 **Classroom activity — "What does this number hide?" (15 min)**
+> Students are given a small summary table, for example, average income by state, or average sentence length by offence category. Working in pairs, they are asked: What does this average conceal? What groups might look very different from the average? What additional breakdown would you want to see? Pairs share one example with the class. The discussion connects the Week 1 ideas about stories and evidence to the Week 2 vocabulary of distributions and variation, and motivates the group-level summaries students will compute in R.
+
+Readings:
+
+- **Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund.** *R for Data Science* (2nd ed.). Chapter 3: *Data Transformation*.
+
+- **Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund.** *R for Data Science* (2nd ed.). Chapter 4: *Workflow: code style*.
+
+### Week 3: Visualization Fundamentals
+
+**Session 5: Graphs as Arguments**
+
+Identify what makes a visualisation misleading (truncated axes, dual axes, 3D distortion); apply Healy's perceptual framework to evaluate a chart's honesty; understand how the choice of denominator (dead Americans vs percentage) changes the story a number tells; develop a principled vocabulary for critiquing data graphics.
+
+> 🎯 **Classroom activity — "Fix this chart" (15–20 min)**
+> The instructor displays three charts: one with a truncated y-axis, one with a dual axis that distorts comparison, and one that is genuinely well-designed. Students identify what is misleading in each, and then describe what an honest version would look like and what design change would fix it. The goal is not to catch tricks but to develop a principled eye for what good visualisation requires, drawing directly on Healy's framework from the reading.
+
+Readings:
+
+- **Healy, Kieran.** *Data Visualization: A Practical Introduction*. Chapter 1: *Look at data*.  
+
+- **Ellenberg, Jordan.** *How Not to Be Wrong: The Power of Mathematical Thinking*. Chapter 4: *How Much Is That in Dead Americans?*
+
+**Session 6: Visualizing Data in R**
+
+Build bar charts, histograms, and scatterplots using ggplot2; map variables to aesthetics (colour, size, shape); use facet_wrap() to create small multiples; understand the grammar of graphics — data, mapping, geom — as a reusable mental model for any plot type.
+
+Readings:
+
+- **Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund.** *R for Data Science* (2nd ed.). Chapter 1: *Data Visualization*.
+
+- **Healy, Kieran.** *Data Visualization: A Practical Introduction*. Chapter 4: *Show the right numbers*. Sections 4.1 to 4.3.
+
+### Week 4: Data Cleaning and Tidy Data
+
+**Session 7: Tidy Data Principles**
+
+Define tidy data (one observation per row, one variable per column); use pivot_longer() and pivot_wider() to reshape datasets; identify common dirty data patterns (merged cells, inconsistent categories, implicit NAs); understand why maintaining raw data separately from cleaned data matters for reproducibility.
+
+Readings:
+
+- **Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund.** *R for Data Science* (2nd ed.). Chapter 5: *Data tidying*.
+
+- **Alexander, Rohan.** *Telling Stories with Data: With Applications to Data Science Using R and the Tidyverse*. Chapter 9: *Clean, prepare, and test*. Sections 9.1 to 9.3
+
+**Session 8: Data Import + Quarto first look**
+
+Set up an R Project and understand working directories; import a CSV file using read_csv(); create a Quarto document, render it to HTML, and understand the relationship between code chunks and prose — this is the "hello world" of reproducible reporting, not a full Quarto tutorial.
+
+Readings:
+
+- **Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund.** *R for Data Science* (2nd ed.). Chapter 6: *Workflow: scripts and projects*.
+
+- **Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund.** *R for Data Science* (2nd ed.). Chapter 7: *Data Import*. Sections 7.1 and 7.2 only.
+
+- **Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund.** *R for Data Science* (2nd ed.). Chapter 28: *Quarto*.
+
+### Week 5: Correlation and Causation
+
+**Session 9: Understanding Relationships**
+
+Distinguish correlation from causation precisely; define confounding variables and explain why they invalidate causal claims; identify the structure of Simpson's paradox using a real example; understand what experimental design, randomisation, and control groups are designed to achieve.
+
+Readings:
+
+- **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 4: *What Causes What?*
+
+- **Ellenberg, Jordan.** *How Not to Be Wrong: The Power of Mathematical Thinking*. Chapter 16: *Does Lung Cancer Make You Smoke Cigarettes?*.  
+
+- **Çetinkaya-Rundel, Mine, and Johanna Hardin.** *Introduction to Modern Statistics* (2nd ed.). Chapter 2: *Study design*. Section 2.1 to 2.2 only.  
+ 
+
+**Session 10: Exploring Relationships in R**
+
+Produce and interpret scatterplots with group colouring to detect confounding visually; compute correlation coefficients and understand their limits; observe Simpson's paradox in an R dataset; frame a research question from exploratory plots, a skill directly required for the midterm take-home task.
+
+> 🎯 **Classroom activity — "Spot the confounder" (15 min)**
+> Students are presented with three real or realistic correlations. In small groups, they identify a plausible confounding variable for each. Groups share their answers and discuss: what data would you need to rule out the confounder? This exercise directly prepares students for the IMS and Spiegelhalter readings on confounding and sets up Simpson's paradox in the R session that follows.
+
+Readings:
+
+- **Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund.** *R for Data Science* (2nd ed.). Chapter 10: *Exploratory data analysis*.
+
+- **Çetinkaya-Rundel, Mine, and Johanna Hardin.** *Introduction to Modern Statistics* (2nd ed.). Chapter 7: *Linear regresion*.
+
+
+### Week 6: Probability and Uncertainty
+
+**Session 11: Thinking in Probabilities**
+
+Interpret probability as a measure of uncertainty, not just frequency; explain what a p-value is informally and what it is not; work through the screening-test paradox (1-in-1000 disease, 99% accurate test) and arrive at the correct answer of ~9%; understand Bayes' theorem as an update to prior belief in light of new evidence.
+
+Readings:
+
+- **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 8: *Probablility -- the Language of Uncertainity*
+
+- **Ellenberg, Jordan.** *How Not to Be Wrong: The Power of Mathematical Thinking*. Chapter 8: *Reductio ad Unlikely* and Chapter 10: *Are Yoy There, God? Bayesian inference*
+
+**Session 12: Probability in R**
+
+Use R to simulate coin flips and dice rolls; visualise how sample proportions stabilise as sample size grows (law of large numbers in action); consolidate the probability vocabulary from S11 before moving to inference. Note: the SGD oral discussion is the primary activity this session — coding is a short warm-up exercise only.
+
+> 🎯 **Classroom activity — "How rare is rare?" (15 min)**
+> Students are told that a screening test for a disease is 99% accurate and that the disease affects 1 in 1,000 people. They are asked: if you test positive, what is the probability that you actually have the disease? Students work through this individually, then share answers with the class. Almost everyone gets it wrong at first. The instructor walks through the correct result (roughly 9%), connecting it to the readings on conditional probability.
+
+Readings:
+
+-  **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 9: *Putting Probablility and Statistics Together -- the Language of Uncertainity*. Section 9.1 and 9.2 only.
+
+### Week 7: Sampling and Bias
+
+**Session 13: Data Collection and Bias**
+
+Distinguish population from sample; define simple random, stratified, and cluster sampling; identify selection bias, survivorship bias, and non-response bias in real examples; understand why administrative data (censuses, court records, hospital data) carries its own structural biases — especially relevant for law and policy analysis.
+
+Readings:
+
+-  **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 3: *Why Are We Looking at Data Anyway? Populations and Measurements*.
+
+- **Çetinkaya-Rundel, Mine, and Johanna Hardin.** *Introduction to Modern Statistics* (2nd ed.). Chapter 2: *Study design*. Section 2.3 and 2.4.
+
+- **Alexander, Rohan.** *Telling Stories with Data: With Applications to Data Science Using R and the Tidyverse*. Chapter 6: *Measurrements, censuses, and sampling.*  
+
+
+**Session 14: Sampling and Missing Data in R**
+
+Handle NA values in R using is.na(), filter(), and drop_na(); understand the difference between data missing at random versus missing not at random, and why the distinction matters for analysis; use sample() and set.seed() to draw reproducible random samples; compare summary statistics across a full dataset and a sample to visualise sampling variation.
+
+Readings:
+
+- **Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund.** *R for Data Science* (2nd ed.). Chapter 13: *Numbers*.
+
+- **Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund.** *R for Data Science* (2nd ed.). Chapter 18: *Missing Values*.
+
+- **Çetinkaya-Rundel, Mine, and Johanna Hardin.** *Introduction to Modern Statistics* (2nd ed.). Chapter 5: *Exploring numerical data*.
+
+
+### Week 8: Statistical Inference (Introductory)
+
+**Session 15: Estimation and Uncertainty**
+
+Interpret a confidence interval in plain language ("if we repeated this study many times, 95% of such intervals would contain the true value"); understand that width reflects uncertainty, not error; distinguish a wide interval from a narrow one and explain what each implies about the data; recognise why false positives arise when many tests are run simultaneously (multiple comparisons problem).
+
+> 🎯 **Classroom activity — "How confident is confident?" (15 min)**
+> The instructor displays five confidence intervals from real published studies — some narrow, some wide, some that just barely exclude zero, and one that crosses zero. Students write one sentence interpreting each interval in plain language. What does "95% confidence" actually mean? What would a 50% interval look like? What does it mean when an interval includes zero? Students compare interpretations with a neighbour before sharing with the class. This exercise surfaces the most common misconceptions about confidence intervals before they have a chance to become entrenched.
+
+Readings:
+
+-  **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 7: *How Sure Can We Be? Estimates and Intervals*.
+
+- **Çetinkaya-Rundel, Mine, and Johanna Hardin.** *Introduction to Modern Statistics* (2nd ed.). Chapter 12: *Confidence intervals with bootstrapping*.
+
+- **Ellenberg, Jordan.** *How Not to Be Wrong: The Power of Mathematical Thinking*. Chapter 7: *Dead Fish Don't Read Minds.*
+
+
+**Session 16: Hypothesis Testing (Conceptual)**
+
+State a null and alternative hypothesis; understand what a p-value means without performing calculations (it is the probability of seeing results at least this extreme if the null were true); explain why p < 0.05 does not mean the result is important or true; identify why published findings may be unreliable (publication bias, p-hacking); connect HNTBW's "haruspicy" metaphor to the concept of spurious significance.
+
+Readings:
+
+- **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 10: *Answering Questions and Claiming Discoveries*. Sections 10.1 - 10.4.  
+
+- **Çetinkaya-Rundel, Mine, and Johanna Hardin.** *Introduction to Modern Statistics* (2nd ed.). Chapter 11: *Hypothesis Testing with Randomization*. Sections 11.1-11.3. 
+
+- **Ellenberg, Jordan.** *How Not to Be Wrong: The Power of Mathematical Thinking*. Chapter 9: *The International Journal of Haruspicy.*
+
+### Week 9: Modeling with Regression
+
+**Session 17: What is a Model?**
+
+Explain regression to the mean without equations using Galton's height data; interpret the slope and intercept of a regression line in context ("for every additional year of education, income rises by X on average"); understand what a residual is; distinguish using a model for prediction versus using it to establish a causal claim.
+
+Readings:
+
+- **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 5: *Modelling Relationships Using Regression*.
+
+- **Ellenberg, Jordan.** *How Not to Be Wrong: The Power of Mathematical Thinking*. Chapter 14: *The Triumph of Mediocrity.* and Chapter 15: *Galton's Ellipse.*
+
+- **Çetinkaya-Rundel, Mine, and Johanna Hardin.** *Introduction to Modern Statistics* (2nd ed.). Chapter 7: *Linear Regression with a Single Predictor*. Sections 7.3-7.4
+
+**Session 2: Regression in R and Quarto Reporting**
+
+Fit a linear model using lm() and interpret the summary() output; extract tidy coefficient tables; embed a regression table and a coefficient plot in a Quarto document; understand what adjusted R² and residual standard error indicate about model fit; produce a submission-ready analysis document — the exact workflow required for the final project report.
+
+Readings:
+
+- **Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund.** *R for Data Science* (2nd ed.). Chapter 13: *Numbers*.
+
+- **Alexander, Rohan.** *Telling Stories with Data: With Applications to Data Science Using R and the Tidyverse*. Chapter 12: *Linear Models*. Sections 12.1-12.3. 
+
+- **Çetinkaya-Rundel, Mine, and Johanna Hardin.** *Introduction to Modern Statistics* (2nd ed.). Chapter 8: *Linear Regression with Multiple Predictors*. See 8.1
+
+### Week 10: Communication and Capstone
+
+**Session 19: Communicating with Data**
+
+Structure a data analysis report (question → data → method → findings → limitations); add informative axis labels, captions, and annotations to plots; understand what statistical integrity requires — pre-registration, transparency about choices, honest uncertainty communication; write a finding sentence that correctly hedges causality; apply all of this to the final project presentation prepared for S20.
+
+Readings:
+
+- **Alexander, Rohan.** *Telling Stories with Data: With Applications to Data Science Using R and the Tidyverse*. Chapter 4: *Writing research*.
+
+- **Healy, Kieran.** *Data Visualization: A Practical Introduction*. Chapter 5: *Graphs, tables, and labels, make notes*. Sections 5.1 to 5.3.
+
+- **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 13: *How Can We Do Statistics Better*.
+
+**Session 20: Final Presentations**
+
+No assigned reading. Students present their final projects. Each presenter receives structured peer feedback using criteria developed in S19 (claim clarity, visualisation honesty, appropriate hedging of causal language, reproducibility of the submitted Quarto document).
+
+
+## Guidelines to Students
+
+All guidelines about assignemts/evaluated components will be explained at appropriate time. 
+
+Students are required to complete readings prior to the session.
+
+While adhering to the *The NLSIU Guidance Note on AI Policy*, students will be allowed (implicitly taught) to use AI for debugging code as well as assess the quality of generated code. Students are required to maintain a log of their use of AI, unless there is any explicitly stated exception by th faculty. Use of AI is prohibited for inference, thinking and writing tasks, violation of this will attract penalties on scores.
+
+### Pre-Course Preparation
+
+Students are required to install R and RStudio before the first class.
+
+### Step-by-step Installation Guide
+
+**Step 1: Install R**
+
+1. Go to: <https://cran.r-project.org/>
+2. Select your operating system (Windows / Mac / Linux)
+3. Download and install the latest version
+
+**Step 2: Install RStudio**
+
+1. Go to: <https://posit.co/download/rstudio-desktop/>
+2. Download the free version of RStudio Desktop
+3. Install the software
+
+**Step 3: Install Required Packages**
+
+Open RStudio and run:
+
+```
+install.packages(c("tidyverse", "rmarkdown", "quarto", "tinytex"))
+```
+
+If no errors appear, the setup is complete.
+
+## Lecture Slides
+
+
+
+------

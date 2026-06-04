@@ -1,0 +1,121 @@
+---
+title: "Data, Evidence, and Decision Making (with R)"
+author: "Ayush Patel"
+subtitle: "Session 1"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: true
+bibliography: citations.bib
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+# Why should I care about *math/numbers/data* ?
+
+> Is this even useful?
+
+## *Predict stuff* 
+
+
+::: {.columns}
+
+::: {.column}
+
+[How much moeny will I make when I graduate?]{.fragment fragment-index='1'}
+<br>  
+[What will be the price of dollar against the rupee in the next fifteen days?]{.fragment fragment-index='2'}
+<br>  
+[Who will win the next general elections?]{.fragment fragment-index='3'}
+<br>  
+[Is this going to be a boring course?]{.fragment fragment-index='4'}
+
+:::
+
+::: {.column}
+
+![[The Fortune Teller by Robert Loftin Newman](https://collectionapi.metmuseum.org/api/collection/v1/iiif/11654/36952/main-image)](https://images.metmuseum.org/CRDImages/ad/original/ap21.159.1.jpg)
+
+:::
+
+:::
+
+## *Understand stuff*
+
+::: {.columns}
+
+::: {.column}
+
+[Why are some people more poor than other?]{.fragment fragment-index='1'}
+<br>  
+[Does the Indian judiciary have in-group bias? @aabbcdgns2025bias]{.fragment fragment-index='2'}
+<br>  
+[Is population growth slowing down?]{.fragment fragment-index='3'}
+<br>  
+[Can I make a confident estimate about all by looking at the few?]{.fragment fragment-index='4'}
+
+:::
+
+::: {.column}
+
+![[Aristotle with a Bust of Homer by Rembrandt (Rembrandt van Rijn) ](https://www.metmuseum.org/art/collection/search/437394)](https://images.metmuseum.org/CRDImages/ep/original/DP-30758-001.jpg)
+
+:::
+
+:::
+
+# Essentially, we want to be right about stuff
+
+> Lets do a small discussion. Consider the claim that is made in the following video.
+
+## The claim
+
+See [this video](https://www.youtube.com/watch?v=-0X5qKkNNuw) from 1:10 to 2:01
+
+
+> The Bihar government recruited X numbers of people for a certain position (police constable). The news anchor highlights that two coaching centers in Bihar claim that a total number A and B of their students respectively cleared the exam. She points out that A+B > X. Which implies there is something off about the claims of coaching centers.
+
+## Assessing the Claim
+
+<br>
+[What is your initial intuition about the claim? Inclined to agree/diagree/unsure?]{.fragment fragment-index='1'}
+<br>  
+[Whatever way to lean, try to list out why it might be the correct choice]{.fragment fragment-index='2'}
+<br>  
+[Also list out why the other two choices are not possible?]{.fragment fragment-index='3'}
+<br>  
+[Do you *feel* the claim may or may not be true becasue a particular anchor or channel is presenting it?]{.fragment fragment-index='4'}
+
+## Implicit Assumption
+
+<br>
+[Did you consider that it is possible for an individual to be enrolled in more than one coaching center? Especially if classes are online.]{.fragment fragment-index='1'}
+<br>  
+[Is passing the exam necessarily mean you will get an appointment letter?]{.fragment fragment-index='2'}
+<br>  
+[There even might be people that would have not taken up the job even after getting an appointment letter]{.fragment fragment-index='3'}
+
+## Caring about math/numbers/data helps with
+
+<br>
+[Making sense of the world around us.]{.fragment fragment-index='1'}
+<br>  
+[Answering questions we care about]{.fragment fragment-index='2'}
+<br>  
+[Searching for patterns leads to more interesting questions. See Introduction in @spiegelhalter2019art]{.fragment fragment-index='3'}
+
+
+
+# References
+
+

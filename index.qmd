@@ -123,7 +123,7 @@ All readings for a given sesssion are to be completed before the close. It is ok
 
 Distinguish a claim from evidence; identify when a statistic is being used to tell a story rather than establish a fact; understand why linear extrapolation misleads (obesity projections); articulate why data analysis requires both technical and critical thinking skills.
 
-> 🎯 **Classroom activity — "Claim or evidence?" (15 min)**
+> **Classroom activity — "Claim or evidence?" (15 min)**
 > The instructor presents five short excerpts from news articles, court judgments, or policy reports, each making a factual claim. In pairs/groups, students discuss: Is there data behind this claim? What would you need to verify it? What story is being told, and what might be left out? Pairs share one example with the class. The goal is to surface students' existing instincts about evidence before any formal tools are introduced.
 
 Readings:
@@ -164,7 +164,7 @@ Readings:
 
 Use filter(), select(), mutate(), summarise(), and group_by() to interrogate a dataset; apply the pipe operator |> to chain operations; write readable, well-styled code; reproduce the "What does this number hide?" activity computationally by computing group-level summaries.
 
-> 🎯 **Classroom activity — "What does this number hide?" (15 min)**
+> **Classroom activity — "What does this number hide?" (15 min)**
 > Students are given a small summary table, for example, average income by state, or average sentence length by offence category. Working in pairs, they are asked: What does this average conceal? What groups might look very different from the average? What additional breakdown would you want to see? Pairs share one example with the class. The discussion connects the Week 1 ideas about stories and evidence to the Week 2 vocabulary of distributions and variation, and motivates the group-level summaries students will compute in R.
 
 Readings:
@@ -179,7 +179,7 @@ Readings:
 
 Identify what makes a visualisation misleading (truncated axes, dual axes, 3D distortion); apply Healy's perceptual framework to evaluate a chart's honesty; understand how the choice of denominator (dead Americans vs percentage) changes the story a number tells; develop a principled vocabulary for critiquing data graphics.
 
-> 🎯 **Classroom activity — "Fix this chart" (15–20 min)**
+> **Classroom activity — "Fix this chart" (15–20 min)**
 > The instructor displays three charts: one with a truncated y-axis, one with a dual axis that distorts comparison, and one that is genuinely well-designed. Students identify what is misleading in each, and then describe what an honest version would look like and what design change would fix it. The goal is not to catch tricks but to develop a principled eye for what good visualisation requires, drawing directly on Healy's framework from the reading.
 
 Readings:
@@ -241,7 +241,7 @@ Readings:
 
 Produce and interpret scatterplots with group colouring to detect confounding visually; compute correlation coefficients and understand their limits; observe Simpson's paradox in an R dataset; frame a research question from exploratory plots, a skill directly required for the midterm take-home task.
 
-> 🎯 **Classroom activity — "Spot the confounder" (15 min)**
+> **Classroom activity — "Spot the confounder" (15 min)**
 > Students are presented with three real or realistic correlations. In small groups, they identify a plausible confounding variable for each. Groups share their answers and discuss: what data would you need to rule out the confounder? This exercise directly prepares students for the IMS and Spiegelhalter readings on confounding and sets up Simpson's paradox in the R session that follows.
 
 Readings:
@@ -267,7 +267,7 @@ Readings:
 
 Use R to simulate coin flips and dice rolls; visualise how sample proportions stabilise as sample size grows (law of large numbers in action); consolidate the probability vocabulary from S11 before moving to inference. Note: the SGD oral discussion is the primary activity this session — coding is a short warm-up exercise only.
 
-> 🎯 **Classroom activity — "How rare is rare?" (15 min)**
+> **Classroom activity — "How rare is rare?" (15 min)**
 > Students are told that a screening test for a disease is 99% accurate and that the disease affects 1 in 1,000 people. They are asked: if you test positive, what is the probability that you actually have the disease? Students work through this individually, then share answers with the class. Almost everyone gets it wrong at first. The instructor walks through the correct result (roughly 9%), connecting it to the readings on conditional probability.
 
 Readings:
@@ -308,7 +308,7 @@ Readings:
 
 Interpret a confidence interval in plain language ("if we repeated this study many times, 95% of such intervals would contain the true value"); understand that width reflects uncertainty, not error; distinguish a wide interval from a narrow one and explain what each implies about the data; recognise why false positives arise when many tests are run simultaneously (multiple comparisons problem).
 
-> 🎯 **Classroom activity — "How confident is confident?" (15 min)**
+> **Classroom activity — "How confident is confident?" (15 min)**
 > The instructor displays five confidence intervals from real published studies — some narrow, some wide, some that just barely exclude zero, and one that crosses zero. Students write one sentence interpreting each interval in plain language. What does "95% confidence" actually mean? What would a 50% interval look like? What does it mean when an interval includes zero? Students compare interpretations with a neighbour before sharing with the class. This exercise surfaces the most common misconceptions about confidence intervals before they have a chance to become entrenched.
 
 Readings:

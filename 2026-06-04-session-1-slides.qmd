@@ -32,7 +32,7 @@ format:
 
 ::: {.column}
 
-[How much moeny will I make when I graduate?]{.fragment fragment-index='1'}
+[How much money will I make when I graduate?]{.fragment fragment-index='1'}
 <br>  
 [What will be the price of dollar against the rupee in the next fifteen days?]{.fragment fragment-index='2'}
 <br>  
@@ -79,6 +79,7 @@ format:
 > Lets do a small discussion. Consider the claim that is made in the following video.
 
 ## The claim
+<br>
 
 See [this video](https://www.youtube.com/watch?v=-0X5qKkNNuw) from 1:10 to 2:01
 
@@ -88,13 +89,13 @@ See [this video](https://www.youtube.com/watch?v=-0X5qKkNNuw) from 1:10 to 2:01
 ## Assessing the Claim
 
 <br>
-[What is your initial intuition about the claim? Inclined to agree/diagree/unsure?]{.fragment fragment-index='1'}
+[What is your initial intuition about the claim? Inclined to agree/disagree/unsure?]{.fragment fragment-index='1'}
 <br>  
-[Whatever way to lean, try to list out why it might be the correct choice]{.fragment fragment-index='2'}
+[Whichever way you lean, try to list out why it might be the correct choice.]{.fragment fragment-index='2'}
 <br>  
-[Also list out why the other two choices are not possible?]{.fragment fragment-index='3'}
+[Also list out why the other two choices are not possible or less likely?]{.fragment fragment-index='3'}
 <br>  
-[Do you *feel* the claim may or may not be true becasue a particular anchor or channel is presenting it?]{.fragment fragment-index='4'}
+[Do you *feel* the claim may or may not be true because a particular anchor or channel is presenting it?]{.fragment fragment-index='4'}
 
 ## Implicit Assumption
 
@@ -103,18 +104,123 @@ See [this video](https://www.youtube.com/watch?v=-0X5qKkNNuw) from 1:10 to 2:01
 <br>  
 [Is passing the exam necessarily mean you will get an appointment letter?]{.fragment fragment-index='2'}
 <br>  
-[There even might be people that would have not taken up the job even after getting an appointment letter]{.fragment fragment-index='3'}
+[There even might be people that would have not taken up the job even after getting an appointment letter.]{.fragment fragment-index='3'}
+<br>  
+[**Do you feel more confident about your intuition about the claim now or less?**]{.fragment fragment-index='4'}
 
 ## Caring about math/numbers/data helps with
 
 <br>
 [Making sense of the world around us.]{.fragment fragment-index='1'}
 <br>  
-[Answering questions we care about]{.fragment fragment-index='2'}
+[Answering questions we care about.]{.fragment fragment-index='2'}
 <br>  
-[Searching for patterns leads to more interesting questions. See Introduction in @spiegelhalter2019art]{.fragment fragment-index='3'}
+[Searching for patterns leads to more interesting questions. See Introduction in @spiegelhalter2019art.]{.fragment fragment-index='3'}
+<br>  
+[Saves us from being fooled (*easily*).]{.fragment fragment-index='4'}
+
+# Effectively Using math/numbers/data involves understanding how these numbers come into existence.
+
+## What does this mean?
+
+<br>
+*It means to deeply think about:*
+<br>  
+[Does this number/data represent exactly what I think it does?]{.fragment fragment-index='1'}
+<br>  
+[Will other see it the same way too?]{.fragment fragment-index='2'}
+<br>  
+[What does it exactly capture?]{.fragment fragment-index='3'}
+<br>  
+[What is it unable to capture?]{.fragment fragment-index='4'}
+
+## Agreeing on something is not so easy
+
+<br>
+
+> If all of you independently count the number of red objects in this class, will you all arrive at the same number?
+
+<br>  
+What if you looked for maroon, magenta, or cerulean blue? 
+
+## Agreeing on something is not so easy
+
+<br>  
+
+> Try to explain what is a sandwich, i.e., define Sandwich.  
+
+::: aside
+This is where I learnt that the right way to spell Sandwich is not Sandwhich or worse Sandwitch.
+:::
+
+## Does any of these fall into your definition of Sandwich? {.nostretch}
 
 
+::: {#fig-sandwich layout-ncol=3}
+
+![Is hotdog a sandwich that is actually a taco?](https://images.pexels.com/photos/12180546/pexels-photo-12180546.jpeg){height="550"}
+
+![What about a burger?](https://images.pexels.com/photos/4749403/pexels-photo-4749403.jpeg){height="550"}
+
+![Does a taco count?](https://images.pexels.com/photos/18574183/pexels-photo-18574183.jpeg){height="550"}
+
+Sandwich?
+
+:::
+
+
+## So, we need precise definitions
+
+<br>  
+
+> Explain the case of counting number of trees from @spiegelhalter2019art. Besides arriving at appropriate definitions, the example also has a flavour of sampling and estimation. Did you notice?
+
+<br>  
+
+**Ideally, we would like to define the subject of our interest in a way that it *precisely* identifies our subject of interest. Nothing more, nothing less.**
+
+## A precise/rigorous definition
+
+<br>  
+[Precisely identifies what we want to observe/record]{.fragment fragment-index='1'}
+<br>  
+[Stands true across space, time, people, or groups]{.fragment fragment-index='2'}
+
+## From identifying to Measuring
+
+<br>  
+
+> Once we are able to define, therefore identify, what to observe/record, we can measure it. 
+
+## Measuring is not easy either
+
+<br>  
+
+> Discuss the fleeting mention to the fishing nets story in @alexander2023tswdweb
+
+*Measurements problems can arrive in many forms:*
+
+1. Is income or a complicated index of material possessions a good measure of well-being? (proxy)
+2. A consumption or income based methods good way to gauge poverty? (proxy)
+3. Is asking if a person believes in equal rights for all genders is a good way to gauge society's status of women's rights? (manner of asking, revealed/stated)
+
+# Limitations of Data as a source of knowledge
+
+## variability
+
+<br>  
+<br>
+
+> The things we wish to measure varies with various factors such as geography, people, time, etc. This means we have to figure out ways to handle this variability to arrive at a reliable estimate of the measure of our interest. See @spiegelhalter2019art.
+
+## Imperfect Measurement
+
+1. It is not always possible to measure variable of interest directly, so we must use other closely related variables.
+2. Measurements get easily influenced by the way questions are asked.
+3. Somethings are better to recorded when revealed by behaviour than by stated assertion.
+4. Imprecise instruments of measurements.
+
+> Our data is an imperfect representation of the real world. And when we use this data we should be aware of the implications of those imperfections on our analysis. See @alexander2023tswdweb. We must we aware of what can be said from given data and what cannot.
 
 # References
 

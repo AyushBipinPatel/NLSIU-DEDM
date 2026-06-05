@@ -217,10 +217,222 @@ Sandwich?
 
 1. It is not always possible to measure variable of interest directly, so we must use other closely related variables.
 2. Measurements get easily influenced by the way questions are asked.
-3. Somethings are better to recorded when revealed by behaviour than by stated assertion.
+3. Somethings are better to be recorded when revealed by behaviour than by stated assertion.
 4. Imprecise instruments of measurements.
 
 > Our data is an imperfect representation of the real world. And when we use this data we should be aware of the implications of those imperfections on our analysis. See @alexander2023tswdweb. We must we aware of what can be said from given data and what cannot.
+
+## A small detour
+
+```{r}
+#| label: fig-replicative-shipman-time
+#| fig-cap: A replication of death time for Harold Shipman's victims.
+#| echo: false
+
+library(tidyverse)
+
+read_csv("https://raw.githubusercontent.com/dspiegel29/ArtofStatistics/refs/heads/master/00-2-shipman-times/00-2-shipman-times-x.csv") |>
+  ggplot(aes(Hour, Shipman)) + 
+  geom_line() +
+  geom_line(aes(Hour, Comparison), linetype = 2) + 
+  labs(
+    title = "Comparing time of death",
+    subtitle = "Solid line is for deaths of Shipman's victims. Dotted line is death count of comparison group",
+    x = "Hour of the day",
+    y = "Number of deaths",
+    caption = "Data Source: Github dspiegel29/ArtofStatistics"
+  )+
+  theme_minimal()
+
+
+```
+
+:::{.notes}
+
+A couple of things to mention:
+
+1. The data can't tell us why people died at a given time. But that something is unusual about time of death for Shipman's victims
+2. Here too there is a implicit assumption, but it is more than just reasonable one. It is ok to compare the death time of patients of other local doctors. Using that group as a benchmark to see if something unusual is going on with Shipman's patients. Unless you are worried that all those doctors in that group are serial killers too.
+
+:::
+
+# Fighter jets and Survivourship bias
+
+## Abraham Wald's decision
+
+The that data was available for wald to decide where to armour the jets. Below is a replication of table from @ellenberg2014hownotwrong.
+
+|Section of plane| Bullet holes per square foot|
+|----------------|-----------------------------|
+|Engine|1.11|
+|Fuselage|1.73|
+|Fuel system|1.55|
+|Rest of the plane|1.8|
+
+**He decided that sections with less bullet holes should have more armour than sections with more bullet holes.**
+
+## The numbers we don't see {.smaller}
+
+*In certain situations we only observe those cases/observations that pass through some filtration process. **Making a decision without considering those cases/observations that don't pass this filtration process can induce Survivourship bias and lead to bad decisions.***
+
+|Section of plane| Bh/Sqf for the jests that came back| Bh/Sqf for the jests that were shot down*|
+|----------------|------------------------------------|------------------------------------------|
+|Engine|1.11|1.95|
+|Fuselage|1.73|1.35|
+|Fuel system|1.55|1.75|
+|Rest of the plane|1.8|1.2|
+
+::: aside
+
+*I did not go and look for shot down planes and count bullet holes. Third column is entirely made up. This is emphasize how ignoring the data that we don't see can lead us to making bad decision.
+:::
+
+## Survivourship Bias
+
+<br>
+
+[A decision is made by observing a cases that pass some filtering process or condition]{.fragment fragment-index='1'}
+<br>  
+[This can lead to incorrect conclusion as it forces us to ignore other similar cases that do not pass the filtering or condition]{.fragment fragment-index='2'}
+<br>  
+[some examples on upcoming slides]{.fragment fragment-index='3'}
+
+## Education & careers — India{.smaller}
+
+> *"IIT and IIM alumni are running the world's biggest companies —
+> Sundar Pichai, Satya Nadella, Indra Nooyi.
+> Indian engineering education clearly produces extraordinary leaders."*
+
+::: {.columns}
+::: {.column width="50%"}
+**What we see**
+
+A handful of spectacularly successful alumni profiled in every
+media outlet, coaching brochure, and motivational speech.
+:::
+::: {.column width="50%"}
+**What we don't see**
+
+Over 1 million students appear for JEE each year; roughly 17,000
+get into IITs. All IIT grads don't become tech CEOs or even work in engineering fields. Equally talented students who didn't get in
+are never tracked at all.
+:::
+:::
+
+::: {.fragment}
+**Ask yourself:** Does the success of a few alumni tell you anything
+about what the institution does for the *average* graduate?
+Does IIT *cause* success?
+:::
+
+::: aside
+Source: JEE Advanced 2024 data, NTA; profiles reported in *Economic Times*, *Forbes India*
+:::
+
+## Startups & entrepreneurship — India{.smaller}
+
+> *"India is the world's third-largest startup ecosystem, with 1.97 lakh
+> DPIIT-registered startups and dozens of unicorns like Zepto, Razorpay,
+> and CRED. Entrepreneurship is a viable career path for young Indians."*
+
+::: {.columns}
+::: {.column width="50%"}
+**What we see**
+
+Unicorn founders on magazine covers, "India's startup boom" headlines,
+and relentless coverage of funding rounds.
+:::
+::: {.column width="50%"}
+**What we don't see**
+
+In 2025 alone, over 11,000 Indian startups shut down — roughly
+30 every single day. These closures receive almost no media coverage.
+The DPIIT count includes *registered* entities, not *operating* ones.
+:::
+:::
+
+::: {.fragment}
+**Ask yourself:** "Registered" vs "active" vs "profitable" — which number
+matters? If a journalist only interviews founders whose companies are still
+running, what kind of advice will readers get?
+:::
+
+::: aside
+Source: Sachin Vishkarma, "Why 90% of Indian Startups Fail," *Medium* (Dec 2025); DPIIT Startup India data
+:::
+
+## Government schemes & policy — India{.smaller}
+
+> *"The Smart Cities Mission has been a success: Indore, Surat, and
+> Bhubaneswar have been transformed. 76% of proposed projects worth
+> ₹1,10,635 crore have been completed."*
+
+::: {.columns}
+::: {.column width="50%"}
+**What we see**
+
+Award-winning "model" cities showcased at national events, used as
+proof of concept and cited in policy reports.
+:::
+::: {.column width="50%"}
+**What we don't see**
+
+Research finds the Mission primarily transformed small precincts within
+chosen cities, not whole cities. Non-winning cities received similar
+resources with far less visible results. The 845 nominations came from
+only 80 self-selecting cities.
+:::
+:::
+
+::: {.fragment}
+**Ask yourself:** When a government evaluates a scheme using its own
+award-winners, what selection bias is built in?
+What would a *fair* evaluation need to include?
+:::
+
+::: aside
+Source: Ministry of Housing and Urban Affairs, ISAC 2022 (*Deccan Herald*);
+Bana & Bhatt, "Area-Based Urban Renewal for Smart Cities," *Urban Planning* (2021)
+:::
+
+## Clinical trials & publication bias{.smaller}
+
+> *"Studies show this drug reduces hospitalisation by 40%
+> in patients with severe illness."*
+
+::: {.columns}
+::: {.column width="50%"}
+**What we see**
+
+Trials that found a significant positive effect — published in journals,
+cited by regulators, reported in the news.
+:::
+::: {.column width="50%"}
+**What we don't see**
+
+The "file drawer problem": null results and failed trials are rarely
+published. The published literature is a biased sample of all research
+ever conducted. This is why drugs that look effective in early trials
+often fail in larger ones.
+:::
+:::
+
+::: {.fragment}
+**The deepest version:** Survivorship bias here operates at the level
+of what *knowledge gets produced* — not just what gets reported.
+The missing planes never took off.
+:::
+
+::: aside
+Source: Ioannidis, "Why Most Published Research Findings Are False," *PLOS Medicine* (2005);
+CDSCO clinical trial regulations
+:::
+
+# Extrapolation and Obese Americans
+
+See Chapter 3: Everyone is Obese in @ellenberg2014hownotwrong.
+
+
 
 # References
 

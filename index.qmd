@@ -415,6 +415,7 @@ If no errors appear, the setup is complete.
 
 ## Lecture Slides
 
-
+1. [Session 1](2026-06-04-session-1-slides.html)
+2. [Sesison 2](2026-06-06-session-2-slides.html)
 
 ------

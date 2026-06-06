@@ -1,0 +1,663 @@
+---
+title: "Data, Evidence, and Decision Making (with R)"
+author: "Ayush Patel"
+subtitle: "Session 2"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: true
+bibliography: citations.bib
+execute: 
+  echo: true
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+# Readings 
+
+The required readings before this class:
+
+1. Chapter 2, *Get Started* of @healy2019socviz
+2. Chapter 2, *Workflow: basics* of @wickham2023r4ds
+
+## You are expected to know
+
+1. What is R and RStudio
+2. How to open RStudio
+3. Create a project in Studio
+4. What is a console?
+5. Basics of objects and simple operations
+6. Function: how to use
+7. What is a script
+8. What is a quarto doc
+
+
+## This Session
+
+1. I will take you through some simple code exercises
+2. Explore objects
+3. Basics of subsetting
+4. Get comfortable running code and reading output and errors.
+
+# The Basics
+
+## R as a Calculator
+
+```{r}
+2+2
+```
+
+
+```{r}
+2*5
+```
+
+
+## Comparing Values
+
+```{r}
+5 > 5
+
+2^5 < 4025
+
+"ayush" == "ayush" ## Notice any thing ?
+
+(5 > 4) & (5 > 6)
+
+(5 > 4) | (5 > 6)
+
+```
+
+## Storing Information
+
+```{r}
+# Assigning values
+
+a <- 5
+
+6 -> b
+
+c = 10
+
+d <- "will this guy even teach us the good stuff?"
+
+a
+b
+c
+d
+```
+
+
+## Remember
+
+1. Mathematical commands in R are written in *almost* the same way as you would write in a piece of paper.
+
+2. =  and == are **not the same** thing.
+
+3. Values/information can be stored. These things that store values can be given names you like. These are called objects.
+
+4. <- or -> or = can be used to store information/values. **Please use <- or ->**.
+
+
+## Activity 1 
+
+:::: {.columns}
+
+
+::: {.column width="20%"}  
+
+![Gabbar does not like to exercise](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDRqMGZhZ3VtODJ1Y3BxOTNqOG52MWoyOHpyMGloMjMxanhicjVwbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26n60zk988k2wFoSk/giphy.gif)
+
+:::
+
+::: {.column width="80%"}
+
+Copy the code on the screen. Follow the instructions and complete this code.
+
+```{r}
+#| eval=FALSE
+
+# Store our name in the object called "name"
+name <- 
+
+# create an object that stores your birth year in YYYY format,
+# name it "y_birth"
+ 
+   
+# Run this line of code after you have completed the above two lines of code
+
+message(
+  if(1975>y_birth){
+    paste(1975-y_birth,"years after you were born, the film Sholya was released",
+          sep = " ")
+  }else{
+    paste(
+      "Sholay was released",
+      y_birth - 1975,
+      "years before you were born."
+    )
+  }
+)
+    
+```
+
+
+:::
+
+::::
+
+# Object: A brief overview
+
+## Assignment Operator
+
+`<-` or `->` are used to assign values to Object.
+<br>
+
+`=` works as well, I prefer `->` or `<-`
+
+```{r}
+a <- 2
+b <- "Ayush"
+c(1,25,53,5) -> obj
+a
+b
+obj
+```
+
+## Type
+
+```{r}
+typeof(a)
+typeof(b)
+typeof(obj)
+```
+
+## class - vectors
+
+```{r}
+class(a)
+class(b)
+class(obj)
+```
+
+## class - data frames
+
+```{r}
+penguins
+```
+
+
+## class - list
+
+```{r}
+ex_list <- list(
+    a,b,obj,penguins
+)
+
+ex_list
+```
+
+## Creating objects -atomic vectors
+
+Such objects can be created by using the `c()` function.
+
+```{r}
+c(1,2,3,8,6)
+
+fictional_characters <- c("Thor", "Gimli", "Frodo")
+
+fictional_characters
+```
+
+These kind of objects are **homogeneous**. *What does that even mean??*
+
+```{r }
+info_store1 <- c("ayush", 854, "hello")
+
+info_store2 <- c("ayush", "854", "hello")
+
+info_store1
+
+info_store2
+```
+
+## Creating objects - A dataframe
+
+A data-frame, by it self, *can have values that are of different types*, i.e. numeric, character, date, etc...<br>
+**But, the columns (vectors) that make a data frame are homogeneous.**
+
+:::: {.columns}
+
+::: {.column}
+
+Base R approach
+```{r}
+data.frame(
+  movie = c("Sholay", "LoTR", "Lathe Joshi"),
+  year_release = c(1975,2001,2016)
+) -> obj1
+
+obj1
+```
+
+
+:::
+
+::: {.column}
+
+tidy approach
+```{r}
+library(tibble)
+tibble(
+  movie = c("Sholay", "LoTR", "Lathe Joshi"),
+  year_release = c(1975,2001,2016)
+)-> obj2
+
+obj2
+```
+
+
+:::
+
+::::
+
+## Creating objects - A list
+
+Lists are created using the `list()` functions.
+
+**These are heterogeneous objects.**
+
+```{r}
+collected_info <- list(fictional_characters, "Ayush", c(32,5,4), obj2)
+
+collected_info
+```
+
+# Extract from objects
+
+## How to Extract
+
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+![You trying to extract from objects](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2l3dmV5aHQ2MXB6Zjlidjl2OTJqaTlkb2Zpb2Z0Mmh2YmMxaThyeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/PlnQNcQ4RYOhG/giphy.gif)
+
+:::
+
+::: {.column width="70%"}
+
+### There can be three ways to get desired parts of an object
+
+1. by referring to the exact .big[place or position] within an object.
+
+2. by using the .big[name of the part] you want to access.
+
+3. by providing a .big[condition] to access only those parts that fulfill this condition.
+
+
+:::
+
+::::
+
+## From Atomic Vectors
+
+```{r}
+#| include: false
+random_number <- rnorm(50,25,7)
+
+month_names <- month.name
+```
+
+```{r}
+random_number
+
+month_names
+```
+
+## From Atomic Vectors
+<br><br>
+**By Position**
+
+```{r}
+random_number[1]
+
+random_number[c(1,5,8)]
+
+month_names[-5]
+
+month_names[-c(1,10)]
+```
+
+## From Atomic Vectors
+<br><br>
+**Using a condition**
+
+```{r}
+random_number[random_number>20]
+
+month_names[month_names == "June"]
+```
+
+## From a Dataframe
+
+```{r}
+penguins
+```
+
+## From a Dataframe
+
+**By position**
+
+```{r}
+penguins[5,7]
+
+penguins[c(1,3),c(2,8)]
+```
+
+## From a Dataframe
+
+**Using a condition**
+
+```{r}
+names(penguins) # Also, this function gives us all the column names in a data frame
+```
+
+```{r}
+penguins$bill_len # the '$' operator allows us to select a column of the data frame
+```
+
+```{r}
+penguins[penguins$body_mass >3100,c("bill_len", "year")]
+```
+
+## From a List
+
+```{r echo=FALSE}
+list_obj <- list(fictional_characters,random_number,obj1,penguins)
+
+```
+
+```{r}
+list_obj
+```
+
+## From a List
+
+**By Position**
+
+```{r}
+list_obj[1]
+
+list_obj[[1]]
+
+typeof(list_obj[1])
+
+typeof(list_obj[[1]]) # What do you see?
+```
+
+```{r}
+list_obj[[4]][c(1:10),c(1:5)] # Notice anything??
+```
+
+## From a List
+
+**Using a condition**
+
+```{r}
+list_obj[[2]][list_obj[[2]]>15]
+```
+
+# Activity 2
+Copy and execute the following code.
+
+```{r eval=FALSE}
+install.packages("palmerpenguins") # dont run this if already installed
+
+library(palmerpenguins) # dont run if already loaded
+
+collected_data <- list(
+  rnorm(25,51,6.5),
+  month.abb,
+  penguins
+)
+
+```
+
+Write code to:
+
+1. call the object `collected_data`
+
+2. Subset only those values from the first element of the list `collected_data` that are greater than 18
+
+3. Subset the list `collected_data` so that you get only those observations where the penguin is of the species gentoo and weighs more than 3350
+
+# Missing Values
+
+![Not finding stuff when expected](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHIxYXU3Mzc3ZmRtemRpMjB0MzY3eGUydm1vcnN1eTdvZTdrNm5iZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26hkhPJ5hmdD87HYA/giphy.gif)
+
+## Missing Values - What?
+
+An experiment where people are asked time exactly at noon and record the answers. Interest is to find variance of the observations.
+
+**Person A:** Hey! Could you tell me What is the time?
+<br>
+**Person B:** Sorry! I am not wearing a watch or carrying my phone.
+
+|Recorded time| Differecne from actual time|
+|-------------|----------------------------|
+|12:00|0|
+|12:05|5|
+|12:10|10|
+|11:50|-10|
+| - | - |
+|12:01|1|
+|12:09|9|
+
+## Missing Values - Identification
+
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+![Identify Missing values](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdTNsMWRsZGUwN284YWRzem0wemE5dzg0dmdqajE3Y2syNTZrZ2dwMCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26DMUXQypGJaHhTsQ/giphy.gif)
+
+:::
+
+::: {.column}
+
+Using the function `is.na()`.
+
+Returns `TRUE` or `FALSE` depending the value in an object.
+
+```{r}
+is.na(NA)
+is.na(c(0,5,10,-10,NA,1,9))
+a <- c("ayush","saswata","piyush", NA)
+is.na(a)
+```
+
+
+:::
+
+::::
+
+## Missing Values - Troubles
+
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+![Ruins perfectly good stuff](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExamQ0bnczcWk4b2JvdW0zaDY1OWphejBzaWZmM3hjMjh6empqeTB4ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26CaMOXjjDM3Xl2s8/giphy.gif)
+
+:::
+
+::: {.column}
+
+Not considering NAs in your data can generate erroneous results
+
+```{r}
+5+ NA
+c(1,2,3,5,8,6,NA,2,58) -> vals
+vals + 1
+vals - 1
+vals * 2
+```
+
+
+:::
+
+::::
+
+# Functions
+
+## What are Functions
+
+  + A fixed set of operation or commands. All these commands get executed if the **function is called**.
+
+  + Expects specific types of inputs, *usually*, to generate outputs. These inputs are refered to as **arguments**
+
+  + Has a name. Using this name a function can be called.
+
+  + You can make your own functions too. 
+  
+  + Functions are objects.
+
+## Why Use Functions
+
+No need to copy and paste code again and again.  
+Less chances of errors due to reduced copy paste.  
+Easier to maintain or update  
+
+
+::::: {.columns}
+
+::: {.column}
+
+![Without Functions](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXFxeWVicmU0c2sxYTR5YTNienB2cXhkaWxmY3cyZHJ5OHA1N281bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0HUbCY5FyDDTCire/giphy.gif)
+
+:::
+
+::: {.column}
+
+![Using Functions](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmdzb2pzNjhuaTk5Znd2N2xmY3hyb2JxaW9hbHk0MXN1NG12Y2tsZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lkhfMijDDuSQM/giphy.gif)
+
+:::
+
+::::
+
+## Functions- how to use
+
+```{r}
+c(1,2,3,5.5,7,5,2,3,NA) -> a
+c("ayush","dobby","Gimli") -> b
+list(a,b) -> store_list
+length(a)
+length(store_list)
+```
+
+## Some Essentials {.smaller}
+
+
+:::: {.columns}
+
+::: {.column}
+
+### Length
+
+```{r}
+length(a)
+length(b)
+```
+
+### Unique
+
+```{r}
+unique(b)
+```
+
+
+### Mean/Median
+
+```{r}
+mean(a)
+mean(a, na.rm = T)
+median(a, na.rm = T)
+```
+
+
+:::
+
+::: {.column}
+
+### Ifelse
+
+```{r}
+ifelse(
+  a > 3,
+  "Greater than 3",
+  "Not Greater than 3"
+)
+ifelse(
+  a > 3,
+  a - 1,
+  a*0
+)
+```
+
+### Sum
+
+```{r}
+sum(a)
+sum(a, na.rm = TRUE)
+```
+
+:::
+
+::::
+
+
+## Some Essentials
+
+### names
+
+```{r}
+names(penguins)
+```
+
+### dim
+
+```{r}
+dim(penguins)
+```
+
+## Activity 3
+
+Write code to get:  
+
+1) The mean of the first element of the list `collected_data`  
+
+2) The number of rows of the third element of the object `collected_data`  
+
+3) The all the unique values the variable `species` can take   
+
+4) The length of the second element of the list `collected data`  
+
+5) view the penguins data from the object `collected_Data`  
+
+# End of Session 2
+
+# References

@@ -440,7 +440,7 @@ CDSCO clinical trial regulations
 
 [if we see a chart where a bunch of points make a pattern that looks like a line, we assume the relation between the two variable is *Linear*]{.fragment fragment-index='1'}
 <br>  
-[Example: travel time and distance in Bengaluru. Say, this realation looks like:]{.fragment fragment-index='2'}
+[Example: travel time and distance in Bengaluru. Say, this relation looks like:]{.fragment fragment-index='2'}
 <br>  
 [$Time\space in \space minutes  = 5 + (20* Distance \space in \space Kilometers)$]{.fragment fragment-index='3'}
 
@@ -514,7 +514,7 @@ $$Body \space Mass(g) = -5780.83 + 49.69*Flipper \space Length(mm)$$
 <br>  
 [Is the line really a line or are you just zoomed in?]{.fragment fragment-index='2'}
 <br>  
-[Is the data only for a specific group? Does the realtion in the previous chart hold for baby penguins?]{.fragment fragment-index='3'}
+[Is the data only for a specific group? Does the relation in the previous chart hold for baby penguins?]{.fragment fragment-index='3'}
 
 ## Class Activity 
 

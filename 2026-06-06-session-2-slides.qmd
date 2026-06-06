@@ -455,7 +455,7 @@ An experiment where people are asked time exactly at noon and record the answers
 <br>
 **Person B:** Sorry! I am not wearing a watch or carrying my phone.
 
-|Recorded time| Differecne from actual time|
+|Recorded time| difference from actual time|
 |-------------|----------------------------|
 |12:00|0|
 |12:05|5|
@@ -528,7 +528,7 @@ vals * 2
 
   + A fixed set of operation or commands. All these commands get executed if the **function is called**.
 
-  + Expects specific types of inputs, *usually*, to generate outputs. These inputs are refered to as **arguments**
+  + Expects specific types of inputs, *usually*, to generate outputs. These inputs are referred to as **arguments**
 
   + Has a name. Using this name a function can be called.
 

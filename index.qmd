@@ -259,20 +259,20 @@ Interpret probability as a measure of uncertainty, not just frequency; explain w
 
 Readings:
 
-- **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 8: *Probablility -- the Language of uncertainty*
+- **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 8: *probability -- the Language of uncertainty*
 
 - **Ellenberg, Jordan.** *How Not to Be Wrong: The Power of Mathematical Thinking*. Chapter 8: *Reductio ad Unlikely* and Chapter 10: *Are Yoy There, God? Bayesian inference*
 
 **Session 12: Probability in R**
 
-Use R to simulate coin flips and dice rolls; visualise how sample proportions stabilise as sample size grows (law of large numbers in action); consolidate the probability vocabulary from S11 before moving to inference. Note: the SGD oral discussion is the primary activity this session — coding is a short warm-up exercise only.
+Use R to simulate coin flips and dice rolls; visualise how sample proportions stabilize as sample size grows (law of large numbers in action); consolidate the probability vocabulary from S11 before moving to inference. Note: the SGD oral discussion is the primary activity this session — coding is a short warm-up exercise only.
 
 > **Classroom activity — "How rare is rare?" (15 min)**
 > Students are told that a screening test for a disease is 99% accurate and that the disease affects 1 in 1,000 people. They are asked: if you test positive, what is the probability that you actually have the disease? Students work through this individually, then share answers with the class. Almost everyone gets it wrong at first. The instructor walks through the correct result (roughly 9%), connecting it to the readings on conditional probability.
 
 Readings:
 
--  **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 9: *Putting Probablility and Statistics Together -- the Language of uncertainty*. Section 9.1 and 9.2 only.
+-  **Spiegelhalter, David.** *The Art of Statistics: Learning from Data*. Chapter 9: *Putting probability and Statistics Together -- the Language of uncertainty*. Section 9.1 and 9.2 only.
 
 ### Week 7: Sampling and Bias
 

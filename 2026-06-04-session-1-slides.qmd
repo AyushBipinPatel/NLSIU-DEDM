@@ -516,6 +516,147 @@ $$Body \space Mass(g) = -5780.83 + 49.69*Flipper \space Length(mm)$$
 <br>  
 [Is the data only for a specific group? Does the realtion in the previous chart hold for baby penguins?]{.fragment fragment-index='3'}
 
+## Class Activity 
+
+For the examples that follow, think about: 
+
+1. Is there data behind this claim? What would you need to verify it? 
+2. What story is being told, and what might be left out?
+3. Do you have clear definitions?
+4. What can you answer with this information? What cannot be answered?
+
+## Exe 1 — Courts & Judicial Administration{.smaller}
+
+> "As on November 21, 2023, there is a pendency of 4.4 crore cases in
+> the district and taluka courts, 61.7 lakh in High Courts and 79,593
+> cases in the Supreme Court — a total of over five crore cases handled
+> by 20,580 judges."
+
+::: aside
+**Source:** Centre for Research and Planning, Supreme Court of India,
+*State of the Judiciary* (November 2023). Cited in: Satya Prakash,
+"21k judges struggle to clear 5 crore cases," *Tribune India*,
+December 17, 2023. Primary data: njdg.ecourts.gov.in
+
+:::
+
+::: {.fragment}
+
+- What is a "pending case"? Does a case filed yesterday count the same
+  as one filed thirty years ago?
+- The figure is a cross-section. What would the trend over five or ten years
+  tell us that this number cannot?
+- Does 20,580 judges sound like enough, too few, or too many? What would
+  you need to know to answer that? (The Law Commission once recommended
+  50 judges per million people — India currently has around 14.)
+
+:::
+
+## Exe 2 — Crime Statistics {.smaller}
+
+> "India recorded 58.86 lakh cognisable crimes in 2024, a 6% decline
+> compared to 62.41 lakh cases in 2023. The crime rate per lakh
+> population fell from 448.3 to 418.9."
+
+::: aside
+**Source:** National Crime Records Bureau (NCRB), Ministry of Home
+Affairs, Government of India. *Crime in India 2024* (released 2025).
+Primary report: ncrb.gov.in
+:::
+
+::: {.fragment}
+
+- Is a fall in recorded crimes the same as a fall in actual crimes?
+  What might cause the two to diverge?
+- The same report notes that cybercrime rose 17.9% in the same year.
+  How does that sit alongside the headline decline?
+- Who collects this data, and who reports crimes to them? What kinds
+  of crimes are likely to be under-reported, and by whom?
+
+:::
+
+## Exe 3 — Environment & Public Health {.smaller}
+
+> "Air pollution is responsible for 7.2% of all deaths in India, with
+> approximately 34,000 deaths annually across ten cities." — to which
+> the Ministry of Environment responded in the Rajya Sabha that "there
+> is no conclusive data to directly correlate air pollution and deaths."
+
+::: aside
+**Sources:** Claim: Jairam Ramesh (Congress), citing Lanvit al., "Air
+Pollution and Mortality in Ten Indian Cities," *The Lancet*, June 2024.
+Government response: Ministry of Environment, Forests and Climate
+Change, reply to Rajya Sabha question, July 29, 2024.
+:::
+
+::: {.fragment}
+
+- Two official sources, a peer-reviewed Lancet study and a government
+  ministry, appear to contradict each other. How do you decide which
+  to trust?
+- What does "conclusive" mean in the context of causation? Is it
+  possible to ever prove that pollution caused a specific death?
+- The Lancet figure covers only ten cities. what story does this tell,
+  and what does it leave out about rural or smaller urban India?
+
+:::
+
+
+## Exe 4 — Labour & Employment {.smaller}
+
+> "An official government survey shows India's unemployment rate rose
+> to a 45-year high of 6.1% in 2017–18. Joblessness stood at 7.8% in
+> urban areas and 5.3% in rural areas; the unemployment rate for rural
+> women was 13.6%."
+
+::: aside
+**Source:** National Sample Survey Office (NSSO), Ministry of
+Statistics and Programme Implementation, Government of India.
+*Periodic Labour Force Survey (PLFS) 2017–18*. Reported by: Manoj
+Kumar and Devjyot Ghoshal, Reuters / *Business Standard*,
+January 31, 2019. Primary data: mospi.gov.in
+:::
+
+::: {.fragment}
+
+- What counts as "employed"? If someone works one hour a week as a
+  paid domestic worker, are they unemployed?
+- The headline figure is 6.1%. Rural women show 13.6%. Which number
+  would you lead with, and why does the choice matter?
+- This survey was reportedly withheld before its scheduled release.
+  Does the details about data: who commissioned it, who released it,
+  and when, affect how you read it?
+
+:::
+
+## Exe 5 — Economic Policy {.smaller}
+
+> "India's GDP growth of 7.8% in Q1 FY2023–24 is not just an indicator
+> of the country's growth, but explains all about India's swift march
+> from a 'Fragile 5 to Top 5' economy."
+
+::: aside
+**Source:** Anurag Thakur, Minister of Information and Broadcasting,
+Government of India. Reported by All India Radio / News on AIR,
+"India's GDP growth rises to 7.8 percent in April to June quarter,"
+August 31, 2023. Primary data: National Statistical Office, mospi.gov.in
+:::
+
+::: {.fragment}
+
+- GDP measures the size of the economy. Growth in GDP indicated how fast the economy is growing compared to previous time period. Does it say anything
+  about whether people's lives are getting better? What else would
+  you want to know?
+- "Fragile 5 to Top 5" is a comparison, but compared to what, and
+  on which measure? How would you verify this claim?
+- What can a single quarterly figure of 7.8% tell you, and what
+  can it not? How might the same economy look different if you chose
+  a different quarter or a different measure?
+
+:::
+
+# End of Session 1
+
 # References
 
 

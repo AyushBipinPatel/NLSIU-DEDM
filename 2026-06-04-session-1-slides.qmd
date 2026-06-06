@@ -430,9 +430,91 @@ CDSCO clinical trial regulations
 
 # Extrapolation and Obese Americans
 
-See Chapter 3: Everyone is Obese in @ellenberg2014hownotwrong.
+<br>
 
+>Discussion on Chapter 3: Everyone is Obese in @ellenberg2014hownotwrong.
 
+## Linear Regression - concept
+
+<br>  
+
+[if we see a chart where a bunch of points make a pattern that looks like a line, we assume the relation between the two variable is *Linear*]{.fragment fragment-index='1'}
+<br>  
+[Example: travel time and distance in Bengaluru. Say, this realation looks like:]{.fragment fragment-index='2'}
+<br>  
+[$Time\space in \space minutes  = 5 + (20* Distance \space in \space Kilometers)$]{.fragment fragment-index='3'}
+
+## Linear Regression - concept{.nostretch}
+
+```{r}
+#| label: fig-linear-blr-travel
+#| fig-cap: A representation of travel time and distance covered in Bengaluru
+#| echo: false
+#| fig-dpi: 500
+
+tibble(
+  distance = rep(c(1:25),3),
+  travel_time = 5 + 20*distance + rnorm(75,7,32)
+) |>
+  ggplot(aes(distance, travel_time)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = F) +
+  labs(
+    title = "A linear relation between travel time and distance to travel",
+    x = "Distance in km",
+    y = "Time in minutes"
+  ) +
+    theme_minimal()
+```
+
+## Meet the Penguins
+
+Details and data from @palmerpenguins
+
+![Plamerpenguins](https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png)
+
+## Fluffy Penguins{.nostretch}
+
+$$Body \space Mass(g) = -5780.83 + 49.69*Flipper \space Length(mm)$$
+
+```{r}
+#| label: fig-penguins
+#| fig-cap: We can see that penguins with larger flippers have greater body mass
+#| fig-dpi: 500
+#| echo: false
+
+library(palmerpenguins)
+
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species, 
+                 shape = species),
+             size = 2) +
+  annotate(
+    geom = "rect", xmin = 189.5, xmax=190.5, ymin = 3000, ymax = 4800, alpha = 0.2
+  )+
+  scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  theme_minimal()
+```
+
+## Careful while extrapolating
+
+<br>
+For the data that we have, following is true:
+<br>
+$$Body \space Mass(g) = -5780.83 + 49.69*Flipper \space Length(mm)$$ 
+
+<br>  
+
+*Does this mean a penguin with flipper length of 100mm will weigh **- 811.83 grams**??*
+
+## Things to remember about extrapolation
+
+<br>  
+[Are you estimating beyond the range of your data?]{.fragment fragment-index='1'}
+<br>  
+[Is the line really a line or are you just zoomed in?]{.fragment fragment-index='2'}
+<br>  
+[Is the data only for a specific group? Does the realtion in the previous chart hold for baby penguins?]{.fragment fragment-index='3'}
 
 # References
 

@@ -1,0 +1,164 @@
+---
+title: "Data, Evidence, and Decision Making (with R)"
+author: "Ayush Patel"
+subtitle: "Session 2"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: true
+bibliography: citations.bib
+execute: 
+  echo: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+# Readings 
+
+It is expected that you have completed the following readings:
+
+1. Chapter 1: Hello Data of @cetinkaya-rundel2024ims2
+2. Chapter 1: Getting Things in Proportion of @spiegelhalter2019art
+3. Chapter 2: Summarising and Communicating Numbers of @spiegelhalter2019art
+
+# Understanding Data
+
+## Data
+
+> Information gathered through various sources or methods that is structured in a manner that facilitates analyses is called data.
+
+<br>
+
+*Though data can take various forms, in this class we will focus on data that can be structured in a table.*
+
+## Data
+
+<br>
+
+1. *Who/What* is your data about? Humans, cars, students, penguins, flights?
+2. Which *details* are recorded? income, speed, grades, species, delay?
+
+> The `Who/What` is the **Unit of observations** or rows and the `details` are **variables** or columns.
+
+## You have met the penguins before {.smaller}
+
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+
+```{r}
+#| label: display-penguins
+
+library(palmerpenguins)
+
+penguins
+```
+
+
+:::
+
+::: {.column width="40%"} 
+
+1. `Who/What`: Each row is a unique adult penguin. This is the *unit of observation*.
+2. `Details`: For each penguins, it's bill length, bill depth, flipper length, body mass, sex, species, island, and year of record are recorded. These are the *Variables*.
+3. The total number of rows are called *Observations*.
+4. This data has 344 Observations and 8 variables.
+
+:::
+
+::::
+
+## You try
+
+```{r}
+#| label: display-
+
+openintro::starbucks
+```
+
+1. What is the unit of observation? How many total observations?
+2. What do you think are the units of the variable?
+
+## Tidy Data
+
+@tidy-data provides a definitions and reference of what should tidy data look like. Data presented in tidy format is more convenient to use for analysis in most cases. Art by @horst2026tidydata explains the idea.
+
+![Tidy Data](https://data.europa.eu/apps/data-visualisation-guide/Tidy%20data%208b1465b3f83a442f97d1d33ce400dbe7/tidydata_1.jpg)
+
+
+# Variable Types
+
+> Variables can be used to record different kinds of information. Weight(number), Dead(Binary), ice cream flavour (categorical). It is important to make these distinction so as to carry out appropriate analysis.
+
+## Numerical
+
+<br><br>
+
+What is the difference between :
+
+1. Amount of rice consumed in a restaurant 
+2. The number of customers that visited the restaurant
+
+## Numerical
+
+![[Allison Horst](https://allisonhorst.com/everything-else)](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/5c0b4bea-b51d-42cb-b0bb-1bc1d59ac0c5_rw_1920.png?h=21e2134daab3967c99eb572c70c77f56)
+
+## Categorical
+
+<br><br>
+
+What is the difference between :
+
+1. Did they have to wait at the restaurant? 
+2. What are the dishes that they ordered?
+3. How did they like the food? (yuck, bad, ok ok, good, great)
+
+## Categorical
+
+![[Allison Horst](https://allisonhorst.com/everything-else)](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/38f5ed46-9dcd-4981-9ae0-497fb20aa65c_rw_1920.png?h=9c0c15395b2471d111aa26974d8abede)
+
+# Summary Statistics
+
+> A summary statistic is a number that conveys some key feature of a bunch of numbers.
+
+## Why do we need summary statistics
+
+<br>
+
+Number of times I crave for Biryani every week. Data for the past 50 weeks:
+
+```{r}
+#| label: why-summary-stat
+
+round(rnorm(50,10,3))
+
+```
+
+What can you say about my wish to consume Biryani?
+
+## Why do we need summary statistics
+
+Animals I spotted on the road in the last 50 days:
+
+```{r}
+#| label: spot-animals
+
+sample(c("Cat","Dog","Cow","Turtle","Snake","Eagle","Mouse","Rabbit"),80,T)
+
+```
+
+How would you summarise the animals I saw in the past 50 days?
+
+# References

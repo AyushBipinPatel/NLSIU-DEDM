@@ -129,6 +129,149 @@ What is the difference between :
 
 ![[Allison Horst](https://allisonhorst.com/everything-else)](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/38f5ed46-9dcd-4981-9ae0-497fb20aa65c_rw_1920.png?h=9c0c15395b2471d111aa26974d8abede)
 
+# Looking at data
+
+<br><br>
+
+> Nothing builds intuition better than looking at data. Nothing makes you wonder more than looking at data. *When done right*
+
+## Babies {.smaller}
+
+
+:::: {.columns}
+
+::: {.column}
+
+```{r}
+#| label: show-babies
+
+library(openintro)
+library(tidyverse)
+library(hrbrthemes)
+
+babies |>
+  glimpse()
+
+```
+
+
+:::
+
+::: {.column}
+
+|Variable|Definition|
+|--------|----------|
+|case|id number|
+|bwt|birthweight, in ounces|
+|gestation|length of gestation, in days|
+|parity|binary indicator for a first pregnancy (0 = first pregnancy)|
+|age|mother's age in years|
+|height|mother's height in inches|
+|weight|mother's weight in pounds|
+|smoke|binary indicator for whether the mother smokes|
+
+Source: Child Health and Development Studies
+
+
+:::
+
+::::
+
+## Baby weights{.nostretch}
+
+```{r}
+#| label: fig-baby-wts-1
+#| fig-cap: A histogram of baby weight in ounces
+#| fig-dpi: 500
+
+babies |>
+  ggplot(aes(bwt))+
+  geom_histogram(colour = "#ffffff") +
+  labs(
+    title = "Baby Weights at birth",
+    x = "Birth Weight in Ounces",
+    y = "Number of babies"
+  )+
+  theme_ipsum_es()
+```
+
+
+## Baby weights{.nostretch}
+
+```{r}
+#| label: fig-baby-wts-2
+#| fig-cap: A boxplot of baby weight in ounces
+#| fig-dpi: 500
+
+babies |>
+  ggplot(aes("A",bwt))+
+  geom_boxplot() +
+  labs(
+    title = "Baby Weights at birth",
+    y = "Birth Weight in Ounces",
+    x = NULL
+  )+
+  theme_ipsum_es(grid = "X") +
+  coord_flip()+
+  theme(axis.title.y = element_blank(),
+    axis.text.y =  element_blank()  
+  )
+```
+
+## First Pregnancy
+
+<br><br>
+
+```{r}
+#| label: tbl-first-pregnancy
+#| tbl-cap: Share of women that experienced their fitst pregnancy
+
+babies |>
+  janitor::tabyl(parity) |>
+  janitor::adorn_totals("row")|>
+  janitor::adorn_pct_formatting() |>
+  rename(`Fisrt Pregnancy` = parity) |>
+  kableExtra::kable()
+```
+
+## First Pregnancy{.nostretch}
+
+<br>
+
+```{r}
+#| label: fig-first-preg
+#| fig-cap: Share of women that experienced their first pregnancy
+#| fig-dpi: 500
+
+babies |>
+  ggplot(aes("A")) +
+  geom_bar(aes(fill = as.factor(parity)), position = "fill") +
+  scale_fill_ft(name = "Pregnancy",label = c("Not fisrt","First")) +
+  scale_y_percent()+
+  labs(
+    title = NULL,
+    y = "Proportion of women",
+    x = NULL
+  ) +
+    theme_ipsum_es(grid = "X") + 
+    theme(
+      legend.direction = "horizontal",
+      legend.position = "top",
+      axis.title.y = element_blank(),
+      axis.text.y =  element_blank(),
+      legend.title.position = "top"
+      )+
+    coord_flip()
+```
+
+# Proportions
+
+<br><br>
+
+> Comparisons and Communication
+
+## 
+
 # Summary Statistics
 
 > A summary statistic is a number that conveys some key feature of a bunch of numbers.

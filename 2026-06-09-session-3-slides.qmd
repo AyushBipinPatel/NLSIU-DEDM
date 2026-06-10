@@ -157,7 +157,7 @@ What is the difference between :
 
 [Researchers do not *intervene* to affect any process in the real world. Only observe and record.]{.fragment fragment-index='1'}
 <br><br>
-[Usually, by itself an observatinal study can only show natural association between variables.]{.fragment fragment-index='2'}
+[Usually, by itself an observational study can only show natural association between variables.]{.fragment fragment-index='2'}
 <br><br>
 [This observed association between variables does prove or disprove causation.]{.fragment fragment-index='3'}
 <br><br>
@@ -225,7 +225,7 @@ penguins |>
 ## Categorical Variable{.nostretch}
 
 ```{r}
-#| label: fig-peng-speies
+#| label: fig-peng-spices
 #| fig-cap: Share of Penguin Species
 #| fig-dpi: 500
 
@@ -280,7 +280,7 @@ penguins |>
   ggplot(aes(flipper_length_mm, body_mass_g)) + 
   geom_point(colour = "#576f7a") + 
   labs(
-    title = "Relation between bosy mass and flipper length",
+    title = "Relation between body mass and flipper length",
     x = "Flipper length (mm)",
     y = "Body mass (g)"
   ) +
@@ -299,7 +299,7 @@ penguins |>
   geom_point(aes(colour = species)) +
   scale_colour_ipsum() +  
   labs(
-    title = "Relation between bosy mass and flipper length",
+    title = "Relation between body mass and flipper length",
     x = "Flipper length (mm)",
     y = "Body mass (g)"
   ) +
@@ -321,7 +321,7 @@ penguins |>
   ggplot(aes(body_mass_g, species)) + 
   geom_boxplot() +
   labs(
-    title = "Relation between bosy mass and species",
+    title = "Relation between body mass and species",
     x = "Body mass (g)"
   ) +
      theme_ipsum_es()+
@@ -329,14 +329,6 @@ penguins |>
      )
 
 ```
-
-# Proportions
-
-<br><br>
-
-> Comparisons and Communication
-
-## 
 
 # Summary Statistics
 
@@ -369,5 +361,204 @@ sample(c("Cat","Dog","Cow","Turtle","Snake","Eagle","Mouse","Rabbit"),80,T)
 ```
 
 How would you summarise the animals I saw in the past 50 days?
+
+
+# Proportions
+
+<br><br>
+
+> Comparisons and Communication
+
+## The Bristol Case
+
+<br>
+
+> The death of a child during a heart surgery, in Bristol, UK, 1995, lead to an inquiry into survival rates of children after heart surgery. See @spiegelhalter2019art chapter 1.
+
+## Bristol Case - Definitions
+
+From your readings:
+
+<br>
+
+[How did the statisticians define *child*?]{.fragment fragment-index='1'}
+<br><br>
+[How was a *surgery* defined?]{.fragment fragment-index='2'}
+<br><br>
+[What were the issues they faced with data availability?]{.fragment fragment-index='3'}
+<br><br>
+[How did they define *death due to surgery*?]{.fragment fragment-index='4'}
+
+## Heart Surgery Outcomes between 2012-2015
+
+<br><br>
+
+> Think about how to *objectively* present such numbers
+
+## Option 1 {.smaller}
+
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+```{r}
+#| label: tbl-show-child-deaths-opt1
+#| tbl-cap: Deaths due to surgery
+
+read_csv("https://raw.githubusercontent.com/dspiegel29/ArtofStatistics/refs/heads/master/01-1-2-3-child-heart-survival-times/01-1-child-heart-survival-x.csv") |>
+  select(1,4) |>
+  kableExtra::kable()
+```
+
+
+:::
+
+::: {.column width="30%"}
+
+**Since we are interested in deaths due to surgery, best focus on the count bad outcomes**
+
+<br><br>
+[This does not show how many actually went in for surgery.]{.fragment fragment-index='1'}
+<br><br>
+[Did you imagine the deaths as a group in a room?]{.fragment fragment-index='2'}
+<br><br>
+[What if the death rates are higher where total surgeries are higher?]{.fragment fragment-index='3'}
+
+:::
+
+::::
+
+## Option 2 {.smaller}
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+```{r}
+#| label: tbl-show-child-deaths-opt2
+#| tbl-cap: Surgery Survivours
+
+read_csv("https://raw.githubusercontent.com/dspiegel29/ArtofStatistics/refs/heads/master/01-1-2-3-child-heart-survival-times/01-1-child-heart-survival-x.csv") |>
+  select(1,3) |>
+  kableExtra::kable()
+```
+
+
+:::
+
+::: {.column width="30%"}
+
+**maybe someone wants to focus if they got is right (most of the time)**
+
+<br><br>
+[This does not show how many actually went in for surgery.]{.fragment fragment-index='1'}
+<br><br>
+[Cant decide without the column on deaths. Feels like *Both* are needed.]{.fragment fragment-index='2'}
+<br><br>
+
+:::
+
+::::
+
+## Ideal Representation {.smaller}
+
+```{r}
+#| label: tbl-bristol-case-ideal
+#| tbl-cap: Outcomes of heart surgery among children across UK for time period 2012-2015
+
+read_csv("https://raw.githubusercontent.com/dspiegel29/ArtofStatistics/refs/heads/master/01-1-2-3-child-heart-survival-times/01-1-child-heart-survival-x.csv") |>
+  kableExtra::kable()
+```
+
+::: aside
+
+Data and table from [Github repo](https://github.com/dspiegel29/ArtofStatistics/tree/master) of @spiegelhalter2019art
+
+:::
+
+## Communicating Proportions
+
+<br><br>
+
+[Do not provide such statistics in either a negative or a positive frame by itself.]{.fragment fragment-index='1'}
+<br><br>
+[Ideally, provide absolute numbers along with proportions/percentages.]{.fragment fragment-index='2'}
+<br><br>
+[Ordering the rows in increasing or decreasing order should be done after careful consideration. Groups might have similar numbers but that does not mean all the groups face the same exact situation.]{.fragment fragment-index='3'}
+<br><br>
+[Before ordering, consider if the variations across groups is due to chance]{.fragment fragment-index='4'}
+
+## Comparing Proportions
+
+<br><br>
+
+What If someone made such a claim:
+
+<br>  
+
+> Death due to surgery at the Leicester hospital is ~twice as high compared to death due to surgery at London - Harley Street 
+
+<br><br>
+
+**How would you assess this claim?**
+
+## In defence of great sandwiches
+
+<br>
+
+**What do you make of this?**
+
+<br>
+
+[IARC, in 2015 included processed meat as a *Group I carcinogenic*]{.fragment fragment-index='1'}
+<br><br>
+[New reports such as "Bacon, Ham and Sausages have the same cancer risk as Cigarettes Warn Experts"]{.fragment fragment-index='2'}
+<br><br>
+[IARC also mentioned that 50g of processed meat a day was associated with an increased risk of bowel cancer of 18%]{.fragment fragment-index='3'}
+
+**Would you stop eating great sandwiches?** if you do consume such things.
+
+::: aside
+
+see @spiegelhalter2019art chapter 1 for details
+
+:::
+
+## In defence of great sandwiches
+
+:::{#tbl-risk-sandwich}
+|Method/statistic|Non-bacon eaters| Daily bacon eaters|
+|----------------|----------------|-------------------|
+|Event Rate| 6%| 7%|
+|Expected Frequency| 6 out 100| 7 out of 100|
+|odds| 6/94| 7/93|
+|Absolute risk difference|   1% or 1 out of 100|
+|Relative risk|    1.18 or an 18% increase|
+|Number Needed to Treat|    100|
+|Odds ratio|    (6/94)/(7/93) = 1.18|
+
+: Risk Reporting
+:::
+
+::: aside
+Note that odds ratio and relative risk are not alway equal, these are different quantities.  
+
+Table reproduced from @spiegelhalter2019art
+:::
+
+## You try 
+
+<br><br>
+
+In the 1990s, a regulatory body reported that the third-generation of contraceptive oral pills have twice the risk of thrombosis than the second-generation pill. (See @ellenberg2014hownotwrong for full details and an exciting read)
+
+<br><br>
+
+The absolute risk of thrombosis in the second generation pill was 1 in 7000. Create a table similar to @tbl-risk-sandwich for this example. **What do you think? Should someone switch to the third-generation pill?**
+
+# Summarising Numbers
+
+
 
 # References

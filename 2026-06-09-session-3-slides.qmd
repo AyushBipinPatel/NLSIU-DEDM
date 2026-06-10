@@ -1,7 +1,7 @@
 ---
 title: "Data, Evidence, and Decision Making (with R)"
 author: "Ayush Patel"
-subtitle: "Session 2"
+subtitle: "Session 3"
 institute: "National Law School of India University, Bengaluru"
 date: today
 date-format: "DD MMM, YYYY"
@@ -83,7 +83,7 @@ penguins
 ## You try
 
 ```{r}
-#| label: display-
+#| label: display-starbucks
 
 openintro::starbucks
 ```
@@ -129,139 +129,205 @@ What is the difference between :
 
 ![[Allison Horst](https://allisonhorst.com/everything-else)](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/38f5ed46-9dcd-4981-9ae0-497fb20aa65c_rw_1920.png?h=9c0c15395b2471d111aa26974d8abede)
 
+# Sources of Data
+
+<br>
+
+> The world is turned into data through various kinds of mechanisms. At this stage, we make two major distinctions. Data that comes from **Experimental setup** and that which comes from **Observational setup**.
+
+## Experimental {.smaller}
+
+<br>
+
+[Usually, the goal is to establish (read prove[^1]) if there is a causal relationship]{.fragment fragment-index='1'}
+<br><br>
+[Randomised Control Trials are an example of experimental studies]{.fragment fragment-index='2'}
+<br><br>
+[These(or its various forms) are widely used in medicine, tech, policy, social sciences, etc]{.fragment fragment-index='3'}
+<br><br>
+[Main Idea: Units are randomly sorted in two groups. One of the group receives some treatment/input. The other carries on as usual]{.fragment fragment-index='4'}
+<br><br>
+[This setup allows to see if there is any *effect* of the treatment/input on some variable that is observed across both groups]{.fragment fragment-index='5'}
+
+[^1]: Prove has a very specific meaning. One can really only say that it is very unlikely to observe such evidence if there were no causal relationship. 
+
+## Observational
+
+<br>
+
+[Researchers do not *intervene* to affect any process in the real world. Only observe and record.]{.fragment fragment-index='1'}
+<br><br>
+[Usually, by itself an observatinal study can only show natural association between variables.]{.fragment fragment-index='2'}
+<br><br>
+[This observed association between variables does prove or disprove causation.]{.fragment fragment-index='3'}
+<br><br>
+[Causal relations can be established using data from such studies under special conditions]{.fragment fragment-index='4'}
+
+
 # Looking at data
 
 <br><br>
 
 > Nothing builds intuition better than looking at data. Nothing makes you wonder more than looking at data. *When done right*
 
-## Babies {.smaller}
-
-
-:::: {.columns}
-
-::: {.column}
 
 ```{r}
-#| label: show-babies
+#| label: load-libs
 
-library(openintro)
+library(ggtext)
 library(tidyverse)
 library(hrbrthemes)
-
-babies |>
-  glimpse()
-
 ```
 
 
-:::
-
-::: {.column}
-
-|Variable|Definition|
-|--------|----------|
-|case|id number|
-|bwt|birthweight, in ounces|
-|gestation|length of gestation, in days|
-|parity|binary indicator for a first pregnancy (0 = first pregnancy)|
-|age|mother's age in years|
-|height|mother's height in inches|
-|weight|mother's weight in pounds|
-|smoke|binary indicator for whether the mother smokes|
-
-Source: Child Health and Development Studies
-
-
-:::
-
-::::
-
-## Baby weights{.nostretch}
+## Numerical Variable{.nostretch}
 
 ```{r}
-#| label: fig-baby-wts-1
-#| fig-cap: A histogram of baby weight in ounces
+#| label: fig-penguins-weights
+#| fig-cap: A histogram of penguins weights
 #| fig-dpi: 500
 
-babies |>
-  ggplot(aes(bwt))+
-  geom_histogram(colour = "#ffffff") +
+penguins |>
+  ggplot(aes(body_mass_g))+
+  geom_histogram(fill = "#576f7a",colour = "#ffffff") +
+  scale_fill_ipsum() +
   labs(
-    title = "Baby Weights at birth",
-    x = "Birth Weight in Ounces",
-    y = "Number of babies"
+    title = "Penguins Body Mass Distribution",
+    x = "Body mass in grams",
+    y = "Number of penguins"
   )+
   theme_ipsum_es()
 ```
 
-
-## Baby weights{.nostretch}
+## Numerical Variable{.nostretch}
 
 ```{r}
-#| label: fig-baby-wts-2
-#| fig-cap: A boxplot of baby weight in ounces
+#| label: fig-penguins-weights-box
+#| fig-cap: A boxplot of penguins weights
 #| fig-dpi: 500
 
-babies |>
-  ggplot(aes("A",bwt))+
+penguins |>
+  ggplot(aes(body_mass_g))+
   geom_boxplot() +
+  scale_fill_ipsum() +
   labs(
-    title = "Baby Weights at birth",
-    y = "Birth Weight in Ounces",
-    x = NULL
+    title = "Penguins Body Mass spread",
+    x = "Body mass in grams"
   )+
-  theme_ipsum_es(grid = "X") +
-  coord_flip()+
-  theme(axis.title.y = element_blank(),
-    axis.text.y =  element_blank()  
+  theme_ipsum_es(grid = "x") + 
+  theme(
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    axis.ticks.y = element_blank(),
   )
 ```
 
-## First Pregnancy
-
-<br><br>
+## Categorical Variable{.nostretch}
 
 ```{r}
-#| label: tbl-first-pregnancy
-#| tbl-cap: Share of women that experienced their fitst pregnancy
-
-babies |>
-  janitor::tabyl(parity) |>
-  janitor::adorn_totals("row")|>
-  janitor::adorn_pct_formatting() |>
-  rename(`Fisrt Pregnancy` = parity) |>
-  kableExtra::kable()
-```
-
-## First Pregnancy{.nostretch}
-
-<br>
-
-```{r}
-#| label: fig-first-preg
-#| fig-cap: Share of women that experienced their first pregnancy
+#| label: fig-peng-speies
+#| fig-cap: Share of Penguin Species
 #| fig-dpi: 500
 
-babies |>
-  ggplot(aes("A")) +
-  geom_bar(aes(fill = as.factor(parity)), position = "fill") +
-  scale_fill_ft(name = "Pregnancy",label = c("Not fisrt","First")) +
-  scale_y_percent()+
+penguins |>
+  ggplot(aes("A")) + 
+  geom_bar(aes(fill = species), position = "fill") + 
+  scale_fill_ipsum() +
+  scale_y_percent() +
   labs(
-    title = NULL,
-    y = "Proportion of women",
-    x = NULL
+    title = "Share of Penguin Species in sample",
+    y = "Proportion of Penguins",
+    subtitle = "<span style='color:#d18975'>**Adelie (44.2%)**</span>, <span style='color:#8fd175'>**Chinstrap (19.8%)**</span>, <span style='color:#3f2d54'>**Gentoo (36%)**</span>"
   ) +
-    theme_ipsum_es(grid = "X") + 
-    theme(
-      legend.direction = "horizontal",
+  theme_ipsum_es(grid = "X") +
+  theme(
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    plot.subtitle = element_markdown()
+  ) +
+  coord_flip() 
+  
+```
+
+## Categorical variable{.nostretch}
+
+```{r}
+#| label: fig-peng-count-species
+#| fig-cap: Number of penguins from each species
+#| fig-dpi: 500
+
+penguins |>
+  ggplot(aes(species)) + 
+  geom_bar(fill = "#576f7a") + 
+  geom_text(aes(label = ..count..),stat = "count", nudge_y = 2)+
+  labs(
+    title = "How many penguins of each species?",
+    x = "Penguin Species",
+    y = "Number of penguins"
+  ) + 
+    theme_ipsum_es()
+```
+
+## Two Numerical Variables
+
+```{r}
+#| label: fig-mass-flipper
+#| fig-cap: Body mass and flipper length of the penguins are positively associated
+#| fig-dpi: 500
+
+penguins |>
+  ggplot(aes(flipper_length_mm, body_mass_g)) + 
+  geom_point(colour = "#576f7a") + 
+  labs(
+    title = "Relation between bosy mass and flipper length",
+    x = "Flipper length (mm)",
+    y = "Body mass (g)"
+  ) +
+     theme_ipsum_es()
+```
+
+## Two Numerical Variables - more detail
+
+```{r}
+#| label: fig-mass-flipper-species
+#| fig-cap: Body mass and flipper length of the penguins are positively associated, across species
+#| fig-dpi: 500
+
+penguins |>
+  ggplot(aes(flipper_length_mm, body_mass_g)) + 
+  geom_point(aes(colour = species)) +
+  scale_colour_ipsum() +  
+  labs(
+    title = "Relation between bosy mass and flipper length",
+    x = "Flipper length (mm)",
+    y = "Body mass (g)"
+  ) +
+     theme_ipsum_es()+
+     theme(
       legend.position = "top",
-      axis.title.y = element_blank(),
-      axis.text.y =  element_blank(),
       legend.title.position = "top"
-      )+
-    coord_flip()
+     )
+```
+
+## Numerical and Categorical
+
+```{r}
+#| label: fig-mass-species
+#| fig-cap: Spread of body mass across species
+#| fig-dpi: 500
+
+penguins |>
+  ggplot(aes(body_mass_g, species)) + 
+  geom_boxplot() +
+  labs(
+    title = "Relation between bosy mass and species",
+    x = "Body mass (g)"
+  ) +
+     theme_ipsum_es()+
+     theme(
+     )
+
 ```
 
 # Proportions

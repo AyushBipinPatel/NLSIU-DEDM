@@ -417,5 +417,6 @@ If no errors appear, the setup is complete.
 
 1. [Session 1](2026-06-04-session-1-slides.html)
 2. [Sesison 2](2026-06-06-session-2-slides.html)
+3. [Sesison 3](2026-06-09-session-3-slides.html)
 
 ------

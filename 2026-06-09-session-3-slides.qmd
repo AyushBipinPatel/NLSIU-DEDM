@@ -1,7 +1,7 @@
 ---
 title: "Data, Evidence, and Decision Making (with R)"
 author: "Ayush Patel"
-subtitle: "Session 3"
+subtitle: "Session 3: Understanding Data"
 institute: "National Law School of India University, Bengaluru"
 date: today
 date-format: "DD MMM, YYYY"
@@ -503,7 +503,7 @@ What If someone made such a claim:
 
 **How would you assess this claim?**
 
-## In defence of great sandwiches
+## In defense of great sandwiches
 
 <br>
 
@@ -525,7 +525,7 @@ see @spiegelhalter2019art chapter 1 for details
 
 :::
 
-## In defence of great sandwiches
+## In defense of great sandwiches
 
 :::{#tbl-risk-sandwich}
 |Method/statistic|Non-bacon eaters| Daily bacon eaters|
@@ -559,6 +559,389 @@ The absolute risk of thrombosis in the second generation pill was 1 in 7000. Cre
 
 # Summarising Numbers
 
+<br><br>
 
+> Discuss Vox populi and Jelly beans from @spiegelhalter2019art chapter 2.
+
+## Jelly Bean responses {.nostretch .smaller}
+
+```{r}
+#| label: fig-jelly-beans
+#| fig-cap: Reproduction of figure 2.1 from TAS
+#| fig-dpi: 500
+#| fig-height: 7.5
+
+library(patchwork)
+
+read_csv("https://raw.githubusercontent.com/dspiegel29/ArtofStatistics/refs/heads/master/02-2-3-jelly-bean-counts/02-1-bean-data-full-x.csv",col_names = F) -> data_jbean
+
+data_jbean |>
+  ggplot(aes(X1,"A"))+
+  geom_jitter(alpha = 0.5) + 
+  labs(
+    x = "Guessed Number of Beans"
+  ) + 
+  theme_ipsum_es(grid = "x") + 
+  theme(
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    plot.subtitle = element_markdown()
+  ) -> jbean_1  
+
+data_jbean |>
+  ggplot(aes(X1,"A"))+
+  geom_boxplot() + 
+  labs(
+    x = "Guessed Number of Beans"
+  ) + 
+  theme_ipsum_es(grid = "x") + 
+  theme(
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    plot.subtitle = element_markdown()
+  )  -> jbean_2
+
+data_jbean |>
+  ggplot(aes(X1))+
+  geom_histogram() + 
+  labs(
+    x = "Guessed Number of Beans"
+  ) + 
+  theme_ipsum_es() -> jbean_3
+
+
+jbean_1/jbean_2/jbean_3    
+
+
+```
+
+## The Usual Guess
+
+
+:::: {.columns}
+
+::: {.column width="35%"}
+
+
+```{r}
+#| label: show-some-num-for-mean
+
+round(rnorm(5, 10, 5)) -> nums_averages
+```
+
+**The Observations**
+
+```{r}
+#| label: show-nums
+
+nums_averages
+```
+
+**Ordered**
+
+```{r}
+#| label: show-sorted
+
+sort(nums_averages)
+
+```
+
+**sum**
+
+```{r}
+#| label: show-mean
+
+sum(nums_averages)
+
+sum(nums_averages)/5
+```
+
+:::
+
+::: {.column width="65%"}
+
+**Mean**  
+        Sum of all observations divided by the number of observations  
+          
+  
+**Median**  
+        The value that has half the observations below it and half above it  
+            
+
+**Mode**  
+        The most frequently occurring number
+
+
+
+
+:::
+
+::::
+
+## Skewness {.nostretch .smaller}
+
+```{r}
+#| label: fig-jelly-beans-skew
+#| fig-cap: How mean is affected by extreme values
+#| fig-dpi: 500
+#| fig-height: 7.5
+
+library(patchwork)
+
+read_csv("https://raw.githubusercontent.com/dspiegel29/ArtofStatistics/refs/heads/master/02-2-3-jelly-bean-counts/02-1-bean-data-full-x.csv",col_names = F) -> data_jbean
+
+data_jbean |>
+  ggplot(aes(X1,"A"))+
+  geom_jitter(alpha = 0.5) + 
+  geom_vline(aes(xintercept = mean(data_jbean$X1)), colour = "#2226f1") + 
+  geom_vline(aes(xintercept = median(data_jbean$X1)), colour = "#3a6d1c") + 
+  labs(
+    x = "Guessed Number of Beans"
+  ) + 
+  theme_ipsum_es(grid = "x") + 
+  theme(
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    plot.subtitle = element_markdown()
+  ) -> jbean_1  
+
+data_jbean |>
+  ggplot(aes(X1,"A"))+
+  geom_boxplot() + 
+  geom_vline(aes(xintercept = mean(data_jbean$X1)), colour = "#2226f1") + 
+  geom_vline(aes(xintercept = median(data_jbean$X1)), colour = "#3a6d1c") + 
+  labs(
+    x = "Guessed Number of Beans"
+  ) + 
+  theme_ipsum_es(grid = "x") + 
+  theme(
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    plot.subtitle = element_markdown()
+  )  -> jbean_2
+
+data_jbean |>
+  ggplot(aes(X1))+
+  geom_histogram() + 
+  geom_vline(aes(xintercept = mean(data_jbean$X1)), colour = "#2226f1") + 
+  geom_vline(aes(xintercept = median(data_jbean$X1)), colour = "#3a6d1c") + 
+  labs(
+    x = "Guessed Number of Beans"
+  ) + 
+  theme_ipsum_es() -> jbean_3
+
+
+jbean_1/jbean_2/jbean_3    
+
+
+```
+
+## Rescaled {.nostretch .smaller}
+
+Presented on a log10 scale
+
+```{r}
+#| label: fig-jelly-beans-skew-scale10
+#| fig-cap: Bean guesses on a log scale.
+#| fig-dpi: 500
+#| fig-height: 7.5
+
+library(patchwork)
+
+read_csv("https://raw.githubusercontent.com/dspiegel29/ArtofStatistics/refs/heads/master/02-2-3-jelly-bean-counts/02-1-bean-data-full-x.csv",col_names = F) -> data_jbean
+
+data_jbean |>
+  ggplot(aes(X1,"A"))+
+  geom_jitter(alpha = 0.5) + 
+  geom_vline(aes(xintercept = mean(data_jbean$X1)), colour = "#2226f1") + 
+  geom_vline(aes(xintercept = median(data_jbean$X1)), colour = "#3a6d1c") + 
+  scale_x_log10() +
+  labs(
+    x = "Guessed Number of Beans"
+  ) + 
+  theme_ipsum_es(grid = "x") + 
+  theme(
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    plot.subtitle = element_markdown()
+  ) -> jbean_1  
+
+data_jbean |>
+  ggplot(aes(X1,"A"))+
+  geom_boxplot() + 
+  geom_vline(aes(xintercept = mean(data_jbean$X1)), colour = "#2226f1") + 
+  geom_vline(aes(xintercept = median(data_jbean$X1)), colour = "#3a6d1c") + 
+  scale_x_log10() +
+  labs(
+    x = "Guessed Number of Beans"
+  ) + 
+  theme_ipsum_es(grid = "x") + 
+  theme(
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    plot.subtitle = element_markdown()
+  )  -> jbean_2
+
+data_jbean |>
+  ggplot(aes(X1))+
+  geom_histogram() + 
+  geom_vline(aes(xintercept = mean(data_jbean$X1)), colour = "#2226f1") + 
+  geom_vline(aes(xintercept = median(data_jbean$X1)), colour = "#3a6d1c") + 
+  scale_x_log10() +
+  labs(
+    x = "Guessed Number of Beans"
+  ) + 
+  theme_ipsum_es() -> jbean_3
+
+
+jbean_1/jbean_2/jbean_3    
+
+
+```
+
+## Measure of location
+
+
+1. Mean, Median, and Mode are *measures of location* of a data distribution.
+2. These measures reflect where the central mass of the data lies.^
+3. Mean gets easily affected by extreme values.
+4. Median does not get influenced by extreme values.
+
+**which measure to use?**: When the data is symmetric or close to it, one can use Mean or** Median. However, in distributions that are known to be skewed in one direction, it is better to use Median.
+
+::: aside
+
+^ Mode tells you most frequently occurring values, this is not necessarily expected to be near the central mass of the data. Frankly, mode is the middle child that usually gets ignored when variables of interest are continuous.
+
+** I am not suggesting to use mean and median interchangeably. In symmetric distributions these are very close to one another. 
+
+:::
+
+## Measures of Spread
+
+*Different samples or distributions can have the same/similar measure of location, but the **spread** can be different*
+
+<br><br>
+
+**Can you think of two sets of 5 numbers that have same/similar means but very different max and min observations**
+
+## Measures of Spread
+  
+<br>
+
+1. Range of the distribution: min value to max value. range of jelly beans is `r range(data_jbean$X1)`
+2. Inter Quartile Range (IQR): Distance between the 75th percentile and 25th percentile. IQR for jelly beans `r IQR(data_jbean$X1)`
+3. Standard Deviation: is the mean distance of every observation form the mean of the data. `r sd(data_jbean$X1)`
+
+# Strength of relationship
+  
+  
+> Recall @fig-mass-flipper-species, how would you quantify the strength of rerlationship between the body mass of penguins to the flipper length of penguins?
+
+## Which would you say is stronger? {.nostretch}
+
+![[IMS 2e](https://openintro-ims.netlify.app/explore-numerical#robust-statistics)](https://openintro-ims.netlify.app/explore-numerical_files/figure-html/unnamed-chunk-26-1.png)
+
+For each chart, What can you say about the strength, direction and linearity of relations?
+
+## Exe: which set has stronger realtion {.nostretch}
+```{r}
+#| label: fig-compare-association-strength
+#| fig-cap: Two Associations to compare
+#| fig-dpi: 500
+#| fig-height: 12
+#| layout-ncol: 2
+
+tibble(
+  x1 = rnorm(100,15,3),
+  y1 = 7- 2*x1 + rnorm(100,1.5,4.5),
+  x2 = rnorm(100,32,6.4),
+  y2 = 7- 2*x2 + rnorm(100,3.2,16),
+) -> dat
+
+dat |>
+  ggplot(aes(x1,y1)) + 
+  geom_point() + 
+  geom_smooth(method = "lm",se = F) + 
+  theme_ipsum_es()
+
+
+dat |>
+  ggplot(aes(x2,y2)) + 
+  geom_point() + 
+  geom_smooth(method = "lm",se = F) + 
+  theme_ipsum_es()
+
+```
+
+## Measure of association
+
+<br><br>
+
+1. Pearson's correlation Coefficient: Measure the strenght of *linear* relation. Range is between -1 and 1
+2. Spearman's Rank measure: Can measure strength of association of non-linear relations as well, but only monotonic funcitons. Range is between -1 and 1
+
+# Reminder
+
+  
+  > There is no alternative to looking at data
+
+## The quartet - Anscombe and friends
+
+::::: columns
+::: column
+```{r}
+#|echo: false
+
+anscombe
+```
+:::
+
+::: column
+```{r}
+#| echo: false
+
+dplyr::summarise(
+  anscombe,
+  dplyr::across(
+    dplyr::contains("y"),
+    list(
+      mean = ~ mean(.x),
+      sd = ~ sd(.x)
+    )
+  )
+)|>tidyr::pivot_longer(cols = dplyr::everything(),
+                       names_sep = "_",names_to = c("variable","measure"))|>
+  tidyr::pivot_wider(names_from = measure,values_from = value)
+```
+
+Corr x1, y1: `r cor(anscombe$x1,anscombe$y1)`\
+Corr x2, y2: `r cor(anscombe$x2,anscombe$y2)`\
+Corr x3, y3: `r cor(anscombe$x3,anscombe$y3)`\
+Corr x4, y4: `r cor(anscombe$x4,anscombe$y4)`
+:::
+:::::
+
+## Things are not always as they seem
+
+<figure>
+
+<img src="https://socviz.co/generated-figures/fig-ch-01-anscombe.png" class="center" style="width:800px;height:500px;"/>
+
+<figcaption style="font-size:15px">
+
+Anscombe's quartet-from Data Visualization by Healy
+
+</figcaption>
+
+</figure>
+
+# End of Session 3
 
 # References

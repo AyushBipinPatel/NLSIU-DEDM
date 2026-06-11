@@ -1,0 +1,683 @@
+---
+title: "Data, Evidence, and Decision Making (with R)"
+author: "Ayush Patel"
+subtitle: "Session 4: Working with Data in R"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: true
+bibliography: citations.bib
+execute: 
+  echo: true
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+
+# Readings
+
+The required readings before this class:
+
+1. Chapter 3, *Data transformation* of @wickham2023r4ds
+2. Chapter 4, *Workflow: code style* of @wickham2023r4ds
+
+## You are expected to know
+
+1. What an object is?
+2. Basic assignment in R
+3. The difference between scripts and quarto documents
+4. How to run code in RStudio
+5. How to create vectors and data frames
+6. Basic subsetting
+
+## This Session
+
+1. We will learn how to work with data frames
+2. Use `dplyr` functions for common data manipulation tasks
+3. Learn to filter, select, arrange, and create variables
+4. Summarise data and count observations
+5. Combine multiple steps using pipes
+6. Learn about pivoting, joining, and handling missing values
+
+# Setup
+
+## Packages
+<br><br><br>
+
+Please Load these pckages <br>
+
+```{r}
+#| label: setup-libs
+#| output: false
+#| warning: false
+
+library(tidyverse)
+library(palmerpenguins)
+library(flipbookr)
+```
+
+## Data - penguins
+
+We will use the `penguins` data for most examples.
+
+```{r}
+#| label: show-penguins
+#| echo: false
+penguins
+```
+
+## Data - starwars
+
+We'll also use `starwars` some examples.
+
+```{r}
+#| label: show-starwars
+#| echo: false
+starwars
+```
+
+## Data - mtcars
+
+We'll also use `mtcars` some examples.
+
+```{r}
+#| label: show-mtcars
+#| echo: false
+mtcars
+```
+
+
+
+# Why data wrangling?
+
+## Raw data is rarely ready
+
+Most datasets are not immediately ready for analysis.
+
+Usually we need to:
+
+1. Keep only the variables we need
+2. Keep only the observations we want
+3. Create new variables
+4. Recode old variables
+5. Summarise the data
+
+## The main verbs
+
+The `dplyr` package gives us a few very useful functions:
+
+1. `select()` to choose columns
+2. `filter()` to choose rows
+3. `arrange()` to sort rows
+4. `mutate()` to create new variables
+5. `summarise()` to compute summary statistics
+6. `count()` to count observations
+7. `group_by()` to do all of this by groups
+
+# `filter()`
+
+## 
+
+![[Allison Horst](https://allisonhorst.com/)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/dplyr_filter.jpg)
+
+## Filtering rows
+
+Use `filter()` when you want only observations satisfying some condition.
+
+```{r}
+filter(starwars, height > 164)
+```
+
+## More than one condition
+
+```{r}
+filter(starwars, height > 164, mass > 80)
+```
+
+## Using logical operators
+
+```{r}
+filter(starwars, homeworld == "Naboo" | homeworld == "Tatooine")
+```
+
+## Missing values matter
+
+If a variable has missing values, be careful.
+
+```{r}
+filter(starwars, !is.na(mass))
+```
+
+# `select()`
+
+## Selecting variables
+
+Use `select()` when you want only a few columns.
+
+```{r}
+select(starwars, name, films, vehicles, starships)
+```
+
+## Dropping variables
+
+You can also remove columns by using `-`.
+
+```{r}
+select(starwars, -height, -mass)
+```
+
+## A small reminder
+
+`select()` works on columns, not rows.
+
+So use it when the problem is:
+
+- "I do not need all these variables."
+- "I only want these 3 or 4 columns."
+
+## Some other valid ways 
+
+<br><br>
+
+```{r}
+select(penguins, c(1:5))
+```
+
+## Some other valid ways 
+
+<br><br>
+
+```{r}
+select(penguins, c(1,3,5,8))
+```
+
+## Some other valid ways 
+
+<br><br>
+
+```{r}
+select(penguins, -c(1:5))
+```
+
+## Activity 1
+
+   + Use the `penguins` data for this activity
+   + View the `penguins` data
+   + filter those observations where a penguin weighs more than 3900 gms
+   + from the `penguins` data only select columns `bill_lenght_mm`, `flipper_length_mm`, `body_mass_g`
+   + Get the following code to execute, it might have an error:
+   
+```{r eval=FALSE}
+# copy this code and make it work
+
+select(penguins,islands, c(sex,year))
+
+```
+
+# `arrange()`
+
+## Sorting rows
+
+Use `arrange()` to sort data.
+
+```{r}
+arrange(starwars, mass)
+```
+
+## Descending order
+
+```{r}
+arrange(starwars, desc(mass))
+```
+
+## Sorting by multiple variables
+
+```{r}
+#| echo: true
+#| eval: false
+arrange(starwars, homeworld, desc(height))
+```
+
+```{r}
+#| echo: false
+arrange(starwars, homeworld, desc(height)) |>
+    relocate(name, height, mass, homeworld, everything())
+```
+
+# `mutate()`
+
+## 
+
+![[Allison Horst](https://allisonhorst.com/)](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/bd4ae264-ae51-4d18-bd60-7a058ab42fba_rw_1920.png?h=a3757d1f46f418c59e7e7946d026344e)
+
+## Creating new variables
+
+Use `mutate()` when you want to add a new variable.
+
+```{r}
+#| echo: true
+#| eval: false
+mutate(starwars,
+       height_m = height / 100)
+```
+
+
+```{r}
+#| echo: false
+mutate(starwars,
+       height_m = height / 100,.before = 2)
+```
+
+## Multiple variables at once
+
+```{r}
+#| echo: true
+#| eval: false
+mutate(
+  starwars,
+  height_m = height / 100,
+  mass_kg = mass
+)
+```
+
+```{r}
+#| echo: false
+
+mutate(
+  starwars,
+  height_m = height / 100,
+  mass_kg = mass,
+  .before = 4
+)
+```
+
+
+
+## Reusing created variables
+
+```{r}
+#| echo: true
+#| eval: false
+mutate(
+  starwars,
+  height_m = height / 100,
+  height_cm = height_m * 100
+)
+```
+
+
+```{r}
+#| echo: false
+
+mutate(
+  starwars,
+  height_m = height / 100,
+  height_cm = height_m * 100,
+  .before = 4
+)
+```
+
+
+## Why this matters
+
+This is useful when:
+
+1. Units need to be changed
+2. Ratios or differences need to be computed
+3. Variables need to be recoded before plotting or modeling
+
+# count()
+
+## Counting rows by group
+
+Use `count()` when you want to know how many rows are in each group.
+
+```{r}
+count(starwars, homeworld)
+```
+
+## Sorted counts
+
+```{r}
+count(starwars, homeworld, sort = TRUE)
+```
+
+## More than one column
+
+```{r}
+count(starwars, homeworld, species)
+```
+
+## Activity 2
+
+Use the `penguins` data to get do the following
+
+Write code to create new columns, with appropriate names:  
+  
+
+  + that records the mass of a penguin in Kilograms 
+  + column that classifies an observation as "fluffy" if it has mass more than 4500, otherwise as "not fluffy" HINT: use the `ifelse` function
+
+
+# summarise()
+
+## Getting summary values
+
+Use `summarise()` when you want to reduce data to a few numbers.
+
+```{r}
+summarise(
+  starwars,
+  mean_mass = mean(mass, na.rm = TRUE),
+  median_height = median(height, na.rm = TRUE)
+)
+```
+
+## Common summary functions
+
+Some common functions used inside `summarise()` are:
+
+1. `mean()`
+2. `median()`
+3. `min()`
+4. `max()`
+5. `sd()`
+6. `n()`
+
+# group_by()
+
+## Summaries by group
+
+`group_by()` becomes very useful when combined with `summarise()`.
+
+```{r}
+starwars |> 
+  group_by(species) |> 
+  summarise(
+    mean_mass = mean(mass, na.rm = TRUE),
+    median_height = median(height, na.rm = TRUE),
+    n = n()
+  )
+```
+
+## More than one grouping variable
+
+```{r}
+starwars |> 
+  group_by(homeworld, species) |> 
+  summarise(
+    mean_mass = mean(mass, na.rm = TRUE),
+    n = n()
+  )
+```
+
+## What is happening?
+
+This code:
+
+1. Splits the data into groups
+2. Computes the summary within each group
+3. Returns a new data frame
+
+
+## Activity 3
+
+Use the `penguins` data:
+
+Write code to :  
+  
+  + Get mean flipper length
+  + median body mass
+  + the max bill lenght (HINT: use the `max` function)
+
+
+# Pipes
+
+## 
+
+
+:::: {.columns}
+
+::: {.column}
+
+_You want to do this:_  
+
+__f(g(h(x)))__ == __z__  
+  
+_f_, _g_, and _h_ are functions.  
+  
+_x_ is the object on which you want to use said functions  
+  
+_z_ is the what we get from f(g(h(x)))  
+
+
+:::
+
+::: {.column}
+
+_Using the `%>%` or `|>`_  
+  
+```
+x |> 
+  h() |> 
+    g() > 
+      f()
+```
+
+
+:::
+
+::::
+
+## Why use the pipe?
+
+1. Code readability
+2. More control on intermediate steps
+3. Less intermediate objects
+
+
+## Why pipes?
+
+
+```{r}
+penguins |>
+  filter(!is.na(body_mass_g)) |>
+  select(species, island, body_mass_g) |>
+  arrange(desc(body_mass_g))
+```
+
+## Read this slowly
+
+Think of `|>` as:
+
+"Take the output from the previous step and pass it into the next step."
+
+## A more realistic example
+
+```{r}
+penguins |>
+  filter(!is.na(body_mass_g), !is.na(species)) |>
+  group_by(species) |>
+  summarise(
+    avg_mass = mean(body_mass_g, na.rm = TRUE),
+    count = n()
+  ) |>
+  arrange(desc(avg_mass))
+```
+
+## Comparison: with vs without pipe
+
+
+:::: {.columns}
+
+::: {.column}
+
+With `|>`:
+
+```{r}
+penguins |> 
+  filter(species == "Gentoo") |> 
+  mutate(
+    is_fluffy = if_else(
+      body_mass_g > 3500, 1, 0)
+  ) |> 
+  summarise(
+    Number_of_fluffy_Gentoos = 
+      sum(is_fluffy, na.rm = TRUE)
+  )
+```
+
+
+:::
+
+::: {.column}
+
+Without `|>`:
+
+```{r}
+filter(penguins, species == "Gentoo") -> gentoo_penguins
+
+fluffy_gentoos <- mutate(
+    gentoo_penguins,
+       is_fluffy = 
+         if_else(body_mass_g > 3500, 1, 0)
+         )
+
+summarise(
+    fluffy_gentoos,
+       Number_of_fluffy_Gentoos = 
+         sum(is_fluffy, na.rm = TRUE)
+         )
+```
+
+
+:::
+
+::::
+
+##
+
+```{r flip_pipe, eval=FALSE, include=FALSE,message=FALSE,warning=FALSE}
+
+penguins %>% #BREAK
+  filter(species == 
+           "Gentoo") %>% #BREAK2
+  mutate(
+    is_fluffy = 
+      if_else(body_mass_g>3500,
+              1,0)
+  ) %>% #BREAK3
+  summarise(
+    Number_of_fluffy_Gentoos = 
+      sum(is_fluffy,na.rm = T),
+    average_flliper_length = 
+      mean(flipper_length_mm, 
+           na.rm = T),
+    average_bill_depth = 
+      mean(bill_depth_mm,
+           na.rm = T)
+  )
+```
+
+
+`r chunk_reveal(chunk_name = "flip_pipe",platform = "quarto", title = "Peeping into the pipe")`
+
+
+## Activity 4
+
+Use the `mtcars` data.  
+  
+Copy the following code in your console to see the documentation about the data.  
+  
+```{r eval=FALSE}
+?mtcars
+```
+  
+
+Write code to (use ` |>` operator) :  
+  
+  + For cars that have manual transmission,Find the grouped average Miles per gallon for cars with various cylinders. 
+
+# case_when()
+
+## Grouping a variable
+
+Use `case_when()` when you want to create a new variable based on multiple conditions.
+
+Say you want to add a new variable according to the following requirement:
+
+- If price is between 1 to 100 classify as `Affordable`
+- If price is between 101 to 300 classify as `Not too costly`
+- If price is 301 or more classify as `Will go somewhere else`
+
+## Example
+
+```{r}
+tibble(
+  food_item = c("Biryani", "Ratia", "Pasta", "Fish curry",
+                "Mutton Khema", "Squid fry", "Dal chawal"),
+  price = c(250, 50, 500, 600, 650, 450, 100)
+) -> food_price
+
+food_price |> 
+  mutate(
+    how_costly = case_when(
+      price >= 1 & price <= 100 ~ "Affordable",
+      price >= 101 & price <= 300 ~ "Not too costly",
+      price >= 301 ~ "Will go somewhere else"
+    )
+  )
+```
+
+## Mutually exclusive conditions
+
+It is best to use `case_when()` when all conditions are mutually exclusive.
+
+```{r}
+c(1, 2, 3, 4, 5, 6, 9, 8) -> numbers_obj
+
+new_class <- case_when(
+  numbers_obj > 0 ~ "Greater than 0",
+  numbers_obj > 5 ~ "Greater than 5",
+  numbers_obj < 100 ~ "less than 100"
+)
+new_class
+```
+
+## When no condition is matched
+
+```{r}
+c(numbers_obj, -1) -> numbers_obj
+new_class <- case_when(
+  numbers_obj > 0 ~ "Greater than 0",
+  numbers_obj > 5 ~ "Greater than 5",
+  numbers_obj < 100 & numbers_obj > 0 ~ 
+    "less than 100 and greater than 0"
+)
+new_class
+```
+
+## Activity 5
+
+Use the `penguins` data  
+  
+write a code to create a new column that takes the value:  
+  
+  + _Not fluffy_ if the body mass of the penguin is 2700-3550  
+  + _Normal_ if the body mass of the penguin is 3551- 4050  
+  + _Fluffy_ if the body mass of the penguin is 4751-6300  
+  + Find out the frequency of the values that this new variable takes (HINT: use the `count` funciton)
+
+# End of Session 4
+
+# References

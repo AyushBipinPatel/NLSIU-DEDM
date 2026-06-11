@@ -1,7 +1,7 @@
 ---
 title: "Data, Evidence, and Decision Making (with R)"
 author: "Ayush Patel"
-subtitle: "Session 1"
+subtitle: "Session 1: Stories, Evidence, and Claims"
 institute: "National Law School of India University, Bengaluru"
 date: today
 date-format: "DD MMM, YYYY"

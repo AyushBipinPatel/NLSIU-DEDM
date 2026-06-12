@@ -141,7 +141,7 @@ Navigate the RStudio interface (console, script, environment, files panes); unde
 
 Readings:
 
-- **Healy, Kieran.** *Data Visualization: A Practical Introduction*. Chapter 1: *Get Started*.
+- **Healy, Kieran.** *Data Visualization: A Practical Introduction*. Chapter 2: *Get Started*.
 
 - **Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund.** *R for Data Science* (2nd ed.). Chapter 2: *Workflow: basics*.
 

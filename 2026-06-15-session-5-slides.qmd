@@ -1,0 +1,272 @@
+---
+title: "Data, Evidence, and Decision Making (with R)"
+author: "Ayush Patel"
+subtitle: "Session 5: Graphs As Arguments"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: true
+bibliography: citations.bib
+execute: 
+  echo: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+```{r}
+#| label: setup-libs
+
+library(tidyverse)
+library(hrbrthemes)
+library(ggtext)
+```
+
+# Readings
+
+Did you complete these readings?
+  
+
+1. Data Visualization a Practical Introduction, Chapter 1 : Look at data @healy2019socviz
+2. How Not to Be Wrong: The Power of Mathematical Thinking, Chapter 4: How Much is That in Dead Americans? @ellenberg2014hownotwrong
+
+# Why *look* at data?
+
+  
+> Isn't looking at number enough?
+
+## Anscombe as reminder
+
+:::: {.columns}
+::: {.column}
+```{r}
+#|echo: false
+
+anscombe
+```
+:::
+
+::: {.column}
+```{r}
+#| echo: false
+
+dplyr::summarise(
+  anscombe,
+  dplyr::across(
+    dplyr::contains("y"),
+    list(
+      mean = ~ mean(.x),
+      sd = ~ sd(.x)
+    )
+  )
+)|>tidyr::pivot_longer(cols = dplyr::everything(),
+                       names_sep = "_",names_to = c("variable","measure"))|>
+  tidyr::pivot_wider(names_from = measure,values_from = value)
+```
+
+Corr x1, y1: `r cor(anscombe$x1,anscombe$y1)`\
+Corr x2, y2: `r cor(anscombe$x2,anscombe$y2)`\
+Corr x3, y3: `r cor(anscombe$x3,anscombe$y3)`\
+Corr x4, y4: `r cor(anscombe$x4,anscombe$y4)`
+:::
+::::
+
+::: {.notes}
+Ansocome is a "manufactured and extreme" example, as @healy2019socviz puts it, but there are real examples too.
+:::
+
+## Looking at the Quartet
+
+![[Anscombe's quartet-from Data Visualization by Healy](https://socviz.co)](https://socviz.co/generated-figures/fig-ch-01-anscombe.png)
+
+## A Real World Example 
+
+See @healy2019socviz, chapter 1, for details on how this graph challenged a proposed significant association between income inequality and voter turn out.
+
+![[Data Visualization by Healy](https://socviz.co)](https://socviz.co/assets/fig-ch-01-jackman-outlier.png)
+
+# Good Data Viz
+
+  
+> Helps to better understand the real word, spot patterns, and ask questions.
+
+## Remember the killer doctor
+
+```{r}
+#| label: fig-replicative-shipman-time
+#| fig-cap: A replication of death time for Harold Shipman's victims.
+#| echo: false
+
+read_csv("https://raw.githubusercontent.com/dspiegel29/ArtofStatistics/refs/heads/master/00-2-shipman-times/00-2-shipman-times-x.csv") |>
+  ggplot(aes(Hour, Shipman)) + 
+  geom_line() +
+  geom_line(aes(Hour, Comparison), linetype = 2) + 
+  labs(
+    title = "Comparing time of death",
+    subtitle = "Solid line is for deaths of Shipman's victims. Dotted line is death count of comparison group",
+    x = "Hour of the day",
+    y = "Number of deaths",
+    caption = "Data Source: Github dspiegel29/ArtofStatistics and The Art of Statistics"
+  )+
+  theme_minimal()
+
+```
+
+# What makes a good data viz?
+
+## It is not easy to define
+
+  
+[No mechanical set of rules that can be universally applied]{.fragment fragment-index='1'}  
+  
+[Effectiveness is dependent on many factors: Audience, medium, why thy are looking at it, etc.]{.fragment fragment-index='2'}  
+  
+[*Some part* of learning what is good data viz is about developing a good taste.]{.fragment fragment-index='3'}  
+  
+[it also involves learning about perception and good practices]{.fragment fragment-index='4'}  
+  
+[While some rules can be broken, one must know exactly when, why, and how?]{.fragment fragment-index='5'}  
+  
+[**Learning what is good data viz also involves learning to identify what is bad data viz**]{.fragment fragment-index='6'}
+
+
+# What makes a bad graph?
+
+## Three kinds of errors
+
+There can be one or a combination of the following kinds of errors in a chart.
+
+<br><br>
+[Aesthetic]{.fragment fragment-index='1'}
+<br><br>
+[Substantive]{.fragment fragment-index='2'}
+<br><br>
+[Perceptual]{.fragment fragment-index='3'}
+
+## Aesthetic - Bad Taste
+
+<br><br>
+
+[Redundant elements]{.fragment fragment-index='1'}
+<br><br>
+[Too much junk]{.fragment fragment-index='2'}
+<br><br>
+[very low data to ink ratio]{.fragment fragment-index='3'}
+<br><br>
+[Over burdens the readers cognitive load]{.fragment fragment-index='4'}
+
+## Aesthetic - Bad Taste
+
+![[From FlowingData](https://flowingdata.com/)](https://flowingdata.com/wp-content/uploads/2014/04/Changing-face.jpg)
+
+## Aesthetic - Bad Taste
+
+![[From FlowingData](https://flowingdata.com/)](https://flowingdata.com/wp-content/uploads/2013/07/Speaking-the-world-620x617.jpg)
+
+## Substantive - Error in data or its presentation
+
+
+![[From FlowingData](https://flowingdata.com/)](https://flowingdata.com/wp-content/uploads/2026/05/inflation-cherrypicking-750x761.png)
+
+## Substantive - NYT example from @healy2019socviz
+
+![What can you say about and from this chart?](https://socviz.co/assets/fig-ch-01-democracy-nyt-version.png)
+
+## Substantive - NYT example from @healy2019socviz
+
+What if I told you?
+
+<br><br>
+
+[These are are not the responses from a longitudinal survey]{.fragment fragment-index='1'}
+<br><br>
+[Actually, it is the same question asked to people born in different decades, i.e., different age groups.]{.fragment fragment-index='2'}
+<br><br>
+[Cherry on top it was not a binary question]{.fragment fragment-index='3'}
+<br><br>
+[Identifying substantive problems require understanding of underlying data of a chart, being observant of any transformations and consequent effects, etc..]{.fragment fragment-index='4'}
+
+## Substantive - NYT example from @healy2019socviz
+
+![Voeten's correction](https://socviz.co/assets/fig-ch-01-democracy-voeten-version-2.png)
+
+## Perception
+
+![[From FlowingData](https://flowingdata.com/)](https://flowingdata.com/wp-content/uploads/2013/08/Gratuitous-pies.png)
+
+## Perception 
+
+![[From FlowingData](https://flowingdata.com/)](https://flowingdata.com/wp-content/uploads/2012/04/3d-column-chart-of-awesome.png)
+
+## Perception 
+
+![[From FlowingData](https://flowingdata.com/)](https://flowingdata.com/wp-content/uploads/2012/04/exploding-pie-charts-ftw.png)
+
+## Perception
+
+```{r}
+#| label: bristol-truncated
+#| fig-dpi: 500
+
+read_csv("https://raw.githubusercontent.com/dspiegel29/ArtofStatistics/refs/heads/master/01-1-2-3-child-heart-survival-times/01-1-child-heart-survival-x.csv")  |>
+  ggplot(aes(y = Hospital, x = ThirtyDaySurvival)) + 
+  geom_col(fill = "steelblue") + 
+  labs(
+    title = "Share of children surviving 30 days of heart surgery",
+    y = NULL,
+    x = "Proportion of children",
+    caption = "Data Source: Github Repo dspiegel29/ArtofStatistics"
+      ) + 
+  coord_cartesian(xlim = c(95,100)) +
+  theme_ipsum_es(grid = "x")   
+
+```
+
+## Perception {.nostretch}
+
+```{r}
+#| label: bristol-not-truncated
+#| fig-dpi: 500
+
+read_csv("https://raw.githubusercontent.com/dspiegel29/ArtofStatistics/refs/heads/master/01-1-2-3-child-heart-survival-times/01-1-child-heart-survival-x.csv")  |>
+  ggplot(aes(Hospital, ThirtyDaySurvival)) + 
+  geom_col(fill = "steelblue") + 
+  labs(
+    title = "Share of children surviving 30 days of heart surgery",
+    x = NULL,
+    y = "Proportion of children",
+    caption = "Data Source: Github Repo dspiegel29/ArtofStatistics"
+      ) + 
+  theme_ipsum_es(grid = "X") + 
+  coord_flip()
+```
+
+# FLOWINGDATA
+
+See [here](https://flowingdata.com/projects/dishonest-charts/). A resource to visually and interactively understand how *dishonest* charts mislead.
+
+# Discussion
+
+<br><br>
+
+> How Not to Be Wrong: The Power of Mathematical Thinking, Chapter 4: How Much is That in Dead Americans? @ellenberg2014hownotwrong
+
+# Resources
+
+1. [ggplot wizardry by Dr Cedric Scherer](https://www.cedricscherer.com/slides/useR-2021_ggplot-wizardry-extended.pdf)
+2. [On neutrality of reader and conformation bias]( https://nightingaledvs.com/we-taught-students-to-read-graphs-but-we-forgot-to-teach-them-to-question-themselves/)
+
+# End of session
+
+# References
+

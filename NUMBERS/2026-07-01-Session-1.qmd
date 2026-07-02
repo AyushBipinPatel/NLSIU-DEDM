@@ -1,7 +1,9 @@
 ---
 title: "Numbers"
 author: "Ayush Patel"
-subtitle: "Session 1: Numbers that were not so easily accepted!"
+subtitle: |
+  | Session 1: Numbers that were not so easily accepted! 
+  | Session 2: The Average That Nobody Is: Meet Quetelet's Fictional Perfect Man
 institute: "National Law School of India University, Bengaluru"
 date: today
 date-format: "DD MMM, YYYY"
@@ -483,6 +485,61 @@ How would you summarise the animals I saw in the past 50 days?
 
 > Comparisons and Communication
 
+## Relative and Absolute Frequencies
+
+```{r}
+#| label: tbl-explain-frequencies
+#| tbl-cap: Incidence and Proportion of Penguin Species
+
+
+penguins |>
+  janitor::tabyl(species) |>
+  janitor::adorn_totals("row") |>
+  janitor::adorn_pct_formatting() |>
+  reactable::reactable()
+
+```
+
+## Relative and Absolute Frequencies {.nostretch}
+
+```{r}
+#| label: fig-show-freq-chart
+#| fig-cap: When to order your charts?
+
+penguins |>
+  janitor::tabyl(species) |>
+  mutate(
+    species = fct_reorder(species, n),
+  ) |>
+    ggplot(aes(species, n)) +
+    geom_col() +
+    geom_text(aes(y = n + 5, label = paste0(n," (",round(percent*100),"%)"))) +
+    labs(
+      title = "Incidence and share of Penguins by Species",
+      y = "Number of Penguins",
+      x = NULL 
+    ) +
+    theme_ipsum_es()
+```
+
+## Relative and Absolute Frequencies
+
+```{r}
+#| label: tbl-explain-frequencies-crosstab
+#| tbl-cap: Species and Island Cross Tabs
+
+
+penguins |>
+  janitor::tabyl(species, island) |>
+  janitor::adorn_totals(c("row","col")) |>
+  janitor::adorn_percentages() |>
+  janitor::adorn_pct_formatting() |>
+  janitor::adorn_ns() |>
+  reactable::reactable()
+  
+
+```
+
 ## The Bristol Case
 
 <br>
@@ -731,68 +788,314 @@ jbean_1/jbean_2/jbean_3
 
 ```
 
-## The Usual Guess
+## The usual guess: Mean
 
-
-:::: {.columns}
-
-::: {.column width="35%"}
-
+Here are 10 Numbers
 
 ```{r}
-#| label: show-some-num-for-mean
-
-round(rnorm(5, 10, 5)) -> nums_averages
+rnorm(10,5,1) -> a
+a
 ```
 
-**The Observations**
+<br><br>
+
+We refere to them as
+
+$Y = y_1, y_2,...., y_{10}$
+
+<br><br>
+
+We refer to the mean of these as $\bar{y}$.
+
+$\bar{y} = \frac{\sum_{i=1}^{n}(y_i)}{n}$
 
 ```{r}
-#| label: show-nums
-
-nums_averages
+mean(a)
 ```
 
-**Ordered**
+## The usual guess: Median
+
+<br><br>
+
+This is the *position* from which half the observations are below it and the other half is above it.
+
+<br><br>
+
+**Median of $Y$ = `r median(a)`**
+
+<br>
+
+**Lower Half**
 
 ```{r}
-#| label: show-sorted
-
-sort(nums_averages)
-
+a[a<median(a)]
 ```
 
-**sum**
+
+**Upper Half**
 
 ```{r}
-#| label: show-mean
-
-sum(nums_averages)
-
-sum(nums_averages)/5
+a[a>median(a)]
 ```
+
+
+## Measure of location
+
+
+1. Mean, Median, and Mode are *measures of location* of a data distribution.
+2. These measures reflect where the central mass of the data lies.^
+3. Mean gets easily affected by extreme values.
+4. Median does not get influenced by extreme values.
+
+**which measure to use?**: When the data is symmetric or close to it, one can use Mean or** Median. However, in distributions that are known to be skewed in one direction, it is better to use Median.
+
+::: aside
+
+^ Mode tells you most frequently occurring values, this is not necessarily expected to be near the central mass of the data. Frankly, mode is the middle child that usually gets ignored when variables of interest are continuous.
+
+** I am not suggesting to use mean and median interchangeably. In symmetric distributions these are very close to one another. 
 
 :::
 
-::: {.column width="65%"}
+## Measures of Spread
 
-**Mean**  
-        Sum of all observations divided by the number of observations  
-          
+*Different samples or distributions can have the same/similar measure of location, but the **spread** can be different*
+
+<br><br>
+
+**Can you think of two sets of 5 numbers that have same/similar means but very different max and min observations**
+
+## Measures of Spread
   
-**Median**  
-        The value that has half the observations below it and half above it  
-            
+<br>
 
-**Mode**  
-        The most frequently occurring number
+1. Range of the distribution: min value to max value. range of jelly beans is `r range(data_jbean$X1)`
+2. Inter Quartile Range (IQR): Distance between the 75th percentile and 25th percentile. IQR for jelly beans `r IQR(data_jbean$X1)`
+3. Standard Deviation: is the mean distance of every observation form the mean of the data. `r sd(data_jbean$X1)`
+
+## IQR {.smaller}
+
+**InterQuartile Range**:  Identifies the center mass of the spread a variable
+
+<br>
+
+:::: {.columns .column-page}
+
+::: {.column}
+
+**Steps to Calcualting IQR**: Odd Number of Observations
+
+1. Data:  12, 5, 9, 5, 20, 15, 8
+2. *Sort Data*:  5, 5, 8, 9, 12, 15, 20
+3. *Write out the positions:*
+
+|Position| 1 |2|3|4|5|6|7|
+|--------|-|-|-|-|-|-|-|
+|Data|5|5|8|**9**|12|15|20|
 
 
+:::
+
+::: {.column}
+
+4. *Split data in lower and Upper half*
+
+|Position| 1 |2|3
+|--------|-|-|-|
+|Lower half|5|5|8
+
+|Position| 5 |6|7
+|--------|-|-|-|
+|Upper half|12|15|10
+
+5. *Identify Mid point in both Halfs*: IQR is $15-5 = 10$
 
 
 :::
 
 ::::
+
+## IQR {.smaller}
+
+**InterQuartile Range**:  Identifies the center mass of the spread a variable
+
+<br>
+
+:::: {.columns .column-page}
+
+::: {.column}
+
+**Steps to Calcualting IQR**: Even Number of Observations
+
+1. Data:  25, 3, 7, 10, 11, 14, 18, 3
+2. *Sort Data*:  3, 3, 7, 10, 11, 14, 18, 25
+3. *Write out the positions:*
+
+|Position| 1 |2|3|4|5|6|7|8|
+|--------|-|-|-|-|-|-|-|-|
+|Data|3|3|7|10|11|14|18|25
+
+Median is 10.5
+
+:::
+
+::: {.column}
+
+4. *Split data in lower and Upper half*
+
+|Position| 1 |2|3|4
+|--------|-|-|-|-|
+|Lower half|3|3|7|10
+
+|Position| 5 |6|7|8
+|--------|-|-|-|-|
+|Upper half|11|14|18|25
+
+5. *Identify Mid point in both Halfs*: IQR is $16-5$ = 11
+
+
+:::
+
+::::
+
+## IQR - small sample and sudden jumps{.smaller}
+
+Data: 1, 2, 7, 9, 52, 53, 54. See [link](https://docs.google.com/spreadsheets/d/16o7hRjIHGOqSpHShnBm6Eiz7ccOF9vnOave3jMCn1qg/edit?usp=sharing) for excel example.
+
+```{r}
+#| label: tbl-concern-IQR
+#| tbl-cap: Small sample sizes and/or samples with sudden jums can have unexpected affects on percentile calculation
+map(
+  c(1:9),
+  ~tibble(
+    Method = paste0("method ",.x),
+    p_25 = c(1,2,7,9,52,53,54) |> 
+    quantile(0.25, type = .x),
+    p_50 = c(1,2,7,9,52,53,54) |> 
+    quantile(0.50, type = .x),
+    p_75 = c(1,2,7,9,52,53,54) |> 
+    quantile(0.75, type = .x)
+    )
+  ) |>
+      list_rbind() |>
+      reactable::reactable()
+```
+
+## Standard Deviation
+<br><br>
+
+**This is the average distance of observations from the mean**:
+
+<br>
+
+$s = \sqrt{\frac{\sum_{i=1}^n(y_i - \bar{y})^2}{(n-1)}}$
+
+<br>
+this too, like the mean, is influenced by outliers. Moreover, we need to carefully think how to interpret and use it depending on sample size.
+
+## SD and appropriate application {.nostretch .smaller}
+
+
+```{ojs}
+//| panel: input
+viewof n = Inputs.range([10, 5000], {value: 500, step: 10, label: "Number of observations (n)"})
+viewof mu = Inputs.range([-50, 50], {value: 0, step: 1, label: "Mean (μ)"})
+viewof sigma = Inputs.range([0.5, 20], {value: 5, step: 0.5, label: "SD (σ)"})
+```
+
+```{ojs}
+// Generate n random normal values with chosen mean and sd
+sample = {
+  const rnorm = d3.randomNormal(mu, sigma);
+  return Array.from({length: n}, () => rnorm());
+}
+```
+
+```{ojs}
+// Count how many observations fall within k*SD of the mean
+counts = {
+  const within = k => sample.filter(d => Math.abs(d - mu) <= k * sigma).length;
+  return {
+    one:   within(1),
+    two:   within(2),
+    three: within(3)
+  };
+}
+```
+
+```{ojs}
+// Simple Gaussian KDE (Epanechnikov kernel) for the density curve
+function kernelEpanechnikov(bandwidth) {
+  return x => (x /= bandwidth) <= 1 && x >= -1
+    ? 0.75 * (1 - x * x) / bandwidth
+    : 0;
+}
+
+function kde(kernel, thresholds, data) {
+  return thresholds.map(t => [t, d3.mean(data, d => kernel(t - d))]);
+}
+
+density = {
+  const bandwidth = 1.06 * d3.deviation(sample) * Math.pow(sample.length, -1/5); // Silverman's rule
+  const domainMin = mu - 4 * sigma;
+  const domainMax = mu + 4 * sigma;
+  const thresholds = d3.range(domainMin, domainMax, (domainMax - domainMin) / 200);
+  return kde(kernelEpanechnikov(bandwidth), thresholds, sample);
+}
+```
+
+```{ojs}
+// Title showing counts within ±1, ±2, ±3 SD
+htl.html`<span style="text-align:center; font-weight:normal;">
+  n = ${n}, μ = ${mu}, σ = ${sigma}<br>
+  <span style="font-size:0.55em;">
+    Within ±1 SD: ${counts.one} (${(100 * counts.one / n).toFixed(1)}%) &nbsp;|&nbsp;
+    Within ±2 SD: ${counts.two} (${(100 * counts.two / n).toFixed(1)}%) &nbsp;|&nbsp;
+    Within ±3 SD: ${counts.three} (${(100 * counts.three / n).toFixed(1)}%)
+  </span>
+</span>`
+```
+
+```{ojs}
+// Theoretical normal density function
+function normalPDF(x, mean, sd) {
+  return (1 / (sd * Math.sqrt(2 * Math.PI))) *
+    Math.exp(-0.5 * Math.pow((x - mean) / sd, 2));
+}
+
+theoretical = {
+  const domainMin = mu - 4 * sigma;
+  const domainMax = mu + 4 * sigma;
+  const thresholds = d3.range(domainMin, domainMax, (domainMax - domainMin) / 200);
+  return thresholds.map(x => ({x: x, y: normalPDF(x, mu, sigma)}));
+}
+```
+
+```{ojs}
+// Density plot: empirical KDE + theoretical normal curve
+Plot.plot({
+  width: 1400,
+  height: 500,
+  x: {label: "Value", domain: [mu - 4 * sigma, mu + 4 * sigma]},
+  y: {label: "Density"},
+  marks: [
+    Plot.areaY(density, {x: "0", y: "1", fill: "steelblue", fillOpacity: 0.25, curve: "basis"}),
+    Plot.line(density, {x: "0", y: "1", stroke: "steelblue", strokeWidth: 2, curve: "basis"}),
+    Plot.line(theoretical, {x: "x", y: "y", stroke: "black", strokeWidth: 2, strokeDasharray: "6,3", curve: "basis"}),
+    Plot.ruleX([mu], {stroke: "black", strokeDasharray: "4,2"}),
+    Plot.ruleX([mu - sigma, mu + sigma], {stroke: "orange", strokeDasharray: "2,2"}),
+    Plot.ruleX([mu - 2*sigma, mu + 2*sigma], {stroke: "red", strokeDasharray: "2,2"}),
+    Plot.ruleX([mu - 3*sigma, mu + 3*sigma], {stroke: "purple", strokeDasharray: "2,2"}),
+    Plot.text(["Solid = empirical (KDE)", "Dashed = theoretical N(μ,σ)"], {
+      x: mu + 3.8 * sigma,
+      y: [d3.max(density, d => d[1]) * 0.95, d3.max(density, d => d[1]) * 0.85],
+      textAnchor: "end",
+      fontSize: 11,
+      fill: "gray"
+    })
+  ]
+})
+```
 
 ## Skewness {.nostretch .smaller}
 
@@ -919,40 +1222,6 @@ jbean_1/jbean_2/jbean_3
 
 ```
 
-## Measure of location
-
-
-1. Mean, Median, and Mode are *measures of location* of a data distribution.
-2. These measures reflect where the central mass of the data lies.^
-3. Mean gets easily affected by extreme values.
-4. Median does not get influenced by extreme values.
-
-**which measure to use?**: When the data is symmetric or close to it, one can use Mean or** Median. However, in distributions that are known to be skewed in one direction, it is better to use Median.
-
-::: aside
-
-^ Mode tells you most frequently occurring values, this is not necessarily expected to be near the central mass of the data. Frankly, mode is the middle child that usually gets ignored when variables of interest are continuous.
-
-** I am not suggesting to use mean and median interchangeably. In symmetric distributions these are very close to one another. 
-
-:::
-
-## Measures of Spread
-
-*Different samples or distributions can have the same/similar measure of location, but the **spread** can be different*
-
-<br><br>
-
-**Can you think of two sets of 5 numbers that have same/similar means but very different max and min observations**
-
-## Measures of Spread
-  
-<br>
-
-1. Range of the distribution: min value to max value. range of jelly beans is `r range(data_jbean$X1)`
-2. Inter Quartile Range (IQR): Distance between the 75th percentile and 25th percentile. IQR for jelly beans `r IQR(data_jbean$X1)`
-3. Standard Deviation: is the mean distance of every observation form the mean of the data. `r sd(data_jbean$X1)`
-
-# End of Session 1
+# End of Session
 
 # References

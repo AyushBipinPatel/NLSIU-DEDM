@@ -7,7 +7,7 @@ subtitle: |
 institute: "National Law School of India University, Bengaluru"
 date: today
 date-format: "DD MMM, YYYY"
-embed-resources: true
+embed-resources: false
 bibliography: citations.bib
 execute: 
   echo: false

@@ -813,6 +813,45 @@ $\bar{y} = \frac{\sum_{i=1}^{n}(y_i)}{n}$
 mean(a)
 ```
 
+## The usual guess: Mean and subgroups
+
+<br><br>
+
+[Data doesn't always consist units of observation form the same group.]{.fragment fragment-index='1'}
+<br><br>
+[Keep the `Penguins` data in mind. There are three different species of penguins in the data.]{.fragment fragment-index='2'}
+<br><br>
+[It is important to understand how subgroup means relate to mean of the sample/overall mean.]{.fragment fragment-index='3'}
+
+## The usual guess: Mean and subgroups
+
+
+The mean of all penguins is `r penguins |> filter_out(is.na(species) | is.na(body_mass_g)) |>summarise(a = mean(body_mass_g, na.rm =T))|> pull(a)`, but..
+
+```{r}
+penguins |>
+  filter_out(is.na(species) | is.na(body_mass_g)) |>
+  select(species, body_mass_g) |>
+  gtsummary::tbl_summary(
+    by = species,
+    statistic = list(
+      gtsummary::all_continuous() ~ "{mean}"
+    ),
+    missing = "no",
+    digits = list(body_mass_g = c(3))
+  )
+```
+
+Notice that $\frac{(3700.66 + 3733.09 + 5076.02)}{3} \ne 4201.754$
+
+<br>
+
+but $\frac{((3700.66*151) + (3733.09*68) + (5076.02*123))}{(151+68+123)} = 4201.754$
+
+<br>
+
+so, $Overall\space Mean = \frac{((N_{g1} * \bar{y_{g1}}) + (N_{g2} * \bar{y_{g2}}) + (N_{g3} * \bar{y_{g3}}))}{(N_{g1} + N_{g2} + N_{g3})}$
+
 ## The usual guess: Median
 
 <br><br>

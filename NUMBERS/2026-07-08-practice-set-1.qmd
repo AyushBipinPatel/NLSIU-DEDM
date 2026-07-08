@@ -1,0 +1,193 @@
+---
+title: "Numbers"
+author: "Ayush Patel"
+subtitle: Some Practice questions (Sessions 1-3)
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute: 
+  echo: false
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+# Questions for Practice
+
+> For Sessions 1 -3
+
+## Question 1 {.smaller}
+
+From @cetinkaya-rundel2024ims2
+
+910 randomly sampled registered voters from Tampa, FL were asked if they thought workers who have illegally entered the US should be (i) allowed to keep their jobs and apply for US citizenship, (ii) allowed to keep their jobs as temporary guest workers but not allowed to apply for US citizenship, or (iii) lose their jobs and have to leave the country. The results of the survey by political ideology are shown below.
+
+```{r}
+openintro::immigration |>
+    janitor::tabyl(response,political) |>
+    reactable::reactable()
+```
+
+## Question 1 {.smaller}
+
+1. What percent of these Tampa, FL voters identify themselves as conservatives?
+
+2. What percent of these Tampa, FL voters are in favor of the citizenship option?
+
+3. What percent of these Tampa, FL voters identify themselves as conservatives and are in favor of the citizenship option?
+
+4. What percent of these Tampa, FL voters who identify themselves as conservatives are also in favor of the citizenship option? What percent of moderates share this view? What percent of liberals share this view?
+
+5. Do political ideology and views on immigration appear to be associated? Explain your reasoning.
+
+6. Conjecture other variables that might explain the potential relationship between these two variables.
+
+## Question 2 {.smaller}
+
+From @cetinkaya-rundel2024ims2
+
+Consider all of the flights out of New York City in 2013 that flew into Puerto Rico (BQN), Los Angeles (LAX), or San Francisco (SFO) on the following two airlines: JetBlue (B6) or United Airlines (UA). Below are the tabulated counts for the number of flights delayed and on time for each airline into each city.
+
+|dest|	carrier|	status|	count|
+|----|---------|----------|------|
+|BQN|	B6|	delayed|	271|
+|BQN|	B6|	on time|	322|
+|BQN|	UA|	delayed|	144|
+|BQN|	UA|	on time|	151|
+|LAX|	B6|	delayed|	670|
+|LAX|	B6|	on time|	999|
+|LAX|	UA|	delayed|	2368|
+|LAX|	UA|	on time|	3402|
+|SFO|	B6|	delayed|	405|
+|SFO|	B6|	on time|	615|
+|SFO|	UA|	delayed|	2694|
+|SFO|	UA|	on time|	4034|
+
+## Question 2 {.smaller}
+
+
+1. What percent of all JetBlue flights were delayed? What percent of all United Airlines flights were delayed? (Note, the overall delay proportions are typically what would be reported and associated with an airline.)
+
+2. For each of the three airports, find the percent of delayed flights for each of JetBlue and United (you should have 6 numbers).
+
+3. United has a higher proportion of delayed flights for each of the three cities, yet JetBlue has a higher proportion of delayed flights overall. Explain, using the data counts provided, how the seeming paradox could happen.
+
+## Question 3 {.smaller}
+
+From @cetinkaya-rundel2024ims2
+
+In a class of 25 students, 24 of them took an exam in class and 1 student took a make-up exam the following day. The professor graded the first batch of 24 exams and found an average score of 74 points with a standard deviation of 8.9 points. The student who took the make-up the following day scored 64 points on the exam.
+
+1. Does the new student’s score increase or decrease the average score?
+
+2. What is the new average?
+
+3. Does the new student’s score increase or decrease the standard deviation of the scores?
+
+## Question 4 {.smaller}
+
+From @cetinkaya-rundel2024ims2
+
+The infant mortality rate is defined as the number of infant deaths per 1,000 live births. This rate is often used as an indicator of the level of health in a country. The relative frequency histogram below shows the distribution of estimated infant death rates for 224 countries for which such data were available in 2014.
+
+![from ims](https://openintro-ims.netlify.app/explore-numerical_files/figure-html/unnamed-chunk-27-1.png)
+
+## Question 4
+
+1. Estimate Q1, the median, and Q3 from the histogram.
+
+2. Would you expect the mean of this dataset to be smaller or larger than the median? Explain your reasoning.
+
+
+## Question 5 
+
+From @cetinkaya-rundel2024ims2
+
+Workers at a particular mining site receive an average of 35 days paid vacation, which is lower than the national average. The manager of this plant is under pressure from a local union to increase the amount of paid time off. However, he does not want to give more days off to the workers because that would be costly. Instead he decides he should fire 10 employees in such a way as to raise the average number of days off that are reported by his employees. In order to achieve this goal, should he fire employees who have the most number of days off, least number of days off, or those who have about the average number of days off?
+
+## Question 6
+
+From @cetinkaya-rundel2024ims2
+
+Facebook data indicate that 50% of Facebook users have 100 or more friends, and that the average friend count of users is 190. What do these findings suggest about the shape of the distribution of number of friends of Facebook users? 
+
+## Question 7
+
+From @cetinkaya-rundel2024ims2
+
+For each of the following, state whether you expect the distribution to be symmetric, right skewed, or left skewed. Also specify whether the mean or median would best represent a typical observation in the data, and whether the variability of observations would be best represented using the standard deviation or IQR. Explain your reasoning.
+
+## Question 7
+
+1. Housing prices in a country where 25% of the houses cost below $350,000, 50% of the houses cost below $450,000, 75% of the houses cost below $1,000,000, and there are a meaningful number of houses that cost more than $6,000,000.
+
+2. Housing prices in a country where 25% of the houses cost below $300,000, 50% of the houses cost below $600,000, 75% of the houses cost below $900,000, and very few houses that cost more than $1,200,000.
+
+3. Number of alcoholic drinks consumed by college students in a given week. Assume that most of these students don’t drink since they are under 21 years old, and only a few drink excessively.
+
+## Question 7
+
+4. Annual salaries of the employees at a Fortune 500 company where only a few high level executives earn much higher salaries than all the other employees.
+
+5. Gestation time in humans where 25% of the babies are born by 38 weeks of gestation, 50% of the babies are born by 39 weeks, 75% of the babies are born by 40 weeks, and the maximum gestation length is 46 weeks.
+
+## Question 8
+
+From @freedman2007statistics
+
+Average hourly earnings are computed each month by the Bureau of Labor Statistics using payroll data from commercial  stablishments. The Bureau figures the total wages paid out (to nonsupervisory personnel), and divides by the total hours worked. During recessions, average hourly earnings typically go up. When the recession ends, average hourly earnings often  start going down. How can this be?
+
+## Question 9
+
+From @freedman2007statistics
+
+Each of the following lists has an average of 50. For which one is the spread of the numbers around the average biggest? smallest?
+
+(i) 0, 20, 40, 50, 60, 80, 100  
+(ii) 0, 48, 49, 50, 51, 52, 100  
+(iii) 0, 1, 2, 50, 98, 99, 100  
+
+## Question 10
+
+From @freedman2007statistics
+
+Three instructors are comparing scores on their finals; each had 99 students. In class A, one student got 1 point, another got 99 points, and the rest got 50 points. In class B, 49  students got a score of 1, one student got a score of 50, and 49 students got a score of 99. In class C, one student got a score of 1, one student got a score of 2, one student got a score of 3, and so forth, all the way through 99.  
+  
+
+(a) Which class had the biggest average? or are they the same?  
+(b) Which class had the biggest SD? or are they the same?  
+
+(c) Which class had the biggest range? or are they the same?
+
+## Question 11 {.smaller}
+
+The stock value of a company takes the following values over a period of 5 years:
+
+|period|Stock values | YoY growth rate for pervious year|
+|------|-------------|----------------------------------|
+|1     |125          |       -                          |    
+|2     |153.75       |23%                              |
+|3     |170.66       |11%                              |
+|4     |186.02       |9%                              |
+|5     |247.40       |33%                              |
+|6     |244.9        |-1%                              |
+
+<br>
+What is the average rate of change in the stock price over the period of 5 years?
+<br><br>
+Is this rate same as average of 23,11,9,33,-1 ? Explain why?
+
+# References

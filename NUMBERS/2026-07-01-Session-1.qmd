@@ -1,9 +1,7 @@
 ---
 title: "Numbers"
 author: "Ayush Patel"
-subtitle: |
-  | Session 1: Numbers that were not so easily accepted! 
-  | Session 2: The Average That Nobody Is: Meet Quetelet's Fictional Perfect Man
+subtitle: Sessions 1 to 4
 institute: "National Law School of India University, Bengaluru"
 date: today
 date-format: "DD MMM, YYYY"
@@ -114,7 +112,7 @@ These numbers are **Rational Numbers**
 
 > How does our world become data?
 
-Definitions -> Measurements -> organised format
+Definitions -> Measurements -> organized format
 
 <br>
 
@@ -922,7 +920,7 @@ a[a>median(a)]
 
 ::: {.column}
 
-**Steps to Calcualting IQR**: Odd Number of Observations
+**Steps to calculating IQR**: Odd Number of Observations
 
 1. Data:  12, 5, 9, 5, 20, 15, 8
 2. *Sort Data*:  5, 5, 8, 9, 12, 15, 20
@@ -947,7 +945,7 @@ a[a>median(a)]
 |--------|-|-|-|
 |Upper half|12|15|10
 
-5. *Identify Mid point in both Halfs*: IQR is $15-5 = 10$
+5. *Identify Mid point in both halves*: IQR is $15-5 = 10$
 
 
 :::
@@ -964,7 +962,7 @@ a[a>median(a)]
 
 ::: {.column}
 
-**Steps to Calcualting IQR**: Even Number of Observations
+**Steps to calculating IQR**: Even Number of Observations
 
 1. Data:  25, 3, 7, 10, 11, 14, 18, 3
 2. *Sort Data*:  3, 3, 7, 10, 11, 14, 18, 25
@@ -990,7 +988,7 @@ Median is 10.5
 |--------|-|-|-|-|
 |Upper half|11|14|18|25
 
-5. *Identify Mid point in both Halfs*: IQR is $16-5$ = 11
+5. *Identify Mid point in both halves*: IQR is $16-5$ = 11
 
 
 :::
@@ -1260,6 +1258,78 @@ jbean_1/jbean_2/jbean_3
 
 
 ```
+
+# Comparing dispersion: Within and Across Distributions
+
+## The Standard Deviation
+
+<br>
+[`sd` gives us an average distance of observations from the mean]{.fragment fragment-index='1'}
+<br><br>
+[unlike `variance`, it is in the same unit scale of the measure/variable]{.fragment fragment-index='2'}
+<br><br>
+[**But it fails to provide any useful information about dispersion of observations when compared within a distribution or on comparison of dispersion of two different distributions.**]{.fragment fragment-index='3'}
+
+## Z-score
+
+<br><br>
+
+$z = \frac{Observation - mean}{standard deviation}$
+
+<br>
+
+> Say, that all monarch butterflies come from a normal distribution of mean 680mg and sd of 32mg. A particular monarch butter fly weighs 744mg, named ButterKing. Also, imagine that all asiatic male elephants weights come from a normal distribution of mean 3600Kg and sd of 600Kg. A particular elephant weighs 4880 Kg, named Champak. **Who is more unusual when it comes to weights, ButtterKing or Champak?** 
+
+## Coefficient of Variatio
+
+<br><br>
+
+$CV = \frac{sd}{\bar{x}}$
+
+<br>
+
+> There are two distributions, one with mean 76 and sd 6.4, second with mean 176 and sd 16. which of the two distribution has more spread?
+
+<br>
+*doesnt work well with distributions with mean zero, close to zero or negative mean*
+
+# Exercise for Excel {.smaller}
+
+Get the data (`hh_98`) on from [here](https://microdata.worldbank.org/catalog/436/get-microdata),choose the csv files from micro data section. Use the documentaiton. Your goal is to generate two summary tables that convey the following information. Table structure can vary, but it should have all required information.
+
+
+
+
+:::: {.columns}
+
+
+:::{.column style="font-size: 0.6em;"}
+
+| - | Household land |  Household Assets |Per capita expediture on Food | 
+|---|----------------|-------------------|------------------------------|
+|Mean|  |  |  |
+|Median|  |  |  |
+|Standard deviation|  |  |  |
+|IQR |  |  |  |
+|34th percentile|  |  |  |
+|Number of observarions withi +/- 1sd|  |  |  |
+
+:::
+
+:::{.column style="font-size: 0.6em;"}
+
+| - | Household land |  Household Assets |Per capita expediture on Food | 
+|---|----------------|-------------------|------------------------------|
+| Mean for HH with no participant |  |  |  |
+| Mean for HH with only male participant |  |  |  |
+| Mean for HH with only Female participant |  |  |  |
+| Mean for HH with male and Female participants|  |  |  |
+
+:::
+
+::::
+
+
 
 # End of Session
 

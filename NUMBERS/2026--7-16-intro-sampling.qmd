@@ -1,0 +1,111 @@
+---
+title: "Numbers"
+author: "Ayush Patel"
+subtitle: Intro to sampling
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute: 
+  echo: false
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+# A central purpose
+
+<br>
+
+> what can we say about the many by studying the few?
+
+<br><br>
+
+The act of performing this task is called **Statistical Inference**.
+
+# Meaningful Inference
+
+An accurate and meaning full inference requires:
+
+1. A valid and reliable measure
+
+2. **A representative sample** (these slides introduce this idea through sampling)
+
+<br><br>
+
+::: aside
+This course only focuses on the analogy principle for statistical inference and frequentist approach
+:::
+
+# Randomization for Representativeness
+
+<br>
+
+The quality or "corectness" of inference depends on how well the sample represents the population.
+
+<br>
+
+Randomization is a way to achieve a representative sample.
+
+# Simple Random Sample
+
+<br>
+
+> All samples of a given size have an equal chance of being selected. Such samples are called simple random samples.
+
+<br><br>
+Imagine a population set that looks like $\{1,4,5,2,0,6\}$. All possible samples of size 1 have the same chance of being selected if sampling is done by SRS. Same follows for all sizes.
+
+# Sample Variability
+
+<br>
+
+Two random samples of the same size, drawn from the same population, will almost never have exactly same sample statistic (mean, sd, etc).
+
+<br>
+
+This is the variability caused by chance. 
+
+# Consider Sample Variability before inference {.smaller}
+
+<br>
+
+> Since samples vary due to chance and randomization, me must adjust for this variance before we use a sample statistic as an estimate of population parameter.
+
+# Sampling Error
+
+<br>
+
+We "estimate" the sampling variability and adjust for it.
+
+<br>
+
+It is never actually known in practice.
+
+<br>
+
+It decreases with sample size.
+
+# Unbiasedness
+
+<br>
+
+The larger goal is to sample in a way that our estimates have a property of **unbiasedness**
+
+<br>
+
+> meaning that if the sampling process is repeated several times, on an average the estimator does not overestimate or underestimate the population parameter.
+
+# End

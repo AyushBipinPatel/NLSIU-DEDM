@@ -1,0 +1,212 @@
+---
+title: "Numbers"
+author: "Ayush Patel"
+subtitle: Intro and Essentials of Sets
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute: 
+  echo: false
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+# A gentle intro to sets
+
+# Set {.smaller}
+
+> No formal definition exists. One can only describe a set with its properties. **It is a collection of objects. It can be finite or infinite**
+
+- All laptop serial numbers in NLSIU
+- Students in a class
+- All even numbers
+
+# Members {.smaller}
+
+<br>
+[A set contains *members* or *elements*.]{.fragment fragment-index='1'}
+<br><br>
+[Who gets to be a member must be well defined.]{.fragment fragment-index='2'}
+<br><br>
+[There are no two members in a set that are identical]{.fragment fragment-index='3'}
+
+# Notation {.smaller}
+
+<br>
+[Sets are usually represented by capital letters such as $A, B, C...$]{.fragment fragment-index='1'}
+<br><br>
+[Members of a set are represented by small letters such as $a,b,c,....$]{.fragment fragment-index='2'}
+<br><br>
+[If `b` is a member of `A`, it is written as $b \in A$. ]{.fragment fragment-index='3'}
+<br><br>
+[$b \notin A$ would mean that `b` does not belong in `A`]{.fragment fragment-index='4'}
+
+# Defining (Specifying) Sets {.smaller}
+<br>
+There are 3 ways to do it:
+
+<br>
+
+1. List Notation: List all the members of a set
+2. Predicate Notation: By providing a condition or a predicated of its members
+3. Recursive rules: A set of rules that generates its members
+
+## List Notation
+<br>
+List out all members of a set. Works for only finite sets.
+
+<br>
+A set of odd numbers less than 5 can be shown as $\{1,3\}$
+
+<br>
+
+This gets too tedious when the set has a lot of elements: Aadhar number of all Indians.
+
+<br>
+
+other examples can be:
+$\{1,2,3,...,100\}$,  $\{orange, apple, watermelon\}$
+
+## Predicate Notation
+<br>
+Using a condition or predicate that is met by all the members of a set.
+
+<br>
+
+$A = \{x | x \space is \space a \space natural \space number \space and \space x < 8\}$
+
+<br>
+This can get tricky, be careful how the predicate is formulated. It can result in paradoxes. 
+
+## Recursive Rules
+<br>
+Members are generated using these rules.
+
+<br>
+
+Take for example:
+<br>
+The set `E` of all even numbers greater than 3:
+
+1. $4 \in E$
+2. if $x \in E$, then $x + 2 \in E$
+3. Nothing else belongs in `E`
+
+# Identity of Sets {.smaller}
+
+<br>
+
+Two sets, A and B, are identical if and only if all members of A are in B and All members of B are in A.
+
+<br>
+
+$A = B$, *iff* for every $x$, $x \in A \leftrightarrow x \in B$
+
+
+# Cardinality of a set
+
+<br>
+
+The number of elements of a set is its cardinality. It is represented as $|A|$
+
+<br>
+
+$|A| = 7$ means that there are 7 elements in set A.
+
+# Subset {.smaller}
+
+<br>
+For two sets A and B. We A is a subset of B if all members of A are in B.
+
+<br>
+$A \subseteq B$ represents that A is subset of B
+
+<br>
+When $A \ne B$, and A is subset of B, we write $A \subset B$, indicating it is a *proper subset*
+
+# Operations of Sets
+
+## Union
+
+<br>
+
+For two arbirary sets A and B, Union of A and B is the set that contains all members of A as well as members of B.
+
+<br>
+
+$A \cup B = \{x | x \in A \space or \space x \in B\}$
+
+## Intersection 
+
+<br>
+The intersection of A and B is a set that has members that present in both sets A and B
+
+<br>
+
+$A \cap B = \{x | x \in A \space and \space x\in B\}$
+
+## Complement 
+
+<br>
+Complement of a set, say A, is a set with members that dont exist in A
+
+<br>
+
+$A' = \{x| x \notin A\}$
+
+## Difference 
+
+<br>
+For two sets A and B, the difference of A and B is a set of elements that are in A but not in B.
+
+<br>
+
+$A - B = \{x | x \in A \space and \space x \notin B\}$
+
+# Some Common laws {.smaller}
+
+
+:::: {.columns}
+
+::: {.column}
+
+1. $X \cup X = X$
+2. $X \cap X = X$
+3. $X \cup Y = Y \cup X$
+4. $X \cap Y = Y \cap X$
+5. $(X \cup Y) \cup Z = X \cup (Y \cup Z)$
+
+:::
+
+::: {.column}
+6. $(X \cap Y) \cap Z = X \cap (Y \cap Z)$
+7. $X \cup (Y \cap Z) = (X \cup Y) \cap (X \cup Z)$
+8. $X \cap (Y \cup Z) = (X \cap Y) \cup (X \cap Z)$
+9. $(X')' = X$
+
+
+:::
+
+::::
+
+
+
+# Learn More
+
+1. [Resource 1](ttps://people.umass.edu/partee/NZ_2006/Set%20Theory%20Basics.pdf)
+
+2. [Resource 2](https://www.math.uh.edu/~dlabate/settheory_Ashlock.pdf)

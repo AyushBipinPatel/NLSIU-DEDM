@@ -1,0 +1,86 @@
+---
+title: "Numbers"
+author: "Ayush Patel"
+subtitle: Session 6
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute: 
+  echo: false
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+# Random Process
+
+<br>
+
+> An event for which all possible outcomes are known but it is uncertain which particular outcome will occur.
+
+# Probability
+
+<br>
+
+> The proportion of occurrences of an outcome of a random process observed over a large number of observations.
+
+<br>
+Why large number of observation?
+
+# Probability Distribution
+
+<br>
+
+1. The sample distribution is not an accurate picture of population distribution
+
+2. We need a way to arrive at a reasonable estimate of the probability of outcomes in population using sample data
+
+3. If the sample is representative, we can estimate the probability distribution of a random process. This distribution is called the probability distribution.
+
+# Random Variable
+
+<br>
+
+> The outcomes of a Random Process can be assigned with a value. Recordings of the values of the outcomes of a random process is called a Random Variable
+
+<br><br>
+
+There can be discrete or continuous random variables.
+
+## Probability Distribution of discrete random variables
+
+<br>
+
+For an outcome space of a random process A, defined as $A  = \{a| a \space is \space number \space of \space instagram followers\}$
+
+<br>
+
+$0 <= P(a) <= 1$ and $\sum_{i =1}^{|A|}{P(a_i)} = 1$
+
+## Probability Distribution of a continious random variable
+
+<br>
+
+1. The outcome space of a continious random variable can be infinite. Ex: Weight of all elephants. Note the range may be finte, but the outcome space can be infinite.
+
+2. So, we must use intervals of a continious random variable to estimate probablity at a point. Say you want probability of the value 3420. So we estiate the probablity of the interval 3420 - a very tiny number to 3420 + a very tiny number. This is done using calculating the area under the cure.  
+
+# Review Questions
+
+1. Agresti Ch4, question 4.3
+2. Agresti Ch4, question 4.4
+3. Introductory Stats Ch4, 4.4tryit
+4. Introductory Stats Ch4, 4.5tryit

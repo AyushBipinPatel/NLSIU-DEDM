@@ -25,6 +25,16 @@ format:
     footer: "Email: ayush.ap58@gmail.com"
 ---
 
+```{r}
+#| include: false
+#| warning: false
+
+extrafont::loadfonts(device = "win")
+
+library(tidyverse)
+library(hrbrthemes)
+```
+
 # Random Process
 
 <br>
@@ -70,6 +80,38 @@ For an outcome space of a random process A, defined as $A  = \{a| a \space is \s
 
 $0 <= P(a) <= 1$ and $\sum_{i =1}^{|A|}{P(a_i)} = 1$
 
+## Car Ownership
+
+A survey is given to all of section E students. With only one question. Number of cars owned by their HH. Following is the summary table:
+
+|Number of Cars owned (N) | Total HH that own N cars | % of HH that own N cars |
+|-------------------------|--------------------------|-------------------------|
+| 0 | 4 | 5.7% |
+| 1 | 27 | 38.6% |
+| 2 | 18 | 25.7% |
+| 3 | 15 | 21.4% |
+| 4 | 6 | 8.6 % |
+
+## Car Ownership
+
+```{r}
+tibble(
+  n = c(0:4),
+  resp = c(4,27,18,15,6),
+  prop = resp/70 
+) |>
+  ggplot(aes(n,prop)) +
+  geom_col(width = 1, 
+  colour = "black",
+  fill = "lightgrey") +
+  labs(
+    x = "Number of cars owned by HH",
+    y = "Probablity",
+    title = "Probablity Distribution of cars owned by HH"
+  )+
+  theme_ipsum_es()
+```
+
 ## Probability Distribution of a continious random variable
 
 <br>
@@ -78,9 +120,19 @@ $0 <= P(a) <= 1$ and $\sum_{i =1}^{|A|}{P(a_i)} = 1$
 
 2. So, we must use intervals of a continious random variable to estimate probablity at a point. Say you want probability of the value 3420. So we estiate the probablity of the interval 3420 - a very tiny number to 3420 + a very tiny number. This is done using calculating the area under the cure.  
 
+# An intuitive tour of distributions
+
+<br>
+
+> [Seeing Theory Chapter 3](https://seeing-theory.brown.edu/#secondPage/chapter3) without the central limit theorm
+
 # Review Questions
 
 1. Agresti Ch4, question 4.3
 2. Agresti Ch4, question 4.4
 3. Introductory Stats Ch4, 4.4tryit
-4. Introductory Stats Ch4, 4.5tryit
+4. Introductory Stats Ch4, 4.5tryit5
+
+# More Normal Stuff
+
+> The normal distribution needs more attention because we find many naturally occurring numbers take this shape and because it is very useful for statistical inference.

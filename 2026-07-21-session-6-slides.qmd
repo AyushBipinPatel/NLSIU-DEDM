@@ -1,0 +1,993 @@
+---
+title: "Data, Evidence, and Decision Making (with R)"
+author: "Ayush Patel"
+subtitle: "Session 6: Data Visualization with R"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: true
+bibliography: citations.bib
+execute: 
+  echo: true
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-dpi: 800
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+# Readings
+
+1. Hadley Wickham, Mine Çetinkaya-Rundel, andGarrett Grolemund. R for Data Science (2nd ed.). Chapter 1: Data Visualization. @wickham2023r4ds
+
+2. Healy, Kieran. Data Visualization: A Practical Introduction. Chapter 4: Show the right numbers. Sections 4.1 to 4.3. @healy2019socviz
+
+# Goal
+
+1. Learn to make charts with {ggplot2}
+2. Understand the grammar of graphics
+3. To make charts for exploratory, descriptive, and storytelling
+
+# Load these libraries
+
+```{r}
+library(tidyverse)
+library(gapminder)
+```
+
+# The dataset
+
+<br>
+
+> We will be using `gapminder` and `msleep` data. Use the command `?gapminder` or `?msleep` to learn more about these datasets.
+
+## The dataset (gapminder) {.smaller}
+
+```{r}
+#| label: tbl-show-gapminder
+#| tbl-cap: "Gapminder Data"
+#| echo: false
+
+gapminder |>
+    reactable::reactable()
+```
+
+## The dataset (msleep) {.smaller}
+
+```{r}
+#| label: tbl-show-msleep
+#| tbl-cap: "Mammals Sleep Data"
+#| echo: false
+
+msleep |>
+    reactable::reactable(defaultPageSize = 5, 
+    compact = T, 
+    width = "auto",
+    height = "auto",
+    theme = reactable::reactableTheme(
+        style = list(
+            fontSize = "smaller" # Or use specific values like "12px"
+            )
+        )
+    )
+```
+
+
+## Components of a ggplot - canvas {auto-animate=true}
+
+```{r}
+#| echo: true
+#| output-location: column
+#| fig-width: 8
+#| fig-height: 6
+#| code-line-numbers: "2"
+
+# Data to use for creating plots
+ggplot(data = msleep) 
+
+```
+
+## Components of a ggplot - link vars to aesthetics {auto-animate=true}
+
+```{r}
+#| echo: true
+#| output-location: column
+#| fig-width: 8
+#| fig-height: 6
+#| code-line-numbers: "4,5,6"
+
+# Data to use for creating plots
+ggplot(data = msleep, 
+    # link variables in data to axes
+       aes(x = bodywt, 
+           y = sleep_total) 
+       ) 
+
+```
+
+## Components of a ggplot - Choose geometry {auto-animate=true}
+
+```{r}
+#| echo: true
+#| output-location: column
+#| fig-width: 8
+#| fig-height: 6
+#| code-line-numbers: "6,8"
+
+# Data to use for creating plots
+ggplot(data = msleep, 
+    # link variables in data to axes
+       aes(x = bodywt, 
+           y = sleep_total) 
+       )+ # plus sign'+' adds a layer
+    # A geometry or type of chart to plot
+  geom_point() 
+
+
+```
+
+## Components of a ggplot - the details {auto-animate=true}
+
+```{r}
+#| echo: true
+#| output-location: column
+#| fig-width: 8
+#| fig-height: 6
+#| code-line-numbers: "9-18"
+
+# Data to use for creating plots
+ggplot(data = msleep, 
+    # link variables in data to axes
+       aes(x = bodywt, 
+           y = sleep_total) 
+       )+ # plus sign'+' adds a layer
+    # A geometry or type of chart to plot
+  geom_point() + # A '+' sign for every layer
+  # add or edit various labels with this function
+  labs( 
+    # title for plot 
+    title = "Are body weight and sleep time related?", 
+    # x axis title
+    x = "Body weight (Kg)", 
+    # y axis title,
+    y = "Total sleep time (hours)" 
+  )+
+  theme_minimal() # cosmetics
+
+
+```
+
+## Summary - commponents of a ggplot {auto-animate=true}
+
+Create a blank canvas by using `ggplot()`
+
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "1"
+
+ggplot(data = df) # df is any data frame 
+```
+
+## Summary - commponents of a ggplot {auto-animate=true}
+
+Link variables (columns) from df to plot aesthetics using `aes()`
+
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "2-5"
+
+ggplot(data = df, # df is any data frame 
+       aes(
+         x = var1, # var1 is name of a column in df
+         y = var2  # var1 is name of a column in df
+         )
+       ) 
+```
+
+## Summary - commponents of a ggplot {auto-animate=true}
+
+Choose a geometry using `geom_*()`
+
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "7"
+
+ggplot(data = df, # df is any data frame 
+       aes(
+         x = var1, # var1 is name of a column in df
+         y = var2  # var1 is name of a column in df
+         )
+       ) +
+  geom_point() # geom layer, there are many geoms to chhoose from
+```
+
+## Summary - commponents of a ggplot {auto-animate=true}
+
+Add label details and cosmetics
+
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "8-15"
+
+ggplot(data = df, # df is any data frame 
+       aes(
+         x = var1, # var1 is name of a column in df
+         y = var2  # var1 is name of a column in df
+         )
+       ) +
+  geom_point() +# geom layer, there are many geoms to choose from
+  labs(
+    title = "Plot title",
+    subtitle = "Plot Sub-title",
+    x = "x-axis title",
+    y = "y-axis title",
+    caption = "plot caption"
+  )+
+  theme_bw() # there are many themes to choose from, you can make your own as well
+```
+
+## A quick coding exercise - 1 {{< fa solid laptop-code >}}
+
+Write a code to create a plot with following details:
+
+  1. Use the `msleep` data. (execute `?msleep` to see details of the data set)
+  2. A plot between variables `vore` and `sleep_total`
+  3. Link `vore` to x-axis and `sleep_total` to y-axis
+  4. Use geometry boxplot (hint: `geom_boxplot`)
+  5. Add appropriate titles and labels to the plot
+  6. Use the `theme_*()` options, choose any
+
+## Solution - 1 {{< fa solid check >}} {.nostrech}
+
+```{r}
+#| echo: true
+#| output-location: slide
+#| fig-align: center
+#| fig-width: 12
+#| fig-height: 6
+
+ggplot(data = msleep,
+       aes(
+         x = vore,
+         y = sleep_total
+         )
+       )+
+  geom_boxplot(alpha = 0.5)+
+  labs(
+    title = "Sleep patters of animals by vore",
+    subtitle = "Broadly speaking, animals that eat insects sleep the most",
+    x = "Type of food",
+    y = "Total hours of sleep in a day",
+    caption = "data: V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep "
+  )+
+  theme_light()
+
+```
+
+## Exploring Geometries 
+
+. . .
+
+<br>
+There are several geometries to choose from.
+<br>
+<br>
+
+. . .
+
+Which geometry is appropriate for a given plot?
+<br>
+<br>
+
+. . .
+
+We will discuss a few essential geometries and their use cases
+
+## Situation - One Discrete variable
+
+[Plot frequencies of conservation status of animals in `msleep` data.]{style="font-size:20px"} Use case - `geom_bar()`
+
+```{r}
+#| code-line-numbers: "3|5"
+#| echo: true
+#| fig-align: center
+#| output-location: column-fragment
+#| fig-width: 8
+#| fig-height: 6
+
+ggplot(
+  data = msleep,
+  aes(x = conservation)
+)+
+  geom_bar()+
+  theme_bw()
+
+```
+
+## Situation - One Continuous variable
+
+[Plot sleep time of animals in `msleep` data.]{style="font-size:20px"} Use case - `geom_density()`
+
+```{r}
+#| code-line-numbers: "3|5"
+#| echo: true
+#| fig-align: center
+#| output-location: column-fragment
+#| fig-width: 8
+#| fig-height: 6
+
+ggplot(
+  data = msleep,
+  aes(x = sleep_total)
+)+
+  geom_density()+
+  theme_bw()
+
+```
+
+## Situation - One Continuous variable 
+
+[Plot sleep time of animals in `msleep` data.]{style="font-size:20px"} Use case - `geom_histogram()`
+
+```{r}
+#| code-line-numbers: "3|5"
+#| echo: true
+#| fig-align: center
+#| output-location: column-fragment
+#| fig-width: 8
+#| fig-height: 6
+
+ggplot(
+  data = msleep,
+  aes(x = sleep_total)
+)+
+  geom_histogram()+
+  theme_bw()
+
+```
+
+## Situation - Two Continuous variable
+
+[Plot sleep time of animals and rem sleep time in `msleep` data.]{style="font-size:20px"} Use case - `geom_point()`
+
+```{r}
+#| code-line-numbers: "3-4|6"
+#| echo: true
+#| fig-align: center
+#| output-location: column-fragment
+#| fig-width: 8
+#| fig-height: 6
+
+ggplot(
+  data = msleep,
+  aes(x = sleep_total,
+      y = sleep_rem)
+)+
+  geom_point()+
+  theme_bw()
+
+```
+
+## Situation - Two Continuous variable
+
+[Plot sleep time of animals and rem sleep time in `msleep` data.]{style="font-size:20px"} Use case - `geom_smooth()`
+
+```{r}
+#| code-line-numbers: "3-4|6"
+#| echo: true
+#| fig-align: center
+#| output-location: column-fragment
+#| fig-width: 8
+#| fig-height: 6
+
+ggplot(
+  data = msleep,
+  aes(x = sleep_total,
+      y = sleep_rem)
+)+
+  geom_smooth()+
+  theme_bw()
+
+```
+
+
+## Situation - 1 Continuous, 1 Discrete
+
+[Plot sleep time of animals and conservation status in `msleep` data.]{style="font-size:20px"} Use case - `geom_col()`
+
+```{r}
+#| code-line-numbers: "1-5|7-8|10"
+#| echo: true
+#| fig-align: center
+#| output-location: column-fragment
+#| fig-width: 8
+#| fig-height: 6
+
+
+msleep|>
+  group_by(conservation)|>
+  summarise(
+    avg_sleep_time = mean(sleep_total,na.rm = T)
+  )|>
+  ggplot(
+  aes(x = conservation,
+      y = avg_sleep_time)
+  )+
+  geom_col()+
+  theme_bw()
+
+```
+
+## Situation - 1 Continuous, 1 Discrete
+
+[Plot sleep time of animals and conservation status in `msleep` data.]{style="font-size:20px"} Use case - `geom_boxplot()`
+
+```{r}
+#| code-line-numbers: "3-4|6"
+#| echo: true
+#| fig-align: center
+#| output-location: column-fragment
+#| fig-width: 8
+#| fig-height: 6
+
+ggplot(
+  data = msleep,
+  aes(x = conservation,
+      y = sleep_total)
+)+
+  geom_boxplot()+
+  theme_bw()
+
+```
+
+
+## Summary - Geometries
+
+```{r}
+#| echo: false
+
+tibble(
+  `Situation` = c("1 Discrete Variable",
+                  "1 Continious Varialbe",
+                  "2 Continious Variable",
+                  "1 Continiouos,1 Discrete"),
+  `Geom Options` = c("geom_bar()",
+                     "geom_density(), geom_histogram()",
+                     "geom_point(), geom_smooth()",
+                     "geom_col(), geom_boxplot()")
+)|>
+    reactable::reactable()
+
+```
+
+## A quick coding detour - 2 {{< fa solid laptop-code >}}
+
+Use the data `gapminder` and create a boxplot using variables `continent` and `lifeExp`
+
+## Solution - 2 {{< fa solid check >}}
+
+```{r}
+#| echo: true
+#| output-location: slide
+#| fig-align: center
+#| fig-width: 12
+#| fig-height: 6
+
+ggplot(data = gapminder,
+       aes(x = continent,
+           y = lifeExp
+           )
+       )+
+  geom_boxplot()+
+  labs(
+    title = "Distribution of life expectancy across continents",
+    x = "Continent",
+    y = "Life expectancy in years"
+  )+
+  theme_bw()
+
+```
+
+
+## A quick coding detour - 3 {{< fa solid laptop-code >}}
+
+Use the data `gapminder` and create a point/scatter chart using variables `gdpPercap` and `lifeExp`
+
+## Solution - 3 {{< fa solid check >}}
+
+```{r}
+#| echo: true
+#| output-location: slide
+#| fig-align: center
+#| fig-width: 12
+#| fig-height: 6
+
+ggplot(data = gapminder,
+       aes(x = gdpPercap,
+           y = lifeExp
+           )
+       )+
+  geom_point()+
+  labs(
+    title = "GDP and LIfe expectancy",
+    x = "GDP per capita in USD",
+    y = "Life expectancy in years"
+  )+
+  theme_bw()
+
+```
+
+## Aesthetics for geometries
+
+
+ `size` | `colour` | `fill` | `alpha`
+ 
+ . . .
+  
+_Why ?_
+
+  - aesthetics can be linked with variables in data - using `aes()`
+  - values can be assigned to aesthetics directly
+  - makes the plots look more appealing
+  - helps add more nuance to the plots
+
+. . . 
+
+> Some of the following slides are meant to show what is possible, does not mean one should do it all at once
+
+
+## Aesthetics use case - size {auto-animate=true}
+
+original chart
+
+```{r}
+#| echo: true
+#| output-location: column-fragment
+#| fig-align: center
+#| fig-width: 8
+#| fig-height: 6
+#| code-line-numbers: "6"
+
+ggplot(data = gapminder,
+       aes(x = gdpPercap,
+           y = lifeExp
+           )
+       )+
+  geom_point()+
+  labs(
+    title = "GDP and LIfe expectancy",
+    x = "GDP per capita in USD",
+    y = "Life expectancy in years"
+  )+
+  theme_bw()
+
+```
+
+## Aesthetics use case - size {auto-animate=true}
+
+Supply values directly to `size`
+
+```{r}
+#| echo: true
+#| output-location: column-fragment
+#| fig-align: center
+#| fig-width: 8
+#| fig-height: 6
+#| code-line-numbers: "6"
+
+ggplot(data = gapminder,
+       aes(x = gdpPercap,
+           y = lifeExp
+           )
+       )+
+  geom_point(size = 3)+
+  labs(
+    title = "GDP and LIfe expectancy",
+    x = "GDP per capita in USD",
+    y = "Life expectancy in years"
+  )+
+  theme_bw()
+
+```
+
+## Aesthetics use case - size {auto-animate=true}
+
+link `size` to a variable in data
+
+```{r}
+#| echo: true
+#| output-location: column-fragment
+#| fig-align: center
+#| fig-width: 8
+#| fig-height: 6
+#| code-line-numbers: "6"
+
+ggplot(data = gapminder,
+       aes(x = gdpPercap,
+           y = lifeExp
+           )
+       )+
+  geom_point(aes(size = pop))+
+  labs(
+    title = "GDP and LIfe expectancy",
+    x = "GDP per capita in USD",
+    y = "Life expectancy in years"
+  )+
+  theme_bw()
+
+```
+
+## Aesthetics use case - alpha {auto-animate=true}
+
+original chart
+
+```{r}
+#| echo: true
+#| output-location: column-fragment
+#| fig-align: center
+#| fig-width: 8
+#| fig-height: 6
+#| code-line-numbers: "6"
+
+ggplot(data = gapminder,
+       aes(x = gdpPercap,
+           y = lifeExp
+           )
+       )+
+  geom_point()+
+  labs(
+    title = "GDP and LIfe expectancy",
+    x = "GDP per capita in USD",
+    y = "Life expectancy in years"
+  )+
+  theme_bw()
+
+```
+
+## Aesthetics use case - alpha {auto-animate=true}
+
+Supply values directly to `alpha`
+
+```{r}
+#| echo: true
+#| output-location: column-fragment
+#| fig-align: center
+#| fig-width: 8
+#| fig-height: 6
+#| code-line-numbers: "6"
+
+ggplot(data = gapminder,
+       aes(x = gdpPercap,
+           y = lifeExp
+           )
+       )+
+  geom_point(alpha = 0.5)+
+  labs(
+    title = "GDP and LIfe expectancy",
+    x = "GDP per capita in USD",
+    y = "Life expectancy in years"
+  )+
+  theme_bw()
+
+```
+
+## Aesthetics use case - colour {auto-animate=true}
+
+original chart
+
+```{r}
+#| echo: true
+#| output-location: column-fragment
+#| fig-align: center
+#| fig-width: 8
+#| fig-height: 6
+#| code-line-numbers: "6"
+
+ggplot(data = gapminder,
+       aes(x = gdpPercap,
+           y = lifeExp
+           )
+       )+
+  geom_point()+
+  labs(
+    title = "GDP and LIfe expectancy",
+    x = "GDP per capita in USD",
+    y = "Life expectancy in years"
+  )+
+  theme_bw()
+
+```
+
+## Aesthetics use case - colour {auto-animate=true}
+
+Supply values directly to `colour`
+
+```{r}
+#| echo: true
+#| output-location: column-fragment
+#| fig-align: center
+#| fig-width: 8
+#| fig-height: 6
+#| code-line-numbers: "6"
+
+ggplot(data = gapminder,
+       aes(x = gdpPercap,
+           y = lifeExp
+           )
+       )+
+  geom_point(colour = "red")+
+  labs(
+    title = "GDP and LIfe expectancy",
+    x = "GDP per capita in USD",
+    y = "Life expectancy in years"
+  )+
+  theme_bw()
+
+```
+
+## Aesthetics use case - colour {auto-animate=true}
+
+link `colour` to a variable in data
+
+```{r}
+#| echo: true
+#| output-location: column-fragment
+#| fig-align: center
+#| fig-width: 8
+#| fig-height: 6
+#| code-line-numbers: "6"
+
+ggplot(data = gapminder,
+       aes(x = gdpPercap,
+           y = lifeExp
+           )
+       )+
+  geom_point(aes(colour = continent))+
+  labs(
+    title = "GDP and LIfe expectancy",
+    x = "GDP per capita in USD",
+    y = "Life expectancy in years"
+  )+
+  theme_bw()
+
+```
+
+## Aesthetics - `fill` vs `colour`
+
+::::{.columns}
+
+:::{.column width="50%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "6"
+
+ggplot(
+  data = msleep,
+  aes(x = conservation,
+      y = sleep_total)
+)+
+  geom_boxplot(fill = "red")+
+  theme_bw()
+```
+
+:::
+
+:::{.column width="50%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "6"
+
+ggplot(
+  data = msleep,
+  aes(x = conservation,
+      y = sleep_total)
+)+
+  geom_boxplot(colour = "red")+
+  theme_bw()
+```
+
+:::
+
+::::
+
+## Aesthetics - `fill` vs `colour`
+
+::::{.columns}
+
+:::{.column width="50%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "6"
+
+ggplot(
+  data = msleep,
+  aes(x = conservation,
+      y = sleep_total)
+)+
+  geom_boxplot(aes(fill = vore))+
+  theme_bw()
+```
+
+:::
+
+:::{.column width="50%"}
+```{r}
+#| echo: true
+#| code-line-numbers: "6"
+
+ggplot(
+  data = msleep,
+  aes(x = conservation,
+      y = sleep_total)
+)+
+  geom_boxplot(aes(colour = vore))+
+  theme_bw()
+```
+
+:::
+
+::::
+
+## You can have it all
+
+**Doesnt mean you should do it**
+
+```{r}
+#| echo: true
+#| output-location: slide
+#| fig-align: center
+#| fig-width: 14
+#| fig-height: 6
+#| code-line-numbers: "6-9"
+
+
+ggplot(
+  data = msleep,
+  aes(x = conservation,
+      y = sleep_total)
+)+
+  geom_jitter(aes(colour = vore, 
+                  size = bodywt),
+              alpha = 0.7)+
+  geom_boxplot(aes(colour = vore))+
+  theme_bw()
+
+
+```
+
+
+## A quick coding detour - 4 {{< fa solid laptop-code >}}
+
+[Write a code that will generate the following chart. Use `gapminder` data.]{style="font-size:30px"}
+
+```{r}
+#| echo: false
+#| code-line-numbers: "2,3,4,5"
+#| fig-align: center
+#| fig-width: 14
+#| fig-height: 6
+
+ggplot(gapminder,
+       aes(x = lifeExp))+
+  geom_density(aes(fill = continent),
+               alpha = 0.5)+
+  scale_fill_manual(values = continent_colors)+
+  labs(
+    title = "Distribution of Life Expectancy",
+    y = "Density",
+    x = "Life Expectancy in years"
+  )+
+  theme_bw()
+
+```
+
+
+## Solution - 4 {{< fa solid check >}}
+
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "2,3,4,5"
+
+
+ggplot(gapminder,
+       aes(x = lifeExp))+
+  geom_density(aes(fill = continent),
+               alpha = 0.5)+
+  scale_fill_manual(values = continent_colors)+
+  labs(
+    title = "Distribution of Life Expectancy",
+    y = "Density",
+    x = "Life Expectancy in years"
+  )+
+  theme_bw()
+
+```
+
+
+
+## Stacked bar charts {auto-animate=true}
+
+```{r}
+#| echo: true
+#| output-location: column
+#| fig-width: 8
+#| fig-height: 6
+#| code-line-numbers: "2"
+
+ggplot(msleep)+
+  geom_bar(aes(conservation))+
+  theme_bw()
+
+```
+
+## Stacked bar charts {auto-animate=true}
+
+```{r}
+#| echo: true
+#| output-location: column
+#| fig-width: 8
+#| fig-height: 6
+#| code-line-numbers: "2"
+
+ggplot(msleep)+
+  geom_bar(aes(conservation, fill = vore))+
+  theme_bw()
+
+```
+
+## Stacked bar charts {auto-animate=true}
+
+```{r}
+#| echo: true
+#| output-location: column
+#| fig-width: 8
+#| fig-height: 6
+#| code-line-numbers: "2,3"
+
+ggplot(msleep)+
+  geom_bar(aes(conservation, fill = vore),
+           position = "dodge")+
+  theme_bw()
+
+```
+
+## Stacked bar charts {auto-animate=true}
+
+```{r}
+#| echo: true
+#| output-location: column
+#| fig-width: 8
+#| fig-height: 6
+#| code-line-numbers: "2,3"
+
+ggplot(msleep)+
+  geom_bar(aes(conservation, fill = vore),
+           position = "fill")+
+  theme_bw()
+
+```
+
+# Learn More
+
+It is left to you to explore these slides to learn other details of plotting using ggplot2
+
+1. [Deck1](https://ayushbipinpatel.github.io/GIPE-Business-Analytics/Lecture3_DataVisualization.html#/title-slide)
+2. [Deck2](https://ayushbipinpatel.github.io/GIPE-Business-Analytics/Lecture9_AdvancedDataVisualizations.html#/title-slide)
+3. [Deck3](https://ayushbipinpatel.github.io/GIPE-Business-Analytics/Lecture10_PresentingDataVisualizations.html#/title-slide) 
+
+
+# Reference

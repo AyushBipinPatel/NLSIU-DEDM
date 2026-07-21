@@ -50,6 +50,120 @@ library(hrbrthemes)
 <br>
 Why large number of observation?
 
+# Basic Probability Rules
+
+## 1. Foundations
+
+<br>
+
+- Sample space (S): all possible outcomes
+- Event (A): any subset of S
+- $0 \le P(A) \le 1$
+- $P(S) = 1$
+
+<br>
+
+**Example:** Rolling a die, $S = \{1,2,3,4,5,6\}$, $P(\text{rolling a 4}) = \frac{1}{6}$
+
+## 2. Complement Rule
+
+<br>
+
+$P(A^c) = 1 - P(A)$
+
+<br>
+
+
+**Example:** $P(\text{not rolling a 6}) = 1 - \frac{1}{6} = \frac{5}{6}$
+
+## 3. Addition Rule (OR)
+
+<br>
+
+General:
+$P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+
+
+Mutually exclusive:
+$P(A \cup B) = P(A) + P(B)$
+
+
+<br>
+
+
+**Example:** Drawing a card, $P(\text{King or Heart}) = \frac{4}{52} + \frac{13}{52} - \frac{1}{52} = \frac{16}{52}$
+
+
+## 4. Conditional Probability
+
+<br>
+
+$P(A \mid B) = \frac{P(A \cap B)}{P(B)}$
+
+
+<br>
+
+**Example:** $P(\text{sum} = 8 \mid \text{first die} = 3) = \frac{1}{6}$ (only need second die = 5)
+
+## 5. Multiplication Rule (AND)
+
+<br>
+
+General:
+$P(A \cap B) = P(A) \cdot P(B \mid A)$
+
+
+Independent:
+$P(A \cap B) = P(A) \cdot P(B)$
+
+
+<br>
+
+**Example:** Two coin flips, $P(\text{H then H}) = \frac{1}{2} \cdot \frac{1}{2} = \frac{1}{4}$
+
+## 6. Independence
+
+<br>
+
+$P(A \mid B) = P(A) \quad \text{and} \quad P(B \mid A) = P(B)$
+
+
+Independent ≠ mutually exclusive — mutually exclusive events are actually maximally *dependent* (one rules out the other).
+
+
+<br>
+
+**Example:** Two separate coin tosses are independent; rolling a 3 and rolling a 4 on the *same* die are mutually exclusive, not independent.
+
+## 7. Bayes' Rule
+
+<br>
+
+$P(A \mid B) = \frac{P(B \mid A)\,P(A)}{P(B)}$
+
+
+<br>
+
+**Example:** 1% have a disease. Test is 99% sensitive, 5% false-positive rate.
+
+$P(\text{Disease} \mid +) = \frac{0.99 \times 0.01}{0.99\times 0.01 + 0.05\times 0.99} \approx 0.167$
+
+
+## Quick Reference Table
+
+<br>
+
+
+| Rule | Formula |
+|---|---|
+| Complement | $P(A^c) = 1 - P(A)$ |
+| Addition (general) | $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ |
+| Addition (exclusive) | $P(A \cup B) = P(A) + P(B)$ |
+| Conditional | $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$ |
+| Multiplication (general) | $P(A \cap B) = P(A) \cdot P(B \mid A)$ |
+| Multiplication (independent) | $P(A \cap B) = P(A) \cdot P(B)$ |
+| Bayes' Rule | $P(A \mid B) = \frac{P(B \mid A)\,P(A)}{P(B)}$ |
+
 # Probability Distribution
 
 <br>
@@ -133,6 +247,155 @@ tibble(
 3. Introductory Stats Ch4, 4.4tryit
 4. Introductory Stats Ch4, 4.5tryit5
 
+# Law of Large Numbers
+
+> If a random process or a chance event is repeated for a large number of times the difference between the theoritical probablity distribution and the observed relative frequency distribution approaches to zero.
+
+## Law of Large Numbers {.nostretch}
+
+```{r}
+#| label: fig-lln1
+#| fig-cap: "Chance Error"
+
+sim_tosses <- map(
+  seq(10,10000,100),
+  ~tibble(
+    tosses = .x,
+    heads = rbinom(1,.x,0.5),
+    diff = heads - (tosses/2),
+    perc = heads*100/tosses
+  )
+) |>
+  list_rbind()
+  
+sim_tosses |>  
+  ggplot(aes(x  = tosses)) +
+  geom_line(aes(y = diff)) +
+  geom_point(aes(y = diff)) +
+  labs(
+    title = "How far from expected?",
+    x = "Number of tosses",
+    y = "Difference from half the number of tosses"
+  ) +
+    theme_ipsum_es()
+
+```
+
+## Law of Large Numbers {.nostretch}
+
+```{r}
+#| label: fig-lln2
+
+sim_tosses |>
+  ggplot(aes(x  = tosses)) +
+  geom_line(aes(y = perc)) +
+  geom_point(aes(y = perc)) +
+  labs(
+    title = "Does it approach the truth?",
+    x = "Number of tosses",
+    y = "Percentage of heads"
+  ) +
+    theme_ipsum_es()
+
+```
+
+## Law of Large Numbers
+
+1. A machine has been designed to toss a coin automatically and keep track of the number of heads. After 1,000 tosses, it has 550 heads. Express the chance error both in absolute terms and as a percentage of the number of tosses.
+
+2. A coin is tossed 100 times, landing heads 53 times. However, the last seven tosses are all heads. True or false: the chance that the next toss will be heads is somewhat less than 50%. Explain.
+
+# Expected value
+
+<br>
+
+> It is the value around which all outcomes of a random process cluster when carried out for a long time. 
+
+<br>
+
+It is the mean of the population probablity distribution.
+
 # More Normal Stuff
 
 > The normal distribution needs more attention because we find many naturally occurring numbers take this shape and because it is very useful for statistical inference.
+
+<br>
+
+The mean of the theoritical/population Normal distribution is represented by $\mu$, and the standard deviation is represented by $\sigma$. These are called populaiton parameters or parameters.
+
+## More Normal Stuff {.nostretch}
+
+![From the Agresti Bbook](Screenshot%202026-07-21%20090037.png){width=120%}
+
+<br>
+
+Remember, if you take z-score or z-transform a normal distribution, you have a standard normal distribution on your hands.
+
+# Sampling Distribution of Mean
+
+> From a popluation, if multiple samples of same size are taken, and if sample means of each of these samples is calculated, the distribution of all the sample means is called the Sampling Distribution of Mean. The mean of the sampling distribution of mean is equal to the populaiton mean.
+
+# Standard Error
+
+<br>
+
+> The standard deviation of the sampling distribution of the mean is called the standard error of sample mean. It is represented in many way. Most common are $\sigma_{\bar{y}}$ or $SE[\bar{y}]$.
+
+<br>
+
+$\sigma_{\bar{y}} = \frac{\sigma}{\sqrt{n}}$, here $\sigma$ is the population standard deviation
+
+## But be Never know $\sigma$
+
+<br><br>
+
+in reality, for SRS
+
+<br>
+
+$\hat{\sigma_{\bar{y}}} = \frac{s}{\sqrt{n}}$
+
+$s$ is the standard deviation of the population.
+
+# What can you say about sample size and standard error?
+
+
+$\sigma_{\bar{y}} = \frac{\sigma}{\sqrt{n}}$
+
+## Example 
+
+<br><br>
+
+One hundred draws are going to be made at random with replacement from the box containing tickets numberd 1, 2, 3, 4, 5, 6, 7
+
+Calcualte the Expected value and the standard error of the mean.
+
+## Simulated answer {.nostretch} 
+
+```{r}
+
+map(
+  c(1:1000) ,
+  ~ tibble(
+    s_mean = sample(c(1:7),100,T) |> mean()
+  )
+) |>
+  list_rbind()|>
+  ggplot(aes(s_mean)) +
+  geom_density() +
+  geom_vline(aes(xintercept = 3.8), linetype = 2) +
+  geom_vline(aes(xintercept = 4.2), linetype = 2) +
+  labs(
+    title = "Simulate Box model from example",
+    x = "Mean of 100 draws, repeated a 1000 times",
+    subtitle = str_wrap("The dotted lines are +/- 1 SE from the mean. About 70% of the observation fall within these lines",50)
+  ) +
+  theme_ipsum_es()
+```
+
+
+## Example
+
+In a large sample average height for men is 69 inches, the sd for it is 3 inches. What percentage of observation would be within the range 63inches and 72 inches.
+
+# End

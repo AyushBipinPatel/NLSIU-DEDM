@@ -420,5 +420,6 @@ If no errors appear, the setup is complete.
 3. [Sesison 3](2026-06-09-session-3-slides.html)
 4. [Sesison 4](2026-06-11-session-4-slides.html)
 5. [Session 5](2026-06-15-session-5-slides.html)
+6. [Session 6](2026-07-21-session-6-slides.html)
 
 ------

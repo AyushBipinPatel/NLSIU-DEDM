@@ -45,8 +45,6 @@ library(nycflights13)
 
 - Understand what is tidy data
 - Lengthening and Widening Data
-- Learn basic Joins
-- Work with Missing values
 
 
 # Tidy Data

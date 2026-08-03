@@ -1,0 +1,268 @@
+---
+title: "Data, Evidence, and Decision Making (with R)"
+author: "Ayush Patel"
+subtitle: "Session 7: Data Tidying"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: true
+bibliography: citations.bib
+execute: 
+  echo: true
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-dpi: 800
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+# Load Libraries
+
+```{r}
+#| label: setup
+
+library(tidyverse)
+library(openintro)
+library(nycflights13)
+```
+
+# Readings
+
+- Hadley Wickham, Mine Çetinkaya-Rundel, and Garrett Grolemund. R for Data Science (2nd ed.). Chapter 5: Data tidying.
+
+- Alexander, Rohan. Telling Stories with Data: With Applications to Data Science Using R and the Tidyverse. Chapter 9: Clean, prepare, and test. Sections 9.1 to 9.3
+
+# Goal
+
+- Understand what is tidy data
+- Lengthening and Widening Data
+- Learn basic Joins
+- Work with Missing values
+
+
+# Tidy Data
+
+![by Allison Horst](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/85520b8f-4629-4763-8a2a-9ceff27458bf_rw_1920.jpg?h=21007b20ac00cf37318dca645c215453)
+
+## Tidy vs Messy Data
+
+![by Allison Horst](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/6e297111-efb7-4555-93d2-085071d1853c_rw_1920.jpg?h=f1951b118eaddaaab8a572422bc16566)
+
+## Same data different structure{.smaller}
+
+
+```{r}
+#| label: tbl-show-tabl
+#| tbl-cap: Same information can be presented in various forms
+#| layout-ncol: 3
+#| column: page
+
+table1
+
+table2
+
+table3
+
+```
+
+## Try out
+
+Can you make this chart from the data in `table1` and `table2`
+
+```{r}
+#| label: fig-cases-per-year
+#| fig-cap: Number of cases per year
+#| fig-dpi: 700
+#| echo: false
+
+table1 |>
+    summarise(
+        total = sum(cases),
+        .by = year
+    ) |>
+        ggplot(aes(as.factor(year), total)) +
+        geom_col(fill = "steelblue",
+        width = .5) +
+        labs(
+            title = "Total cases in a year",
+            y = "Number of cases",
+            x = "year"
+        ) +
+        scale_y_continuous(labels = scales::label_number(suffix = "K",
+        scale = 0.001)) +
+        hrbrthemes::theme_ipsum()
+```
+
+# Lengthening Data
+
+![from R4Ds](https://r4ds.hadley.nz/diagrams/tidy-data/variables.png)
+
+## Lengthening Data
+
+
+```{r}
+#| label: tbl-show-pivot-long-motivate
+#| tbl-cap: Which is in tidy format?
+#| layout-ncol: 2
+#| echo: false
+
+table4a
+
+table4a |>
+    pivot_longer(cols = -country,names_to = "year",values_to = "cases")
+
+```
+
+## lengthening using `pivot_longer()` {auto-animate="true"}
+
+
+```{r}
+#| label: show-pivot-longer
+#| code-line-numbers: "1"
+#| output-location: column
+
+table4a
+
+```
+
+## lengthening using `pivot_longer()` {auto-animate="true"}
+
+
+```{r}
+#| label: show-pivot-longer-2
+#| code-line-numbers: "2,3,4,5"
+#| output-location: column
+
+table4a |>
+    pivot_longer(
+        cols = c(2,3),
+        names_to = "year",
+        values_to = "cases"
+    )
+
+```
+
+## Multiple Pieces in one column
+
+![from R4DS](https://r4ds.hadley.nz/diagrams/tidy-data/multiple-names.png)
+
+## lengthening data {.smaller auto-animate="true"}
+
+**Multiple pieces in one col name**
+
+
+```{r}
+#| label: long-multiple-variable
+#| output-location: column
+#| code-line-numbers: "1"
+
+who2
+```
+
+## lengthening data {.smaller auto-animate="true"}
+
+**Multiple pieces in one col name**
+
+
+```{r}
+#| label: long-multiple-variable-2
+#| output-location: column
+#| code-line-numbers: "2,3,4,5,6,7"
+
+who2 |>
+    pivot_longer(
+        cols = -c(country, year),
+        names_to = c("diagnosis","gender","age"),
+        names_sep = "_",
+        values_to = "count"
+    )
+```
+
+## lengthening data {.smaller auto-animate="true"}
+
+**Multiple pieces in one col name**
+
+
+```{r}
+#| label: long-multiple-variable-3
+#| output-location: column
+#| code-line-numbers: "7"
+
+who2 |>
+    pivot_longer(
+        cols = -c(country, year),
+        names_to = c("diagnosis","gender","age"),
+        names_sep = "_",
+        values_to = "count",
+        values_drop_na = T
+    )
+```
+
+## Data and variable in column name
+
+![from R4DS](https://r4ds.hadley.nz/diagrams/tidy-data/names-and-values.png)
+
+## Data and variable in column name {.smaller auto-animate="true"}
+
+
+```{r}
+#| label: show-var-data-incol
+#| code-line-numbers: "1"
+#| output-location: column
+
+household
+```
+
+## Data and variable in column name {.smaller auto-animate="true"}
+
+
+```{r}
+#| label: show-var-data-incol-2
+#| code-line-numbers: "2,3,4,5,6,7"
+#| output-location: column
+
+household |>
+    pivot_longer(
+        cols = -family,
+        names_to = c(".value", "child"),
+        names_sep = "_",
+        values_drop_na = T
+    )
+```
+
+# Widening Data using `pivot_wider()`
+
+## Widening Data {auto-animate="true"}
+
+```{r}
+#| label: show-widening
+#| output-location: column
+#| code-line-numbers: "1"
+
+table2
+```
+
+## Widening Data {auto-animate="true"}
+
+```{r}
+#| label: show-widening-2
+#| output-location: column
+#| code-line-numbers: "2:5"
+
+table2 |>
+    pivot_wider(
+        names_from = type,
+        values_from = count
+    )
+```
+
+# End of Session

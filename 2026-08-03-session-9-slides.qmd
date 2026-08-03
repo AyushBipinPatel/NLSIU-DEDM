@@ -1,0 +1,126 @@
+---
+title: "Data, Evidence, and Decision Making (with R)"
+author: "Ayush Patel"
+subtitle: "Session 9: Study Design, Correlation and Causality"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: true
+bibliography: citations.bib
+execute: 
+  echo: false
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-dpi: 800
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+# Readings
+
+- Spiegelhalter, David. The Art of Statistics: Learning from Data. Chapter 4: What Causes What?
+- Ellenberg, Jordan. How Not to Be Wrong: The Power of Mathematical Thinking. Chapter 16: Does Lung Cancer Make You Smoke Cigarettes?.
+- Çetinkaya-Rundel, Mine, and Johanna Hardin. Introduction to Modern Statistics (2nd ed.). Chapter 2: Study design. Section 2.1 to 2.2 only.
+
+# Goal
+
+1. Understand the difference between sample and population
+2. Understand the difference between parameters and statistics
+3. Understand the difference between observational studies and experiments
+4. Understand the ideas of coorelation and causality
+
+# Sample and Population
+
+<br>
+
+> A large part of statistics is the proces of studying the few in order to understand the many (*read whole or all*)
+
+## Sample and Population
+
+**It is practically impossible to capture the *population*.** Data Collected for the entire populaiton is called a *census*. The statistic of interest for the population is called the *parameter.*
+
+<br>
+
+**In order to understand or make claims about the population, we observe a small part of it. This is called the *Sample*.** The statistic if interest for the sample is called the *sample statistic*.
+
+> Your research question allows for identifying the population, variable of interest, and observations.
+
+# Sampling from a Population
+
+> A sample is only useful if it is representative of the population.
+
+## Randomness
+
+> Ramdomness allows to address the problem of Bias. 
+
+1. What is Randomness?
+2. What is Bias?
+
+## Sampling Methods
+
+1. Simple Random Sampling
+2. Stratified Sampling
+3. Cluster Sampling
+4. Multistage Sampling
+
+# Experimental vs Observational Studies
+
+## Experiments{.smaller}
+
+- Studies in which researchers **actively assign treatments** to cases/subjects
+- A **randomized experiment** uses random assignment (e.g., a coin flip) to decide who gets which treatment
+- Random assignment is key to establishing a **causal** connection between variables
+- Four core design principles:
+  1. **Controlling** – hold other differences between groups constant where possible
+  2. **Randomization** – randomly assign subjects to treatment groups to balance out variables that can't be controlled (guards against confounding)
+  3. **Replication** – use a large enough sample (and ideally replicate the study) to get reliable estimates
+  4. **Blocking** – group subjects by a known influential variable first, then randomize within each group
+- Bias-reduction techniques for human experiments: **placebo**, **blind** studies, and **double-blind** studies (both patients and researchers unaware of group assignment)
+
+## Observational Studies {.smaller}
+
+- Studies where **no treatment is applied or withheld** — researchers simply observe existing data
+- Can reveal **associations** between variables, but generally **cannot support causal claims**
+- The core problem: possible **confounding variables** — variables linked to both the explanatory and response variable — cannot be ruled out
+  - Example: sunscreen use and skin cancer both increase with *sun exposure*, even though sunscreen itself doesn't cause cancer
+- Two types:
+  - **Prospective study** – identify subjects and collect data as events happen going forward (e.g., the Nurses' Health Study)
+  - **Retrospective study** – collect data about events that already occurred (e.g., reviewing medical records)
+
+**Key contrast with experiments:** random *sampling* (observational studies) supports generalizing to a population, while random *assignment* (experiments) supports establishing causation.
+
+# What is Causality? {.smaller}
+
+- **Causation** means changing the explanatory variable actually *produces* a change in the response variable — not just that the two move together
+- **Association ≠ causation**: two variables can be strongly related without one causing the other
+- The main obstacle to claiming causation is the **confounding variable** — a third variable linked to *both* the explanatory and response variables
+  - Example: ice-cream sales and boating accidents rise together, but *outside temperature* drives both
+- **Random assignment** in an experiment is what allows causal claims: it spreads confounding variables evenly across treatment groups, so any difference in outcomes can be attributed to the treatment itself
+- **Observational studies** (no random assignment) can only establish association, since confounders may never be fully identified or measured
+- Bottom line: **random sampling** → results generalize to a population; **random assignment** → results can support a causal conclusion
+
+
+## The Counterfactual Idea {.smaller}
+
+- Causation = comparing what **did** happen vs. what **would have** happened otherwise
+- The counterfactual: the unobserved outcome for the *same* unit under the *other* treatment
+- Problem: we can never observe both outcomes for one subject
+- Solution: use **groups** (treatment vs. control) as stand-ins for each other's counterfactual
+- Random assignment makes the groups comparable, so the group difference estimates the causal effect
+- Causation here is **probabilistic, not deterministic**: X causing Y means intervening on X shifts how *often* Y occurs — not that X guarantees Y, or that Y needs X
+- We can't say X caused Y in one single case — only that X changes the *rate* at which Y happens
+- Two consequences: (1) real confidence in causal claims needs **intervention/experiments**, and (2) because outcomes are stochastic, we need **repeated trials** to build evidence
+
+*(Idea from Spiegelhalter,* The Art of Statistics*, p. 98 — paraphrased)*
+
+# End of Session
+

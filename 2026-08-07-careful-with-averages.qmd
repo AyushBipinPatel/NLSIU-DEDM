@@ -1,0 +1,608 @@
+---
+title: "Careful with the Averages"
+author: "Ayush Patel"
+subtitle: "Confounding, Aggregation Bias, and Simpson's Paradox in Real Research"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: true
+bibliography: citations.bib
+execute: 
+  echo: false
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-dpi: 800
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+
+## Why This Matters
+
+- A single pooled number can be completely reversed by how the underlying groups are mixed together. This happens even when every individual data point is correct.
+- These aren't textbook curiosities. They've driven real lawsuits, real medical practice for a decade, and real public confusion during a pandemic. Getting it wrong has consequences.
+- Every example ahead is real, published research. The skill you're practicing is the same one you'll need whenever you read a headline statistic.
+
+---
+
+# Example 1: Kidney Stone Treatment {background-color="#2c3e50"}
+
+## Ex. 1 - The Data: Two Kidney Stone Treatments
+
+Charig et al. (1986) compared **Treatment A** (open surgery) and **Treatment B** (percutaneous nephrolithotomy) in 700 patients [@charig1986].
+
+| Treatment | Successes / Total | Success rate |
+|---|---|---|
+| A (open surgery) | 273 / 350 | **78%** |
+| B (percutaneous) | 289 / 350 | **83%** |
+
+::: {.callout-note}
+**Discuss:** Which treatment should a doctor recommend? How confident are you?
+:::
+
+## Ex. 1 - The Reveal: Split by Stone Size
+
+| Stone size | Treatment A | Treatment B |
+|---|---|---|
+| Small (< 2cm) | 81/87 = **93%** | 234/270 = **87%** |
+| Large (≥ 2cm) | 192/263 = **73%** | 55/80 = **69%** |
+| **Overall** | 273/350 = 78% | 289/350 = 83% |
+
+- Treatment A wins in **both** subgroups. Yet it loses overall.
+- Why? Doctors preferentially gave the easier, small-stone cases **Treatment B**. They gave the harder, large-stone cases **Treatment A**.
+
+## Ex. 1 - The Lesson: Simpson's Paradox
+
+- **Stone size** is a confounder. It affects both which treatment a patient received and their chance of success.
+- Aggregating over an unbalanced confounder can **reverse** the true comparison.
+- This is **Simpson's Paradox** (Yule-Simpson effect).
+- Takeaway: always ask *"could group composition differ across what I'm comparing?"* before trusting a pooled rate.
+
+## Ex. 1 - Quick Check
+
+**Multiple choice:** In this study, stone size is best classified as a:
+
+A) Outcome variable&nbsp;&nbsp; B) Confounding variable&nbsp;&nbsp; C) Instrumental variable&nbsp;&nbsp; D) Random error term
+
+**Short answer:** If doctors had assigned treatment *randomly*, regardless of stone size, would Simpson's Paradox still be possible here? Why or why not?
+
+::: {.notes}
+MC answer: B. Stone size is a confounder. It affects both treatment assignment and outcome.
+Short answer: No. Under random assignment, treatment would be balanced across stone sizes in expectation. The aggregated and disaggregated comparisons would then point the same direction, up to sampling noise. The paradox requires an imbalance in the confounder across treatment groups.
+:::
+
+---
+
+# Example 2: UC Berkeley Admissions {background-color="#2c3e50"}
+
+## Ex. 2 - The Data: Gender and Graduate Admissions
+
+Fall 1973, UC Berkeley, six largest departments [@bickel1975]:
+
+| | Men admit rate | Women admit rate |
+|---|---|---|
+| **Overall** | 1198/2691 = **44.5%** | 557/1835 = **30.4%** |
+
+::: {.callout-note}
+**Discuss:** Does this look like evidence of discrimination against women? What would you want to check next?
+:::
+
+## Ex. 2 - The Reveal: By Department
+
+| Dept | Men admit % | Women admit % |
+|---|---|---|
+| A | 62.1% | **82.4%** |
+| B | 60.0% | **68.0%** |
+| C | 36.9% | 34.0% |
+| D | 33.1% | **34.9%** |
+| E | 37.7%* | 23.9% |
+| F | 5.9% | **7.0%** |
+
+Women had *equal or higher* admit rates in **4 of 6** departments.
+
+## Ex. 2 - The Lesson: Aggregation Hides Department Choice
+
+- Women disproportionately applied to **competitive** departments, where admit rates were low for everyone. Men applied more to less competitive ones.
+- Department is a confounder. It drives both "who applies" and "chance of admission."
+- Bickel et al. found **no consistent pattern of bias**. If anything, there was a small bias favoring women once departmental autonomy is accounted for [@bickel1975].
+- Same mechanism as Example 1. This is a categorical Simpson's Paradox in a policy-relevant, real-world setting.
+
+## Ex. 2 - Quick Check
+
+**Multiple choice:** The apparent gender gap in admissions disappeared once you conditioned on:
+
+A) Applicant's undergraduate GPA&nbsp;&nbsp; B) Department&nbsp;&nbsp; C) Year of application&nbsp;&nbsp; D) Household income
+
+**Short answer:** "No department shows significant bias against women" and "women were slightly favored once departmental autonomy is accounted for" are two different claims. What additional step does the second claim require beyond just looking at each department separately?
+
+::: {.notes}
+MC answer: B (department).
+Short answer: You need a properly weighted pooling across departments. Each department's sex-difference must be weighted by a common applicant pool, not by the sexes' own differing application patterns. This is what Bickel et al.'s adjusted analysis did to detect a small residual favoring women.
+:::
+
+---
+
+# Example 3: COVID-19 Case Fatality Rates {background-color="#2c3e50"}
+
+## Ex. 3 - The Data: Italy vs. China, Early 2020
+
+Overall case fatality rate (CFR), reported cases [@vonkugelgen2021]:
+
+| Country | Fatalities / Cases | CFR |
+|---|---|---|
+| Italy (9 Mar 2020) | 357 / 8,026 | **4.4%** |
+| China (17 Feb 2020) | 1,023 / 44,672 | **2.3%** |
+
+::: {.callout-note}
+**Discuss:** Was COVID-19 really "twice as deadly" in Italy? What questions would you ask about these two samples?
+:::
+
+## Ex. 3 - The Reveal: Split by Age Group
+
+| Age | Italy CFR | China CFR |
+|---|---|---|
+| 40-49 | 0.1% | **0.4%** |
+| 50-59 | 0.2% | **1.3%** |
+| 60-69 | 2.5% | **3.6%** |
+| 70-79 | 6.4% | **8.0%** |
+| 80+ | 13.2% | **14.8%** |
+| **Overall** | **4.4%** | 2.3% |
+
+Every single age band shows **China higher**. Yet the overall figure flips.
+
+## Ex. 3 - The Lesson: Age Composition Drove the Reversal
+
+- Italy's confirmed cases skewed much older, with a median population age of 45.4 versus 38.4 in China [@vonkugelgen2021].
+- Age is a strong predictor of death. It also differed sharply in who got tested and diagnosed in each country.
+- Comparing raw national CFRs during a pandemic is a textbook Simpson's Paradox. This one happened in real time, in the middle of a global crisis.
+- Same underlying issue as our motivating example: **Case & Deaton's** non-Hispanic white mortality chart (see Example 10).
+
+## Ex. 3 - Quick Check
+
+**Multiple choice:** The Italy/China CFR reversal is best explained by differences in:
+
+A) Testing accuracy&nbsp;&nbsp; B) Virus strain&nbsp;&nbsp; C) Age distribution of confirmed cases&nbsp;&nbsp; D) Hospital bed capacity
+
+**Short answer:** Name one policy or public-health decision that could be made badly if officials compared only the overall national CFR across countries, without stratifying by age.
+
+::: {.notes}
+MC answer: C.
+Short answer: Examples: ranking countries' pandemic response effectiveness by raw CFR; allocating medical resources based on perceived national severity; comparing two countries' treatment protocols without adjusting for who was getting tested or diagnosed.
+:::
+
+---
+
+# Example 4: Robinson's Ecological Fallacy {background-color="#2c3e50"}
+
+## Ex. 4 - The Data: Literacy and Immigration, 1930 US Census
+
+William S. Robinson (1950) computed, for each of the 48 states, the % foreign-born and the % literate [@robinson1950].
+
+- **State-level ("ecological") correlation** between % foreign-born and % literate: **r = +0.53**
+
+::: {.callout-note}
+**Discuss:** What would you conclude about immigrants and literacy from this correlation? Is it safe to say individual immigrants are more literate?
+:::
+
+## Ex. 4 - The Reveal: Individual-Level Data
+
+- Robinson then correlated literacy and nativity **person by person**, not as state averages.
+
+**Individual-level correlation: r = -0.11**
+
+- Immigrants were, on average, *less* literate than native-born citizens. This is the opposite sign from the state-level pattern.
+- Why the flip? Immigrants settled disproportionately in wealthier, more literate **states**. So at the state level, immigration tracks literacy upward, even though individual immigrants pull it down.
+
+## Ex. 4 - The Lesson: The Ecological Fallacy
+
+- A correlation computed on **group averages** need not hold at the **individual** level. It can even reverse.
+- This is distinct from, but related to, Simpson's Paradox. It's about correlations across aggregated units, not just reversing subgroup proportions.
+- Modern relevance: neighborhood-level studies of income, crime, or health cannot automatically be read as claims about the individuals living there.
+
+## Ex. 4 - Quick Check
+
+**Multiple choice:** Robinson's result demonstrates that:
+
+A) Individual- and group-level correlations must always match&nbsp;&nbsp; B) Group-level correlations can differ in sign from individual-level correlations&nbsp;&nbsp; C) Ecological correlations are always larger in magnitude&nbsp;&nbsp; D) Immigration causes higher literacy
+
+**Short answer:** Propose another real or plausible variable pair where a state- or country-level correlation might not hold for individuals within those places.
+
+::: {.notes}
+MC answer: B.
+Short answer: Open-ended. Example: countries with more chocolate consumption per capita have more Nobel laureates per capita, a real and widely-discussed spurious ecological correlation (Messerli 2012, NEJM). Another example: neighborhood-level income vs. crime rate studies being misapplied to individuals.
+:::
+
+---
+
+# Example 5: The Birth Weight Paradox {background-color="#2c3e50"}
+
+## Ex. 5 - The Data: Smoking, Birth Weight, and Infant Mortality
+
+Classic epidemiological finding (Yerushalmy, 1971; explained by Hernández-Díaz et al., 2006) [@hernandezdiaz2006]:
+
+- Infants of **smoking mothers** have higher rates of **both** low birth weight and overall infant mortality than infants of non-smokers.
+- But **among low-birth-weight infants only**, mortality is *lower* for babies born to smokers (relative rate ≈ **0.79**).
+
+::: {.callout-note}
+**Discuss:** Could smoking somehow be "protective" for small babies? What's your hypothesis?
+:::
+
+## Ex. 5 - The Reveal: Two Different Reasons for Low Birth Weight
+
+- A baby can be born small because of **maternal smoking**, usually a mild and reversible cause. Or because of a **severe birth defect or genetic condition**, usually a serious cause.
+- Once you *condition on* "low birth weight," you've mixed two very different populations.
+- In the non-smoking group, low birth weight is disproportionately caused by the severe factors. That means higher mortality.
+- In the smoking group, more of the low-birth-weight babies got there "just" via smoking. That means lower mortality *within that stratum*.
+
+## Ex. 5 - The Lesson: Collider (Stratification) Bias
+
+- Birth weight is a **collider**. It's a common effect of smoking and of other unmeasured causes of poor birth outcomes.
+- Conditioning on, or stratifying by, a collider can create a spurious association. This can happen even if smoking has **no protective effect whatsoever**.
+- This requires a causal diagram (DAG) to fully resolve, not just "control for more variables." Sometimes controlling for something *creates* the bias.
+- Related, real, and current: the **"obesity paradox"** in clinical research (Example 6).
+
+## Ex. 5 - Quick Check
+
+**Multiple choice:** Conditioning on birth weight introduces bias here because birth weight is best classified as a:
+
+A) Confounder&nbsp;&nbsp; B) Collider&nbsp;&nbsp; C) Instrumental variable&nbsp;&nbsp; D) Exogenous variable
+
+**Short answer:** Why can this "paradox" appear in the data even if maternal smoking has *zero* true effect on infant mortality?
+
+::: {.notes}
+MC answer: B. Birth weight is a collider: a common effect of smoking and of other, unmeasured causes of low birth weight.
+Short answer: Stratifying on a collider can induce an association between two variables that have no direct causal link. The association is created by the stratification itself, not by any underlying causal pathway. Hernández-Díaz et al. show this holds even under a null total effect of smoking.
+:::
+
+---
+
+# Example 6: The Obesity Paradox {background-color="#2c3e50"}
+
+## Ex. 6 - The Data: Body Weight and Survival After Illness
+
+Across many clinical cohorts, overweight or obese patients with heart failure, kidney disease, or other conditions often show **better** survival than normal-weight patients with the same diagnosis [@robinson2014obesity].
+
+::: {.callout-note}
+**Discuss:** Could carrying extra weight genuinely protect sick patients? What population were these patients drawn from?
+:::
+
+## Ex. 6 - The Reveal: Who Ends Up in the Study?
+
+- These cohorts only include people who **already have the disease**.
+- Getting the disease is itself associated with weight, and with other health factors such as unmeasured "frailty" or smoking-driven weight loss.
+- Restricting the sample to "diagnosed patients" conditions on a collider. This is similar in structure to Berkson's original 1946 hospital-admission paradox [@berkson1946].
+- Normal-weight patients who got sick may on average be sicker in other unmeasured ways than heavier patients who got sick.
+
+## Ex. 6 - The Lesson: Selection Into the Sample Can Fabricate an Effect
+
+- Whenever your sample is restricted by some process related to both the exposure and the outcome, such as hospitalization or diagnosis, expect possible **collider/selection bias**.
+- "Obesity paradox" findings have been substantially attenuated or reversed once selection is modeled properly [@robinson2014obesity].
+- Broad lesson: *who ends up in your dataset* is itself a statistical choice with consequences.
+
+## Ex. 6 - Quick Check
+
+**Multiple choice:** The obesity paradox is most plausibly driven by:
+
+A) A true protective effect of body fat&nbsp;&nbsp; B) Selection into the "already diagnosed" sample&nbsp;&nbsp; C) Measurement error in BMI&nbsp;&nbsp; D) Random chance alone
+
+**Short answer:** What study design (or data source) could help test whether the obesity paradox reflects a real biological effect versus a selection artifact?
+
+::: {.notes}
+MC answer: B.
+Short answer: A study following a general, undiagnosed population forward in time, rather than conditioning on already-diagnosed patients. Or explicit modeling of the selection process, such as inverse-probability weighting for who gets diagnosed or hospitalized.
+:::
+
+---
+
+# Example 7: Hormone Therapy and Heart Disease {background-color="#2c3e50"}
+
+## Ex. 7 - The Data: Observational Study vs. Randomized Trial
+
+**Nurses' Health Study** (observational, Stampfer et al. 1991) [@stampfer1991]:
+
+- Age-adjusted relative risk of major coronary disease, current hormone users vs. never-users: **RR = 0.53** (95% CI: 0.31-0.91)
+
+**Women's Health Initiative** (randomized controlled trial, 2002) [@whi2002]:
+
+- Hazard ratio for coronary heart disease, estrogen+progestin vs. placebo: **HR = 1.24** (95% CI: 1.00-1.54)
+
+::: {.callout-note}
+**Discuss:** One study says hormone therapy nearly halves heart disease risk; the other says it raises it. Which do you trust, and why?
+:::
+
+## Ex. 7 - The Reveal: The "Healthy User" Effect
+
+- In the observational study, women who **chose** to start and continue hormone therapy were healthier, wealthier, and more health-conscious than non-users to begin with.
+- These same traits independently lower heart disease risk. That makes them a classic **confounder**, correlated with both "treatment" and outcome.
+- The RCT randomly assigned treatment, so no such imbalance could arise.
+- The RCT is what finally overturned decades of consistent observational findings.
+
+## Ex. 7 - The Lesson: Confounding by Indication / Healthy-User Bias
+
+- Consistent findings across many observational studies are **not** proof of a causal effect if the same confounding mechanism biases them all in the same direction.
+- "Whoever chooses the treatment," whether patient, doctor, or self-selection, is often correlated with prognosis. This is confounding by indication.
+- Randomization is the only design that guarantees balance on *unmeasured* confounders too.
+- A sobering example of how a plausible, well-powered, repeatedly-replicated observational result was still wrong.
+
+## Ex. 7 - Quick Check
+
+**Multiple choice:** What specifically eliminated the "healthy user" confound in the WHI study?
+
+A) A larger sample size&nbsp;&nbsp; B) Randomization&nbsp;&nbsp; C) A longer follow-up period&nbsp;&nbsp; D) More precise hormone-level measurement
+
+**Short answer:** Why can many independent observational studies agree with each other and still *all* be wrong?
+
+::: {.notes}
+MC answer: B.
+Short answer: If the same confounding mechanism operates similarly across studies, because it's rooted in how people choose treatment rather than in study-specific quirks, replication across observational studies doesn't rule out that shared bias. Only breaking the selection mechanism, via randomization, does.
+:::
+
+---
+
+# Example 8: The Healthy Worker Effect {background-color="#2c3e50"}
+
+## Ex. 8 - The Data: Occupational Cohorts vs. the General Population
+
+Occupational epidemiology repeatedly finds that workers in a given industry often have **lower** overall mortality than the general population. This holds even for industries with genuine hazards, such as chemical exposure [@lisung1999].
+
+::: {.callout-note}
+**Discuss:** Does this mean the workplace exposure is actually good for you? What's different about "the general population" as a comparison group?
+:::
+
+## Ex. 8 - The Reveal: Who Gets and Keeps a Job?
+
+- To be employed, and to stay employed, you generally must be healthy enough to work.
+- The "general population" comparison group includes people who are too sick, disabled, or elderly to work.
+- So the employed cohort is a **health-selected** subgroup from the start, before any exposure effect is considered.
+- This can *mask* a real harmful effect of a workplace exposure. It doesn't just create a false protective one [@mcmichael1976].
+
+## Ex. 8 - The Lesson: Selection Into "Exposure Status" Itself
+
+- The bias isn't in the outcome measurement. It's in **who becomes a member of the exposed group in the first place**.
+- Named and studied since the 1880s in mortality statistics, and formalized by McMichael (1976) [@mcmichael1976].
+- Practical fix: compare workers to *other* worker cohorts, not to the general population, or adjust explicitly for employment status.
+- General principle: always ask what selection process created each group you're comparing.
+
+## Ex. 8 - Quick Check
+
+**Multiple choice:** The "general population" comparison group is problematic here mainly because it includes:
+
+A) People too young to work&nbsp;&nbsp; B) People too sick, disabled, or old to work&nbsp;&nbsp; C) People who moved away&nbsp;&nbsp; D) People with higher income
+
+**Short answer:** Suggest a better comparison group for an occupational cohort study than "the general population."
+
+::: {.notes}
+MC answer: B.
+Short answer: Another occupational cohort with similar employment-eligibility selection, but different (or no) exposure to the hazard in question. This keeps the "healthy enough to work" selection comparable across groups.
+:::
+
+---
+
+# Example 9: Abraham Wald and the Bombers {background-color="#2c3e50"}
+
+## Ex. 9 - The Data: Bullet Holes on Returning Aircraft
+
+WWII: engineers mapped bullet-hole locations on **bombers that returned** from combat missions. Damage clustered on the wings, fuselage, and tail. The engine areas showed comparatively few hits [@mangel1984].
+
+::: {.callout-note}
+**Discuss:** The military wants to add armor where it will save the most planes. Based on this data, where should the armor go?
+:::
+
+## Ex. 9 - The Reveal: The Planes You Can't See
+
+- Statistician Abraham Wald pointed out that this sample only includes planes that **survived** and made it home.
+- A plane hit in the engine was disproportionately **not present** in the dataset, because it didn't come back.
+- The areas with *few* hits on returning planes were likely the areas where a hit was fatal.
+- Wald recommended armoring the areas that looked *least* damaged [@mangel1984].
+
+## Ex. 9 - The Lesson: Survivorship Bias
+
+- Any dataset built only from "survivors" of some selection process will systematically misrepresent the risks faced by the full population.
+- Modern echo: comparing today's mutual funds only among those still operating overstates historical average returns. Chronically underperforming funds are closed or merged away and disappear from the record [@elton1996].
+- General principle: ask what happened to the cases that are **missing** from your data, not just what the visible cases show.
+
+## Ex. 9 - Quick Check
+
+**Multiple choice:** Wald recommended reinforcing the areas of returning planes that showed:
+
+A) The most bullet holes&nbsp;&nbsp; B) The fewest bullet holes&nbsp;&nbsp; C) No bullet holes at all&nbsp;&nbsp; D) Random locations, for safety margin
+
+**Short answer:** What's the general question you should always ask about a dataset that was built from "survivors" of some selection process?
+
+::: {.notes}
+MC answer: B.
+Short answer: "What happened to the cases that didn't survive to be included, and does that missingness relate to the very thing I'm measuring?"
+:::
+
+---
+
+# Example 10: Mortality Trends by Age Group {background-color="#2c3e50"}
+
+## Ex. 10 - The Data: Midlife Mortality, 1999-2013
+
+Case & Deaton (2015) reported rising mortality among non-Hispanic white Americans aged 45-54. This was a striking reversal of decades of declining mortality in other rich countries and other US groups [@casedeaton2015].
+
+::: {.callout-note}
+**Discuss (bring up the original Case & Deaton Figure 1 on screen):** What does a rising mortality *rate* within a fixed age band, over 15 years, actually require to be true?
+:::
+
+## Ex. 10 - The Reveal: The Band Wasn't Standing Still
+
+- The "45-54" age band is not a fixed population over time. It's redefined every year.
+- Because of the Baby Boom, the **average age within the 45-54 band itself was rising** across 1999-2013, as boomers aged through it.
+- An age band's death rate normally rises within that decade of life. Comparing the raw pooled rate at two different years therefore partly reflects the changing internal age mix, not just changing health.
+- Gelman & Auerbach (2016) showed that properly age-adjusting within the band **substantially changes the size and even the interpretation of the trend** [@gelmanauerbach2016].
+
+## Ex. 10 - The Lesson: Age-Aggregation Bias
+
+- Even a single, unchanging demographic subgroup, tracked over time, can show a misleading trend if its internal age composition drifts.
+- Same root mechanism as Simpson's Paradox and the ecological fallacy: a *pooled* statistic mixes populations with different underlying rates.
+- Fix: always age-standardize, or otherwise composition-standardize, before comparing rates across time or groups.
+- See Gelman's *Regression and Other Stories* for the full worked explanation [@gelmanhillvehtari2020].
+
+## Ex. 10 - Quick Check
+
+**Multiple choice:** The rising midlife mortality trend was partly an artifact of:
+
+A) Better medical reporting over time&nbsp;&nbsp; B) A shifting age composition within the 45-54 band over time&nbsp;&nbsp; C) Changes in cause-of-death coding rules&nbsp;&nbsp; D) Sampling error in the underlying survey
+
+**Short answer:** What analysis would you run to check whether the mortality trend is still real after properly age-standardizing within the band?
+
+::: {.notes}
+MC answer: B.
+Short answer: Compute mortality year-by-year for narrow, fixed single-year age groups, such as exactly age 47, across 1999-2013, rather than pooling the whole 45-54 decade. This removes the internal age-drift confound. Gelman & Auerbach do a version of this.
+:::
+
+---
+
+# Example 11: Survivorship Bias in Mutual Funds {background-color="#2c3e50"}
+
+## Ex. 11 - The Data: "Average" Historical Mutual Fund Returns
+
+Databases of mutual fund performance are often built from funds that are **currently operating**. Using only these funds to compute historical average annual returns produces higher figures than using the *complete* historical universe of funds [@elton1996].
+
+::: {.callout-note}
+**Discuss:** A fund database shows an impressive 15-year average return across "all" available funds. What's missing from "all"?
+:::
+
+## Ex. 11 - The Reveal: The Funds That Disappeared
+
+- Underperforming funds are disproportionately **closed, merged into other funds, or rebranded**, and vanish from live databases.
+- A dataset of "funds that exist today" is therefore a **survivor-selected** sample of the full historical population of funds.
+- Elton, Gruber & Blake (1996) quantified this bias directly by comparing survivor-only databases against more complete fund records [@elton1996].
+
+## Ex. 11 - The Lesson: The Same Bias, a Different Domain
+
+- Structurally identical to Wald's bombers (Example 9). Both involve inference from a sample that excludes "casualties," whether destroyed aircraft or shuttered funds.
+- Financial products, drug trials with dropout, and "top-10 company" business-advice books all face versions of this bias.
+- General principle: ask whether your dataset's very existence depended on an outcome related to what you're measuring.
+
+## Ex. 11 - Quick Check
+
+**Multiple choice:** Survivorship bias in fund databases leads to average historical returns that are:
+
+A) Unbiased&nbsp;&nbsp; B) Systematically too low&nbsp;&nbsp; C) Systematically too high&nbsp;&nbsp; D) Unpredictably biased in either direction
+
+**Short answer:** Name another domain (besides funds and WWII planes) where survivorship bias could distort a conclusion.
+
+::: {.notes}
+MC answer: C.
+Short answer: Examples: studying the habits of "successful startups" without looking at failed ones; profiling long-lived companies for "what makes companies last"; studying centenarians for lifestyle lessons without a comparison group; historical buildings or artworks that "prove" old construction was superior, when the fragile ones simply didn't survive to be observed.
+:::
+
+---
+
+# Practice Set: New Scenarios {background-color="#8e44ad"}
+
+## How to Use This Section
+
+- These are **new** real-research scenarios, not covered in the examples above.
+- For each: (1) pick the mechanism from the toolkit, (2) justify your answer, (3) suggest a fix.
+- Toolkit reminder: Simpson's Paradox · Ecological fallacy · Collider/selection bias · Confounding · Survivorship/ascertainment bias · Age-aggregation bias
+
+## Scenario A: Batting Averages
+
+Derek Jeter and David Justice, 1995-1996 seasons:
+
+| Player | 1995 | 1996 | Combined |
+|---|---|---|---|
+| Jeter | .250 (12/48) | .314 (183/582) | **.310** |
+| Justice | .253 (104/411) | .321 (45/140) | **.270** |
+
+Justice hit better than Jeter in **both individual years**. Yet Jeter has the better **combined** average.
+
+**MC:** This is an instance of:
+
+A) Confounding&nbsp; B) Simpson's Paradox&nbsp; C) Survivorship bias&nbsp; D) Ecological fallacy
+
+**Short answer:** What is the "confounder" that's unevenly distributed here?
+
+::: {.notes}
+MC answer: B. Confounder: number of at-bats per year. Jeter had far more at-bats in his high-average 1996 season. Justice had far more at-bats in his lower-average 1995 season. The seasons therefore contribute unequally to each player's combined average. (Discussed in Ken Ross, *A Mathematician at the Ballpark*, 2004.)
+:::
+
+## Scenario B: Storks and Birth Rates
+
+Across European countries, regions with **more storks** have **higher human birth rates**, a real, published correlation [@matthews2000].
+
+**MC:** The most likely explanation is:
+
+A) Storks cause births&nbsp; B) A shared confounder, such as land area or rural vs. urban development&nbsp; C) Reverse causation&nbsp; D) Collider bias
+
+**Short answer:** What third variable would you want to measure to check your answer?
+
+::: {.notes}
+MC answer: B.
+Short answer: Country land area or degree of urbanization. Larger, more rural countries have both more stork habitat and higher birth rates, with no causal link between the two. This is a country-level ecological correlation, not evidence about individuals or households.
+:::
+
+## Scenario C: Cancer Survival Rates Improve, Yet Every Stage Gets *Worse*
+
+A national cancer registry shows overall 5-year survival improving over a decade. **At the same time**, survival within Stage I, within Stage II, and within Stage III **each decline** over that same decade [@feinstein1985].
+
+**MC:** This is known as:
+
+A) The Will Rogers phenomenon&nbsp; B) Simpson's Paradox&nbsp; C) Survivorship bias&nbsp; D) The healthy-user effect
+
+**Short answer:** A new imaging technology lets doctors detect smaller metastases earlier. How does this reshuffle patients between stages, and why does that alone move the survival numbers?
+
+::: {.notes}
+MC answer: A. This is related to, but conventionally distinguished from, Simpson's Paradox. It's driven by stage migration, not just subgroup weighting.
+Short answer: Better detection reclassifies patients who would previously have been called "Stage I," falsely, due to undetected spread, as "Stage II." Stage I loses its worst cases, so its survival goes up. Stage II gains relatively better cases than it used to have, so its survival also goes up. No patient's actual prognosis changed, and overall survival is unaffected by this alone.
+:::
+
+## Scenario D: Speed Cameras at Accident "Black Spots"
+
+A city installs speed cameras at the intersections with the highest crash counts last year. The next year, crashes at those intersections drop sharply. This is declared a major success [@hauer1997].
+
+**MC:** Before crediting the cameras, the strongest alternative explanation is:
+
+A) Confounding by weather&nbsp; B) Regression to the mean&nbsp; C) Survivorship bias&nbsp; D) Ecological fallacy
+
+**Short answer:** How would you redesign this evaluation to separate the camera effect from the alternative explanation?
+
+::: {.notes}
+MC answer: B. Locations are selected because they had an unusually high crash count, possibly partly due to chance. Even with no intervention, such extreme locations tend to look more "average" the following year.
+Short answer: Use a control group of similarly high-crash intersections that did not get cameras. Compare the before/after change at camera sites to the before/after change at control sites, a difference-in-differences design, rather than trusting the before/after change alone.
+:::
+
+## Scenario E: Hospital Patients and Two Unrelated Diseases
+
+Among **hospitalized** patients, researchers find diabetes and gallbladder disease are *negatively* associated. Having one makes the other statistically less likely. In the general population, the two are unrelated [@berkson1946].
+
+**MC:** This is:
+
+A) Confounding&nbsp; B) Berkson's paradox (collider/selection bias via hospitalization)&nbsp; C) Survivorship bias&nbsp; D) Age-aggregation bias
+
+**Short answer:** Why does restricting the sample to hospitalized patients alone create an association between two causally unrelated diseases?
+
+::: {.notes}
+MC answer: B.
+Short answer: If either disease independently raises the chance of being hospitalized, then among hospitalized patients, having one disease "explains away" some of the need for the other to be present. Hospitalization is a collider for the two diseases. Conditioning on it, by only studying hospitalized patients, induces a spurious negative association.
+:::
+
+---
+
+## Wrap-Up: A Shared Toolkit
+
+| Mechanism | Core question to ask |
+|---|---|
+| Simpson's Paradox | Could group composition differ across what I'm comparing? |
+| Ecological fallacy | Am I inferring individual behavior from group averages? |
+| Collider / selection bias | Did I condition on something affected by both my exposure and my outcome? |
+| Confounding | Is there a common cause of "who got the treatment" and "the outcome"? |
+| Survivorship / ascertainment bias | What's missing from my sample, and why? |
+| Age-aggregation bias | Did the composition of a "fixed" group drift over time? |
+
+## References
+::: {#refs}
+:::

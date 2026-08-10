@@ -1,0 +1,616 @@
+---
+title: "Data, Evidence, and Decision Making (with R)"
+author: "Ayush Patel"
+subtitle: "Session 10: From Curiosity to evidence, a workflow"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: true
+bibliography: citations.bib
+execute:
+  echo: true
+  warning: false
+format:
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-dpi: 800
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+library(janitor)
+
+raw_names <- c("id","round_no","round_period","state","age","gender","income_bracket",
+  "education","hh_size","earners","occupation",
+  "econ_now","econ_outlook","employ_now","employ_outlook",
+  "income_now","income_outlook","spend_now","spend_outlook",
+  "essential_now","essential_outlook","nonessential_now","nonessential_outlook",
+  "price_now","price_outlook","inflation_now","inflation_outlook",
+  "inflation_rate_now","inflation_rate_now_pct","inflation_rate_future","inflation_rate_future_pct",
+  "agri_land")
+
+ccs <- read_csv("india_ccs_teaching.csv", skip = 1, col_names = raw_names, show_col_types = FALSE)
+
+score3 <- function(x) case_when(
+  x %in% c("Improved", "Will Improve", "Increased", "Will Increase") ~ 1,
+  x %in% c("Worsened", "Will Worsen", "Decreased", "Will Decrease") ~ -1,
+  x %in% c("Remained The Same", "Remain The Same") ~ 0,
+  TRUE ~ NA_real_
+)
+
+order_lvls <- c("Decreased", "Remained The Same", "Increased")
+
+ccs <- ccs |>
+  mutate(
+    essential_score = score3(essential_now),
+    nonessential_score = score3(nonessential_now),
+    income_score = score3(income_now),
+    spend_score = score3(spend_now),
+    essential_now = factor(essential_now, levels = order_lvls, ordered = TRUE),
+    nonessential_now = factor(nonessential_now, levels = order_lvls, ordered = TRUE)
+  )
+```
+
+## About Today's Dataset
+
+The RBI's **Rural Consumer Confidence Survey**, May 2026 round. 8,813
+households across 31 states and union territories. They were asked how
+their economic situation, employment, spending, and prices have changed
+compared to a year ago.
+
+---
+
+## A Note on Provenance
+
+This is real RBI microdata. One respondent per row. It is not the
+published index (CSI/FEI). RBI builds that index by aggregating responses
+like these.
+
+::: {.callout-note}
+Everything you'll see today is the actual result on this data. That
+includes whether a hypothesis holds up. Nothing here is staged.
+:::
+
+---
+
+## Session 9 Recap
+
+- Correlation is not causation
+- A confounding variable can create an association that isn't real
+- Simpson's Paradox: a trend can reverse once you split the data
+- Randomisation and control groups exist to rule confounders out
+
+---
+
+## Today: From Abstract to Applied
+
+Today those ideas stop being abstract. You'll use them to interrogate a
+real dataset yourself. This isn't about learning five new R functions. It
+is about practising a way of working.
+
+---
+
+## The Workflow
+
+::: {.incremental}
+1. **Understand the data**
+2. **Ask a question**
+3. **Form a hypothesis**
+4. **Gather evidence**
+5. **Interpret and refine**
+:::
+
+---
+
+## The Workflow, Unpacked
+
+::: {.incremental}
+- What is a row, what is each variable?
+- What relationship are you curious about?
+- What do you expect, and why?
+- Table it, chart it, quantify it, check it within groups
+- Does the evidence hold up, or does it change your mind?
+:::
+
+We'll walk this loop once together on the survey data. Along the way,
+you'll practise each step yourselves on a second, different dataset.
+
+# Step 1: Understand the Data {background-color="#21295C"}
+
+## Before Any Question: Look at the Data
+
+You cannot ask a good question about data you haven't looked at.
+
+- What does **one row** represent?
+- Is each variable **categorical** or **continuous**?
+- Are there units, ranges, or categories that surprise you?
+
+---
+
+## Look: Who Was Surveyed
+
+```{r}
+#| label: understand1
+ccs |> select(state, age, gender, income_bracket, education, occupation) |> glimpse()
+```
+
+---
+
+## Look: What They Were Asked
+
+```{r}
+#| label: understand2
+ccs |> select(econ_now, econ_outlook, employ_now, employ_outlook, income_now, spend_now) |> glimpse()
+```
+
+---
+
+## Look: `count()` on Occupation
+
+```{r}
+#| label: understand3
+ccs |> count(occupation, sort = TRUE)
+```
+
+---
+
+## Look: `count()` on Income Bracket
+
+```{r}
+#| label: understand4
+ccs |> count(income_bracket, sort = TRUE)
+```
+
+---
+
+## One More Step: Categories Aren't Numbers Yet
+
+Every response here is a category. "Increased." "Decreased." "Remained
+The Same." For a single number like a correlation, we still need a
+numeric scale.
+
+---
+
+## From Categories to a Number
+
+This is exactly how RBI itself builds its published indices. Net response
+equals the share who said better, minus the share who said worse.
+
+```{r}
+#| label: recode
+#| eval: false
+score3 <- function(x) case_when(
+  x %in% c("Increased", "Will Increase") ~  1,
+  x %in% c("Decreased", "Will Decrease") ~ -1,
+  x %in% c("Remained The Same", "Remain The Same") ~ 0
+)
+ccs <- ccs |> mutate(essential_score = score3(essential_now))
+```
+
+We'll use the categories directly for tables and charts, and this numeric
+version only when we need a single summary number.
+
+---
+
+## Activity 1: Get to Know a New Dataset (5 min)
+
+Switch datasets for this one. Use `diamonds`. It ships with `ggplot2`, so
+it's already loaded. No import needed.
+
+::: {.callout-tip title="Try it"}
+1. Run `glimpse()` and `head()` on `diamonds`.
+2. List three variables you find interesting, categorical or continuous.
+3. What does a single row represent?
+:::
+
+Don't reach for `ggplot()` or `cor()` yet. This step is only about
+orientation.
+
+# Step 2: From Data to Questions {background-color="#065A82"}
+
+## What Makes a Question Worth Asking?
+
+A good exploratory question names **two things you suspect might be
+related**. It is also answerable with the variables in front of you.
+
+---
+
+## Weak vs. Strong Questions
+
+| Weak question | Stronger question |
+|---|---|
+| "What's in this survey?" | "Do households that report higher essential spending also report higher non-essential spending?" |
+| "How do people feel about money?" | "Does that relationship look the same across income brackets?" |
+| "Is there a pattern by state?" | "Does the economic outlook question track the employment outlook question?" |
+
+---
+
+## A Strong Question Names Its Columns
+
+A strong question already tells you which columns you're about to look at
+together. Often it also tells you which grouping variable might matter.
+
+---
+
+## Activity 2: Brainstorm and Pick a Question (5 min)
+
+Stay with `diamonds` for this one.
+
+::: {.callout-tip title="Try it"}
+1. Brainstorm **three** questions of the form *"Does X relate to Y?"*
+2. Pick the one you're most curious about.
+3. Name the two columns it involves. Name any grouping variable too.
+:::
+
+---
+
+## Our Shared Example
+
+For the rest of today's instructor walkthrough we'll follow one example
+on the survey data.
+
+> *Does a household's change in essential spending track its change in
+> non-essential spending?*
+
+In the capstone, you'll run this exact loop again, start to finish, fully
+on your own.
+
+# Step 3: From Question to Hypothesis {background-color="#065A82"}
+
+## Turning a Question Into a Hypothesis
+
+A hypothesis, used loosely here, is your **specific, tentative guess**. It
+has a direction and a reason. We'll formalise the term properly later in
+the course.
+
+---
+
+## Our Hypothesis
+
+> "I expect essential and non-essential spending to move together, because
+> a household's overall spending capacity should affect both kinds of
+> spending in the same direction."
+
+---
+
+## Just a Guess, For Now
+
+::: {.callout-note}
+Notice this is still just a guess. It might be wrong. It might be right
+for the wrong reason. That's exactly what Step 4 is for.
+:::
+
+---
+
+## Activity 3: Write Your Hypothesis (5 min)
+
+Use your `diamonds` question from Activity 2.
+
+::: {.callout-tip title="Try it"}
+Write one sentence:
+
+*"I expect [X] to [increase / decrease / relate to] [Y], because ___."*
+:::
+
+---
+
+## Activity 3, Continued
+
+Trade with a neighbour. Could their evidence gathering plan prove them
+wrong?
+
+# Step 4: Gather Evidence {background-color="#1C7293"}
+
+## Evidence, Instrument 1: Build a Two-Way Table
+
+Both variables here are categories, not numbers. The natural first move is
+a table, not a scatterplot. A two-way table counts every combination of
+responses.
+
+---
+
+## Counts and Proportions, Together
+
+The `janitor` package builds this kind of table directly. Each cell shows
+a percentage of the grand total, with the raw count right beside it. Row
+and column totals come along too.
+
+```{r}
+#| label: evidence-table
+ccs |>
+  tabyl(essential_now, nonessential_now) |>
+  adorn_totals(c("row", "col")) |>
+  adorn_percentages("all") |>
+  adorn_pct_formatting(digits = 1) |>
+  adorn_ns()
+```
+
+---
+
+## Evidence, Instrument 2: Chart the Proportions
+
+A table of numbers is precise but slow to read. Two kinds of bar chart
+make the same numbers easier to see: one for absolute counts, one for
+relative shares.
+
+---
+
+## Absolute Counts
+
+```{r}
+#| label: evidence-bar-absolute
+ggplot(ccs, aes(x = essential_now, fill = nonessential_now)) +
+  geom_bar(position = "dodge") +
+  labs(x = "Essential spending, vs. year ago",
+       y = "Number of households",
+       fill = "Non-essential spending")
+```
+
+---
+
+## Relative Proportions
+
+```{r}
+#| label: evidence-bar-relative
+ggplot(ccs, aes(x = essential_now, fill = nonessential_now)) +
+  geom_bar(position = "fill") +
+  scale_y_continuous(labels = scales::percent) +
+  labs(x = "Essential spending, vs. year ago",
+       y = "Share of households",
+       fill = "Non-essential spending")
+```
+
+---
+
+## Read the Pattern
+
+Households who say essential spending increased are also more likely to
+say non-essential spending increased. Is that a real relationship, or
+just two variables that both trend upward on their own?
+
+---
+
+## Evidence, Instrument 3: Quantify It
+
+A table and a chart both give you a pattern. A correlation coefficient
+turns that pattern into one number, using the numeric scores from Step 1.
+It is useful, but it is only ever a summary.
+
+---
+
+## Picking the Right Correlation
+
+Our scores are ordinal. "Increased" is more than "Remained The Same,"
+which is more than "Decreased." But we can't say the gap between the
+first two equals the gap between the last two.
+
+---
+
+## Why That Rules Out Pearson
+
+Pearson's correlation, the default in `cor()`, assumes those gaps are
+equal and meaningful. That assumption isn't ours to make here.
+
+Spearman's correlation only uses the ranking of the categories. It never
+needs the size of the gap between them. That makes it the safer choice for
+ordinal data like this.
+
+---
+
+## Compute the Correlation
+
+```{r}
+#| label: evidence-cor
+cor(ccs$essential_score, ccs$nonessential_score, method = "spearman", use = "complete.obs")
+```
+
+---
+
+## A Weak Positive. Now What?
+
+::: {.callout-important}
+Weakly positive, pooled across all 8,813 households. Before deciding what
+that means, get suspicious of a single pooled number.
+:::
+
+## Classroom Activity: Spot the Confounder (15 min)
+
+Before you trust that correlation number, get suspicious of it.
+
+---
+
+## Three Correlations
+
+::: {.callout-tip title="In small groups: find a confounder for each"}
+1. Ice cream sales correlate with drowning incidents.
+2. Firefighters at a fire correlate with total damage cost.
+3. Shoe size correlates with reading ability, in children.
+:::
+
+---
+
+## Then Discuss
+
+**What data would you need to collect to rule out that confounder?**
+
+This is the exact scepticism you're about to apply to our spending
+result.
+
+---
+
+## Evidence, Instrument 4: Check It Within Groups
+
+Households across income brackets face very different spending
+constraints. Does `income_bracket` change the essential and non-essential
+story?
+
+---
+
+## Proportions, Faceted by Income Bracket
+
+```{r}
+#| label: evidence-group-bar
+ggplot(ccs, aes(x = essential_now, fill = nonessential_now)) +
+  geom_bar(position = "fill") +
+  facet_wrap(~ income_bracket, nrow = 2) +
+  scale_y_continuous(labels = scales::percent) +
+  theme(legend.position = "bottom") +
+  labs(x = "Essential spending, vs. year ago",
+       y = "Share of households",
+       fill = "Non-essential spending")
+```
+
+---
+
+## Correlation, Within Each Income Bracket
+
+```{r}
+#| label: evidence-group-cor
+ccs |>
+  group_by(income_bracket) |>
+  summarise(n = n(),
+            r = cor(essential_score, nonessential_score,
+                    method = "spearman", use = "complete.obs")) |>
+  arrange(r)
+```
+
+## What Just Happened? The Numbers
+
+- **Pooled correlation:** `r round(cor(ccs$essential_score, ccs$nonessential_score, method="spearman", use="complete.obs"), 2)`
+- **Within income brackets:** ranges from **0.12** to **0.41**
+- Weakest in the middle brackets. Strongest at both extremes.
+
+---
+
+## What Just Happened? Not a Reversal, But Still a Story
+
+::: {.incremental}
+- This isn't a sign flip like classic Simpson's Paradox. The relationship
+  never goes negative.
+- The pooled number of 0.16 still hides something real. The strength of
+  the relationship depends heavily on income bracket.
+- The poorest households may cut or grow both spending types together out
+  of necessity. The richest may do the same out of shared lifestyle
+  shifts.
+- The middle brackets have more room to trade one off against the other.
+  That's a plausible read, not a proven one.
+:::
+
+---
+
+## What Just Happened? The Lesson
+
+::: {.incremental}
+- Confounding doesn't always look like a dramatic reversal.
+- Sometimes a hidden grouping variable changes *how strong* a relationship
+  is, not just its direction.
+- Either way, the fix is the same. Never trust a single pooled number.
+:::
+
+# Step 5: Interpret and Refine {background-color="#21295C"}
+
+## Closing the Loop: What We Learned
+
+::: {.incremental}
+- The evidence didn't just confirm or reject the hypothesis. It
+  **sharpened** it. Essential and non-essential spending move together
+  weakly overall, and more strongly at the income extremes.
+- Income bracket matters for how tightly these two move together.
+:::
+
+---
+
+## Closing the Loop: What's Still Missing
+
+::: {.incremental}
+- We still can't say one causes the other. For that you'd need Session
+  9's tools. Randomisation, control groups, ruling out other confounders.
+- We haven't ruled out other explanations, like state, occupation, or
+  household size. Checking one grouping variable doesn't rule out the
+  rest.
+- Every hypothesis should end with a question. *What would I still need
+  to check?*
+:::
+
+## Readings
+
+- R4DS 2e, Ch. 10, *Exploratory Data Analysis*
+- IMS 2e, Ch. 7, *Linear Regression*
+
+Read these as reference for the instruments. The workflow around them is
+what today's session was about.
+
+# Final Authentic Task {background-color="#21295C"}
+
+## Capstone: Go Exploring, On Your Own Terms
+
+Same dataset, `ccs`. But **don't reuse essential and non-essential
+spending, and don't reuse `income_bracket`.** Everything else is open.
+
+---
+
+## The Task: Steps 1 to 3
+
+::: {.callout-important title="Steps 1 to 3"}
+1. **Understand it.** Look again, with fresh eyes, at columns you haven't
+   touched. There are over 30.
+2. **Ask your own question.** Try any two of the perception and outlook
+   columns, or one against `state`, `occupation`, `gender`, `age`, or
+   `education`.
+3. **Write a hypothesis.** One sentence, a direction, and a reason.
+:::
+
+---
+
+## The Task: Steps 4 and 5
+
+::: {.callout-important title="Steps 4 and 5"}
+4. **Gather evidence.** Recode your variables to a numeric score if
+   needed. Then build a two-way table, a bar chart of proportions, a
+   pooled correlation, and a within-group correlation against at least
+   one grouping variable. Use Spearman's method. These are ordinal
+   variables.
+5. **Interpret.** Does the evidence support, sharpen, or overturn your
+   hypothesis? What would you still need to claim causation?
+:::
+
+---
+
+## No Answer Key
+
+There is no single "correct" pattern hiding in this dataset for you to
+find. Some variable pairs will show a real relationship. Some won't. Some
+groupings will change the story. Some won't. Report what you actually
+find.
+
+## Wrap-Up: The Workflow
+
+**Understand, then Question, then Hypothesise, then Gather Evidence, then
+Interpret.**
+
+The table, the chart, and the correlation are instruments. They only
+matter once you know what you're testing.
+
+---
+
+## Wrap-Up: The Lesson
+
+- A pooled number can hide a confounder. Sometimes that's a reversal.
+  Sometimes it's just a change in strength.
+- Real data doesn't owe you a dramatic result. A weak or inconsistent
+  finding is still a finding.
+- Every round of evidence should leave you asking what you'd still need to
+  check.
+
+**Next session:** formalising this with linear regression models.

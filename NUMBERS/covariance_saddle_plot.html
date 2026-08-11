@@ -3,221 +3,243 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Why E(XY) is not E(X)E(Y)</title>
+<title>Why E(XY) is not E(X)E(Y) — spec sheet</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js"></script>
 <style>
   :root {
-    --ink: #1c2430;
-    --paper: #f6f4ee;
-    --panel: #ffffff;
-    --line: #d9d4c6;
-    --accent: #b5541a;
-    --accent2: #2c5f6f;
-    --muted: #6b7280;
-    --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+    --bg: #0d2233;
+    --bg2: #0a1c2b;
+    --line: #2c5570;
+    --line-dim: #1c3c50;
+    --ink: #cfe7ef;
+    --ink-dim: #7fa3b5;
+    --signal: #e8a33d;
+    --grid: #163348;
   }
 
   * { box-sizing: border-box; }
 
   body {
     margin: 0;
-    background: var(--paper);
+    background: var(--bg2);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 26px 26px;
     color: var(--ink);
-    font-family: 'IBM Plex Sans', 'Segoe UI', Helvetica, Arial, sans-serif;
-    padding: 28px 20px 60px;
+    font-family: 'Consolas', 'SF Mono', 'Menlo', 'Courier New', monospace;
+    padding: 26px 22px 70px;
+    letter-spacing: 0.01em;
   }
 
-  .wrap {
-    max-width: 980px;
-    margin: 0 auto;
-  }
+  .wrap { max-width: 1040px; margin: 0 auto; }
 
-  header {
-    margin-bottom: 20px;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 16px;
-  }
-
-  h1 {
-    font-size: 1.5rem;
-    font-weight: 650;
-    margin: 0 0 6px;
-    letter-spacing: -0.01em;
-  }
-
-  .subhead {
-    color: var(--muted);
-    font-size: 0.95rem;
-    margin: 0;
-    max-width: 640px;
-    line-height: 1.5;
-  }
-
-  .layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 260px;
-    gap: 18px;
-    align-items: start;
-  }
-
-  @media (max-width: 780px) {
-    .layout { grid-template-columns: 1fr; }
-  }
-
-  .card {
-    background: var(--panel);
+  .frame {
     border: 1px solid var(--line);
-    border-radius: 4px;
+    background: var(--bg);
+  }
+
+  .titleblock {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    border-bottom: 1px solid var(--line);
+    padding: 14px 18px;
+    gap: 12px;
+    align-items: end;
+  }
+
+  .titleblock h1 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+
+  .titleblock p {
+    margin: 0;
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    line-height: 1.6;
+    max-width: 620px;
+  }
+
+  .drawing-no {
+    text-align: right;
+    font-size: 0.65rem;
+    color: var(--ink-dim);
+    line-height: 1.7;
+  }
+
+  .drawing-no b { color: var(--signal); }
+
+  .body-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 250px;
+  }
+
+  @media (max-width: 800px) {
+    .body-grid { grid-template-columns: 1fr; }
   }
 
   #plot {
     width: 100%;
     height: 560px;
+    border-right: 1px solid var(--line);
   }
 
-  .hint {
-    font-size: 0.8rem;
-    color: var(--muted);
-    padding: 8px 14px;
-    border-top: 1px solid var(--line);
+  @media (max-width: 800px) {
+    #plot { border-right: none; border-bottom: 1px solid var(--line); }
   }
 
-  .controls {
-    padding: 16px;
+  .panel {
     display: flex;
     flex-direction: column;
-    gap: 18px;
   }
 
-  .control-block label {
-    display: block;
-    font-size: 0.78rem;
+  .panel-section {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--line-dim);
+  }
+
+  .panel-section:last-child { border-bottom: none; }
+
+  .label-row {
+    font-size: 0.62rem;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--muted);
-    margin-bottom: 6px;
+    letter-spacing: 0.1em;
+    color: var(--ink-dim);
+    margin-bottom: 8px;
   }
 
-  .rho-value {
-    font-family: var(--mono);
-    font-size: 1.1rem;
-    color: var(--accent);
+  .rho-readout {
+    font-size: 1.4rem;
+    color: var(--signal);
+    font-weight: 600;
   }
 
   input[type="range"] {
     width: 100%;
-    accent-color: var(--accent);
+    margin-top: 10px;
+    accent-color: var(--signal);
+    background: transparent;
   }
 
   button {
     width: 100%;
     padding: 9px 10px;
-    border-radius: 3px;
-    border: 1px solid var(--ink);
-    background: var(--ink);
-    color: var(--paper);
-    font-size: 0.85rem;
-    cursor: pointer;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink);
     font-family: inherit;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
   }
 
-  button:hover { background: #33404f; }
+  button:hover { border-color: var(--signal); color: var(--signal); }
 
-  .stats {
-    font-family: var(--mono);
-    font-size: 0.83rem;
-    line-height: 1.7;
-    border-top: 1px solid var(--line);
-    padding-top: 12px;
-  }
-
-  .stats .row {
+  .spec-row {
     display: flex;
     justify-content: space-between;
-    gap: 8px;
+    font-size: 0.72rem;
+    padding: 3px 0;
+    border-bottom: 1px dotted var(--line-dim);
   }
 
-  .stats .row span:first-child {
-    color: var(--muted);
-  }
+  .spec-row span:first-child { color: var(--ink-dim); }
+  .spec-row span:last-child { color: var(--ink); }
 
-  .gap-line {
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px dashed var(--line);
-  }
+  .spec-row.gap span:last-child { color: var(--signal); font-weight: 600; }
 
-  .gap-line .row span:last-child {
-    color: var(--accent);
-    font-weight: 600;
-  }
-
-  .legend {
-    padding: 14px 16px;
-    font-size: 0.8rem;
-    color: var(--muted);
-    line-height: 1.6;
+  .legend-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    padding: 12px 18px;
     border-top: 1px solid var(--line);
+    font-size: 0.66rem;
+    color: var(--ink-dim);
   }
 
-  .swatch {
+  .legend-strip .swatch {
     display: inline-block;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
+    width: 8px; height: 8px;
     margin-right: 6px;
+    transform: translateY(0px);
   }
 
   footer {
-    margin-top: 18px;
-    font-size: 0.78rem;
-    color: var(--muted);
-    max-width: 700px;
-    line-height: 1.6;
+    max-width: 720px;
+    margin: 18px auto 0;
+    font-size: 0.72rem;
+    line-height: 1.7;
+    color: var(--ink-dim);
   }
+
+  footer b { color: var(--ink); font-weight: 600; }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <header>
-    <h1>Why E(XY) is not E(X)&middot;E(Y)</h1>
-    <p class="subhead">
-      Each point is lifted from the flat (x, y) cloud onto the surface z = xy.
-      The amber marker sits at the surface height directly above the centroid, E(X)&middot;E(Y).
-      The crimson marker is the average height of the whole lifted cloud, E(XY).
-      Drag to rotate. Move the slider to change how strongly x and y are related.
-    </p>
-  </header>
-
-  <div class="layout">
-    <div class="card">
-      <div id="plot"></div>
-      <div class="hint">Drag to orbit, scroll to zoom, double click to reset the view.</div>
-    </div>
-
-    <div class="card controls">
-      <div class="control-block">
-        <label>Correlation of x and y</label>
-        <div class="rho-value" id="rhoLabel">0.00</div>
-        <input type="range" id="rhoSlider" min="-90" max="90" value="0" step="5" />
+  <div class="frame">
+    <div class="titleblock">
+      <div>
+        <h1>Fig. 01 — Covariance as a Dimension</h1>
+        <p>
+          Points lifted from the (x, y) plane onto the surface z = xy.
+          The gap between the surface height above the mean and the true average
+          height of the cloud is dimensioned on the right, this is the covariance.
+        </p>
       </div>
-
-      <button id="resampleBtn">Resample points</button>
-
-      <div class="stats" id="stats"></div>
+      <div class="drawing-no">
+        SHEET <b>1/1</b><br />
+        SCALE <b>NTS</b><br />
+        REV <b>A</b>
+      </div>
     </div>
-  </div>
 
-  <div class="card legend">
-    <div><span class="swatch" style="background:#3c6478"></span>lifted data points, sitting on the surface z = xy</div>
-    <div><span class="swatch" style="background:#c9812f"></span>surface height at the centroid, E(X)&middot;E(Y)</div>
-    <div><span class="swatch" style="background:#b5541a"></span>average height of the cloud, E(XY)</div>
-    <div style="margin-top:6px;">the dashed vertical segment is the gap between them, which is the covariance</div>
+    <div class="body-grid">
+      <div id="plot"></div>
+
+      <div class="panel">
+        <div class="panel-section">
+          <div class="label-row">Correlation, r target</div>
+          <div class="rho-readout" id="rhoLabel">0.00</div>
+          <input type="range" id="rhoSlider" min="-90" max="90" value="0" step="5" />
+        </div>
+
+        <div class="panel-section">
+          <button id="resampleBtn">↻ resample points</button>
+        </div>
+
+        <div class="panel-section">
+          <div class="label-row">Readout</div>
+          <div class="spec-row"><span>E(X)</span><span id="ex">—</span></div>
+          <div class="spec-row"><span>E(Y)</span><span id="ey">—</span></div>
+          <div class="spec-row"><span>E(X)·E(Y)</span><span id="exy_prod">—</span></div>
+          <div class="spec-row"><span>E(XY)</span><span id="exy">—</span></div>
+          <div class="spec-row gap"><span>Cov(X,Y)</span><span id="cov">—</span></div>
+          <div class="spec-row"><span>sample r</span><span id="r">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="legend-strip">
+      <span><span class="swatch" style="background:#5fb3cf"></span>lifted points on z = xy</span>
+      <span><span class="swatch" style="background:#8fa7b3"></span>surface height at centroid, E(X)E(Y)</span>
+      <span><span class="swatch" style="background:#e8a33d"></span>cloud average height, E(XY)</span>
+      <span><span class="swatch" style="background:#e8a33d;border-radius:0;height:1px;width:14px;margin-top:4px;"></span>dimension line = covariance</span>
+    </div>
   </div>
 
   <footer>
-    At correlation zero, the cloud spreads evenly across all four quadrants around the centroid, so the lifts above the surface height and the dips below it cancel out, and the two markers sit almost on top of each other. As correlation grows, the cloud leans into the quadrants where x and y move together, both above their means or both below, and those quadrants sit higher on the saddle. The average height then pulls above the surface height at the centroid, and the visible gap grows. That gap is exactly E(XY) minus E(X)E(Y), the covariance.
+    At r = 0 the cloud spreads evenly into all four quadrants around the centroid, so the two markers sit almost flush.
+    As r rises toward 1, the cloud concentrates in the quadrants where x and y move together, and the average height climbs
+    above the surface height at the centroid. <b>The dimensioned gap is E(XY) minus E(X)E(Y)</b>, read directly off the drawing.
   </footer>
 
 </div>
@@ -247,9 +269,7 @@
     return { xs, ys };
   }
 
-  function mean(arr) {
-    return arr.reduce((a, b) => a + b, 0) / arr.length;
-  }
+  function mean(arr) { return arr.reduce((a, b) => a + b, 0) / arr.length; }
 
   function buildSurfaceGrid() {
     const res = 36;
@@ -272,12 +292,20 @@
   const plotDiv = document.getElementById('plot');
   const rhoSlider = document.getElementById('rhoSlider');
   const rhoLabel = document.getElementById('rhoLabel');
-  const statsDiv = document.getElementById('stats');
   const resampleBtn = document.getElementById('resampleBtn');
+
+  const out = {
+    ex: document.getElementById('ex'),
+    ey: document.getElementById('ey'),
+    exy_prod: document.getElementById('exy_prod'),
+    exy: document.getElementById('exy'),
+    cov: document.getElementById('cov'),
+    r: document.getElementById('r')
+  };
 
   let currentData = generateData(0);
 
-  function render(rho, data, animate) {
+  function render(data, animate) {
     const xs = data.xs, ys = data.ys;
     const zs = xs.map((x, i) => x * ys[i]);
 
@@ -286,7 +314,6 @@
     const EXY = mean(zs);
     const surfaceHeight = EX * EY;
     const cov = EXY - surfaceHeight;
-
     const varX = mean(xs.map(x => (x - EX) ** 2));
     const varY = mean(ys.map(y => (y - EY) ** 2));
     const corr = cov / Math.sqrt(varX * varY);
@@ -294,9 +321,9 @@
     const surfaceTrace = {
       type: 'surface',
       x: xg, y: yg, z: zg,
-      opacity: 0.45,
+      opacity: 0.35,
       showscale: false,
-      colorscale: [[0, '#dfe7ea'], [1, '#c3d3d9']],
+      colorscale: [[0, '#153146'], [1, '#1f4460']],
       hoverinfo: 'skip',
       contours: { z: { show: false } }
     };
@@ -305,48 +332,47 @@
       type: 'scatter3d',
       mode: 'markers',
       x: xs, y: ys, z: zs,
-      marker: { size: 3.2, color: '#3c6478', opacity: 0.85 },
-      hoverinfo: 'skip',
-      name: 'lifted points'
+      marker: { size: 3.2, color: '#5fb3cf', opacity: 0.9 },
+      hoverinfo: 'skip'
     };
 
     const centroidTrace = {
       type: 'scatter3d',
       mode: 'markers',
       x: [EX], y: [EY], z: [surfaceHeight],
-      marker: { size: 7, color: '#c9812f', symbol: 'diamond' },
-      name: 'E(X)\u00b7E(Y)',
-      hovertemplate: 'surface height at centroid<br>E(X)\u00b7E(Y) = %{z:.3f}<extra></extra>'
+      marker: { size: 6, color: '#8fa7b3', symbol: 'diamond' },
+      hovertemplate: 'E(X)E(Y) = %{z:.3f}<extra></extra>'
     };
 
     const avgTrace = {
       type: 'scatter3d',
       mode: 'markers',
       x: [EX], y: [EY], z: [EXY],
-      marker: { size: 7, color: '#b5541a' },
-      name: 'E(XY)',
-      hovertemplate: 'average height of cloud<br>E(XY) = %{z:.3f}<extra></extra>'
+      marker: { size: 6, color: '#e8a33d' },
+      hovertemplate: 'E(XY) = %{z:.3f}<extra></extra>'
     };
 
     const gapTrace = {
       type: 'scatter3d',
       mode: 'lines',
       x: [EX, EX], y: [EY, EY], z: [surfaceHeight, EXY],
-      line: { color: '#b5541a', width: 5, dash: 'dash' },
+      line: { color: '#e8a33d', width: 5, dash: 'dot' },
       hoverinfo: 'skip'
     };
 
     const layout = {
-      margin: { l: 0, r: 0, t: 10, b: 0 },
+      margin: { l: 0, r: 0, t: 6, b: 0 },
       paper_bgcolor: 'rgba(0,0,0,0)',
+      plot_bgcolor: 'rgba(0,0,0,0)',
       scene: {
-        xaxis: { title: 'x', backgroundcolor: 'rgba(0,0,0,0)', gridcolor: '#e4e0d4' },
-        yaxis: { title: 'y', backgroundcolor: 'rgba(0,0,0,0)', gridcolor: '#e4e0d4' },
-        zaxis: { title: 'z = xy', backgroundcolor: 'rgba(0,0,0,0)', gridcolor: '#e4e0d4' },
+        xaxis: { title: 'x', color: '#7fa3b5', gridcolor: '#1c3c50', backgroundcolor: 'rgba(0,0,0,0)', zerolinecolor: '#2c5570' },
+        yaxis: { title: 'y', color: '#7fa3b5', gridcolor: '#1c3c50', backgroundcolor: 'rgba(0,0,0,0)', zerolinecolor: '#2c5570' },
+        zaxis: { title: 'z = xy', color: '#7fa3b5', gridcolor: '#1c3c50', backgroundcolor: 'rgba(0,0,0,0)', zerolinecolor: '#2c5570' },
         camera: { eye: { x: 1.55, y: -1.65, z: 0.85 } },
         aspectmode: 'cube'
       },
-      showlegend: false
+      showlegend: false,
+      font: { color: '#cfe7ef', family: 'Consolas, monospace', size: 10 }
     };
 
     const traces = [surfaceTrace, cloudTrace, centroidTrace, avgTrace, gapTrace];
@@ -357,31 +383,27 @@
       Plotly.newPlot(plotDiv, traces, layout, { responsive: true, displaylogo: false });
     }
 
-    statsDiv.innerHTML = `
-      <div class="row"><span>E(X)</span><span>${EX.toFixed(2)}</span></div>
-      <div class="row"><span>E(Y)</span><span>${EY.toFixed(2)}</span></div>
-      <div class="row"><span>E(X)&middot;E(Y)</span><span>${surfaceHeight.toFixed(2)}</span></div>
-      <div class="row"><span>E(XY)</span><span>${EXY.toFixed(2)}</span></div>
-      <div class="gap-line">
-        <div class="row"><span>Cov(X,Y)</span><span>${cov.toFixed(2)}</span></div>
-        <div class="row"><span>sample r</span><span>${corr.toFixed(2)}</span></div>
-      </div>
-    `;
+    out.ex.textContent = EX.toFixed(2);
+    out.ey.textContent = EY.toFixed(2);
+    out.exy_prod.textContent = surfaceHeight.toFixed(2);
+    out.exy.textContent = EXY.toFixed(2);
+    out.cov.textContent = cov.toFixed(2);
+    out.r.textContent = corr.toFixed(2);
   }
 
-  render(0, currentData, false);
+  render(currentData, false);
 
   rhoSlider.addEventListener('input', () => {
     const rho = parseInt(rhoSlider.value, 10) / 100;
     rhoLabel.textContent = rho.toFixed(2);
     currentData = generateData(rho);
-    render(rho, currentData, true);
+    render(currentData, true);
   });
 
   resampleBtn.addEventListener('click', () => {
     const rho = parseInt(rhoSlider.value, 10) / 100;
     currentData = generateData(rho);
-    render(rho, currentData, true);
+    render(currentData, true);
   });
 })();
 </script>

@@ -1,0 +1,373 @@
+---
+title: "Numbers"
+author: "Ayush Patel"
+subtitle: "Bonus Round: More on Bayes and Correlation"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute: 
+  echo: false
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+# Simple Probability
+
+## Sample Space and Events
+
+- Sample space $S$ is the set of all possible outcomes.
+- An event $A$ is any subset of $S$.
+- $0 \le P(A) \le 1$
+- $P(S) = 1$
+
+Example: Roll a die once.
+
+$S = \{1,2,3,4,5,6\}$
+
+$P(\text{rolling a 4}) = \dfrac{1}{6}$
+
+## Complement Rule
+
+- $A^c$ is the event that $A$ does not happen.
+- $P(A^c) = 1 - P(A)$
+
+Example: Roll a die once.
+
+$P(\text{not a 4}) = 1 - \dfrac{1}{6} = \dfrac{5}{6}$
+
+# Union and Intersection
+
+## Union of Events
+
+- Union means $A$ happens, or $B$ happens, or both happen.
+- General rule for any two events:
+
+$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+
+Example: Draw one card from a deck of 52.
+
+$$P(\text{King or Heart}) = \dfrac{4}{52} + \dfrac{13}{52} - \dfrac{1}{52} = \dfrac{16}{52}$$
+
+## Union of Mutually Exclusive Events
+
+- Two events are mutually exclusive if they cannot happen together.
+- If so, $P(A \cap B) = 0$.
+
+$$P(A \cup B) = P(A) + P(B)$$
+
+Example: Roll a die once.
+
+$$P(\text{rolling a 2 or a 5}) = \dfrac{1}{6} + \dfrac{1}{6} = \dfrac{2}{6}$$
+
+## Intersection of Events
+
+- Intersection means $A$ and $B$ happen together.
+- General rule for any two events:
+
+$$P(A \cap B) = P(A) \cdot P(B \mid A)$$
+
+Example: Draw two cards, one after the other, without replacement.
+
+$$P(\text{both Kings}) = \dfrac{4}{52} \cdot \dfrac{3}{51}$$
+
+## Intersection of Independent Events
+
+- Two events are independent if one does not affect the chance of the other.
+
+$$P(A \mid B) = P(A) \quad \text{and} \quad P(B \mid A) = P(B)$$
+
+$$P(A \cap B) = P(A) \cdot P(B)$$
+
+Example: Flip a fair coin twice.
+
+$$P(\text{Head then Head}) = \dfrac{1}{2} \cdot \dfrac{1}{2} = \dfrac{1}{4}$$
+
+## Independent is Not the Same as Mutually Exclusive {.smaller}
+
+- Mutually exclusive events cannot happen together. In this sense they are strongly linked.
+- Independent events can happen together. One tells us nothing about the other.
+
+Example:
+
+Two separate coin tosses are independent.
+
+On a single roll of one die, getting a 3 and getting a 4 cannot both happen. That single roll outcome is mutually exclusive, not independent.
+
+Note: rolling a 3 on one roll, and then rolling a 4 on the next roll, are independent events. The mutually exclusive case above is about two outcomes competing for the same roll, not two separate rolls.
+
+# Bayes' Rule
+
+## Bayes' Rule
+
+- Bayes' rule updates the probability of an event once we learn new information.
+- It tells us how beliefs should change after new evidence.
+
+$$P(A \mid B) = \dfrac{P(B \mid A) \, P(A)}{P(B)}$$
+
+## Bayes' Rule, a Question
+
+In a class, 60% of students attend tutorials.
+
+Among those who attend, 80% pass the exam.
+
+Among those who do not attend, 50% pass.
+
+a) What is the probability that a student passes?
+
+b) Given that a student passed, what is the probability they attended tutorials?
+
+## Bayes' Rule, Solution
+
+Total probability of passing:
+
+$$P(\text{Pass}) = (0.8)(0.6) + (0.5)(0.4) = 0.68$$
+
+Probability of attending, given a pass:
+
+$$P(\text{Attend} \mid \text{Pass}) = \dfrac{(0.8)(0.6)}{0.68} = \dfrac{0.48}{0.68} \approx 0.71$$
+
+## Bayes' Rule, Another Question {.smaller}
+
+A disease affects 2% of a population.
+
+A test correctly detects the disease 95% of the time, this is called sensitivity, or the true positive rate.
+
+The test incorrectly gives a positive result 5% of the time, this is the false positive rate. Equivalently, the test correctly gives a negative result 95% of the time for healthy people, this is called specificity, or the true negative rate.
+
+a) What is the probability that a randomly chosen person tests positive?
+
+b) If someone tests positive, what is the probability they actually have the disease?
+
+## Bayes' Rule, Solution {.smaller}
+
+Total probability of a positive test:
+
+$$P(+) = (0.95)(0.02) + (0.05)(0.98) = 0.019 + 0.049 = 0.068$$
+
+Probability of disease, given a positive test:
+
+$$P(\text{Disease} \mid +) = \dfrac{(0.95)(0.02)}{0.068} = \dfrac{0.019}{0.068} \approx 0.28$$
+
+This last quantity, the probability of actually having the disease given a positive test, is called the positive predictive value of the test.
+
+Even with a positive test, the chance of disease is only about 28%. This is because the disease is rare to begin with.
+
+## Bayes' Rule, a Note on Labels {.smaller}
+
+These terms come up often when reading about medical tests, screening, or classification.
+
+| Quantity | Common Label |
+|---|---|
+| $P(+ \mid \text{Disease})$ | Sensitivity, true positive rate |
+| $P(- \mid \text{No Disease})$ | Specificity, true negative rate |
+| $P(+ \mid \text{No Disease})$ | False positive rate |
+| $P(- \mid \text{Disease})$ | False negative rate |
+| $P(\text{Disease} \mid +)$ | Positive predictive value |
+| $P(\text{No Disease} \mid -)$ | Negative predictive value |
+
+## Bayes' Rule, a Real World Case
+
+- This example is inspired by a discussion in Jordan Ellenberg's book, How Not to Be Wrong.
+- After large scale surveillance programs, agencies tried to flag potential terrorists using social network data, things like phone calls and Facebook connections.
+- Actual terrorists are extremely rare in any large population.
+- Even a fairly accurate algorithm can turn out to be almost useless once the base rate is this low.
+
+## Bayes' Rule, a Real World Case, the Question
+
+Suppose a country has 300 million people, and only 300 of them are actual terrorists. That is a base rate of 1 in a million.
+
+The algorithm correctly flags 99% of actual terrorists.
+
+It wrongly flags 1% of innocent people as well.
+
+a) How many actual terrorists get flagged?
+
+b) How many innocent people get flagged?
+
+c) If a person is flagged, what is the probability they are actually a terrorist?
+
+## Bayes' Rule, a Real World Case, the Numbers
+
+True positives, actual terrorists flagged:
+
+$$0.99 \times 300 = 297$$
+
+False positives, innocent people flagged:
+
+$$0.01 \times (300{,}000{,}000 - 300) \approx 0.01 \times 300{,}000{,}000 = 3{,}000{,}000$$
+
+## Bayes' Rule, a Real World Case, Interpretation
+
+Probability a flagged person is actually a terrorist:
+
+$$P(\text{Terrorist} \mid \text{Flagged}) = \dfrac{297}{297 + 3{,}000{,}000} \approx 0.0001$$
+
+Even with a 99% accurate algorithm, almost everyone who gets flagged is innocent. Actual terrorists are so rare that false positives overwhelm true positives.
+
+# Correlation
+
+## Correlation, Formula One
+
+- Correlation measures the strength and direction of a straight line relationship between two variables.
+
+$$r = \dfrac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum (x_i - \bar{x})^2} \; \sqrt{\sum (y_i - \bar{y})^2}}$$
+
+Example:
+
+X: 1, 2, 3
+
+Y: 2, 4, 5
+
+## Correlation, Formula One, Working {.smaller}
+
+$\bar{x} = 2$, $\bar{y} = 3.67$
+
+Deviations X: -1, 0, 1
+
+Deviations Y: -1.67, 0.33, 1.33
+
+Products of deviations: 1.67, 0, 1.33, sum is 3
+
+Squared deviations X: 1, 0, 1, sum is 2
+
+Squared deviations Y: 2.79, 0.11, 1.77, sum is 4.67
+
+$$r = \dfrac{3}{\sqrt{2}\sqrt{4.67}} \approx \dfrac{3}{3.05} \approx 0.98$$
+
+# Expectation
+
+## Expected Value
+
+- Expected value is the value a random process settles around, over many repeats.
+- It is a weighted average, using probability as the weight.
+
+$$E(X) = \sum_i x_i \cdot P(x_i)$$
+
+Example: A fair die is rolled once.
+
+$$E(X) = 1\left(\tfrac{1}{6}\right)+2\left(\tfrac{1}{6}\right)+3\left(\tfrac{1}{6}\right)+4\left(\tfrac{1}{6}\right)+5\left(\tfrac{1}{6}\right)+6\left(\tfrac{1}{6}\right) = 3.5$$
+
+## Expected Value from a Relative Frequency Table
+
+- Relative frequency is the proportion of times an outcome occurs in observed data.
+- We can use it as an estimate of probability when calculating expectation.
+
+Example: Number of cars owned, 10 households.
+
+| Cars owned | Frequency | Relative Frequency |
+|:---:|:---:|:---:|
+| 0 | 1 | 0.1 |
+| 1 | 2 | 0.2 |
+| 2 | 3 | 0.3 |
+| 3 | 4 | 0.4 |
+
+$$E(X) = 0(0.1)+1(0.2)+2(0.3)+3(0.4) = 2.0$$
+
+# Correlation Continued
+
+## Correlation, Formula Two
+
+- The same idea of correlation can be found using expectations directly, without raw data pairs.
+
+$$r = \dfrac{E(XY) - E(X)E(Y)}{\sqrt{E(X^2) - [E(X)]^2} \; \sqrt{E(Y^2) - [E(Y)]^2}}$$
+
+Suppose we are told:
+
+$E(X) = 12$, $E(Y) = 8$, $E(XY) = 110$, $E(X^2) = 160$, $E(Y^2) = 80$
+
+## Correlation, Formula Two, Covariance and Variance
+
+Covariance:
+
+$$\text{Cov}(X,Y) = E(XY) - E(X)E(Y) = 110 - (12)(8) = 14$$
+
+Variance of X, and its standard deviation:
+
+$$\text{Var}(X) = E(X^2) - [E(X)]^2 = 160 - 144 = 16, \quad \text{SD}(X) = 4$$
+
+Variance of Y, and its standard deviation:
+
+$$\text{Var}(Y) = E(Y^2) - [E(Y)]^2 = 80 - 64 = 16, \quad \text{SD}(Y) = 4$$
+
+## Correlation, Formula Two, Final Calculation
+
+Correlation:
+
+$$r = \dfrac{14}{(4)(4)} = \dfrac{14}{16} = 0.875$$
+
+This is the kind of question where you are given expectations directly, and just need to work through covariance and standard deviations step by step.
+
+## Why Compare E(XY) to E(X) times E(Y) {.smaller}
+
+- Formula two just used $E(XY)$ and $E(X)E(Y)$ as two separate ingredients. These look similar but mean different things.
+- $E(X)E(Y)$ multiplies two plain numbers, the average of X and the average of Y.
+- $E(XY)$ is the average of the product X times Y, calculated jointly, outcome by outcome, before any averaging happens.
+- If X and Y are independent, knowing X tells us nothing about Y. In that case the two quantities are equal, $E(XY) = E(X)E(Y)$.
+- If X and Y tend to move together, or move apart, the joint product runs higher or lower than independence alone would predict. The gap between them, $E(XY) - E(X)E(Y)$, is exactly the covariance we just calculated.
+
+## A Simple Illustration
+
+Flip one fair coin. Let X = 1 for heads, 0 for tails.
+
+Case one: let Y come from a second, separate coin flip. X and Y are independent.
+
+Case two: let Y always equal X, so Y matches the first flip exactly. X and Y move together completely.
+
+In both cases, $E(X) = 0.5$ and $E(Y) = 0.5$, so $E(X)E(Y) = 0.25$.
+
+## A Simple Illustration, Case One
+
+Independent flips:
+
+$P(X{=}1 \text{ and } Y{=}1) = 0.5 \times 0.5 = 0.25$
+
+$$E(XY) = 1 \times 0.25 = 0.25$$
+
+Here $E(XY) = E(X)E(Y)$. Covariance is 0.25 minus 0.25, which is 0.
+
+## A Simple Illustration, Case Two
+
+Y always equals X:
+
+$P(X{=}1 \text{ and } Y{=}1) = P(X{=}1) = 0.5$
+
+$$E(XY) = 1 \times 0.5 = 0.5$$
+
+Here $E(XY)$ is bigger than $E(X)E(Y)$. Covariance is 0.5 minus 0.25, which is 0.25, a positive number. This matches X and Y always moving together.
+
+# No Alternatives to looking at data
+
+[See](covariance_saddle_plot.html) for visual referecne to understand that expectation of product of random variables is not same as product of expectations of two random variables, when the variables are not correlated.
+
+# Using Correlation with Care
+
+## Caveat, Pearson's Correlation and Continuous Variables
+
+- Pearson's correlation only picks up straight line relationships.
+- A strong curved pattern can still give a low value of $r$.
+- It is sensitive to outliers. One extreme point can change $r$ by a lot.
+- A high $r$ does not mean one variable causes the other.
+- Always plot the data first. A scatter plot shows patterns that $r$ alone cannot.
+
+## Issue, Pearson's Correlation and Categorical Variables
+
+- Pearson's correlation assumes numeric data with meaningful distance between values.
+- It should not be used directly on nominal categories, such as gender or city.
+- Even with ordinal categories, the ranks may not be evenly spaced.
+- For categorical data, other tools fit better, such as the chi square test of association, or Cramer's V.
+
+# End of Session

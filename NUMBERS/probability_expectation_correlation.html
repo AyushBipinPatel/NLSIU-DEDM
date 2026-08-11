@@ -1327,26 +1327,79 @@ Ayush Patel
 <li>If X and Y tend to move together, or move apart, the joint product runs higher or lower than independence alone would predict. The gap between them, <span class="math inline">\(E(XY) - E(X)E(Y)\)</span>, is exactly the covariance we just calculated.</li>
 </ul>
 </section>
-<section id="a-simple-illustration" class="slide level2">
-<h2>A Simple Illustration</h2>
-<p>Flip one fair coin. Let X = 1 for heads, 0 for tails.</p>
-<p>Case one: let Y come from a second, separate coin flip. X and Y are independent.</p>
-<p>Case two: let Y always equal X, so Y matches the first flip exactly. X and Y move together completely.</p>
-<p>In both cases, <span class="math inline">\(E(X) = 0.5\)</span> and <span class="math inline">\(E(Y) = 0.5\)</span>, so <span class="math inline">\(E(X)E(Y) = 0.25\)</span>.</p>
+<section id="a-baseline-no-correlation" class="slide level2">
+<h2>A Baseline, No Correlation</h2>
+<p>Over 10 days, record two things.</p>
+<p>X = it rained that day.</p>
+<p>Y = a coin flip landed heads that day.</p>
+<p>A coin has no reason to land differently on rainy days versus dry ones, so we expect these to be unrelated.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;">Heads, Y=1</th>
+<th style="text-align: center;">Tails, Y=0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rain, X=1</td>
+<td style="text-align: center;">2 days</td>
+<td style="text-align: center;">2 days</td>
+</tr>
+<tr class="even">
+<td>No rain, X=0</td>
+<td style="text-align: center;">3 days</td>
+<td style="text-align: center;">3 days</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="a-simple-illustration-case-one" class="slide level2">
-<h2>A Simple Illustration, Case One</h2>
-<p>Independent flips:</p>
-<p><span class="math inline">\(P(X{=}1 \text{ and } Y{=}1) = 0.5 \times 0.5 = 0.25\)</span></p>
-<p><span class="math display">\[E(XY) = 1 \times 0.25 = 0.25\]</span></p>
-<p>Here <span class="math inline">\(E(XY) = E(X)E(Y)\)</span>. Covariance is 0.25 minus 0.25, which is 0.</p>
+<section id="a-baseline-no-correlation-working" class="slide level2">
+<h2>A Baseline, No Correlation, Working</h2>
+<p>From the table, out of 10 days:</p>
+<p><span class="math inline">\(E(X) = 0.4\)</span>, since it rained on 4 out of 10 days.</p>
+<p><span class="math inline">\(E(Y) = 0.5\)</span>, since heads came up on 5 out of 10 days.</p>
+<p><span class="math display">\[E(X)E(Y) = (0.4)(0.5) = 0.20\]</span></p>
+<p><span class="math inline">\(E(XY)\)</span> only counts days that are both rain and heads, which is 2 out of 10 days.</p>
+<p><span class="math display">\[E(XY) = 0.20\]</span></p>
+<p>The two values match exactly. Covariance is 0.20 minus 0.20, which is 0.</p>
 </section>
-<section id="a-simple-illustration-case-two" class="slide level2">
-<h2>A Simple Illustration, Case Two</h2>
-<p>Y always equals X:</p>
-<p><span class="math inline">\(P(X{=}1 \text{ and } Y{=}1) = P(X{=}1) = 0.5\)</span></p>
-<p><span class="math display">\[E(XY) = 1 \times 0.5 = 0.5\]</span></p>
-<p>Here <span class="math inline">\(E(XY)\)</span> is bigger than <span class="math inline">\(E(X)E(Y)\)</span>. Covariance is 0.5 minus 0.25, which is 0.25, a positive number. This matches X and Y always moving together.</p>
+<section id="now-add-real-correlation" class="slide level2">
+<h2>Now Add Real Correlation</h2>
+<p>Keep the same X, whether it rained. Change Y.</p>
+<p>Y = umbrella sales were high that day.</p>
+<p>This time, rain and umbrella sales should genuinely move together.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;">High sales, Y=1</th>
+<th style="text-align: center;">Low sales, Y=0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rain, X=1</td>
+<td style="text-align: center;">3 days</td>
+<td style="text-align: center;">1 day</td>
+</tr>
+<tr class="even">
+<td>No rain, X=0</td>
+<td style="text-align: center;">1 day</td>
+<td style="text-align: center;">5 days</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="now-add-real-correlation-working" class="slide level2">
+<h2>Now Add Real Correlation, Working</h2>
+<p><span class="math inline">\(E(X) = 0.4\)</span>, rain on 4 out of 10 days, same as before.</p>
+<p><span class="math inline">\(E(Y) = 0.4\)</span>, high sales on 4 out of 10 days.</p>
+<p><span class="math display">\[E(X)E(Y) = (0.4)(0.4) = 0.16\]</span></p>
+<p><span class="math inline">\(E(XY)\)</span> only counts days that are both rain and high sales, which is 3 out of 10 days.</p>
+<p><span class="math display">\[E(XY) = 0.30\]</span></p>
+<p>Covariance is 0.30 minus 0.16, which is 0.14, a positive number. This matches the fact that rain and high umbrella sales tend to happen on the same days.</p>
 </section></section>
 <section id="no-alternatives-to-looking-at-data" class="title-slide slide level1 center">
 <h1>No Alternatives to looking at data</h1>

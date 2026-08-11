@@ -319,35 +319,63 @@ This is the kind of question where you are given expectations directly, and just
 - If X and Y are independent, knowing X tells us nothing about Y. In that case the two quantities are equal, $E(XY) = E(X)E(Y)$.
 - If X and Y tend to move together, or move apart, the joint product runs higher or lower than independence alone would predict. The gap between them, $E(XY) - E(X)E(Y)$, is exactly the covariance we just calculated.
 
-## A Simple Illustration
+## A Baseline, No Correlation
 
-Flip one fair coin. Let X = 1 for heads, 0 for tails.
+Over 10 days, record two things.
 
-Case one: let Y come from a second, separate coin flip. X and Y are independent.
+X = it rained that day.
 
-Case two: let Y always equal X, so Y matches the first flip exactly. X and Y move together completely.
+Y = a coin flip landed heads that day.
 
-In both cases, $E(X) = 0.5$ and $E(Y) = 0.5$, so $E(X)E(Y) = 0.25$.
+A coin has no reason to land differently on rainy days versus dry ones, so we expect these to be unrelated.
 
-## A Simple Illustration, Case One
+| | Heads, Y=1 | Tails, Y=0 |
+|---|:---:|:---:|
+| Rain, X=1 | 2 days | 2 days |
+| No rain, X=0 | 3 days | 3 days |
 
-Independent flips:
+## A Baseline, No Correlation, Working
 
-$P(X{=}1 \text{ and } Y{=}1) = 0.5 \times 0.5 = 0.25$
+From the table, out of 10 days:
 
-$$E(XY) = 1 \times 0.25 = 0.25$$
+$E(X) = 0.4$, since it rained on 4 out of 10 days.
 
-Here $E(XY) = E(X)E(Y)$. Covariance is 0.25 minus 0.25, which is 0.
+$E(Y) = 0.5$, since heads came up on 5 out of 10 days.
 
-## A Simple Illustration, Case Two
+$$E(X)E(Y) = (0.4)(0.5) = 0.20$$
 
-Y always equals X:
+$E(XY)$ only counts days that are both rain and heads, which is 2 out of 10 days.
 
-$P(X{=}1 \text{ and } Y{=}1) = P(X{=}1) = 0.5$
+$$E(XY) = 0.20$$
 
-$$E(XY) = 1 \times 0.5 = 0.5$$
+The two values match exactly. Covariance is 0.20 minus 0.20, which is 0.
 
-Here $E(XY)$ is bigger than $E(X)E(Y)$. Covariance is 0.5 minus 0.25, which is 0.25, a positive number. This matches X and Y always moving together.
+## Now Add Real Correlation
+
+Keep the same X, whether it rained. Change Y.
+
+Y = umbrella sales were high that day.
+
+This time, rain and umbrella sales should genuinely move together.
+
+| | High sales, Y=1 | Low sales, Y=0 |
+|---|:---:|:---:|
+| Rain, X=1 | 3 days | 1 day |
+| No rain, X=0 | 1 day | 5 days |
+
+## Now Add Real Correlation, Working
+
+$E(X) = 0.4$, rain on 4 out of 10 days, same as before.
+
+$E(Y) = 0.4$, high sales on 4 out of 10 days.
+
+$$E(X)E(Y) = (0.4)(0.4) = 0.16$$
+
+$E(XY)$ only counts days that are both rain and high sales, which is 3 out of 10 days.
+
+$$E(XY) = 0.30$$
+
+Covariance is 0.30 minus 0.16, which is 0.14, a positive number. This matches the fact that rain and high umbrella sales tend to happen on the same days.
 
 # No Alternatives to looking at data
 

@@ -1,0 +1,384 @@
+---
+title: "Numbers"
+author: "Ayush Patel"
+subtitle: "Session 23: How the World Becomes Data"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute: 
+  echo: false
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+# Chapter One, How India Tangles with Cops and Courts
+
+Drawing on chapter one of *Whole Numbers and Half Truths* [@rukmini2021whole].
+
+## How One Rule Can Reshape a Statistic {.smaller}
+
+- India's only official crime data comes from the National Crime Records Bureau, built from First Information Reports filed at police stations.
+- The NCRB follows what is called the principal offence rule. If an incident involves several sections of the law, only the single most serious one gets counted in the statistics.
+- A single case recorded with a dozen charges in the original complaint becomes just one line, one offence, in the national count. The reporting rule alone can make crime look far smaller than the case file does [@rukmini2021whole].
+
+## When an FIR Reflects a Family, Not a Crime {.smaller}
+
+- A detailed look at nearly 600 rape cases argued before Delhi's courts in 2013 found that the largest single category, close to two out of every five cases, involved couples who had eloped, most often against their families' wishes.
+- Parents filed kidnapping and rape complaints once children returned home, unmarried and without their consent. The FIR reflects a family conflict as much as it reflects the crime it is officially recorded as.
+- Recall the recurring detail across these cases, an unproven, and ultimately unprovable, claim of a sedative laced drink used to explain away a young woman's own choice [@rukmini2021whole].
+
+## Some Places Report More Crime Because They Are Better at It {.smaller}
+
+- Higher recorded crime in a state is often read in the media as higher danger.
+- One state's former police chief made the opposite case about rising reported crimes against women there: more women police officers meant more women felt confident enough to walk into a station and report what happened to them.
+- Comparing survey based estimates of crime with police records confirms real under reporting nationally, and shows that some states with higher reported crime are simply doing a better job of registering it, not necessarily experiencing more of it [@rukmini2021whole].
+
+## The Crime That Cannot Appear in the Statistics {.smaller}
+
+- A number can only exist in official statistics if the law recognises it as a category to begin with.
+- Comparing police data with a large national health survey found that over 95 per cent of the sexual violence women reported experiencing happened within marriage.
+- India's rape law carries a marriage exception. However common this violence is on the ground, it structurally cannot enter the crime statistics until the law itself changes [@rukmini2021whole].
+
+## When More Recorded Crime Is Good News {.smaller}
+
+- Crime statistics rising is not automatically bad news, and falling is not automatically good news.
+- When India opened all women police stations, reported crime against women rose by 22 per cent in those areas. Greater female political representation is separately linked to more, not less, reported crime against women.
+- Both results reflect more reporting, not more crime. Reading crime statistics well means asking not just how many, but how much of what is happening was ever able to become a number [@rukmini2021whole].
+
+# How Do Our Worlds Become Data
+
+Drawing on sections 1.4 and 1.5 of *Telling Stories with Data* [@alexander2023tswdweb].
+
+## The Fishing Net Problem
+
+- There is an old story about fishers who used a net with fixed sized holes, then examined their catch and concluded there was a minimum size to fish in the sea.
+- Their conclusion came from the net, not from the sea.
+- Every measuring tool we use has holes of some kind. What it lets through shapes what we think we know.
+
+## Data is Always a Simplification
+
+- We do not have a perfect model of the world. We only have the world itself, and it is too complicated to hold directly.
+- So we simplify, down to whatever is plausibly measurable, and call that data.
+- Every dataset is therefore the result of choices about what counted as measurable enough to keep.
+
+## Even Simple Things Are Hard to Measure {.smaller}
+
+- Take something as basic as a person's height.
+- Should shoes come off first. Height changes over the course of a day. A tape measure and a laser will not agree exactly.
+- If we want to compare heights across people or over time, we need one consistent method, applied consistently, which quickly becomes difficult in practice.
+- If height is this contested, consider how much harder it is to measure something like pain, or wellbeing, or poverty.
+
+## Who Gets Measured, and Who Decides {.smaller}
+
+- Older statistical traditions grew out of agriculture, astronomy, and the physical sciences, where the subject being measured could not object or hide.
+- Once data is mostly about people, a new question becomes central: who is systematically missing from this dataset, and whose experience does not fit the categories we chose.
+- The categories we design in advance quietly decide who counts as visible.
+
+## A Concrete Case, Counting Maternal Deaths {.smaller}
+
+- Counting deaths of women during or shortly after pregnancy sounds like it should be straightforward.
+- It requires a functioning system that registers every death, and it requires correctly identifying the death as pregnancy related, which is not always obvious.
+- Even the United States only added a standard checkbox for this on death certificates in 2003. By 2015, three states still had not adopted it.
+- If a well resourced system took over a decade to standardise this, undercounting elsewhere becomes easy to imagine.
+
+# Behind Every Number, a Process
+
+## Data is Not Nobody's Land {.smaller}
+
+- It is tempting to treat a dataset as something that simply exists, ready and waiting to be analysed.
+- In reality, every dataset was generated by some process, then gathered, cleaned, and prepared through a long chain of decisions.
+- Each dataset is its own case. Knowing one dataset well does not automatically teach you how to handle the next one.
+
+## When the Data Themselves Are the Problem {.smaller}
+
+- A described case involved prenatal screening, which gives parents a probability that a condition is present, based on an earlier calibration study.
+- The calibration study was about a decade old. In that time, imaging technology had improved, and screenings began flagging far more cases than were actually present.
+- Nothing about the underlying rate of the condition had changed. The reference data had simply gone out of date.
+
+## The Data Part is as Hard as the Science Part {.smaller}
+
+- One of the most widely used text datasets in computer science was checked years after release.
+- Close to a third of it turned out to be duplicated content, quietly inflating how large and diverse the dataset looked.
+- Sophisticated modelling built on top of this dataset was only ever as sound as this unglamorous, unchecked layer underneath it.
+
+# Two More Voices on Data and Meaning
+
+## Meet the Essay, Counting the Countless {.smaller}
+
+- Written by Os Keyes, a researcher who works on data, gender, and technology [@keyes2019counting].
+- The essay grew out of being asked to give a talk on careers in the field for transgender people, and answering that the field itself worried them.
+- It argues that data science, as usually practiced, can work against anyone whose identity does not sit neatly inside a fixed category, and it uses transgender and non binary experience as its central example.
+- This is a personal, argumentative piece, not a technical paper, and it is on the reading list specifically because it pushes back on the field we are studying.
+
+## Data Requires Fixed Categories {.smaller}
+
+- To analyse anything quantitatively, we first have to sort it into a fixed, countable category.
+- One widely discussed essay argues this becomes a real problem when the thing being measured is not fixed to begin with. The essay's central case is gender identity, which many people experience as fluid and self determined, not something a form can capture with one tick box.
+- Turning something fluid into a rigid category does not just lose some nuance, it can force people into boxes that do not describe them at all.
+
+## Who Pays the Cost of Forcing Categories {.smaller}
+
+- The essay borrows a legal idea, that systems requiring people to fit into narrow official categories to access basic services end up harming whoever does not fit.
+- The same pattern shows up whenever we build a dataset. Once a category exists in a form or a database, whoever falls outside it becomes harder to see, harder to serve, and easier to misclassify.
+- The lesson here is not that categories are avoidable. It is that every category is a choice, and that choice has real consequences for whoever falls outside it.
+
+## Meet the Essay, The Kitchen Counter Observatory {.smaller}
+
+- Written by Kieran Healy, a sociologist, during the early months of the Covid 19 lockdown in 2020 [@healy2020kitchen].
+- It is a short, personal blog post about his own daily routine, making coffee, then sitting down to look at pandemic data from home, using large mobility datasets released by companies like Apple and Google.
+- The piece reflects on what it feels like to watch a global crisis unfold almost entirely through numbers on a laptop screen, and what that experience teaches about the relationship between data and the people behind it.
+
+## Data Draws You Closer to Meaning, Not Further From It {.smaller}
+
+- A common complaint about quantitative work is that it distances you from the human reality behind the numbers.
+- One data scientist, writing about tracking pandemic data daily from his own kitchen counter, argues the opposite is usually true. Sitting closely with data forces you to keep asking what a number actually captures, and for whom.
+- Sudden spikes in a mobility dataset he examined were not abstract. Once he looked closely, they lined up with a specific parade, a specific concert, a specific weekend of shutdown.
+
+## Working with Data is an Exercise in Humility {.smaller}
+
+- The amount of data available today is staggering. What once took days of manually copying numbers from a library archive can now be pulled from a laptop before your coffee finishes brewing.
+- More data does not remove the interpretive work, it just moves the hard question earlier. Not can we get the numbers, but what do these numbers actually capture, and for whom.
+- This is the same discipline the rest of this session has been building toward. More data and more definitions still call for the same habit, asking what a number can and cannot tell us.
+
+# When the Same Data Gives Different Answers
+
+## Same Data, Different Conclusions {.smaller}
+
+- So far this session has been about how data gets collected and defined. There is a second, quieter source of disagreement: how the same collected data gets analysed.
+- Every analysis involves many small decisions. Which cases to include or drop, which factors to control for, which model to use, where to draw a cutoff.
+- None of these decisions need be dishonest. Statistician Andrew Gelman calls this the garden of forking paths [@gelman2013garden]. Each reasonable choice branches into a different possible analysis, and different analysts wandering the same garden can land in very different places.
+
+## A Simple Demonstration {.smaller}
+
+- In one well known exercise, 29 independent research teams were given the exact same dataset and the exact same question, whether soccer referees gave red cards more often to dark skinned players than light skinned players [@silberzahn2018many].
+- Every team saw identical data. Every team analysed it honestly, with no intention to mislead anyone.
+- The size of the effect they reported still ranged widely, and 20 of the 29 teams concluded there was a real effect, while 9 teams concluded there was not.
+
+## What This Means for Us {.smaller}
+
+- The lesson is not that data analysis is untrustworthy or arbitrary.
+- The lesson is that a single conclusion is never the whole story. The path taken to reach it, the choices made along the way, matter just as much as the data itself.
+- The habit this session has been building, asking what a number captures and how it was arrived at, applies just as much to analysis as it does to data collection.
+
+## Carrying This Forward
+
+- Every number we will use for growth rates, poverty rates, and unemployment rates in this session went through this same imperfect journey, from a messy world into a column of a spreadsheet.
+- Next, we build on this with chapters five to eight, and turn to how we describe relationships between numbers once we have them.
+
+## End of Session A {.smaller}
+
+- Covered so far: how our worlds become data, what data science means, the essays on categories and meaning, and the garden of forking paths.
+- Next session picks up with chapter five of the book and continues through the book's chapters on money, work, and population.
+
+# Chapter Five, How Much Money Do Indians Make
+
+## Why India Doesn't Officially Measure Income {.smaller}
+
+- India collects consumption data, not income data, and this is a deliberate choice, not an oversight.
+- A former chief statistician explained the difficulty directly: income from agriculture arrives at harvest, not monthly, and irregular informal wages resist a clean calendar year measurement. What people report as income also depends on how they personally understand the term, not necessarily how an economist defines it.
+- Under reporting is worse at the very top of the distribution, where people have more reason to disclose less [@rukmini2021whole].
+
+## Four Different Definitions of Middle Class, Four Different Countries {.smaller}
+
+- Divide India into income based classes using different definitions and you get wildly different pictures of who counts as middle class.
+- One global comparison, using purchasing power parity, finds India has almost no one earning enough to be called middle class by international standards, since nearly everyone above that threshold already sits in the country's richest 5 per cent.
+- Another definition, based on a large household survey, places the middle class as high as the top fifth of the country, since anyone earning above roughly Rs 88,800 a year already ranks there. Neither definition is wrong. They are answering different questions [@rukmini2021whole].
+
+## A Quota on How Many People Could Be Poor {.smaller}
+
+- For years, India's Below Poverty Line list worked like this: a formula estimated the maximum number of poor people a state was allowed to have, and states had to fit their actual poor population within that cap.
+- Once a state hit its quota, a genuinely poor household could be turned away, while someone in a state with room to spare could get in more easily.
+- One assessment found this method misclassified almost half the poor as non poor nationally, and in some states, more than three out of every four poor households were left off the list entirely [@rukmini2021whole].
+
+## When a Country Getting Richer Makes It Look Poorer {.smaller}
+
+- The World Bank sets its global poverty line by averaging the national poverty lines of the world's fifteen poorest countries.
+- In 2005, India crossed into middle income status and dropped out of that group of fifteen. Because it had been one of the poorest members, its exit pulled the group's average line upward.
+- Nobel laureate Angus Deaton pointed out the paradox this created: India getting richer, and therefore leaving the poorest country group, mechanically raised the global poverty line and increased the count of people the world called poor [@rukmini2021whole].
+
+## Proving a Policy Worked, By Accident {.smaller}
+
+- In 1976, India harmonised its Scheduled Caste lists across states, instantly giving SC status to 2.5 million more people who had not had it before.
+- This created a natural experiment. People who already had SC status could be compared with people who gained it that year, at the same age, in the same place, letting researchers isolate the effect of the status itself.
+- Those who had held SC status for longer showed measurably better schooling, literacy, and numeracy. It is one of the cleaner pieces of evidence that affirmative action in India causally improved outcomes, not merely correlated with them [@rukmini2021whole].
+
+# Chapter Six, How India Spends Its Money
+
+## Changing How You Ask the Question Changes the Answer {.smaller}
+
+- Until 1993, India's consumption survey asked everyone to recall spending over the last 30 days, for everything.
+- In 1999, the method changed. A few infrequently bought items, like clothing and durables, were now recalled over a full year instead, while everything else stayed at 30 days.
+- Measured consumption appeared to jump. Economists spent years arguing over how much of that apparent improvement was a real decline in poverty, and how much was simply an artefact of a different question format [@rukmini2021whole].
+
+## A Report Vanishes, Twice {.smaller}
+
+- India's household consumption survey and its employment survey are both meant to run every five years.
+- The 2017 to 2018 consumption survey was completed, cleared internally, and then never released, over a divergence with other data sources the government called a quality concern. The same year's employment survey, showing unemployment at its highest point in forty five years, was also held back.
+- Both were leaked to the same reporter. Both were released, unchanged, the day after the next general election concluded [@rukmini2021whole].
+
+## Two Ways to Measure the Same Economy, Two Different Answers {.smaller}
+
+- Household surveys ask people what they spent. National accounts estimate total production and work backward to what should have been consumed.
+- One Nobel laureate offered a concrete reason national accounts can overstate consumption: cooking oil bought by a restaurant gets counted once as a business input and again when it appears as the diner's meal, doubling it in a growing, eating out economy.
+- Household surveys likely miss some consumption too, particularly at the top end where people are hardest to sample. Neither measure is simply right or simply wrong, but public debate often treats it that way [@rukmini2021whole].
+
+## A Target That Was Met on Paper {.smaller}
+
+- India's sanitation dashboard reported that over 99 per cent of rural households had access to a toilet by the end of 2020.
+- A national household survey from the same period found close to 30 per cent of rural households did not have one. A separate health survey later confirmed the gap independently in several states.
+- Administrative data counts what was built and logged. Survey data asks the household directly whether they actually have and use it. The two questions are not the same question [@rukmini2021whole].
+
+## Reading the Wrong Row of the Table {.smaller}
+
+- During a campaign speech in Kerala, a national leader cited low rates of piped tap water in the state as evidence of poor local governance.
+- The very same survey table he was quoting showed why the number was low: most Kerala households were not missing water access at all, they were simply drawing it from private wells instead of piped municipal supply.
+- The number itself was accurate. The conclusion drawn from it was not, because reading one figure in isolation, without the rows around it, invited exactly the wrong story [@rukmini2021whole].
+
+# Chapter Seven, How India Works
+
+## Anecdotes as a Substitute for a Survey {.smaller}
+
+- Facing a leaked report showing record unemployment, one parliamentary response pointed instead to the number of new commercial vehicles sold, hotels opened, and taxi apps launched, asking rhetorically whether these things ran themselves.
+- None of this is a measurement of employment. It is a set of proxies, offered in place of the actual employment survey the government was declining to release at the time.
+- The properly designed employment survey already accounts for seasonal, gig, and informal work through multiple reference periods covering the last year, the last week, and the previous day. The survey's design was not the problem [@rukmini2021whole].
+
+## A Job Title That Isn't What It Sounds Like {.smaller}
+
+- Official job classification code 121, Directors and Chief Executives, is the third most common recorded occupation for urban Indian women.
+- Ninety nine per cent of the women recorded under this title are actually self employed, most running a one person enterprise or working through a self help group, largely in food processing or garment work.
+- The classification is technically accurate and completely misleading at the same time, a reminder that an official sounding job code can describe something very different from what it implies [@rukmini2021whole].
+
+## The Number That Fell for Twenty Five Years {.smaller}
+
+- India's female labour force participation rate, the share of working age women who are working or looking for work, fell from around 32 per cent to about 18 per cent in rural areas between 1993 and 2017.
+- The decline shows up across age groups, not just among young women who might simply be staying in school longer, and it continued even as household incomes were falling, ruling out the simplest explanations.
+- Marriage, more than childbirth, is the single biggest turning point tied to Indian women leaving the workforce, a pattern that differs sharply from what shows up in surveys from Western countries [@rukmini2021whole].
+
+## Low Headline Numbers Can Hide a Lot {.smaller}
+
+- India's overall unemployment rate looks low by global standards, partly because in a country without unemployment insurance, almost everyone takes some form of work rather than stay formally jobless.
+- That low headline number hides sharp gaps underneath it. Graduate unemployment in some states topped 25 per cent, five times the peak rate for bachelor's degree holders in the United States. Educated urban women faced unemployment rates nearly double those of similarly educated men.
+- A single national percentage was never built to carry this much variation [@rukmini2021whole].
+
+# Chapter Eight, How India Is Growing and Ageing
+
+## A Panic That Outlived Its Own Data {.smaller}
+
+- India's population growth rate has been falling since the early 1980s, and by 2020 had dropped under 1 per cent a year, below the growth rates of Iran, Chile, and Australia.
+- Public rhetoric has not caught up. A 2019 Independence Day address called for smaller families as an act of patriotism, describing a population explosion that, by the numbers, was already decades in the past.
+- A statistic can be real and outdated at the same time, and the story people tell about it can lag the data by a generation [@rukmini2021whole].
+
+## Forty Years, In the Same Country {.smaller}
+
+- Kerala reached replacement level fertility, the point at which a population stabilises, in 1998. Bihar is projected to reach that same point only in 2039.
+- Talking about India's fertility rate as a single national number blends two states that are, demographically, about forty years apart.
+- The gap has become genuinely political: parliamentary seats have not been reallocated to match population change since 1971, partly to avoid punishing states that lowered fertility fastest, and the freeze has been repeatedly extended, most recently until 2031 [@rukmini2021whole].
+
+## When Smaller Families Meant Fewer Girls {.smaller}
+
+- As Indian families have chosen to have fewer children, the sex ratio at birth has worsened, not improved.
+- A state government scheme in Haryana offered the largest cash incentive to families who stopped after having just one daughter. The result was more families stopping after just one child, but almost entirely among those who had a son, not a daughter.
+- Comparable laws in eight states, barring people with more than two children from contesting local elections, reduced fertility as intended, but also measurably worsened the sex ratio in the same populations. Smaller families and a stronger son preference moved together [@rukmini2021whole].
+
+## A Number That Depends Entirely on Which Year You Ask {.smaller}
+
+- India revised how it calculates GDP in 2015, switching to a new methodology and a new base year, built substantially on a private company database that had never been used before.
+- Journalists later found that a significant share of the companies in that database could not be traced, had closed, or operated in an entirely different sector than reported.
+- The revised series showed markedly higher growth than the old one, and years of dispute followed, including public criticism from a former Reserve Bank governor and a former chief economic adviser, over whether the new number was measuring growth or measuring a new formula [@rukmini2021whole].
+
+## From Chapters to Concepts
+
+- Every issue above traces back to the same handful of ideas: what gets compared, over what time period, using what definition, relative to what base.
+- The next block of this session turns these into tools. Absolute change versus relative change. Percentages. Growth rates and compounding. The same numbers, read more carefully.
+
+## End of Session B {.smaller}
+
+- Covered so far: chapters five through eight of the book, on income, spending, work, and population.
+- Next session turns these issues into tools: linear and nonlinear relationships, absolute and relative change, growth rates, compounding, interest, and discount rates.
+
+# Linear and Nonlinear Relationships
+
+## A Straight Line Between Two Numbers
+
+- A relationship is linear when a change in one quantity always produces the same size change in another, no matter where you start.
+- Example: saving a fixed Rs 500 every month. After t months, total savings equal 500 times t.
+- Double the number of months, and you exactly double the savings. The rate of change never speeds up or slows down.
+
+## When the Rate Itself Changes
+
+- Many real relationships are not linear. The rate of change is itself changing, often because each period builds on the last.
+- Population growth is a clean example. A population growing at 1 per cent a year adds far more people when the base is 1.4 billion than when the base was 400 million, even though the rate is identical.
+- The same percentage, applied to a bigger and bigger base, produces a curve, not a straight line.
+
+# Absolute Change and Relative Change
+
+## Two Ways to Describe the Same Change
+
+- Absolute change is a simple difference. Relative change asks how big that difference is compared to where you started.
+- Example: a price rises from Rs 50 to Rs 60. The absolute change is Rs 10. The relative change is 10 divided by 50, which is 20 per cent.
+- The same Rs 10 rise would be a much smaller relative change on a price of Rs 500, and a much bigger one on a price of Rs 20.
+
+## Percentage Points Are Not the Same as Per Cent {.smaller}
+
+- Confusing these two is one of the most common errors in reading public data.
+- Example: an unemployment rate rises from 5 per cent to 6 per cent. That is a rise of 1 percentage point. But in relative terms, it is a 20 per cent increase, since 1 divided by 5 is 0.2.
+- Recall the employment survey discussed earlier in this session, where a headline unemployment rate that looked low in absolute terms, only a few percentage points, was still described as its highest point in forty five years. Small in percentage points, large in relative terms, both descriptions are true at once.
+
+# Growth Rates and Compounding
+
+## Calculating a Simple Growth Rate
+
+- Growth rate equals the change divided by the starting value.
+- Recall the consumption survey figures from earlier in this session. Rural spending per person fell from about Rs 1,587 a month in 2014 to about Rs 1,524 in 2017 to 2018.
+- The change is minus Rs 63. Divide that by the starting value of Rs 1,587, and the growth rate over that period is about minus 4 per cent [@rukmini2021whole].
+
+## Growth Does Not Just Add Up Across Years {.smaller}
+
+- If something grows at 10 per cent a year, three years of growth is not the same as adding 30 per cent once.
+- Start with Rs 100. After year one, it is Rs 110. After year two, the 10 per cent applies to Rs 110, not Rs 100, giving Rs 121. After year three, Rs 133.10.
+- This is compounding. Each period's growth is calculated on the previous period's total, not on the original starting amount, which is why growth accelerates the longer it continues.
+
+## Why the Same Rate Produces Bigger Numbers Later
+
+- This is exactly why a population growing at under 1 per cent a year can still add tens of millions of people annually.
+- A small rate, applied to a base that has been compounding for decades, still produces a large absolute number.
+- Whenever a growth rate is reported, the next question worth asking is always: a rate of what base, and compounding over how long.
+
+# Interest Rates and Discount Rates
+
+## Interest, the Cost of Borrowing Over Time {.smaller}
+
+- Recall the household budget discussed earlier in this session, where a family paid Rs 2,500 every month in interest on an informal loan of Rs 1.65 lakh, without ever touching the amount they had originally borrowed [@rukmini2021whole].
+- Rs 2,500 a month works out to Rs 30,000 a year. Divide that by the Rs 1.65 lakh principal, and the implied interest rate is close to 18 per cent a year, a real illustration of how expensive informal borrowing can be.
+- At that rate, paying only the interest every month means the debt itself never shrinks. It is a cost with no path to zero unless the principal is addressed directly.
+
+## Discount Rates, Valuing Money Across Time {.smaller}
+
+- Money today is generally considered worth more than the same amount of money later, since today's money could earn interest, or because the future is uncertain.
+- A discount rate turns a future amount into its value today. If the discount rate is 10 per cent, then Rs 110 received one year from now is worth about Rs 100 today, since Rs 100 growing at 10 per cent for a year becomes Rs 110.
+- This idea underpins how governments and economists compare costs and benefits that happen at different points in time, such as weighing the future benefit of a policy against its cost today.
+
+## Bringing It Together
+
+- Every rate discussed in the news, population growth, inflation, unemployment, GDP growth, interest rates, is built from the same two ingredients: absolute change and relative change.
+- Most of these rates compound rather than simply add up over time, which is why small percentage differences can look unremarkable in the moment and enormous in hindsight.
+- The habit from earlier in this session still applies here. Before trusting a rate, ask what it is a rate of, over what period, and relative to what base.
+
+## References {.smaller}
+
+::: {#refs}
+:::

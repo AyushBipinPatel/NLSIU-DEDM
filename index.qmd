@@ -424,7 +424,8 @@ If no errors appear, the setup is complete.
 7. [Session 7](2026-08-03-session-7-slides.html)
 8. Session 8 is demo on use of quarto
 9. [Session 9](2026-08-03-session-9-slides.html)
-10. [Session 10](2026-08-07-careful-with-averages.html)
-11. [Session 11](2026-8-10-session-10-slides.html)
+10. [Careful with Averages](2026-08-07-careful-with-averages.html)
+11. [Session 10](2026-8-10-session-10-slides.html)
+12. [Session 11](2026-08-14-session-11-slides.html)
 
 ------

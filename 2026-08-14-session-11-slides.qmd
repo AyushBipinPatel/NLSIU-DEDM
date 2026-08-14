@@ -1,0 +1,213 @@
+---
+title: "Data, Evidence, and Decision Making (with R)"
+author: "Ayush Patel"
+subtitle: "Session 11: Thinking in Probabilities"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute: 
+  echo: false
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+# What Is Probability
+
+## A Number Between 0 and 1
+
+- Probability is a number that tells us how likely something is.
+- It sits between 0 and 1. 0 means impossible. 1 means certain.
+- A probability of 0.5 means exactly as likely as not.
+
+## Notation We Will Use
+
+- We write the probability of event A as P(A).
+- If A is "it rains tomorrow," P(A) is how likely rain is.
+- You will see this notation constantly for the rest of this course.
+
+## A First Example, Rolling a Die
+
+- Roll a fair six sided die once. Six outcomes, all equally likely.
+- The probability of any one outcome, say a 4, is 1 out of 6.
+
+$$P(4) = \dfrac{1}{6}$$
+
+## Two Basic Rules
+
+- All outcome probabilities must add up to 1. Something has to happen.
+- P(not A) equals 1 minus P(A). So P(not rolling a 4) is 5/6.
+- These two rules hold no matter how complicated things get.
+
+# From One Event to Another, Conditional Probability
+
+## When Knowing One Thing Changes Another
+
+- Sometimes knowing one event changes the odds of another.
+- We write this as P(B given A), or P(B | A).
+- This idea, updating a probability with new information, drives most of today's session.
+
+## A Simple Conditional Example
+
+- A bag has 3 red balls and 2 blue balls. Draw one, set it aside, then draw a second.
+- P(first ball is red) is 3 out of 5.
+- Given the first ball was red, only 2 red and 2 blue remain. Now P(second ball is red) is 1 out of 2. Knowing the first draw changed the odds for the second.
+
+## This Idea Is Not New to You
+
+- Simpson's paradox, from last week, works the same way.
+- A trend reversing across subgroups is a conditional probability changing.
+- Today just gives that instinct a name and a notation.
+
+# Probability, a Measure of Uncertainty
+
+## Uncertainty and Probability Are Not the Same Thing
+
+- Uncertainty is a state: simply not knowing something for sure.
+- Probability is a tool: a number we use to measure that uncertainty.
+- "Not sure if it will rain" is uncertainty. "30 per cent chance of rain" is that same uncertainty, made precise.
+
+## Two Very Different Questions
+
+- Every example so far involved counting: six sides, five balls.
+- "What fraction of flips land heads over a million tries" is a frequency question, something you could count.
+- "How likely is this patient to benefit from this medicine" has no long run to count. Probability still has to answer it.
+
+## Before and After, Two Kinds of Not Knowing
+
+- Before a coin lands, the outcome is genuinely open. This is aleatory uncertainty.
+- After it lands, but before you look, the outcome is fixed. You just don't know it yet. This is epistemic uncertainty.
+- Most probabilities in this course, a screening test, a court case, are epistemic [@spiegelhalter2019art].
+
+## Three Ways People Have Tried to Define It
+
+- Statisticians disagree on what probability actually is.
+- One view ties it to long run frequency. Another to a physical propensity. A third to personal belief, updated with evidence.
+- One statistician argues probability doesn't exist as a fixed fact at all, only as what we currently know [@spiegelhalter2019art].
+
+## Why This Course Leans Personal, Not Just Frequency
+
+- A courtroom or a diagnosis offers no long run of repeats to count.
+- What it offers is a belief, stated as a number, that shifts as evidence comes in.
+- This is the idea the rest of today builds on.
+
+# What a P Value Actually Tells You
+
+## What Do We Mean by a Hypothesis
+
+- A hypothesis is a specific, checkable claim.
+- Most tests start with a null hypothesis: the boring claim that nothing is going on.
+- Example: "this coin is fair," or P(heads) equals 0.5.
+
+## Null Versus Alternative
+
+- Every test also needs an alternative hypothesis: the claim you actually suspect.
+- Alternative here: "this coin favours heads," or P(heads) is greater than 0.5.
+- A test is really a contest between these two claims, refereed by the data.
+
+## A Concrete Walkthrough
+
+- Suppose you flip a suspect coin 20 times and get 16 heads.
+- Ask one specific question: if the coin were actually fair, how likely is 16 or more heads out of 20, just by chance?
+- It turns out this chance is small, about 6 in 1,000. A fair coin could produce this, but it would be a rare thing for it to do.
+
+## The Logic Being Used
+
+- The coin walkthrough is a specific case of a general pattern.
+- Assume the null hypothesis is true. Work out how unlikely your data would be under that assumption. If very unlikely, treat the assumption as probably false.
+- Ellenberg calls this the reductio ad unlikely [@ellenberg2014hownotwrong].
+
+## Why the Cousin Is Not as Reliable
+
+- A true reductio ad absurdum reaches certainty. An impossible result means the assumption must be false.
+- A reductio ad unlikely only reaches improbability. Improbable things still happen.
+- Ellenberg is blunt: this reasoning is not logically valid in general, just a useful habit [@ellenberg2014hownotwrong].
+
+## A P Value Is Not the Probability You Want
+
+- That 6 in 1,000 figure from the coin walkthrough is a p value.
+- A p value answers one narrow question: how likely is data this extreme, if the null hypothesis were true.
+- It does not tell you the probability that the null hypothesis is true.
+- Confusing those two is exactly where the reductio ad unlikely breaks down.
+
+## Why Unlikely Things Are Not That Rare
+
+- Imagine a journal that only publishes results crossing the usual significance threshold, about a 1 in 20 chance under pure noise.
+- Even if every study were investigating something completely fake, 1 in 20 would still cross that bar by chance alone.
+- The threshold was never meant to signal near certainty, just a modest bar [@ellenberg2014hownotwrong].
+
+# The Screening Test Paradox
+
+## Setting Up the Problem
+
+- A disease affects 1 in 1,000 people in a population.
+- A screening test for it is described as 99 per cent accurate.
+- Someone tests positive. Before doing any arithmetic, what is your gut estimate for the chance they actually have the disease?
+
+## Thinking in Whole People, Not Percentages
+
+- Imagine 1,000 people take this test.
+- 1 person actually has the disease. The test catches them, flagging 1 positive.
+- 999 people do not. The test is wrong 1 per cent of the time, flagging about 10 of them positive too.
+
+## Counting Up the Positives
+
+- Total positives: 1 person who is genuinely sick, plus about 10 who are not, so about 11 in total.
+- Only 1 out of these 11 positive results is a real case.
+
+$$P(\text{Disease} \mid +) = \dfrac{1}{11} \approx 0.09$$
+
+## Checking It With Bayes' Rule {.smaller}
+
+- The same answer falls out of the formal version of Bayes' rule.
+
+$$P(\text{Disease} \mid +) = \dfrac{P(+ \mid \text{Disease}) \, P(\text{Disease})}{P(+)}$$
+
+$$P(+) = (0.99)(0.001) + (0.01)(0.999) = 0.00099 + 0.00999 = 0.01098$$
+
+$$P(\text{Disease} \mid +) = \dfrac{0.00099}{0.01098} \approx 0.09$$
+
+## Why Intuition Usually Gets This Wrong
+
+- Most guesses land near 90 or 99 per cent, matching the test's accuracy, not 9 per cent.
+- Accuracy describes sick and healthy people separately. It says nothing about how many sick people exist to begin with.
+- Because the disease is so rare, false alarms from the huge healthy group swamp the few real cases.
+
+# Bayes' Theorem as Updating Belief
+
+## Prior, Evidence, Posterior
+
+- Before the test, your best estimate was the base rate: 1 in 1,000. This is the prior.
+- The positive result is new evidence. Bayes' rule says exactly how much it should move you.
+- After the test, your estimate is the posterior: about 9 per cent.
+
+## The Same Machine, Many Uses
+
+- This updating machine, prior in, evidence in, belief out, is not specific to medical tests.
+- Ellenberg pushes it to its limit, applying it to belief in God itself [@ellenberg2014hownotwrong].
+- Persuasive or not, the mechanics are the same ones behind the screening test and everyday reasoning.
+
+## The One Question Worth Asking Every Time
+
+- New evidence always raises the same question: how strong was my belief before, and how much should this evidence move it.
+- A rare condition needs strong evidence to become likely. A common one needs far less.
+- Probability, in this course, is a living estimate that updates, not a fixed fact.
+
+## Next Session
+
+- Next session moves this into R: simulating coin flips and dice rolls.
+- You will do the screening test question again live, before seeing the answer. Most people still get it wrong.
+- Today built the vocabulary. Next session builds the intuition through repetition.

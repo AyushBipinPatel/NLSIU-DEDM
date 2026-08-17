@@ -1,0 +1,607 @@
+---
+title: "Data, Evidence, and Decision Making (with R)"
+author: "Ayush Patel"
+subtitle: "Session 12: Walkthrough on expectations, LLN, CLT, CI, and SE"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute: 
+  echo: true
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+```{r}
+#| label: libs
+#| echo: false
+#| warning: false
+
+extrafont::loadfonts(device = "all")
+library(tidyverse)
+library(ggiraph)
+library(hrbrthemes)
+
+```
+
+# Goal
+
+> The aim for this lecture is to introduce foundational concepts in probability and statistical inference by using a simulated walk through.
+
+# Expectation
+
+> Over a very large number of trials, the expectation of a random process can be estimated using relative frequencies of its outcomes. 
+
+<br>
+
+Formally,
+
+$E(X) = \sum_i^n {x_i P(x_i)}$
+
+Where $X$ is a random process with $n$ outcomes, each assigned a value of $x_i$ occurring with probability $P(x_i)$
+
+## Tossing a coin
+
+<br>
+
+This is a random process such that it has two outcomes: Heads and Tails. 
+
+<br>
+
+Imagine we had no idea of the chances of observing heads and tails in a fair coin toss.
+
+<br>
+
+Observing how the outcomes over a large number of tosses can allow us to learn about this.
+
+## Tossing a coin
+
+Let us assign 1 to heads and 0 to tails.
+
+```{r}
+#| label: show-sample-func
+
+sample(x = c(1,0), size = 1, replace = T, prob = c(.5,.5))
+
+sample(x = c(1,0), size = 1, replace = T, prob = c(.5,.5))
+
+sample(x = c(1,0), size = 2, replace = T, prob = c(.5,.5))
+
+sample(x = c(1,0), size = 10, replace = T, prob = c(.5,.5))
+
+```
+
+## Tossing a coin
+
+How many heads do we get if we toss a coin 100 times?
+
+
+```{r}
+#| label: onehundred-tosses
+
+sample(c(1,0), 100, T) -> hundred_tosses
+
+hundred_tosses
+
+sum(hundred_tosses) # total heads observed
+
+sum(hundred_tosses)/100 # relative freq of heads
+
+1- (sum(hundred_tosses)/100) # relative freq of tails
+
+1*(sum(hundred_tosses)/100) + 0*(1- (sum(hundred_tosses)/100)) # an estimate of expectation of tossing a coin
+```
+
+## Tossing a coin
+
+For a very large number of times
+
+
+```{r}
+#| label: tbl-toss-large-number-trials
+#| output-location: slide
+
+map(
+    seq(10,10000, by = 50),
+    ~ tibble(
+        size = .x,
+        num_heads = sample(c(1,0),.x,T) |> sum(),
+        prop_head = num_heads/size
+    )
+) |>
+    list_rbind() -> records_large_trials
+
+records_large_trials |>
+    reactable::reactable(defaultPageSize = 7)
+```
+
+## Tossing a coin
+
+
+```{r}
+#| label: fig-observed-lln
+#| fig-cap: Proportion of heads observed across trial sizes. Shows law of large numbers.
+#| output-location: slide
+#| fig-dpi: 800
+#| fig-height: 7 
+
+records_large_trials |>
+    ggplot(aes(size, prop_head))+
+    geom_line(linetype = 2, alpha = 0.5) +
+    geom_point_interactive(aes(tooltip = paste(size,"-",prop_head)),
+    colour = "#880800", alpha = 0.8, size = .7) +
+    labs(
+        title = "Trial Size and Proportion of heads observed",
+        y = "Proportion of heads",
+        x = "Trial Size"
+    ) +
+    geom_hline(aes(yintercept = 0.5)) +
+    scale_y_continuous(labels = scales::label_percent()) +
+    theme_ipsum_es() -> plt_lln
+
+girafe(ggobj = plt_lln)
+```
+
+## Should you be impressed?
+
+<br>
+
+If someone tells you that they observed 38% Heads form 60 coin tosses and some other person claims to have observed 54% Heads from 9860 coin tosses, which is the more impressive or rare outcome?
+
+<br>
+
+Is there a way to quantify this?
+
+# Quantifying variance of observed chance
+
+<br>
+
+> If I toss a coin 60 times for a large number of time, and record the proportion of heads, it will give me the variability in observing heads for a given trial size (60 in this case). 
+
+## What are the chances?
+
+
+```{r}
+#| label: variability-at-given-trial-size
+#| fig-cap: Using the properties of a normal distribution we can quantify the chances to observe and event
+#| output-location: slide
+#| fig-dpi: 800
+#| fig-height: 7 
+map(
+    c(1:5000),
+    ~ tibble(
+        prop_60 = sample(c(1,0), 60, T) |>
+            mean(),
+        prop_9860 = sample(c(1,0), 9860, T) |>
+            mean()
+    )
+) |>
+    list_rbind() -> variability_at_size
+
+variability_at_size|>
+    ggplot() +
+    geom_density(aes(prop_60), colour = "#5e60d3") +
+    geom_density(aes(prop_9860), colour = "#346030") +
+    labs(
+        title = "variability at a given trial size",
+        x = "Proportion of Heads Observed"
+    ) +
+    scale_x_continuous(labels = scales::label_percent()) +
+    theme_ipsum_es()
+```
+
+## What are the chances ? {.smaller}
+
+
+```{r}
+#| label: quantify-var
+#| layout-ncol: 2
+#| output-location: slide
+#| fig-height: 8
+#| fig-dpi: 800
+#| column: page
+#| fig-width: 7
+
+variability_at_size|>
+    ggplot() +
+    geom_density(aes(prop_60),
+    colour = "#5e60d3",
+    fill = "#5e60d3",
+    alpha = 0.5) +
+    geom_vline(aes(xintercept = prop_60 |>
+    quantile(.025))) +
+    geom_vline(aes(xintercept = prop_60 |>
+    quantile(.975))) +
+    labs(
+        title = "Variability at a given trial size (60)",
+        subtitle = "The vertical line are the 2.5 and 97.5 percentile of the observed data",
+        x = "Proportion of Heads Observed"
+    ) +
+    scale_x_continuous(labels = scales::label_percent()) +
+    theme_ipsum_es()
+
+
+variability_at_size|>
+    ggplot() +
+    geom_density(aes(prop_9860), 
+    colour = "#346030",
+    fill = "#346030",
+    alpha = 0.5) +
+    geom_vline(aes(xintercept = prop_9860 |>
+    quantile(.025))) +
+    geom_vline(aes(xintercept = prop_9860 |>
+    quantile(.975))) +
+    labs(
+        title = "Variability at a given trial size (9860)",
+        subtitle = "The vertical line are the 2.5 and 97.5 percentile of the observed data",
+        x = "Proportion of Heads Observed"
+    ) +
+    scale_x_continuous(labels = scales::label_percent()) +
+    theme_ipsum_es()
+
+```
+
+## What have we seen?
+
+<br><br>
+
+[As the number of trials increases the observed statistic approaches the expected value of the random process.]{.fragment fragment-index='1'}
+
+<br><br>
+
+[For a given trial size it is possible to quantify the variability due to chance in observing a statistic of interest.]{.fragment fragment-index='2'}
+
+# Central Limit Theorem
+
+<br>
+
+> Regardless of type of the population distribution, as long as the population has a finite variance, the distribution of mean of various samples of the population will closely resemble a normal distribution. 
+
+<br>
+
+This allows us to estimate the uncertainity of the sample estimates we observe.
+
+## CLT
+
+<br>
+
+::: {.incremental}
+- Take a population with **any** distribution shape (even skewed, weird, non-normal)
+- Draw many random samples of size $n$ from it
+- Compute the **mean** of each sample
+- The distribution of those sample means becomes approximately **normal**. Even though the population isn't
+:::
+
+## Step 1: The Population {auto-animate="true"}
+
+The population is a square full of individuals. Their values follow a skewed distribution, shown on the right.
+
+```{=html}
+<svg viewBox="0 0 1200 520" style="width:100%;height:auto;display:block;">
+  <text x="60" y="45" font-size="20" font-weight="bold" fill="#333">Population</text>
+  <rect x="60" y="60" width="260" height="260" fill="none" stroke="#333" stroke-width="2"/>
+  <text x="60" y="345" font-size="15" fill="#666">N = 40 individuals</text>
+
+  <text x="400" y="45" font-size="20" font-weight="bold" fill="#333">Distribution of Population Values</text>
+  <line x1="400" y1="260" x2="1140" y2="260" stroke="#333" stroke-width="2"/>
+  <rect x="400.0" width="57.7" y="90.0" height="170.0" fill="#4C78A8"/>
+  <rect x="461.7" width="57.7" y="132.5" height="127.5" fill="#4C78A8"/>
+  <rect x="523.3" width="57.7" y="185.6" height="74.4" fill="#4C78A8"/>
+  <rect x="585.0" width="57.7" y="217.5" height="42.5" fill="#4C78A8"/>
+  <rect x="646.7" width="57.7" y="238.8" height="21.2" fill="#4C78A8"/>
+  <rect x="708.3" width="57.7" y="238.8" height="21.2" fill="#4C78A8"/>
+  <rect x="893.3" width="57.7" y="249.4" height="10.6" fill="#4C78A8"/>
+  <rect x="1078.3" width="57.7" y="249.4" height="10.6" fill="#4C78A8"/>
+
+  <text x="400" y="295" font-size="20" font-weight="bold" fill="#333">Distribution of Sample Means</text>
+  <line x1="400" y1="480" x2="1140" y2="480" stroke="#333" stroke-width="2"/>
+
+  <circle data-id="sq0" cx="135.0" cy="199.3" r="6" fill="#4C78A8"/>
+  <circle data-id="sq1" cx="162.7" cy="211.8" r="6" fill="#4C78A8"/>
+  <circle data-id="sq2" cx="216.4" cy="98.8" r="6" fill="#4C78A8"/>
+  <circle data-id="sq3" cx="87.8" cy="260.9" r="6" fill="#4C78A8"/>
+  <circle data-id="sq4" cx="139.5" cy="134.2" r="6" fill="#4C78A8"/>
+  <circle data-id="sq5" cx="294.1" cy="183.8" r="6" fill="#4C78A8"/>
+  <circle data-id="sq6" cx="260.7" cy="185.0" r="6" fill="#4C78A8"/>
+  <circle data-id="sq7" cx="219.2" cy="116.6" r="6" fill="#4C78A8"/>
+  <circle data-id="sq8" cx="218.3" cy="267.3" r="6" fill="#4C78A8"/>
+  <circle data-id="sq9" cx="194.9" cy="240.7" r="6" fill="#4C78A8"/>
+  <circle data-id="sq10" cx="226.0" cy="98.4" r="6" fill="#4C78A8"/>
+  <circle data-id="sq11" cx="244.2" cy="209.1" r="6" fill="#4C78A8"/>
+  <circle data-id="sq12" cx="148.3" cy="91.5" r="6" fill="#4C78A8"/>
+  <circle data-id="sq13" cx="266.8" cy="184.3" r="6" fill="#4C78A8"/>
+  <circle data-id="sq14" cx="236.0" cy="269.6" r="6" fill="#4C78A8"/>
+  <circle data-id="sq15" cx="235.0" cy="278.4" r="6" fill="#4C78A8"/>
+  <circle data-id="sq16" cx="167.9" cy="253.2" r="6" fill="#4C78A8"/>
+  <circle data-id="sq17" cx="178.4" cy="281.5" r="6" fill="#4C78A8"/>
+  <circle data-id="sq18" cx="269.6" cy="105.5" r="6" fill="#4C78A8"/>
+  <circle data-id="sq19" cx="113.6" cy="130.6" r="6" fill="#4C78A8"/>
+  <circle data-id="sq20" cx="287.8" cy="176.6" r="6" fill="#4C78A8"/>
+  <circle data-id="sq21" cx="216.6" cy="148.2" r="6" fill="#4C78A8"/>
+  <circle data-id="sq22" cx="191.5" cy="166.0" r="6" fill="#4C78A8"/>
+  <circle data-id="sq23" cx="158.7" cy="207.9" r="6" fill="#4C78A8"/>
+  <circle data-id="sq24" cx="207.7" cy="274.9" r="6" fill="#4C78A8"/>
+  <circle data-id="sq25" cx="228.2" cy="280.1" r="6" fill="#4C78A8"/>
+  <circle data-id="sq26" cx="264.8" cy="293.1" r="6" fill="#4C78A8"/>
+  <circle data-id="sq27" cx="226.0" cy="119.3" r="6" fill="#4C78A8"/>
+  <circle data-id="sq28" cx="265.7" cy="287.6" r="6" fill="#4C78A8"/>
+  <circle data-id="sq29" cx="275.0" cy="204.5" r="6" fill="#4C78A8"/>
+  <circle data-id="sq30" cx="234.9" cy="129.3" r="6" fill="#4C78A8"/>
+  <circle data-id="sq31" cx="259.6" cy="205.4" r="6" fill="#4C78A8"/>
+  <circle data-id="sq32" cx="144.8" cy="98.3" r="6" fill="#4C78A8"/>
+  <circle data-id="sq33" cx="264.3" cy="292.9" r="6" fill="#4C78A8"/>
+  <circle data-id="sq34" cx="103.6" cy="253.1" r="6" fill="#4C78A8"/>
+  <circle data-id="sq35" cx="171.2" cy="116.7" r="6" fill="#4C78A8"/>
+  <circle data-id="sq36" cx="146.7" cy="246.4" r="6" fill="#4C78A8"/>
+  <circle data-id="sq37" cx="268.3" cy="94.3" r="6" fill="#4C78A8"/>
+  <circle data-id="sq38" cx="214.1" cy="94.4" r="6" fill="#4C78A8"/>
+  <circle data-id="sq39" cx="235.9" cy="154.5" r="6" fill="#4C78A8"/>
+</svg>
+```
+
+## Step 2: Draw a Sample {auto-animate="true"}
+
+A sample of **n = 8** individuals is drawn at random from the population square, highlighted in orange.
+
+```{=html}
+<svg viewBox="0 0 1200 520" style="width:100%;height:auto;display:block;">
+  <text x="60" y="45" font-size="20" font-weight="bold" fill="#333">Population</text>
+  <rect x="60" y="60" width="260" height="260" fill="none" stroke="#333" stroke-width="2"/>
+  <text x="60" y="345" font-size="15" fill="#666">N = 40 individuals</text>
+
+  <text x="400" y="45" font-size="20" font-weight="bold" fill="#333">Distribution of Population Values</text>
+  <line x1="400" y1="260" x2="1140" y2="260" stroke="#333" stroke-width="2"/>
+  <rect x="400.0" width="57.7" y="90.0" height="170.0" fill="#4C78A8"/>
+  <rect x="461.7" width="57.7" y="132.5" height="127.5" fill="#4C78A8"/>
+  <rect x="523.3" width="57.7" y="185.6" height="74.4" fill="#4C78A8"/>
+  <rect x="585.0" width="57.7" y="217.5" height="42.5" fill="#4C78A8"/>
+  <rect x="646.7" width="57.7" y="238.8" height="21.2" fill="#4C78A8"/>
+  <rect x="708.3" width="57.7" y="238.8" height="21.2" fill="#4C78A8"/>
+  <rect x="893.3" width="57.7" y="249.4" height="10.6" fill="#4C78A8"/>
+  <rect x="1078.3" width="57.7" y="249.4" height="10.6" fill="#4C78A8"/>
+
+  <text x="400" y="295" font-size="20" font-weight="bold" fill="#333">Distribution of Sample Means</text>
+  <line x1="400" y1="480" x2="1140" y2="480" stroke="#333" stroke-width="2"/>
+
+  <circle data-id="sq0" cx="135.0" cy="199.3" r="6" fill="#4C78A8"/>
+  <circle data-id="sq1" cx="162.7" cy="211.8" r="6" fill="#4C78A8"/>
+  <circle data-id="sq2" cx="216.4" cy="98.8" r="6" fill="#4C78A8"/>
+  <circle data-id="sq3" cx="87.8" cy="260.9" r="9" fill="#F58518"/>
+  <circle data-id="sq4" cx="139.5" cy="134.2" r="6" fill="#4C78A8"/>
+  <circle data-id="sq5" cx="294.1" cy="183.8" r="6" fill="#4C78A8"/>
+  <circle data-id="sq6" cx="260.7" cy="185.0" r="6" fill="#4C78A8"/>
+  <circle data-id="sq7" cx="219.2" cy="116.6" r="6" fill="#4C78A8"/>
+  <circle data-id="sq8" cx="218.3" cy="267.3" r="9" fill="#F58518"/>
+  <circle data-id="sq9" cx="194.9" cy="240.7" r="6" fill="#4C78A8"/>
+  <circle data-id="sq10" cx="226.0" cy="98.4" r="6" fill="#4C78A8"/>
+  <circle data-id="sq11" cx="244.2" cy="209.1" r="6" fill="#4C78A8"/>
+  <circle data-id="sq12" cx="148.3" cy="91.5" r="6" fill="#4C78A8"/>
+  <circle data-id="sq13" cx="266.8" cy="184.3" r="6" fill="#4C78A8"/>
+  <circle data-id="sq14" cx="236.0" cy="269.6" r="9" fill="#F58518"/>
+  <circle data-id="sq15" cx="235.0" cy="278.4" r="6" fill="#4C78A8"/>
+  <circle data-id="sq16" cx="167.9" cy="253.2" r="6" fill="#4C78A8"/>
+  <circle data-id="sq17" cx="178.4" cy="281.5" r="9" fill="#F58518"/>
+  <circle data-id="sq18" cx="269.6" cy="105.5" r="6" fill="#4C78A8"/>
+  <circle data-id="sq19" cx="113.6" cy="130.6" r="6" fill="#4C78A8"/>
+  <circle data-id="sq20" cx="287.8" cy="176.6" r="6" fill="#4C78A8"/>
+  <circle data-id="sq21" cx="216.6" cy="148.2" r="9" fill="#F58518"/>
+  <circle data-id="sq22" cx="191.5" cy="166.0" r="6" fill="#4C78A8"/>
+  <circle data-id="sq23" cx="158.7" cy="207.9" r="6" fill="#4C78A8"/>
+  <circle data-id="sq24" cx="207.7" cy="274.9" r="6" fill="#4C78A8"/>
+  <circle data-id="sq25" cx="228.2" cy="280.1" r="6" fill="#4C78A8"/>
+  <circle data-id="sq26" cx="264.8" cy="293.1" r="9" fill="#F58518"/>
+  <circle data-id="sq27" cx="226.0" cy="119.3" r="6" fill="#4C78A8"/>
+  <circle data-id="sq28" cx="265.7" cy="287.6" r="6" fill="#4C78A8"/>
+  <circle data-id="sq29" cx="275.0" cy="204.5" r="6" fill="#4C78A8"/>
+  <circle data-id="sq30" cx="234.9" cy="129.3" r="6" fill="#4C78A8"/>
+  <circle data-id="sq31" cx="259.6" cy="205.4" r="9" fill="#F58518"/>
+  <circle data-id="sq32" cx="144.8" cy="98.3" r="6" fill="#4C78A8"/>
+  <circle data-id="sq33" cx="264.3" cy="292.9" r="6" fill="#4C78A8"/>
+  <circle data-id="sq34" cx="103.6" cy="253.1" r="6" fill="#4C78A8"/>
+  <circle data-id="sq35" cx="171.2" cy="116.7" r="6" fill="#4C78A8"/>
+  <circle data-id="sq36" cx="146.7" cy="246.4" r="9" fill="#F58518"/>
+  <circle data-id="sq37" cx="268.3" cy="94.3" r="6" fill="#4C78A8"/>
+  <circle data-id="sq38" cx="214.1" cy="94.4" r="6" fill="#4C78A8"/>
+  <circle data-id="sq39" cx="235.9" cy="154.5" r="6" fill="#4C78A8"/>
+</svg>
+```
+
+## The Sample Mean {auto-animate="true"}
+
+Those 8 values are averaged. The mean becomes **one point** in a new chart: the distribution of sample means.
+
+```{=html}
+<svg viewBox="0 0 1200 520" style="width:100%;height:auto;display:block;">
+  <text x="60" y="45" font-size="20" font-weight="bold" fill="#333">Population</text>
+  <rect x="60" y="60" width="260" height="260" fill="none" stroke="#333" stroke-width="2"/>
+  <text x="60" y="345" font-size="15" fill="#666">N = 40 individuals</text>
+
+  <text x="400" y="45" font-size="20" font-weight="bold" fill="#333">Distribution of Population Values</text>
+  <line x1="400" y1="260" x2="1140" y2="260" stroke="#333" stroke-width="2"/>
+  <rect x="400.0" width="57.7" y="90.0" height="170.0" fill="#4C78A8"/>
+  <rect x="461.7" width="57.7" y="132.5" height="127.5" fill="#4C78A8"/>
+  <rect x="523.3" width="57.7" y="185.6" height="74.4" fill="#4C78A8"/>
+  <rect x="585.0" width="57.7" y="217.5" height="42.5" fill="#4C78A8"/>
+  <rect x="646.7" width="57.7" y="238.8" height="21.2" fill="#4C78A8"/>
+  <rect x="708.3" width="57.7" y="238.8" height="21.2" fill="#4C78A8"/>
+  <rect x="893.3" width="57.7" y="249.4" height="10.6" fill="#4C78A8"/>
+  <rect x="1078.3" width="57.7" y="249.4" height="10.6" fill="#4C78A8"/>
+
+  <text x="400" y="295" font-size="20" font-weight="bold" fill="#333">Distribution of Sample Means</text>
+  <line x1="400" y1="480" x2="1140" y2="480" stroke="#333" stroke-width="2"/>
+
+  <circle data-id="sq0" cx="135.0" cy="199.3" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq1" cx="162.7" cy="211.8" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq2" cx="216.4" cy="98.8" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq3" cx="511" cy="452" r="4" fill="crimson"/>
+  <circle data-id="sq4" cx="139.5" cy="134.2" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq5" cx="294.1" cy="183.8" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq6" cx="260.7" cy="185.0" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq7" cx="219.2" cy="116.6" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq8" cx="511" cy="452" r="4" fill="crimson"/>
+  <circle data-id="sq9" cx="194.9" cy="240.7" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq10" cx="226.0" cy="98.4" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq11" cx="244.2" cy="209.1" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq12" cx="148.3" cy="91.5" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq13" cx="266.8" cy="184.3" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq14" cx="511" cy="452" r="4" fill="crimson"/>
+  <circle data-id="sq15" cx="235.0" cy="278.4" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq16" cx="167.9" cy="253.2" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq17" cx="511" cy="452" r="4" fill="crimson"/>
+  <circle data-id="sq18" cx="269.6" cy="105.5" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq19" cx="113.6" cy="130.6" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq20" cx="287.8" cy="176.6" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq21" cx="511" cy="452" r="4" fill="crimson"/>
+  <circle data-id="sq22" cx="191.5" cy="166.0" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq23" cx="158.7" cy="207.9" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq24" cx="207.7" cy="274.9" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq25" cx="228.2" cy="280.1" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq26" cx="511" cy="452" r="4" fill="crimson"/>
+  <circle data-id="sq27" cx="226.0" cy="119.3" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq28" cx="265.7" cy="287.6" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq29" cx="275.0" cy="204.5" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq30" cx="234.9" cy="129.3" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq31" cx="511" cy="452" r="4" fill="crimson"/>
+  <circle data-id="sq32" cx="144.8" cy="98.3" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq33" cx="264.3" cy="292.9" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq34" cx="103.6" cy="253.1" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq35" cx="171.2" cy="116.7" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq36" cx="511" cy="452" r="4" fill="crimson"/>
+  <circle data-id="sq37" cx="268.3" cy="94.3" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq38" cx="214.1" cy="94.4" r="6" fill="#4C78A8" opacity="0.15"/>
+  <circle data-id="sq39" cx="235.9" cy="154.5" r="6" fill="#4C78A8" opacity="0.15"/>
+</svg>
+```
+
+## Step 3: Repeat the Process
+
+Do this hundreds of times. Click through to watch the sample means pile up into a bell shape.
+
+```{=html}
+<svg viewBox="0 0 1200 520" style="width:100%;height:auto;display:block;">
+  <text x="400" y="45" font-size="20" font-weight="bold" fill="#333">Distribution of Sample Means</text>
+  <line x1="400" y1="480" x2="1140" y2="480" stroke="#333" stroke-width="2"/>
+
+  <!-- the one mean we already drew, at x = 511 -->
+  <circle cx="511" cy="472" r="7" fill="crimson"/>
+
+  <g class="fragment fade-in">
+    <circle cx="511" cy="458" r="7" fill="crimson"/><circle cx="511" cy="444" r="7" fill="crimson"/>
+    <circle cx="511" cy="430" r="7" fill="crimson"/><circle cx="511" cy="416" r="7" fill="crimson"/>
+    <circle cx="511" cy="402" r="7" fill="crimson"/><circle cx="511" cy="388" r="7" fill="crimson"/>
+    <circle cx="511" cy="374" r="7" fill="crimson"/><circle cx="511" cy="360" r="7" fill="crimson"/>
+    <circle cx="511" cy="346" r="7" fill="crimson"/><circle cx="511" cy="332" r="7" fill="crimson"/>
+    <circle cx="511" cy="318" r="7" fill="crimson"/>
+  </g>
+
+  <g class="fragment fade-in">
+    <circle cx="481" cy="472" r="7" fill="crimson"/><circle cx="481" cy="458" r="7" fill="crimson"/>
+    <circle cx="481" cy="444" r="7" fill="crimson"/><circle cx="481" cy="430" r="7" fill="crimson"/>
+    <circle cx="481" cy="416" r="7" fill="crimson"/><circle cx="481" cy="402" r="7" fill="crimson"/>
+    <circle cx="481" cy="388" r="7" fill="crimson"/><circle cx="481" cy="374" r="7" fill="crimson"/>
+    <circle cx="481" cy="360" r="7" fill="crimson"/><circle cx="481" cy="346" r="7" fill="crimson"/>
+    <circle cx="541" cy="472" r="7" fill="crimson"/><circle cx="541" cy="458" r="7" fill="crimson"/>
+    <circle cx="541" cy="444" r="7" fill="crimson"/><circle cx="541" cy="430" r="7" fill="crimson"/>
+    <circle cx="541" cy="416" r="7" fill="crimson"/><circle cx="541" cy="402" r="7" fill="crimson"/>
+    <circle cx="541" cy="388" r="7" fill="crimson"/><circle cx="541" cy="374" r="7" fill="crimson"/>
+    <circle cx="541" cy="360" r="7" fill="crimson"/><circle cx="541" cy="346" r="7" fill="crimson"/>
+  </g>
+
+  <g class="fragment fade-in">
+    <circle cx="451" cy="472" r="7" fill="crimson"/><circle cx="451" cy="458" r="7" fill="crimson"/>
+    <circle cx="451" cy="444" r="7" fill="crimson"/><circle cx="451" cy="430" r="7" fill="crimson"/>
+    <circle cx="451" cy="416" r="7" fill="crimson"/><circle cx="451" cy="402" r="7" fill="crimson"/>
+    <circle cx="451" cy="388" r="7" fill="crimson"/>
+    <circle cx="571" cy="472" r="7" fill="crimson"/><circle cx="571" cy="458" r="7" fill="crimson"/>
+    <circle cx="571" cy="444" r="7" fill="crimson"/><circle cx="571" cy="430" r="7" fill="crimson"/>
+    <circle cx="571" cy="416" r="7" fill="crimson"/><circle cx="571" cy="402" r="7" fill="crimson"/>
+    <circle cx="571" cy="388" r="7" fill="crimson"/>
+  </g>
+
+  <g class="fragment fade-in">
+    <circle cx="421" cy="472" r="7" fill="crimson"/><circle cx="421" cy="458" r="7" fill="crimson"/>
+    <circle cx="421" cy="444" r="7" fill="crimson"/><circle cx="421" cy="430" r="7" fill="crimson"/>
+    <circle cx="601" cy="472" r="7" fill="crimson"/><circle cx="601" cy="458" r="7" fill="crimson"/>
+    <circle cx="601" cy="444" r="7" fill="crimson"/><circle cx="601" cy="430" r="7" fill="crimson"/>
+  </g>
+
+  <g class="fragment fade-in">
+    <circle cx="391" cy="472" r="7" fill="crimson"/><circle cx="391" cy="458" r="7" fill="crimson"/>
+    <circle cx="631" cy="472" r="7" fill="crimson"/><circle cx="631" cy="458" r="7" fill="crimson"/>
+  </g>
+
+  <g class="fragment fade-in">
+    <circle cx="361" cy="472" r="7" fill="crimson"/>
+    <circle cx="661" cy="472" r="7" fill="crimson"/>
+  </g>
+
+  <g class="fragment fade-in">
+    <path d="M 340 478 C 420 478, 450 300, 511 300 S 602 478, 682 478"
+          fill="none" stroke="#333" stroke-width="3"/>
+    <text x="720" y="340" font-size="22" fill="#333" font-weight="bold">Approximately Normal</text>
+  </g>
+</svg>
+```
+
+## Takeaway
+
+::: {.incremental}
+- The **population** can look like anything. Here, it's skewed
+- Each **individual sample mean** bounces around near the true mean
+- The **distribution of sample means**, across many samples, is approximately $N\left(\mu, \dfrac{\sigma}{\sqrt{n}}\right)$
+- Bigger $n$ → tighter, more normal-looking sampling distribution
+:::
+
+
+# Lets take it for a spin
+
+<br>
+
+> The total assets declared by general election candidates can be found on the ADR website. All the nearly 8000 candidates is actually the populaiton. We can decide on a sample size of 80 and see how well CLT works.
+
+## Test CLT: an example
+
+<br><br>
+
+:::{.incremental}
+
+1. Load data of all ~ 8000 general election candidates
+2. draw a sample of size 80 (~1% of pop) and calcualte sample mean of assets.
+3. repeat step 2 for about 1000 times
+4. Plot density chart of all the 1000 sample means.
+5. Does it look normal?
+:::
+
+## Test CLT: an example
+
+**Load data**
+
+
+```{r}
+#| label: load-data-election
+#| tbl-cap: Data from ADR on asset declared by general election candidates
+#| output-location: slide
+#| warning: false
+
+read_csv("Lok-sabha-2024-candidates-details.csv") -> data_ele
+
+data_ele |>
+    select(sno, candidate, party, criminal_case, sum_all_movable) |>
+    mutate(
+        sum_all_movable = parse_number(sum_all_movable)
+    ) |>
+    reactable::reactable(defaultPageSize = 7) 
+```

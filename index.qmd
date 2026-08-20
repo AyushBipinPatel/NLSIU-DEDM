@@ -429,4 +429,8 @@ If no errors appear, the setup is complete.
 12. [Session 11](2026-08-14-session-11-slides.html)
 13. [Session 12](2026-08-17-session-12-slides.html)
 
+## data
+
+[Bails data](bail-amounts-data.csv)
+
 ------

@@ -264,6 +264,72 @@ variability_at_size|>
 
 [For a given trial size it is possible to quantify the variability due to chance in observing a statistic of interest.]{.fragment fragment-index='2'}
 
+## The Normal Distribution
+
+<br>
+
+> The bell shaped curve we keep bumping into when we look at variability is called the normal distribution. It shows up so often in statistics that it is worth knowing it formally.
+
+<br>
+
+::: {.incremental}
+- It is symmetric around its mean $\mu$
+- Its spread is measured by its standard deviation $\sigma$
+- Roughly 68% of values fall within 1 SD of the mean, 95% within 2 SD, and 99.7% within 3 SD
+- This is called the **68-95-99.7 rule**
+:::
+
+## The Normal Distribution
+
+$f(x) = \dfrac{1}{\sigma\sqrt{2\pi}}\, e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$
+
+Where $\mu$ is the mean and $\sigma$ is the standard deviation of the distribution.
+
+```{=html}
+<svg viewBox="0 0 1200 480" style="width:100%;height:auto;display:block;">
+  <line x1="80" y1="400" x2="1120" y2="400" stroke="#333" stroke-width="2"/>
+
+  <path d="M100,396 C220,392 300,360 380,300 C450,250 500,150 560,100 C580,86 590,80 600,80 C610,80 620,86 640,100 C700,150 750,250 820,300 C900,360 980,392 1100,396"
+        fill="none" stroke="#4C78A8" stroke-width="3"/>
+
+  <line x1="600" y1="80" x2="600" y2="400" stroke="#666" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="592" y="65" font-size="16" fill="#333">μ</text>
+
+  <line x1="433" y1="150" x2="433" y2="400" stroke="#F58518" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="767" y1="150" x2="767" y2="400" stroke="#F58518" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="415" y="140" font-size="14" fill="#F58518">-1σ</text>
+  <text x="755" y="140" font-size="14" fill="#F58518">+1σ</text>
+
+  <line x1="266" y1="290" x2="266" y2="400" stroke="#880800" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="933" y1="290" x2="933" y2="400" stroke="#880800" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="245" y="280" font-size="14" fill="#880800">-2σ</text>
+  <text x="920" y="280" font-size="14" fill="#880800">+2σ</text>
+
+  <line x1="100" y1="396" x2="100" y2="400" stroke="#346030" stroke-width="1.5"/>
+  <line x1="1100" y1="396" x2="1100" y2="400" stroke="#346030" stroke-width="1.5"/>
+  <text x="70" y="420" font-size="14" fill="#346030">-3σ</text>
+  <text x="1080" y="420" font-size="14" fill="#346030">+3σ</text>
+
+  <line x1="433" y1="440" x2="767" y2="440" stroke="#F58518" stroke-width="2"/>
+  <text x="555" y="460" font-size="15" fill="#F58518">68%</text>
+
+  <line x1="266" y1="465" x2="933" y2="465" stroke="#880800" stroke-width="2"/>
+  <text x="555" y="480" font-size="15" fill="#880800">95% (approx)</text>
+</svg>
+```
+
+## Why This Matters for Inference
+
+<br>
+
+::: {.incremental}
+- The **Central Limit Theorem** tells us the distribution of sample means is approximately normal, regardless of the shape of the population
+- That means we can use the properties of the normal distribution to describe how far a sample mean is likely to fall from the true mean
+- This is exactly what we did earlier using the 2.5th and 97.5th percentiles. The normal distribution gives us a formal way to do the same thing
+- A **confidence interval** is built by taking the sample mean and adding and subtracting a multiple of the standard error, using the normal distribution to decide that multiple
+- This is also the foundation for **hypothesis testing**, which asks how unusual an observed statistic would be if a claimed value were true
+:::
+
 # Central Limit Theorem
 
 <br>
@@ -769,3 +835,170 @@ dist_samples |>
     ) +
         theme_ipsum_es()
 ```
+
+# Check Your Understanding
+
+<br>
+
+Quick questions to test the ideas from today. Think first, then click to reveal.
+
+## Question 1
+
+<br>
+
+If you toss a fair coin 20 times, is the proportion of heads you observe likely to be exactly 0.5?
+
+<br>
+
+[Not necessarily. For small trial sizes the observed proportion can differ a fair bit from the true expectation. It is only as the number of trials grows large that the proportion reliably gets close to 0.5. This is the law of large numbers.]{.fragment}
+
+## Question 2
+
+<br>
+
+Two people report their coin toss results. Person A observed 65% heads from 40 tosses. Person B observed 53% heads from 5000 tosses. Whose result should surprise you more, and why?
+
+<br>
+
+[Person B's result is actually more surprising, even though 53% looks closer to 50% than Person A's 65%. At small trial sizes the variability in observed proportions is much higher, so a proportion like 65% from just 40 tosses is still fairly ordinary by chance. At large trial sizes the variability shrinks a great deal, so even a small deviation like 53% from 5000 tosses is many standard errors away from 0.5, and far less likely to happen by chance alone. What matters is not the raw distance from 0.5, but that distance measured in standard errors, which shrink as the sample size grows.]{.fragment}
+
+## Question 3
+
+<br>
+
+A friend says, "The Central Limit Theorem tells us that any large enough dataset will look normally distributed." What is wrong with this statement?
+
+<br>
+
+[This confuses the population distribution with the sampling distribution. The CLT is about the distribution of sample means computed across repeated samples, not about individual data points. A single large dataset drawn from a skewed population stays skewed. It is the distribution of means of many such samples that becomes approximately normal.]{.fragment}
+
+## Question 4
+
+<br>
+
+Why does increasing the sample size make the sampling distribution of the mean narrower?
+
+<br>
+
+[The standard error of the mean is $\sigma/\sqrt{n}$. As $n$ grows, the denominator grows, so the standard error shrinks. Sample means from larger samples vary less from one sample to the next, so the sampling distribution tightens around the true mean.]{.fragment}
+
+## Question 5
+
+<br>
+
+Roughly what proportion of sample means would you expect to fall within 2 standard errors of the true mean, if the sampling distribution is approximately normal?
+
+<br>
+
+[About 95%. This follows from the 68-95-99.7 rule for the normal distribution, applied to the sampling distribution of the mean rather than to individual observations.]{.fragment}
+
+## Question 6 {.smaller}
+
+Suppose a country has 300 million people, and only 300 of them are actual terrorists. That is a base rate of 1 in a million.
+
+The algorithm correctly flags 99% of actual terrorists.
+
+It wrongly flags 1% of innocent people as well.
+
+a) How many actual terrorists get flagged?
+
+b) How many innocent people get flagged?
+
+c) If a person is flagged, what is the probability they are actually a terrorist?
+
+# R Building Blocks: Loops and map()
+
+<br>
+
+> Before the task ahead, a quick refresher on three ways to repeat an operation in R. We have already been using `map()` throughout today's session, here is what it is doing under the hood.
+
+## for loops
+
+A `for` loop repeats an operation a fixed number of times, one step at a time.
+
+```{r}
+#| label: for-loop-example
+
+sample_sizes <- c(10, 50, 100, 500)
+mean_heads <- vector("double", length(sample_sizes))
+
+for (i in seq_along(sample_sizes)) {
+    mean_heads[i] <- sample(c(1,0), sample_sizes[i], replace = TRUE) |> mean()
+}
+
+mean_heads
+```
+
+Each pass through the loop fills in one slot of `mean_heads`, using the sample size at that same position in `sample_sizes`.
+
+## while loops
+
+A `while` loop repeats an operation until a condition is no longer true. Useful when you do not know in advance how many repeats you will need.
+
+```{r}
+#| label: while-loop-example
+
+set.seed(42)
+tosses <- 0
+outcome <- 0
+
+while (outcome != 1) {
+    outcome <- sample(c(1,0), 1, replace = TRUE)
+    tosses <- tosses + 1
+}
+
+tosses
+```
+
+This keeps tossing a coin, one at a time, until it finally lands heads, and reports how many tosses that took.
+
+## map(): the tidyverse way
+
+`map()` applies the same operation to every element of a list or vector, and hands back the results together. This is what we have been using all session, for example to build `records_large_trials` earlier.
+
+```{r}
+#| label: map-example
+
+map_dbl(
+    c(10, 50, 100, 500),
+    ~ sample(c(1,0), .x, replace = TRUE) |> mean()
+)
+```
+
+Same result as the `for` loop version, in fewer lines, and without having to set up an empty vector first.
+
+## Which One Should You Use? {.smaller}
+
+<br>
+
+::: {.incremental}
+- **`for`**: full control over each step, useful when a step depends on what happened in a previous step
+- **`while`**: repeat until a condition is met, useful when the number of repeats is not known in advance
+- **`map()`**: the cleanest choice when applying the same operation across a list of inputs and collecting the results, this is what we used throughout today's walkthrough
+- All three are doing the same underlying thing: repetition. The choice is about what makes your code easiest to read and to get right
+:::
+
+# Apply What You've Learned
+
+<br>
+
+> An authentic task, similar in spirit to what you will do in your midterm and final projects.
+
+## Authentic Task{.smaller}
+
+<br>
+
+You are given `bail-amounts-data.csv`, a dataset of bail amounts set by lower courts over the last five years, covering just over 4,000 cases. A newspaper claims that "the average bail amount has increased by 20% this year compared to last year."
+
+<br>
+
+::: {.incremental}
+- Filter `data_bail` to the two years the newspaper is comparing, using `year` and `bail_amount_inr`
+- Draw repeated random samples of a fixed size from each year's cases and compute the sample mean bail amount each time, using either a loop or `map()`
+- Plot the two sampling distributions of the mean and describe their shape and spread
+- Use the standard error to construct an approximate range within which you would expect the true average to fall, for each year
+- State, in plain language, whether the data supports the newspaper's claim, and how confident you are in that conclusion
+- Note any way the sampling process itself, for example which cases get recorded or omitted, might bias your answer
+:::
+
+# End of Session

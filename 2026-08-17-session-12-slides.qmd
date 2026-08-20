@@ -318,7 +318,7 @@ Where $\mu$ is the mean and $\sigma$ is the standard deviation of the distributi
 </svg>
 ```
 
-## Why This Matters for Inference
+## Why This Matters for Inference {.smaller}
 
 <br>
 
@@ -852,7 +852,7 @@ If you toss a fair coin 20 times, is the proportion of heads you observe likely 
 
 [Not necessarily. For small trial sizes the observed proportion can differ a fair bit from the true expectation. It is only as the number of trials grows large that the proportion reliably gets close to 0.5. This is the law of large numbers.]{.fragment}
 
-## Question 2
+## Question 2 {.smaller}
 
 <br>
 
@@ -931,7 +931,7 @@ mean_heads
 
 Each pass through the loop fills in one slot of `mean_heads`, using the sample size at that same position in `sample_sizes`.
 
-## while loops
+## while loops 
 
 A `while` loop repeats an operation until a condition is no longer true. Useful when you do not know in advance how many repeats you will need.
 
@@ -984,16 +984,18 @@ Same result as the `for` loop version, in fewer lines, and without having to set
 
 > An authentic task, similar in spirit to what you will do in your midterm and final projects.
 
-## Authentic Task{.smaller}
+## Authentic Task
 
 <br>
 
-You are given `bail-amounts-data.csv`, a dataset of bail amounts set by lower courts over the last five years, covering just over 4,000 cases. A newspaper claims that "the average bail amount has increased by 20% this year compared to last year."
+You are given `bail-amounts-data.csv`, a dataset of bail amounts set by lower courts over the last five years, covering just over 4,000 cases. A newspaper claims that "the average bail amount in 2025 was 20% higher than in 2024."
+
+## Authentic Task: What To Do {.smaller}
 
 <br>
 
 ::: {.incremental}
-- Filter `data_bail` to the two years the newspaper is comparing, using `year` and `bail_amount_inr`
+- Filter `data_bail` to 2024 and 2025 using the `year` column, and work with `bail_amount_inr`
 - Draw repeated random samples of a fixed size from each year's cases and compute the sample mean bail amount each time, using either a loop or `map()`
 - Plot the two sampling distributions of the mean and describe their shape and spread
 - Use the standard error to construct an approximate range within which you would expect the true average to fall, for each year

@@ -1,0 +1,165 @@
+---
+title: "Numbers"
+author: "Ayush Patel"
+subtitle: "Session 24: Is It Real, or Is It Chance"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute: 
+  echo: false
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+# Why Do We Need Hypothesis Testing
+
+## A Student Annoyed by TV Ads
+
+- A student suspected that basic cable channels carry more commercials than the pricier extended channels.
+- He timed 20 half hours of television. Basic channels averaged 9.21 minutes of commercials. Extended channels averaged 6.87 minutes.
+- The gap is 2.34 minutes. Is that a real difference between the two kinds of channels, or could it show up between two batches of the same channels, by chance alone [@hesterberg2015bootstrap]?
+
+## A Number With a Penalty Attached
+
+- Verizon was required to repair phone lines just as quickly for competitors' customers as for its own. Regulators tested this with hundreds of statistical comparisons, each at a strict cutoff.
+- For one such comparison, the competitor's average repair time was 16.69 hours against Verizon's own 8.41 hours, based on a very small and skewed sample.
+- Was this evidence of discrimination, or an unlucky sample? Whichever test the regulator trusted, real money was going to change hands [@hesterberg2015bootstrap].
+
+## A Question About the Courts
+
+- A study of roughly five million Indian criminal cases asked whether judges rule more favourably toward defendants who share their own religion.
+- Any two judges will differ in their acquittal rates a little, just from the ordinary randomness of who appears before them.
+- The real question is whether the gap between in group and out group outcomes is bigger than that ordinary randomness would produce on its own [@aabbcdgns2025bias].
+
+## Comparing Averages Is Not Enough
+
+- In all three stories, someone computed a difference between two averages and got a number that was not zero.
+- But two random samples drawn from the exact same population will almost never have identical averages either. Some gap is expected from sampling alone.
+- The real question is never "is there a difference". It is "is this difference bigger than what chance alone would produce".
+
+# The Logic of a Hypothesis Test
+
+## Two Competing Claims 
+
+- Every hypothesis test starts by writing down two claims about the world.
+- The null hypothesis, $H_0$, is the sceptical default. No effect, no difference, nothing unusual going on.
+- The alternative hypothesis, $H_1$, is the claim we suspect. A real difference, a real effect, something worth explaining.
+- This should feel familiar. It is the same structure as a trial, where the accused is presumed innocent, and the prosecution must supply the evidence.
+
+## Reductio Ad Unlikely
+
+- Jordan Ellenberg describes the logic of a hypothesis test as a variation on an old proof technique, reductio ad absurdum. He calls it reductio ad unlikely [@ellenberg2014hownotwrong].
+- We temporarily assume the null hypothesis is true. Then we ask how surprising data like ours would be, if that assumption really held.
+- If the data would be extremely unlikely under that assumption, we treat that as evidence against the assumption. We do not prove the null false. We make it look implausible.
+
+## The P-value
+
+- The p-value answers a specific question. Assuming the null hypothesis is true, what is the probability of seeing a result at least as extreme as the one we observed.
+- A small p-value means our data would be a rare event under the null. That counts as evidence against the null.
+- A p-value is not the probability that the null hypothesis is true. This mix up is one of the most common errors in reading statistics [@spiegelhalter2019art].
+
+## Two Ways to Be Wrong 
+
+- A test can go wrong in two directions, and the courtroom analogy again maps neatly onto this.
+- A Type I error rejects a true null hypothesis. Convicting an innocent defendant.
+- A Type II error fails to reject a false null hypothesis. Acquitting a guilty defendant.
+- We cannot drive both error rates to zero at once. Making it harder to convict makes it easier for the guilty to walk free, and vice versa [@freedman2007statistics].
+
+# The Traditional Route, Z-tests and T-tests
+
+## Two Cousins, Not One Test 
+
+- Classical hypothesis testing actually comes in two closely related versions, and it helps to tell them apart before looking at either one.
+- A z-test is used when the population's spread is already known, or when the sample is so large that the sample spread is essentially a perfect stand in for it.
+- A t-test is used when the sample is small, and the population spread has to be estimated from that same small sample. That extra layer of uncertainty needs its own, wider reference curve.
+- As the sample grows, the t curve gets closer and closer to the z curve. The difference between them matters most exactly when samples are small [@cetinkaya-rundel2024ims2].
+
+## A Small Example, The Jury Panel
+
+- Freedman, Pisani, and Purves describe a study of grand jury panels in Alameda County, California, first published in the UCLA Law Review [@freedman2007statistics].
+- The study compared the ages of 66 empanelled jurors against the county's own age distribution, which was already known from public health records.
+- Because the population figures were already available, this comparison could be run as a z-test. Nothing needed to be estimated from the small panel itself.
+
+## A Small Example, The Brewery Problem
+
+- The t-distribution exists because of a much smaller, much beerier problem. William Sealy Gosset worked as a chemist at the Guinness brewery in Dublin, testing small batches of barley and hops.
+- His samples were often under 10 observations, far too few for the ordinary bell curve to be trusted. Estimating the population's spread from so little data added real uncertainty that the bell curve simply ignored.
+- Guinness barred employees from publishing under their own names, so Gosset wrote under the pen name "Student". The wider curve he derived for small samples is the t-distribution we still use today.
+
+## The Classical Recipe
+
+- Whichever cousin applies, the recipe is the same. Compute a standardised statistic, essentially how many standard errors the observed difference sits away from the null value.
+- Compare that number to the reference curve, normal for a z-test, the wider t-curve for a t-test.
+- Read off the p-value from where the statistic falls on that curve [@cetinkaya-rundel2024ims2].
+
+## The Catch, the Bell Curve Takes Its Time
+
+- The usual classroom rule is that a sample of 30 or so is enough for the bell curve approximation to kick in.
+- For skewed data, this rule is badly wrong. Hesterberg shows that for a moderately skewed population, getting the classical test accurate to within 10 percent can require a sample size of five thousand, not thirty [@hesterberg2015bootstrap].
+- As Hesterberg puts it, the Central Limit Theorem operates on glacial time scales when skewness is present. Repair times, incomes, and case durations are almost always skewed.
+
+## When the Formula Misled a Regulator
+
+- Return to the Verizon repair times. The competitor's sample was small and heavily skewed, with one large outlier pulling the average up.
+- The classical pooled t-test gave a p-value of 0.0045, comfortably under the 1 percent cutoff that triggered a penalty.
+- A more careful, assumption free test on the same data gave a p-value of 0.0171, comfortably above that cutoff [@hesterberg2015bootstrap]. Which number should the regulator have trusted?
+
+# The Resampling Route, Permutation Tests
+
+## The Big Idea
+
+- Suppose the null hypothesis is true, so "basic" and "extended", or "Verizon" and "competitor", are just arbitrary labels stuck onto interchangeable data.
+- If the labels are truly arbitrary, shuffling them randomly should produce differences that look about the same as what we actually observed, most of the time.
+- So we do exactly that. Shuffle the labels, recompute the difference, and repeat thousands of times, building the null distribution directly from the data [@hesterberg2015bootstrap].
+
+## The Recipe 
+
+- Pool all the observations together, erasing the group labels.
+- Randomly relabel the pooled data into two groups of the original sizes, and compute the difference in averages for this relabelled data.
+- Repeat this thousands of times, and plot a histogram of all the differences obtained this way.
+- The p-value is the fraction of these random relabellings that produced a difference as extreme as, or more extreme than, the one we actually observed [@hesterberg2015bootstrap].
+
+## Why This Should Feel Natural
+
+- This is not some clever new invention. Ronald Fisher, who did much of the early work on permutation tests, argued that the t-test could be justified as a fast, hand calculable approximation to it, built for an era before computers [@hesterberg2015bootstrap].
+- A permutation test makes no assumption about bell curves. It asks a literal question: out of all the ways this data could have been split by chance, how often would we see a gap this large.
+- With modern computers, we no longer need Fisher's shortcut. We can just count directly.
+
+# Comparing the Two Routes
+
+## Strengths and Limits
+
+- The classical z and t-tests are fast, familiar, and work well for large samples from reasonably symmetric populations.
+- They become unreliable exactly where they are often used carelessly, on small or skewed samples, which describes a great deal of real world legal and economic data.
+- The permutation test needs no such assumption, and directly answers the question we care about, at the cost of computation rather than theory [@hesterberg2015bootstrap].
+
+## The Same Idea, From Different Angles
+
+- Both routes answer the same reductio ad unlikely question. They differ only in how they build the benchmark for "unlikely".
+- The classical route borrows a theoretical benchmark, the bell curve, and hopes it fits. The resampling route builds its own benchmark directly from the data [@cetinkaya-rundel2024ims2].
+- Freedman's caution applies to both routes equally. A formula, however elegant, is only as trustworthy as the assumptions feeding into it [@freedman2007statistics].
+
+## Carrying This Forward
+
+- A hypothesis test is a disciplined way of asking one question. If nothing interesting were happening, how surprising would this data be.
+- Neither error, wrongly rejecting a true null, nor wrongly failing to reject a false one, can be eliminated. Every test is a choice about which mistake matters more.
+- Before trusting any p-value, from a z-test, a t-test, or a permutation test, ask what assumptions it rests on, and whether the data actually satisfy them.
+
+## References {.smaller}
+
+::: {#refs}
+:::

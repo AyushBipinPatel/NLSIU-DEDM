@@ -1,0 +1,380 @@
+---
+title: "Numbers"
+author: "Ayush Patel"
+subtitle: "Session 23: Growth Rates, Simple vs Compound"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute: 
+  echo: false
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+## How to Use These Slides
+
+These slides are written to be **read on their own**. You do not need a lecturer talking over them.
+
+- Each slide makes **one main point**, stated plainly in the text
+- Worked examples show **every step**, not just the final answer
+- Key formulas are boxed with a short explanation of every symbol
+- A **summary table** and a **worked answer key** are included at the end
+
+## Today's Goals
+
+By the end of this session, you should be able to:
+
+- Tell apart **absolute change** and **relative (%) growth**. Know when each is more useful.
+- State the formula for **simple (linear) growth**. Explain what each symbol means.
+- State the formula for **compound growth**, and know when it produces a true exponential curve.
+- Apply both models to two everyday examples: **interest on savings** and **GDP growth**
+- Explain why economists and journalists almost always quote growth as a **compound** rate
+
+## Absolute vs. Relative Change {.smaller}
+
+There are two ways to describe how much something grew. Mixing them up is a common source of confusion.
+
+**Absolute change** is the plain difference between the new and old value.
+
+$$\Delta V = V_t - V_0$$
+
+**Relative (percentage) growth rate** expresses that same change as a share of the starting value.
+
+$$r = \frac{V_t - V_0}{V_0} \times 100\%$$
+
+**Worked example:** India's GDP moves from ₹200 lakh crore to ₹212 lakh crore in one year.
+
+- Absolute change = ₹212 minus ₹200 = **₹12 lakh crore**
+- Relative growth rate = (12 ÷ 200) × 100 = **6%**
+
+## Why Relative Growth Matters More {.smaller}
+
+A ₹12 lakh crore increase sounds large. But "large" only makes sense relative to something.
+
+- For a ₹200 lakh crore economy, ₹12 lakh crore is a 6% increase. That is solid growth.
+- For a ₹20 lakh crore economy, the same ₹12 lakh crore increase would be a 60% increase. That is extraordinary, and unlikely to happen in one year.
+- The absolute number alone cannot tell these two situations apart. The **relative rate** can.
+
+**Takeaway:** growth is almost always reported as a percentage rate rather than a raw number. It lets us compare figures of very different sizes, and compare the same economy or investment across different points in time.
+
+## Two Models of Growth {.smaller}
+
+Growth over time behaves in one of two basic ways. Recognising which one applies is the most important skill in this session.
+
+::: {.columns}
+::: {.column width="50%"}
+**Simple (Linear) Growth**
+
+- The **same absolute amount** is added in every period
+- Growth is calculated on the **original, unchanging base**
+- Plotted over time, it traces a **straight line**
+:::
+
+::: {.column width="50%"}
+**Compound Growth**
+
+- The **same percentage** is added in every period
+- Growth is calculated on the **latest total**, which already includes past growth
+- Plotted over time, it traces a **curve**. Slow at first, then increasingly steep.
+:::
+:::
+
+A later slide clarifies when this curve is a true exponential, and when it is not.
+
+## Simple Growth: Formula {.smaller}
+
+$$V_t = V_0 \,(1 + r \times t)$$
+
+**What each symbol means:**
+
+- $V_0$: the initial (starting) value
+- $r$: the growth rate per period, written as a decimal (e.g. 8% = 0.08)
+- $t$: the number of **periods** that have passed
+- $V_t$: the value after $t$ periods
+
+**Note:** a "period" can be any consistent unit of time (a year, a quarter, a month), as long as $r$ is the growth rate for that same unit. **Applied to simple interest**, a period is almost always a **year**, so the formula is usually written as:
+
+$$I = P \times r \times t \qquad\qquad A = P(1 + rt)$$
+
+Here $P$ is the principal, $I$ is the interest earned, $A$ is the final amount, $r$ is the annual rate, and $t$ is the number of **years**. If a rate is quoted for a different period, convert it to a yearly basis first.
+
+## Simple Growth: Worked Example {.smaller}
+
+Principal $P = ₹1{,}00{,}000$, simple interest rate $8\%$ per year, for 5 years.
+
+Simple interest is always calculated on the **original ₹1,00,000**. So the interest earned is exactly the same every single year: ₹8,000.
+
+| Year | Opening Balance | Interest Added | Closing Balance |
+|:----:|:---------------:|:---------------:|:----------------:|
+| 1 | 1,00,000 | 8,000 | 1,08,000 |
+| 2 | 1,08,000 | 8,000 | 1,16,000 |
+| 3 | 1,16,000 | 8,000 | 1,24,000 |
+| 4 | 1,24,000 | 8,000 | 1,32,000 |
+| 5 | 1,32,000 | 8,000 | 1,40,000 |
+
+**Reading the table:** the *closing balance* grows each year, but the *interest added* column never changes. That constant ₹8,000 addition is the signature of simple growth.
+
+## Compound Growth: Formula {.smaller}
+
+$$V_t = V_0\,(1 + r)^t$$
+
+**What each symbol means:** the same $V_0$, $r$, and $V_t$ as before. $t$ is again the number of **periods**, matching whatever period $r$ is quoted for. Growth is now applied to the **running total**, not the original base. Each period's growth becomes part of the base for the next period's growth.
+
+**Applied to compound interest**, a period is almost always a **year**:
+
+$$A = P(1 + r)^t \qquad\qquad I = A - P$$
+
+Here $A$ is the final amount, $r$ is the annual rate, and $t$ is the number of **years**. $I = A - P$ is the total interest earned. **Note:** this formula assumes interest compounds **once a year**. The next slide covers compounding more than once a year, where "period" and "year" mean different things.
+
+## Compound Growth: Worked Example {.smaller}
+
+Same ₹1,00,000, now earning $8\%$ **compounded annually**, for 5 years.
+
+Unlike simple interest, the interest earned **grows every year**. From Year 2 onward, interest is earned on the previous year's interest as well as the principal.
+
+| Year | Opening Balance | Interest Added | Closing Balance |
+|:----:|:---------------:|:---------------:|:----------------:|
+| 1 | 1,00,000 | 8,000 | 1,08,000 |
+| 2 | 1,08,000 | 8,640 | 1,16,640 |
+| 3 | 1,16,640 | 9,331 | 1,25,971 |
+| 4 | 1,25,971 | 10,078 | 1,36,049 |
+| 5 | 1,36,049 | 10,884 | 1,46,933 |
+
+**Reading the table:** the *interest added* column rises every year. That is the signature of compound growth. After 5 years, the compound total (₹1,46,933) is higher than the simple total from before (₹1,40,000). This gap widens every additional year.
+
+## Compounding More Than Once a Year {.smaller}
+
+The formula $A = P(1+r)^t$ assumes interest is added **once a year**. Many banks and bonds compound more often: quarterly, monthly, or even daily. The general formula adjusts for this.
+
+$$A = P\left(1 + \frac{r}{n}\right)^{nt}$$
+
+**What each symbol means:**
+
+- $P$: the principal
+- $r$: the **nominal annual rate** (the quoted yearly rate, before adjusting for compounding frequency)
+- $n$: the number of times compounding happens **per year** (12 for monthly, 4 for quarterly, 365 for daily)
+- $t$: the number of years, exactly as before
+- $A$: the final amount
+
+**Worked example:** ₹1,00,000 at a nominal 8% annual rate, compounded **quarterly**, for 5 years. Here $n = 4$.
+
+$$A = 1{,}00{,}000\left(1 + \frac{0.08}{4}\right)^{4 \times 5} = 1{,}00{,}000(1.02)^{20} \approx ₹1{,}48{,}595$$
+
+**Reading this result:** compounding quarterly (₹1,48,595) beats compounding annually (₹1,46,933) at the same 8% nominal rate. Compounding more often means interest starts earning interest sooner, so the total grows faster even though the quoted rate is the same.
+
+## Effective Annual Rate (EAR) {.smaller}
+
+The **nominal rate** ($r$) is the quoted rate. The **effective annual rate** is the single once-a-year rate that would produce the same growth in one year.
+
+$$EAR = \left(1 + \frac{r}{n}\right)^n - 1$$
+
+**Worked example:** a nominal 8% rate compounded quarterly ($n = 4$).
+
+$$EAR = \left(1 + \frac{0.08}{4}\right)^4 - 1 = (1.02)^4 - 1 \approx 0.0824 = 8.24\%$$
+
+**Reading this result:** 8% compounded quarterly behaves like **8.24%** compounded once a year. The EAR is always slightly higher than the nominal rate whenever compounding happens more than once a year. Use the EAR, not the nominal rate, whenever a formula (like the Rule of 70) assumes annual compounding.
+
+## Periods vs. Years: Quick Reference {.smaller}
+
+It is easy to mix up "period" and "year." Here is how each formula uses them.
+
+| Formula | What counts as one "period" | What $t$ means |
+|---|---|---|
+| $V_t = V_0(1+rt)$ or $V_t = V_0(1+r)^t$ | Whatever unit $r$ is quoted in | Number of periods, in that same unit |
+| Simple interest: $A = P(1+rt)$ | One year (by convention) | Number of years |
+| Compound interest, once a year: $A = P(1+r)^t$ | One year (by convention) | Number of years |
+| Multiple compounding: $A = P\left(1+\dfrac{r}{n}\right)^{nt}$ | One compounding interval (e.g. one month, if $n=12$) | Number of **years** elapsed, not periods |
+
+**The one rule to remember:** whenever $r$ is an **annual** rate, $t$ is always in **years**. The exponent $nt$ in the multiple-compounding formula is the **total number of compounding periods**, which is a separate count from $t$. Do not confuse the two: $t$ tracks elapsed years, $nt$ tracks how many times interest has actually been added.
+
+## Is Compound Growth Always Exponential? {.smaller}
+
+Not quite. Compound growth is a true exponential curve only under one condition: **the growth rate stays the same every period.**
+
+- If $r$ is constant, $V_t = V_0(1+r)^t$ is a genuine exponential function. Its curve has the smooth, ever-steepening shape shown on the next slide.
+- Real growth rates are rarely constant. GDP might grow 7% one year and 4% the next. This is still **compound growth**, since each year's growth builds on the previous year's total, but the resulting curve is not a smooth exponential. It bends up and down with each year's actual rate.
+- **CAGR** and the **geometric mean** (seen earlier) are exactly the tools used to summarise this uneven, real-world compounding with a single constant rate, so it can be compared or plotted as if it were exponential.
+
+**Takeaway:** "compound" describes *how* growth builds (on the latest total, not the original base). "Exponential" describes the *shape* this produces only when the rate is held constant.
+
+## Simple vs. Compound: Visually
+
+The chart plots ₹1,00,000 growing at the same 8% rate over 20 years, once under each model. The blue (compound) line starts out barely ahead of the red (simple) line, but visibly pulls away as the years pass. This is the "snowball effect" of compounding.
+
+```{r}
+years <- 0:20
+r <- 0.08
+P <- 100000
+
+simple <- P * (1 + r * years)
+compound <- P * (1 + r) ^ years
+
+plot(years, compound, type = "l", lwd = 3, col = "#1B4F72",
+     ylim = c(0, max(compound)),
+     xlab = "Years", ylab = "Value (₹)",
+     main = "₹1,00,000 growing at 8%: Simple vs Compound")
+lines(years, simple, lwd = 3, col = "#C0392B")
+legend("topleft", legend = c("Compound growth", "Simple growth"),
+       col = c("#1B4F72", "#C0392B"), lwd = 3, bty = "n")
+```
+
+## From Interest Rates to GDP {.smaller}
+
+The same two models describe economic growth, not just money in a bank account.
+
+- **Simple/linear GDP growth** would mean the economy adds the same *absolute* rupee amount every year. This is rare in practice. It is not how real economies actually behave.
+- **Compound GDP growth** means the economy grows by the same *percentage* each year, on an ever larger base. This is the **standard way GDP growth is measured and reported**.
+
+**Takeaway:** when a news report says "India's GDP grew at 7% this year," it is almost always describing a **compound**, year-on-year percentage rate. It is not a fixed absolute rupee amount.
+
+## CAGR: Compound Annual Growth Rate {.smaller}
+
+Sometimes we know only the value at the **start** and the value at the **end** of several years, but not the year-by-year path in between. CAGR backs out the *average annual compound rate* that would explain the total change.
+
+$$CAGR = \left(\frac{V_t}{V_0}\right)^{1/t} - 1$$
+
+**What each symbol means:**
+
+- $V_0$: the value in the starting year
+- $V_t$: the value $t$ years later
+- $t$: the number of years between the two values
+- The result answers: "What constant annual percentage growth rate would take $V_0$ to $V_t$ over $t$ years?"
+
+## CAGR: Worked Example
+
+Suppose an economy's GDP was **₹150 lakh crore** in Year 0 and grew to **₹225 lakh crore** after **6 years**.
+
+$$CAGR = \left(\frac{225}{150}\right)^{1/6} - 1 = (1.5)^{1/6} - 1 \approx 0.070 = 7.0\%$$
+
+**Reading this result:** the economy grew 50% in total over 6 years. The CAGR tells us this is *equivalent to* growing at a steady 7.0% every single year, compounded. CAGR turns a multi-year total into a single, comparable annual figure.
+
+## A Common Pitfall: Don't Average Percentages {.smaller}
+
+- **Wrong approach:** "GDP grew 50% over 6 years, so that's roughly 50 ÷ 6 ≈ 8.3% per year"
+- **Correct approach:** use the CAGR formula. Take the $t$-th root of the total growth factor, as shown on the previous slide. This gives 7.0%, not 8.3%.
+
+**Why this matters:** percentages compound, they don't simply add up. Dividing total percentage growth by the number of years always **overstates** the true annual growth rate. The size of this error grows larger the longer the time period and the higher the growth rate involved.
+
+## Averaging Growth Rates Across Several Years {.smaller}
+
+CAGR works when you only know the **start** and **end** values. Sometimes you already know the growth rate for *each individual year*, say $r_1, r_2, r_3, \dots, r_n$, and want a single average rate that summarises them. The correct average is the **geometric mean**, not a simple arithmetic average.
+
+$$\bar{r} = \sqrt[n]{(1+r_1)(1+r_2)(1+r_3)\cdots(1+r_n)} \; - \; 1$$
+
+**What this formula does:** it multiplies together each year's *growth factor* $(1+r_i)$, takes the $n$-th root of that product, and subtracts 1 to convert the result back into a rate. You already know this tool as the **geometric mean**. A later slide shows exactly why this gives the same answer as CAGR.
+
+## Two Forms of the Geometric Mean {.smaller}
+
+You may have seen the geometric mean written more generally, for any set of positive values:
+
+$$GM = \sqrt[n]{X_1 \times X_2 \times \cdots \times X_n}$$
+
+where $X$ stands for the values in your dataset and $n$ is how many values there are. This is exactly the same formula used on the previous slide. Both are correct: the growth-rate version is just the general geometric mean applied to a specific choice of $X$.
+
+**The connection:** set each $X_i$ equal to a **growth factor**, $X_i = 1 + r_i$, then subtract 1 at the end to convert the answer back from a factor into a rate:
+
+$$\bar{r} = \underbrace{\sqrt[n]{(1+r_1)(1+r_2)\cdots(1+r_n)}}_{GM(1+r_1,\, \dots,\, 1+r_n)} - 1$$
+
+**Why not take the geometric mean of the raw rates $r_i$ directly?** Growth rates can be zero or negative, but geometric mean is only defined for positive numbers. Growth factors $(1+r_i)$ are always positive for any realistic rate, and multiplying them together correctly mirrors how compounding actually works. That is why we convert to factors first, average, then convert back.
+
+## Averaging Growth Rates: Worked Example {.smaller}
+
+Suppose GDP growth was **5% in Year 1**, **8% in Year 2**, and **3% in Year 3**.
+
+**Wrong approach (arithmetic mean):** $(5 + 8 + 3) / 3 = 5.33\%$ per year
+
+**Correct approach (geometric mean):**
+
+$$\bar{r} = \sqrt[3]{(1.05)(1.08)(1.03)} - 1 = \sqrt[3]{1.16802} - 1 \approx 1.0531 - 1 = 5.31\%$$
+
+**Reading this result:** the geometric mean (5.31%) is always less than or equal to the arithmetic mean (5.33%) whenever growth rates vary from year to year. The two are only equal when every year's rate is identical. The gap is small here because the rates are close together. It widens sharply when growth rates swing more, or turn negative in some years.
+
+## CAGR Is a Geometric Mean {.smaller}
+
+You have already met the geometric mean. CAGR is just that same idea applied to growth rates. The two formulas compute the exact same number.
+
+$$CAGR = \left(\frac{V_t}{V_0}\right)^{1/t} - 1 \qquad\qquad \bar{r} = \sqrt[n]{(1+r_1)(1+r_2)\cdots(1+r_n)} - 1$$
+
+**Why they match:** each year's value is last year's value times its own growth factor. Multiplying this out across all $n$ years gives:
+
+$$V_t = V_0 (1+r_1)(1+r_2)\cdots(1+r_n)$$
+
+So $\dfrac{V_t}{V_0} = (1+r_1)(1+r_2)\cdots(1+r_n)$. This is exactly the product inside the geometric mean formula. CAGR is the geometric mean of the yearly growth factors, minus 1.
+
+- **Know only start and end values?** Use the CAGR formula. It gives you the geometric mean without needing the yearly path.
+- **Know every year's rate?** Take their geometric mean directly. It gives you the same answer as CAGR would.
+
+## Rule of 70: A Quick Mental Shortcut {.smaller}
+
+For compound growth, there is a simple approximation for how long a value takes to **double** in size.
+
+$$t_{double} \approx \frac{70}{r\,(\%)}$$
+
+Here $r$ is the annual growth rate expressed as a whole number percentage. Use "7" for 7%, not "0.07". $t_{double}$ comes out in **years**, matching the annual rate.
+
+**Important caveat:** this shortcut assumes interest compounds **once a year**. If your rate compounds more often (monthly, quarterly), first convert it to the **effective annual rate** (covered earlier in this deck) before applying the Rule of 70. Plugging in a nominal rate directly will give a slightly wrong answer.
+
+**Worked example:** an economy compounding annually at a steady 7% per year doubles in size in roughly
+
+$$\frac{70}{7} = 10 \text{ years}$$
+
+This shortcut is useful for quickly judging how fast a given annual rate really is, without a calculator or logarithms.
+
+## Simple vs. Compound: Summary Table {.smaller}
+
+| | Simple Growth | Compound Growth |
+|---|---|---|
+| Base for growth | Original value only | Latest (running) value |
+| Shape of curve | Straight line | Curved, snowballs. Exponential only if the rate stays constant every period. |
+| Formula | $V_0(1+rt)$ | $V_0(1+r)^t$ |
+| Interest example | Simple interest | Compound interest |
+| Economic example | Rare in practice | Standard GDP growth, CAGR |
+| Long-run effect | Grows steadily | Grows increasingly faster |
+| Averaging over $n$ years | Simple arithmetic mean is fine | Geometric mean of growth factors. CAGR is this same calculation from start/end values. |
+
+## Practice Questions {.smaller}
+
+Try these on your own before checking the answer key on the next slide.
+
+1. A country's population is 40 million and grows by a **constant 2 lakh people** every year. What will it be after 10 years? Is this simple or compound growth?
+2. An investment of ₹50,000 earns **6% compound interest** annually. Find its value after 4 years.
+3. GDP rises from ₹80 lakh crore to ₹107 lakh crore over 5 years. Calculate the **CAGR**.
+4. At a compound growth rate of 10% per year, roughly how many years will an economy take to **double** in size? Use the Rule of 70.
+5. A firm's revenue grew **10% in Year 1**, **minus 4% in Year 2** (a decline), and **6% in Year 3**. Find the average annual growth rate using the geometric mean. Compare it to the (incorrect) arithmetic mean.
+6. ₹80,000 is invested at a nominal 10% annual rate, **compounded monthly**, for 3 years. Find the final amount. (Use $n = 12$.)
+
+## Answer Key {.smaller}
+
+**Q1. Simple growth.** Population adds a fixed *absolute* amount (2 lakh) each year. Use $V_t = V_0(1 + rt)$ in absolute-amount form: $40{,}000{,}000 + (200{,}000 \times 10) = 42{,}000{,}000$. That is **42 million** after 10 years.
+
+**Q2. Compound growth.** $A = 50{,}000 \times (1.06)^4 \approx 50{,}000 \times 1.2625 \approx$ **₹63,124**.
+
+**Q3. CAGR.** $CAGR = \left(\dfrac{107}{80}\right)^{1/5} - 1 \approx (1.3375)^{0.2} - 1 \approx$ **5.98%**, roughly **6% per year**.
+
+**Q4. Rule of 70.** $t_{double} \approx 70 / 10 =$ **7 years**.
+
+**Q5. Geometric mean.** $\bar{r} = \sqrt[3]{(1.10)(0.96)(1.06)} - 1 = \sqrt[3]{1.11936} - 1 \approx 1.0383 - 1 =$ **3.83%**. The arithmetic mean would give $(10 - 4 + 6)/3 = 4.00\%$, noticeably higher, because it ignores the compounding effect of the Year 2 decline.
+
+**Q6. Monthly compounding.** $A = 80{,}000\left(1 + \dfrac{0.10}{12}\right)^{36} \approx$ **₹1,07,855**.
+
+## Key Takeaways {.smaller}
+
+- **Absolute change** tells you the raw amount of change. **Relative growth** tells you the rate. Always be clear on which one you are looking at.
+- **Simple growth** adds a fixed amount each period, calculated on the *original* base.
+- **Compound growth** adds a fixed *percentage* each period, calculated on the *latest* base. It snowballs over time.
+- Real-world economic growth (GDP, investments, populations) is almost always modelled as **compound**.
+- Use **CAGR** to annualise growth measured over multiple periods. Never simply divide total percentage growth by the number of years.

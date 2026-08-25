@@ -53,7 +53,7 @@ format:
 
 # The Logic of a Hypothesis Test
 
-## Two Competing Claims 
+## Two Competing Claims {.smaller}
 
 - Every hypothesis test starts by writing down two claims about the world.
 - The null hypothesis, $H_0$, is the sceptical default. No effect, no difference, nothing unusual going on.
@@ -72,7 +72,20 @@ format:
 - A small p-value means our data would be a rare event under the null. That counts as evidence against the null.
 - A p-value is not the probability that the null hypothesis is true. This mix up is one of the most common errors in reading statistics [@spiegelhalter2019art].
 
-## Two Ways to Be Wrong 
+## One-Sided or Two-Sided?
+
+- The alternative hypothesis can be written in two different ways, and this choice changes how the p-value gets calculated.
+- A two-sided test asks whether the result differs from the null value in either direction, larger or smaller. It looks for evidence in both tails of the reference distribution.
+- A one-sided test asks whether the result differs in one specific direction only, say, larger than the null value, or smaller. It looks for evidence in just one tail.
+
+## Choosing Before You Look {.smaller}
+
+- The choice between one-sided and two-sided is not a technical detail to adjust after seeing the data. It must follow from the question being asked, decided in advance.
+- Use a one-sided test when only one direction is substantively meaningful. In the Verizon case, the regulator only cared whether the competitor's repairs were slower, not whether they were suspiciously faster, so the permutation test there used a one-sided p-value [@hesterberg2015bootstrap].
+- Use a two-sided test when either direction would be worth knowing about. Most claims of a general difference, an effect either way, a bias in either direction, call for this.
+- Choosing the direction after looking at the data, to make a borderline result look significant, is a well known way p-values get misused [@ellenberg2014hownotwrong].
+
+## Two Ways to Be Wrong {.smaller}
 
 - A test can go wrong in two directions, and the courtroom analogy again maps neatly onto this.
 - A Type I error rejects a true null hypothesis. Convicting an innocent defendant.
@@ -81,7 +94,7 @@ format:
 
 # The Traditional Route, Z-tests and T-tests
 
-## Two Cousins, Not One Test 
+## Two Cousins, Not One Test {.smaller}
 
 - Classical hypothesis testing actually comes in two closely related versions, and it helps to tell them apart before looking at either one.
 - A z-test is used when the population's spread is already known, or when the sample is so large that the sample spread is essentially a perfect stand in for it.
@@ -126,14 +139,14 @@ format:
 - If the labels are truly arbitrary, shuffling them randomly should produce differences that look about the same as what we actually observed, most of the time.
 - So we do exactly that. Shuffle the labels, recompute the difference, and repeat thousands of times, building the null distribution directly from the data [@hesterberg2015bootstrap].
 
-## The Recipe 
+## The Recipe {.smaller}
 
 - Pool all the observations together, erasing the group labels.
 - Randomly relabel the pooled data into two groups of the original sizes, and compute the difference in averages for this relabelled data.
 - Repeat this thousands of times, and plot a histogram of all the differences obtained this way.
 - The p-value is the fraction of these random relabellings that produced a difference as extreme as, or more extreme than, the one we actually observed [@hesterberg2015bootstrap].
 
-## Why This Should Feel Natural
+## Why This Should Feel Natural to a Lawyer
 
 - This is not some clever new invention. Ronald Fisher, who did much of the early work on permutation tests, argued that the t-test could be justified as a fast, hand calculable approximation to it, built for an era before computers [@hesterberg2015bootstrap].
 - A permutation test makes no assumption about bell curves. It asks a literal question: out of all the ways this data could have been split by chance, how often would we see a gap this large.

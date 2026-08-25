@@ -1023,7 +1023,7 @@ Ayush Patel
     </div>
 </div>
 
-  <p class="date">21 Aug, 2026</p>
+  <p class="date">25 Aug, 2026</p>
 </section>
 <section>
 <section id="why-do-we-need-hypothesis-testing" class="title-slide slide level1 center">
@@ -1067,7 +1067,7 @@ Ayush Patel
 <h1>The Logic of a Hypothesis Test</h1>
 
 </section>
-<section id="two-competing-claims" class="slide level2">
+<section id="two-competing-claims" class="slide level2 smaller">
 <h2>Two Competing Claims</h2>
 <ul>
 <li>Every hypothesis test starts by writing down two claims about the world.</li>
@@ -1092,7 +1092,24 @@ Ayush Patel
 <li>A p-value is not the probability that the null hypothesis is true. This mix up is one of the most common errors in reading statistics <span class="citation" data-cites="spiegelhalter2019art">(<a href="#/references" role="doc-biblioref" onclick>Spiegelhalter 2019</a>)</span>.</li>
 </ul>
 </section>
-<section id="two-ways-to-be-wrong" class="slide level2">
+<section id="one-sided-or-two-sided" class="slide level2">
+<h2>One-Sided or Two-Sided?</h2>
+<ul>
+<li>The alternative hypothesis can be written in two different ways, and this choice changes how the p-value gets calculated.</li>
+<li>A two-sided test asks whether the result differs from the null value in either direction, larger or smaller. It looks for evidence in both tails of the reference distribution.</li>
+<li>A one-sided test asks whether the result differs in one specific direction only, say, larger than the null value, or smaller. It looks for evidence in just one tail.</li>
+</ul>
+</section>
+<section id="choosing-before-you-look" class="slide level2 smaller">
+<h2>Choosing Before You Look</h2>
+<ul>
+<li>The choice between one-sided and two-sided is not a technical detail to adjust after seeing the data. It must follow from the question being asked, decided in advance.</li>
+<li>Use a one-sided test when only one direction is substantively meaningful. In the Verizon case, the regulator only cared whether the competitor’s repairs were slower, not whether they were suspiciously faster, so the permutation test there used a one-sided p-value <span class="citation" data-cites="hesterberg2015bootstrap">(<a href="#/references" role="doc-biblioref" onclick>Hesterberg 2015</a>)</span>.</li>
+<li>Use a two-sided test when either direction would be worth knowing about. Most claims of a general difference, an effect either way, a bias in either direction, call for this.</li>
+<li>Choosing the direction after looking at the data, to make a borderline result look significant, is a well known way p-values get misused <span class="citation" data-cites="ellenberg2014hownotwrong">(<a href="#/references" role="doc-biblioref" onclick>Ellenberg 2014</a>)</span>.</li>
+</ul>
+</section>
+<section id="two-ways-to-be-wrong" class="slide level2 smaller">
 <h2>Two Ways to Be Wrong</h2>
 <ul>
 <li>A test can go wrong in two directions, and the courtroom analogy again maps neatly onto this.</li>
@@ -1106,7 +1123,7 @@ Ayush Patel
 <h1>The Traditional Route, Z-tests and T-tests</h1>
 
 </section>
-<section id="two-cousins-not-one-test" class="slide level2">
+<section id="two-cousins-not-one-test" class="slide level2 smaller">
 <h2>Two Cousins, Not One Test</h2>
 <ul>
 <li>Classical hypothesis testing actually comes in two closely related versions, and it helps to tell them apart before looking at either one.</li>
@@ -1168,7 +1185,7 @@ Ayush Patel
 <li>So we do exactly that. Shuffle the labels, recompute the difference, and repeat thousands of times, building the null distribution directly from the data <span class="citation" data-cites="hesterberg2015bootstrap">(<a href="#/references" role="doc-biblioref" onclick>Hesterberg 2015</a>)</span>.</li>
 </ul>
 </section>
-<section id="the-recipe" class="slide level2">
+<section id="the-recipe" class="slide level2 smaller">
 <h2>The Recipe</h2>
 <ul>
 <li>Pool all the observations together, erasing the group labels.</li>
@@ -1177,8 +1194,8 @@ Ayush Patel
 <li>The p-value is the fraction of these random relabellings that produced a difference as extreme as, or more extreme than, the one we actually observed <span class="citation" data-cites="hesterberg2015bootstrap">(<a href="#/references" role="doc-biblioref" onclick>Hesterberg 2015</a>)</span>.</li>
 </ul>
 </section>
-<section id="why-this-should-feel-natural" class="slide level2">
-<h2>Why This Should Feel Natural</h2>
+<section id="why-this-should-feel-natural-to-a-lawyer" class="slide level2">
+<h2>Why This Should Feel Natural to a Lawyer</h2>
 <ul>
 <li>This is not some clever new invention. Ronald Fisher, who did much of the early work on permutation tests, argued that the t-test could be justified as a fast, hand calculable approximation to it, built for an era before computers <span class="citation" data-cites="hesterberg2015bootstrap">(<a href="#/references" role="doc-biblioref" onclick>Hesterberg 2015</a>)</span>.</li>
 <li>A permutation test makes no assumption about bell curves. It asks a literal question: out of all the ways this data could have been split by chance, how often would we see a gap this large.</li>

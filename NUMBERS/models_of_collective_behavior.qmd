@@ -274,6 +274,20 @@ format:
 - At x equals one hundred, the single least tolerant white has joined. Their personal limit of zero caps the whole group.
 - Same value, zero, at both ends. Different reasons, nobody there, versus one person capping everyone else.
 
+## The Tolerance Schedule Is a Line {.smaller}
+
+- Most tolerant white, at x equals 0, accepts a ratio of 2.
+- Least tolerant white, at x equals 100, accepts a ratio of 0.
+- Slope is rise over run: $(0-2)/(100-0) = -0.02$.
+- So the ratio at position x is $\text{ratio}(x) = 2 - 0.02x$.
+
+## Turning Ratios Into a Curve {.smaller}
+
+- With x whites present, the newest and least tolerant among them sets the ceiling.
+- That person accepts ratio(x) blacks for every one white. With x whites, the ceiling in blacks is x times that ratio.
+- $f(x) = x \times \text{ratio}(x) = x(2-0.02x) = 2x - 0.02x^2$.
+- This is the curve about to appear on the diagram.
+
 ## Whites Have a Curve {auto-animate="true"}
 
 ::: {.tol-diagram}
@@ -410,6 +424,18 @@ format:
 :::
 
 - A fifty-fifty mix can satisfy everyone and still not be where things settle.
+
+## A Small Nudge, Fifty Five and Forty Five {.smaller}
+
+- The ceiling at count $x$ is $f(x) = x(2 - 0.02x)$.
+- Fifty five whites present: $f(55) = 55 \times 0.9 = 49.5$.
+- Forty five blacks present: $f(45) = 45 \times 1.1 = 49.5$.
+
+## Same Number, Opposite Verdict {.smaller}
+
+- Fifty five whites tolerate up to 49.5 blacks. Only 45 are present, so whites are content.
+- Forty five blacks tolerate up to 49.5 whites. Fifty five are present, so blacks are past their limit.
+- Whites keep entering. Blacks start leaving. The mix drifts further from fifty fifty, not back to it.
 
 ## Figure 2, A Steeper Schedule {.smaller}
 

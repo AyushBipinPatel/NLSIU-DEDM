@@ -1391,6 +1391,24 @@ Ayush Patel
 <li>Same value, zero, at both ends. Different reasons, nobody there, versus one person capping everyone else.</li>
 </ul>
 </section>
+<section id="the-tolerance-schedule-is-a-line" class="slide level2 smaller">
+<h2>The Tolerance Schedule Is a Line</h2>
+<ul>
+<li>Most tolerant white, at x equals 0, accepts a ratio of 2.</li>
+<li>Least tolerant white, at x equals 100, accepts a ratio of 0.</li>
+<li>Slope is rise over run: <span class="math inline">\((0-2)/(100-0) = -0.02\)</span>.</li>
+<li>So the ratio at position x is <span class="math inline">\(\text{ratio}(x) = 2 - 0.02x\)</span>.</li>
+</ul>
+</section>
+<section id="turning-ratios-into-a-curve" class="slide level2 smaller">
+<h2>Turning Ratios Into a Curve</h2>
+<ul>
+<li>With x whites present, the newest and least tolerant among them sets the ceiling.</li>
+<li>That person accepts ratio(x) blacks for every one white. With x whites, the ceiling in blacks is x times that ratio.</li>
+<li><span class="math inline">\(f(x) = x \times \text{ratio}(x) = x(2-0.02x) = 2x - 0.02x^2\)</span>.</li>
+<li>This is the curve about to appear on the diagram.</li>
+</ul>
+</section>
 <section id="whites-have-a-curve" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Whites Have a Curve</h2>
 <div class="tol-diagram">
@@ -1444,6 +1462,22 @@ Ayush Patel
 </div>
 <ul>
 <li>A fifty-fifty mix can satisfy everyone and still not be where things settle.</li>
+</ul>
+</section>
+<section id="a-small-nudge-fifty-five-and-forty-five" class="slide level2 smaller">
+<h2>A Small Nudge, Fifty Five and Forty Five</h2>
+<ul>
+<li>The ceiling at count <span class="math inline">\(x\)</span> is <span class="math inline">\(f(x) = x(2 - 0.02x)\)</span>.</li>
+<li>Fifty five whites present: <span class="math inline">\(f(55) = 55 \times 0.9 = 49.5\)</span>.</li>
+<li>Forty five blacks present: <span class="math inline">\(f(45) = 45 \times 1.1 = 49.5\)</span>.</li>
+</ul>
+</section>
+<section id="same-number-opposite-verdict" class="slide level2 smaller">
+<h2>Same Number, Opposite Verdict</h2>
+<ul>
+<li>Fifty five whites tolerate up to 49.5 blacks. Only 45 are present, so whites are content.</li>
+<li>Forty five blacks tolerate up to 49.5 whites. Fifty five are present, so blacks are past their limit.</li>
+<li>Whites keep entering. Blacks start leaving. The mix drifts further from fifty fifty, not back to it.</li>
 </ul>
 </section>
 <section id="figure-2-a-steeper-schedule" class="slide level2 smaller">

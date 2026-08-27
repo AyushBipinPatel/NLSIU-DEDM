@@ -1,0 +1,834 @@
+---
+title: "Numbers"
+author: "Ayush Patel"
+subtitle: "Session 25: When Small Rules Make Big Patterns"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute: 
+  echo: false
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+# Why Build a Model of Society?
+
+## Turning the World Into a Model
+
+- A model is a deliberate simplification of the world, built to make one part of it easier to think through.
+- None of today's three readings use real world data. Each builds a small, artificial world and studies how it behaves.
+- The test of a model is not whether it is realistic in every detail, but whether it captures something true about how individual choices add up to collective outcomes.
+
+## Where Models Help
+
+- Models let us isolate one mechanism at a time and watch it play out, something reality rarely allows.
+- All three readings share a single, striking finding. What happens at the level of a whole neighbourhood, theatre, or crowd is often nothing like what any single person intended.
+- A model can show this gap between individual intention and collective outcome more clearly than a pile of survey data could.
+
+## Where Models Fail
+
+- A model built on one set of assumptions can behave completely differently under slightly different ones. Each reading today shows how fragile its own results can be.
+- None of these models explain why people hold the preferences or thresholds they do. They start with preferences already given, and ask only what happens next.
+- A model can show that an outcome is possible, even likely. It cannot, on its own, tell us that this is what actually happened in any one real neighbourhood, theatre, or crowd.
+
+## What Numbers Alone Cannot Capture
+
+- These models describe how many people acted a certain way, not why any particular person did.
+- The real motives, histories, and meanings attached to a decision, to move house, to stand up, to join a crowd, do not appear anywhere in the model's variables.
+- With that caution in mind, we turn to the three readings themselves.
+
+# Reading One, Schelling's Models of Segregation
+
+## Premise
+
+- Schelling opens with an observation about American cities. Neighbourhoods tend to end up almost entirely one colour or the other, and almost none stay mixed for long, even though a wide range of mixtures would seem tolerable on paper.
+- Organised discrimination and exclusion clearly play a part, but Schelling wants to know how much segregation could arise even without them, purely from individual choices.
+- His question: could ordinary, even mild, limits on how outnumbered someone will tolerate being produce this same extreme, all-or-nothing pattern on their own [@schelling1969models]?
+
+## Assumptions {.smaller}
+
+- Only one requirement on the two groups involved. The distinction must be twofold, exhaustive, and recognisable, Schelling is explicit that this could just as easily be officers and enlisted men, or boys and girls, as black and white.
+- People are not organised and do not communicate or act in concert. Each person only ever reacts to the situation as they currently find it.
+- Each person has a limit, called tolerance, on how outnumbered by the other group they are willing to be, whether in a spatial neighbourhood or simply in a shared space.
+- The paper works this idea out in two quite different ways, one spatial and one not, both worth walking through on their own.
+
+## Where These Assumptions Can Break Down {.smaller}
+
+- Real cities rarely sort along just one binary line. Class, religion, caste, and language cut across race at the same time, and people can be a majority on one dimension while a minority on another.
+- People do not only care about their immediate neighbours. School quality, jobs, rents, and personal ties to a place shape whether someone stays, often outweighing the racial mix next door.
+- Moving is rarely free or unconstrained. Income, credit, discrimination by landlords or banks, and legal restrictions can all block the simple move-to-the-nearest-satisfactory-spot rule the model assumes.
+- Schelling's model also leaves out organised, deliberate segregation altogether, in the form of exclusionary laws or practices. The model isolates one mechanism among several that produce real world segregation.
+
+## Two Demonstrations in One Short Paper
+
+- The 1969 paper is only six pages long, but it walks through two separate demonstrations of the same underlying idea.
+- The first arranges people along a line and asks how the size of someone's "neighbourhood" changes whether they count as content.
+- The second drops the geography altogether and asks, for an undifferentiated shared space, how each group's tolerance for the other translates into who moves in and who moves out.
+
+## How You Define "Neighbour" Changes the Verdict
+
+- Schelling starts with a line of people, half one colour and half the other, arranged in random order.
+- If everyone judges their neighbourhood by a long stretch of that line, the mixture looks fine to almost everyone, it really is close to fifty-fifty.
+- But if everyone instead judges their neighbourhood as just the one person on their immediate left and right, a quarter of each colour will find themselves completely surrounded by the other, purely from that same random arrangement [@schelling1969models].
+- The population has not changed at all. Only the definition of neighbour has.
+
+<style>
+.line-row { position: relative; width: 856px; height: 90px; margin: 10px auto; }
+.line-cell { position: absolute; top: 24px; width: 44px; height: 44px; border-radius: 6px; }
+.line-a { background-color: #4C72B0; }
+.line-b { background-color: #DD8452; }
+.line-window { position: absolute; top: 8px; height: 76px; background-color: rgba(192,57,43,0.15); border: 2px dashed #c0392b; border-radius: 8px; }
+.line-focus { position: absolute; top: -6px; width: 44px; text-align: center; font-size: 22px; }
+</style>
+
+## Neighbourhood, One Person Either Side {auto-animate="true"}
+
+::: {.line-row}
+<div class="line-cell line-b" style="left:0px;"></div>
+<div class="line-cell line-a" style="left:52px;"></div>
+<div class="line-cell line-b" style="left:104px;"></div>
+<div class="line-cell line-a" style="left:156px;"></div>
+<div class="line-cell line-a" style="left:208px;"></div>
+<div class="line-cell line-b" style="left:260px;"></div>
+<div class="line-cell line-b" style="left:312px;"></div>
+<div class="line-cell line-a" style="left:364px;"></div>
+<div class="line-cell line-b" style="left:416px;"></div>
+<div class="line-cell line-b" style="left:468px;"></div>
+<div class="line-cell line-a" style="left:520px;"></div>
+<div class="line-cell line-a" style="left:572px;"></div>
+<div class="line-cell line-b" style="left:624px;"></div>
+<div class="line-cell line-a" style="left:676px;"></div>
+<div class="line-cell line-b" style="left:728px;"></div>
+<div class="line-cell line-a" style="left:780px;"></div>
+<div class="line-focus" style="left:364px;">&#9660;</div>
+<div class="line-window" data-id="window" style="left:312px; width:148px;"></div>
+:::
+
+- Looking only one place either side, the marked person has two neighbours, and both belong to the other colour.
+- By this narrow definition, zero of two neighbours match, so this person is clearly unhappy.
+
+## Neighbourhood, Four People Either Side {auto-animate="true"}
+
+::: {.line-row}
+<div class="line-cell line-b" style="left:0px;"></div>
+<div class="line-cell line-a" style="left:52px;"></div>
+<div class="line-cell line-b" style="left:104px;"></div>
+<div class="line-cell line-a" style="left:156px;"></div>
+<div class="line-cell line-a" style="left:208px;"></div>
+<div class="line-cell line-b" style="left:260px;"></div>
+<div class="line-cell line-b" style="left:312px;"></div>
+<div class="line-cell line-a" style="left:364px;"></div>
+<div class="line-cell line-b" style="left:416px;"></div>
+<div class="line-cell line-b" style="left:468px;"></div>
+<div class="line-cell line-a" style="left:520px;"></div>
+<div class="line-cell line-a" style="left:572px;"></div>
+<div class="line-cell line-b" style="left:624px;"></div>
+<div class="line-cell line-a" style="left:676px;"></div>
+<div class="line-cell line-b" style="left:728px;"></div>
+<div class="line-cell line-a" style="left:780px;"></div>
+<div class="line-focus" style="left:364px;">&#9660;</div>
+<div class="line-window" data-id="window" style="left:156px; width:460px;"></div>
+:::
+
+- Widen the same person's neighbourhood to four either side, eight neighbours in all, and the count becomes four of its own colour and four of the other, exactly half.
+- By this wider definition, the very same person, in the very same spot, now counts as content.
+
+## Neighbourhood, The Whole Street {auto-animate="true"}
+
+::: {.line-row}
+<div class="line-cell line-b" style="left:0px;"></div>
+<div class="line-cell line-a" style="left:52px;"></div>
+<div class="line-cell line-b" style="left:104px;"></div>
+<div class="line-cell line-a" style="left:156px;"></div>
+<div class="line-cell line-a" style="left:208px;"></div>
+<div class="line-cell line-b" style="left:260px;"></div>
+<div class="line-cell line-b" style="left:312px;"></div>
+<div class="line-cell line-a" style="left:364px;"></div>
+<div class="line-cell line-b" style="left:416px;"></div>
+<div class="line-cell line-b" style="left:468px;"></div>
+<div class="line-cell line-a" style="left:520px;"></div>
+<div class="line-cell line-a" style="left:572px;"></div>
+<div class="line-cell line-b" style="left:624px;"></div>
+<div class="line-cell line-a" style="left:676px;"></div>
+<div class="line-cell line-b" style="left:728px;"></div>
+<div class="line-cell line-a" style="left:780px;"></div>
+<div class="line-focus" style="left:364px;">&#9660;</div>
+<div class="line-window" data-id="window" style="left:0px; width:824px;"></div>
+:::
+
+- Widen it once more to the whole street, eight of each colour across sixteen people, and the picture returns to a clean fifty-fifty split.
+- Nobody has moved anywhere in these three pictures. The only thing that changed is how far each person was assumed to look before judging their situation [@schelling1969models].
+
+## People Start to Move
+
+- Everyone's neighbourhood is now four either side. Everyone's threshold is half.
+- Discontented people move to the nearest point that satisfies them.
+- Some of these moves land next to people who were content. Those people now become discontent in turn.
+
+## The Line Settles
+
+- A second round of moves follows the first.
+- The line settles into six blocks of alternating colour.
+
+## Who Started Out Unhappy
+
+<svg viewBox="0 0 220 260" width="220" height="260" xmlns="http://www.w3.org/2000/svg">
+<line x1="20" y1="220" x2="200" y2="220" stroke="#888" stroke-width="2"/>
+<rect x="40" y="60" width="50" height="160" fill="#4C72B0"/>
+<text x="65" y="52" font-size="16" text-anchor="middle">46</text>
+<text x="65" y="238" font-size="13" text-anchor="middle">content</text>
+<rect x="110" y="136.5" width="50" height="83.5" fill="#DD8452"/>
+<text x="135" y="128.5" font-size="16" text-anchor="middle">24</text>
+<text x="135" y="238" font-size="13" text-anchor="middle">discontent</text>
+</svg>
+
+- Twenty four of seventy people start out discontent [@schelling1969models].
+
+## The Overshoot
+
+<svg viewBox="0 0 220 260" width="220" height="260" xmlns="http://www.w3.org/2000/svg">
+<line x1="20" y1="220" x2="200" y2="220" stroke="#888" stroke-width="2"/>
+<rect x="40" y="153.3" width="50" height="66.7" fill="#4C72B0"/>
+<text x="65" y="145.3" font-size="16" text-anchor="middle">5</text>
+<text x="65" y="238" font-size="13" text-anchor="middle">minimum needed</text>
+<rect x="110" y="60" width="50" height="160" fill="#DD8452"/>
+<text x="135" y="52" font-size="16" text-anchor="middle">12</text>
+<text x="135" y="238" font-size="13" text-anchor="middle">actual average</text>
+</svg>
+
+- A block of five would have satisfied everyone's bare-half demand.
+- The blocks that actually form average twelve [@schelling1969models].
+
+## A Second Model, No Geography At All
+
+- Now picture one shared space, no streets, no grid, that both groups might enter.
+- Each person has a tolerance, the most of the other group they will accept before leaving.
+- Let's build the diagram this creates, one piece at a time [@schelling1969models].
+
+<style>
+.tol-diagram { position: relative; width: 480px; height: 460px; margin: 6px auto; }
+.tol-diagram svg { position: absolute; top: 0; left: 0; }
+</style>
+
+## Setting Up the Axes {auto-animate="true"}
+
+::: {.tol-diagram}
+<svg viewBox="0 0 480 460" width="480" height="460" xmlns="http://www.w3.org/2000/svg">
+<line data-id="xaxis" x1="50" y1="420" x2="450" y2="420" stroke="#888" stroke-width="2"/>
+<line data-id="yaxis" x1="50" y1="420" x2="50" y2="20" stroke="#888" stroke-width="2"/>
+<text data-id="x0" x="50" y="438" font-size="14" text-anchor="middle">0</text>
+<text data-id="x100" x="450" y="438" font-size="14" text-anchor="middle">100</text>
+<text data-id="y0" x="38" y="424" font-size="14" text-anchor="end">0</text>
+<text data-id="y100" x="38" y="24" font-size="14" text-anchor="end">100</text>
+<text data-id="xlabel" x="250" y="454" font-size="15" text-anchor="middle">Whites present (W)</text>
+<text data-id="ylabel" x="18" y="220" font-size="15" text-anchor="middle" transform="rotate(-90 18 220)">Blacks present (B)</text>
+</svg>
+:::
+
+- Horizontal axis, how many whites are present. Vertical axis, how many blacks.
+
+## Two Corners Are Always Possible {auto-animate="true"}
+
+::: {.tol-diagram}
+<svg viewBox="0 0 480 460" width="480" height="460" xmlns="http://www.w3.org/2000/svg">
+<line data-id="xaxis" x1="50" y1="420" x2="450" y2="420" stroke="#888" stroke-width="2"/>
+<line data-id="yaxis" x1="50" y1="420" x2="50" y2="20" stroke="#888" stroke-width="2"/>
+<text data-id="x0" x="50" y="438" font-size="14" text-anchor="middle">0</text>
+<text data-id="x100" x="450" y="438" font-size="14" text-anchor="middle">100</text>
+<text data-id="y0" x="38" y="424" font-size="14" text-anchor="end">0</text>
+<text data-id="y100" x="38" y="24" font-size="14" text-anchor="end">100</text>
+<text data-id="xlabel" x="250" y="454" font-size="15" text-anchor="middle">Whites present (W)</text>
+<text data-id="ylabel" x="18" y="220" font-size="15" text-anchor="middle" transform="rotate(-90 18 220)">Blacks present (B)</text>
+<circle data-id="cornerW" cx="450" cy="420" r="7" fill="#4C72B0"/>
+<text data-id="cornerWlabel" x="440" y="405" font-size="13" text-anchor="end">all white</text>
+<circle data-id="cornerB" cx="50" cy="20" r="7" fill="#DD8452"/>
+<text data-id="cornerBlabel" x="60" y="30" font-size="13" text-anchor="start">all black</text>
+</svg>
+:::
+
+- Everyone could simply be one colour. Both corners are always a possible resting point.
+
+## Ordering Matters {.smaller}
+
+- Line up whites from most tolerant to least. Position x means the x most tolerant whites.
+- The curve's height at x is x times the tolerance ratio of the person right at position x, the newest and least tolerant member of that group of x.
+- Order it the other way, least tolerant first, and this multiplication no longer means anything real.
+
+## Why the Curve Touches Zero Twice {.smaller}
+
+- At x equals zero, nobody is present. Zero people tolerate zero of the other group for a trivial reason.
+- At x equals one hundred, the single least tolerant white has joined. Their personal limit of zero caps the whole group.
+- Same value, zero, at both ends. Different reasons, nobody there, versus one person capping everyone else.
+
+## Whites Have a Curve {auto-animate="true"}
+
+::: {.tol-diagram}
+<svg viewBox="0 0 480 460" width="480" height="460" xmlns="http://www.w3.org/2000/svg">
+<line data-id="xaxis" x1="50" y1="420" x2="450" y2="420" stroke="#888" stroke-width="2"/>
+<line data-id="yaxis" x1="50" y1="420" x2="50" y2="20" stroke="#888" stroke-width="2"/>
+<text data-id="x0" x="50" y="438" font-size="14" text-anchor="middle">0</text>
+<text data-id="x100" x="450" y="438" font-size="14" text-anchor="middle">100</text>
+<text data-id="y0" x="38" y="424" font-size="14" text-anchor="end">0</text>
+<text data-id="y100" x="38" y="24" font-size="14" text-anchor="end">100</text>
+<text data-id="xlabel" x="250" y="454" font-size="15" text-anchor="middle">Whites present (W)</text>
+<text data-id="ylabel" x="18" y="220" font-size="15" text-anchor="middle" transform="rotate(-90 18 220)">Blacks present (B)</text>
+<circle data-id="cornerW" cx="450" cy="420" r="7" fill="#4C72B0"/>
+<text data-id="cornerWlabel" x="440" y="405" font-size="13" text-anchor="end">all white</text>
+<circle data-id="cornerB" cx="50" cy="20" r="7" fill="#DD8452"/>
+<text data-id="cornerBlabel" x="60" y="30" font-size="13" text-anchor="start">all black</text>
+<path data-id="wcurve" d="M 50,420 Q 250,20 450,420" fill="none" stroke="#4C72B0" stroke-width="3"/>
+<text data-id="wcurvelabel" x="385" y="330" font-size="16" fill="#4C72B0" font-weight="bold">W</text>
+</svg>
+:::
+
+- Beneath this curve, enough whites are content that whites keep arriving.
+
+## Blacks Have One Too {auto-animate="true"}
+
+::: {.tol-diagram}
+<svg viewBox="0 0 480 460" width="480" height="460" xmlns="http://www.w3.org/2000/svg">
+<line data-id="xaxis" x1="50" y1="420" x2="450" y2="420" stroke="#888" stroke-width="2"/>
+<line data-id="yaxis" x1="50" y1="420" x2="50" y2="20" stroke="#888" stroke-width="2"/>
+<text data-id="x0" x="50" y="438" font-size="14" text-anchor="middle">0</text>
+<text data-id="x100" x="450" y="438" font-size="14" text-anchor="middle">100</text>
+<text data-id="y0" x="38" y="424" font-size="14" text-anchor="end">0</text>
+<text data-id="y100" x="38" y="24" font-size="14" text-anchor="end">100</text>
+<text data-id="xlabel" x="250" y="454" font-size="15" text-anchor="middle">Whites present (W)</text>
+<text data-id="ylabel" x="18" y="220" font-size="15" text-anchor="middle" transform="rotate(-90 18 220)">Blacks present (B)</text>
+<circle data-id="cornerW" cx="450" cy="420" r="7" fill="#4C72B0"/>
+<text data-id="cornerWlabel" x="440" y="405" font-size="13" text-anchor="end">all white</text>
+<circle data-id="cornerB" cx="50" cy="20" r="7" fill="#DD8452"/>
+<text data-id="cornerBlabel" x="60" y="30" font-size="13" text-anchor="start">all black</text>
+<path data-id="wcurve" d="M 50,420 Q 250,20 450,420" fill="none" stroke="#4C72B0" stroke-width="3"/>
+<text data-id="wcurvelabel" x="385" y="330" font-size="16" fill="#4C72B0" font-weight="bold">W</text>
+<path data-id="bcurve" d="M 50,420 Q 450,220 50,20" fill="none" stroke="#DD8452" stroke-width="3"/>
+<text data-id="bcurvelabel" x="115" y="130" font-size="16" fill="#DD8452" font-weight="bold">B</text>
+</svg>
+:::
+
+- Left of this curve, enough blacks are content that blacks keep arriving.
+
+## Where Both Keep Growing {auto-animate="true"}
+
+::: {.tol-diagram}
+<svg viewBox="0 0 480 460" width="480" height="460" xmlns="http://www.w3.org/2000/svg">
+<line data-id="xaxis" x1="50" y1="420" x2="450" y2="420" stroke="#888" stroke-width="2"/>
+<line data-id="yaxis" x1="50" y1="420" x2="50" y2="20" stroke="#888" stroke-width="2"/>
+<text data-id="x0" x="50" y="438" font-size="14" text-anchor="middle">0</text>
+<text data-id="x100" x="450" y="438" font-size="14" text-anchor="middle">100</text>
+<text data-id="y0" x="38" y="424" font-size="14" text-anchor="end">0</text>
+<text data-id="y100" x="38" y="24" font-size="14" text-anchor="end">100</text>
+<text data-id="xlabel" x="250" y="454" font-size="15" text-anchor="middle">Whites present (W)</text>
+<text data-id="ylabel" x="18" y="220" font-size="15" text-anchor="middle" transform="rotate(-90 18 220)">Blacks present (B)</text>
+<circle data-id="cornerW" cx="450" cy="420" r="7" fill="#4C72B0"/>
+<text data-id="cornerWlabel" x="440" y="405" font-size="13" text-anchor="end">all white</text>
+<circle data-id="cornerB" cx="50" cy="20" r="7" fill="#DD8452"/>
+<text data-id="cornerBlabel" x="60" y="30" font-size="13" text-anchor="start">all black</text>
+<polygon data-id="lens" points="50,420 150,270 250,220 200,320" fill="#8fbf7f" fill-opacity="0.4" stroke="none"/>
+<path data-id="wcurve" d="M 50,420 Q 250,20 450,420" fill="none" stroke="#4C72B0" stroke-width="3"/>
+<text data-id="wcurvelabel" x="385" y="330" font-size="16" fill="#4C72B0" font-weight="bold">W</text>
+<path data-id="bcurve" d="M 50,420 Q 450,220 50,20" fill="none" stroke="#DD8452" stroke-width="3"/>
+<text data-id="bcurvelabel" x="115" y="130" font-size="16" fill="#DD8452" font-weight="bold">B</text>
+<text data-id="lenslabel" x="90" y="365" font-size="13" fill="#2e6b1f">both groups growing</text>
+</svg>
+:::
+
+- Inside the shaded overlap, both groups are growing at the same time.
+
+## One Shared Point {auto-animate="true"}
+
+::: {.tol-diagram}
+<svg viewBox="0 0 480 460" width="480" height="460" xmlns="http://www.w3.org/2000/svg">
+<line data-id="xaxis" x1="50" y1="420" x2="450" y2="420" stroke="#888" stroke-width="2"/>
+<line data-id="yaxis" x1="50" y1="420" x2="50" y2="20" stroke="#888" stroke-width="2"/>
+<text data-id="x0" x="50" y="438" font-size="14" text-anchor="middle">0</text>
+<text data-id="x100" x="450" y="438" font-size="14" text-anchor="middle">100</text>
+<text data-id="y0" x="38" y="424" font-size="14" text-anchor="end">0</text>
+<text data-id="y100" x="38" y="24" font-size="14" text-anchor="end">100</text>
+<text data-id="xlabel" x="250" y="454" font-size="15" text-anchor="middle">Whites present (W)</text>
+<text data-id="ylabel" x="18" y="220" font-size="15" text-anchor="middle" transform="rotate(-90 18 220)">Blacks present (B)</text>
+<circle data-id="cornerW" cx="450" cy="420" r="7" fill="#4C72B0"/>
+<text data-id="cornerWlabel" x="440" y="405" font-size="13" text-anchor="end">all white</text>
+<circle data-id="cornerB" cx="50" cy="20" r="7" fill="#DD8452"/>
+<text data-id="cornerBlabel" x="60" y="30" font-size="13" text-anchor="start">all black</text>
+<polygon data-id="lens" points="50,420 150,270 250,220 200,320" fill="#8fbf7f" fill-opacity="0.4" stroke="none"/>
+<path data-id="wcurve" d="M 50,420 Q 250,20 450,420" fill="none" stroke="#4C72B0" stroke-width="3"/>
+<text data-id="wcurvelabel" x="385" y="330" font-size="16" fill="#4C72B0" font-weight="bold">W</text>
+<path data-id="bcurve" d="M 50,420 Q 450,220 50,20" fill="none" stroke="#DD8452" stroke-width="3"/>
+<text data-id="bcurvelabel" x="115" y="130" font-size="16" fill="#DD8452" font-weight="bold">B</text>
+<text data-id="lenslabel" x="90" y="365" font-size="13" fill="#2e6b1f">both groups growing</text>
+<line data-id="guide1" x1="250" y1="220" x2="250" y2="420" stroke="#ccc" stroke-dasharray="4,4"/>
+<line data-id="guide2" x1="50" y1="220" x2="250" y2="220" stroke="#ccc" stroke-dasharray="4,4"/>
+<circle data-id="crosspoint" cx="250" cy="220" r="6" fill="#2e6b1f"/>
+<text data-id="crosslabel" x="258" y="216" font-size="13" fill="#2e6b1f">50 whites, 50 blacks</text>
+</svg>
+:::
+
+- Away from the corners, the two curves meet only here.
+
+## So Only Two Outcomes Are Stable {auto-animate="true"}
+
+::: {.tol-diagram}
+<svg viewBox="0 0 480 460" width="480" height="460" xmlns="http://www.w3.org/2000/svg">
+<line data-id="xaxis" x1="50" y1="420" x2="450" y2="420" stroke="#888" stroke-width="2"/>
+<line data-id="yaxis" x1="50" y1="420" x2="50" y2="20" stroke="#888" stroke-width="2"/>
+<text data-id="x0" x="50" y="438" font-size="14" text-anchor="middle">0</text>
+<text data-id="x100" x="450" y="438" font-size="14" text-anchor="middle">100</text>
+<text data-id="y0" x="38" y="424" font-size="14" text-anchor="end">0</text>
+<text data-id="y100" x="38" y="24" font-size="14" text-anchor="end">100</text>
+<text data-id="xlabel" x="250" y="454" font-size="15" text-anchor="middle">Whites present (W)</text>
+<text data-id="ylabel" x="18" y="220" font-size="15" text-anchor="middle" transform="rotate(-90 18 220)">Blacks present (B)</text>
+<circle data-id="cornerW" cx="450" cy="420" r="13" fill="#4C72B0"/>
+<text data-id="cornerWlabel" x="440" y="405" font-size="14" font-weight="bold" text-anchor="end">stable</text>
+<circle data-id="cornerB" cx="50" cy="20" r="13" fill="#DD8452"/>
+<text data-id="cornerBlabel" x="60" y="30" font-size="14" font-weight="bold" text-anchor="start">stable</text>
+<polygon data-id="lens" points="50,420 150,270 250,220 200,320" fill="#8fbf7f" fill-opacity="0.4" stroke="none"/>
+<path data-id="wcurve" d="M 50,420 Q 250,20 450,420" fill="none" stroke="#4C72B0" stroke-width="3"/>
+<text data-id="wcurvelabel" x="385" y="330" font-size="16" fill="#4C72B0" font-weight="bold">W</text>
+<path data-id="bcurve" d="M 50,420 Q 450,220 50,20" fill="none" stroke="#DD8452" stroke-width="3"/>
+<text data-id="bcurvelabel" x="115" y="130" font-size="16" fill="#DD8452" font-weight="bold">B</text>
+<text data-id="lenslabel" x="90" y="365" font-size="13" fill="#2e6b1f">both groups growing</text>
+<line data-id="guide1" x1="250" y1="220" x2="250" y2="420" stroke="#ccc" stroke-dasharray="4,4"/>
+<line data-id="guide2" x1="50" y1="220" x2="250" y2="220" stroke="#ccc" stroke-dasharray="4,4"/>
+<circle data-id="crosspoint" cx="250" cy="220" r="6" fill="#e67e22"/>
+<text data-id="crosslabel" x="258" y="216" font-size="13" fill="#e67e22" font-weight="bold">unstable</text>
+</svg>
+:::
+
+- A fifty-fifty mix can satisfy everyone and still not be where things settle.
+
+## Figure 2, A Steeper Schedule {.smaller}
+
+<svg viewBox="0 0 480 460" width="440" height="422" xmlns="http://www.w3.org/2000/svg">
+<line x1="50" y1="420" x2="450" y2="420" stroke="#888" stroke-width="2"/>
+<line x1="50" y1="420" x2="50" y2="20" stroke="#888" stroke-width="2"/>
+<text x="50" y="438" font-size="14" text-anchor="middle">0</text>
+<text x="450" y="438" font-size="14" text-anchor="middle">100</text>
+<text x="38" y="424" font-size="14" text-anchor="end">0</text>
+<text x="38" y="24" font-size="14" text-anchor="end">100</text>
+<text x="250" y="454" font-size="15" text-anchor="middle">Whites present (W)</text>
+<text x="18" y="220" font-size="15" text-anchor="middle" transform="rotate(-90 18 220)">Blacks present (B)</text>
+<polyline points="50.0,420.0 63.6,354.5 77.1,293.6 90.7,237.3 104.2,185.6 117.8,138.5 131.4,96.0 144.9,58.0 158.5,24.7 172.0,20.0 205.9,20.0 253.4,20.0 300.8,20.0 334.7,20.0 348.3,40.8 361.9,76.4 375.4,116.6 389.0,161.5 402.5,210.9 416.1,264.9 429.7,323.5 443.2,386.7 450.0,420.0" fill="none" stroke="#4C72B0" stroke-width="3"/>
+<polyline points="50.0,420.0 115.5,406.4 176.4,392.9 232.7,379.3 284.4,365.8 331.5,352.2 374.0,338.6 412.0,325.1 445.3,311.5 450.0,291.2 450.0,257.3 450.0,223.4 450.0,189.5 450.0,155.6 429.2,121.7 393.6,108.1 353.4,94.6 308.5,81.0 259.1,67.5 205.1,53.9 146.5,40.3 83.3,26.8 50.0,20.0" fill="none" stroke="#DD8452" stroke-width="3"/>
+<circle cx="370" cy="100" r="7" fill="#2e6b1f"/>
+<text x="378" y="96" font-size="13" fill="#2e6b1f">mixed equilibrium, 80 and 80</text>
+<circle cx="450" cy="420" r="6" fill="#4C72B0"/>
+<circle cx="50" cy="20" r="6" fill="#DD8452"/>
+</svg>
+
+- Raising the median tolerance to two and a half to one, and making the schedule steeper, pushes both curves outward until they cross a third time, away from the corners.
+- That crossing, at eighty whites and eighty blacks, is a genuine mixed equilibrium, alongside the two all-one-colour corners that never go away [@schelling1969models].
+
+## Figure 3, An Unbalanced Population {.smaller}
+
+<svg viewBox="0 0 480 460" width="440" height="422" xmlns="http://www.w3.org/2000/svg">
+<line x1="50" y1="420" x2="450" y2="420" stroke="#888" stroke-width="2"/>
+<line x1="50" y1="420" x2="50" y2="20" stroke="#888" stroke-width="2"/>
+<text x="50" y="438" font-size="14" text-anchor="middle">0</text>
+<text x="450" y="438" font-size="14" text-anchor="middle">100</text>
+<text x="38" y="424" font-size="14" text-anchor="end">0</text>
+<text x="38" y="24" font-size="14" text-anchor="end">50</text>
+<text x="250" y="454" font-size="15" text-anchor="middle">Whites present (W), up to 100</text>
+<text x="18" y="220" font-size="15" text-anchor="middle" transform="rotate(-90 18 220)">Blacks present (B), up to 50</text>
+<polyline points="50.0,420.0 63.6,289.0 77.1,167.2 90.7,54.6 97.5,20.0 172.0,20.0 253.4,20.0 334.7,20.0 402.5,20.0 409.3,54.6 422.9,167.2 436.4,289.0 450.0,420.0" fill="none" stroke="#4C72B0" stroke-width="3"/>
+<polyline points="50.0,420.0 82.7,406.4 113.2,392.9 141.4,379.3 167.2,365.8 190.8,352.2 212.0,338.6 231.0,325.1 247.6,311.5 262.0,298.0 274.1,284.4 283.8,270.8 291.3,257.3 296.5,243.7 299.4,230.2 299.9,216.6 298.2,203.1 294.2,189.5 287.9,175.9 279.2,162.4 268.3,148.8 255.1,135.3 239.6,121.7 221.8,108.1 201.7,94.6 179.3,81.0 154.6,67.5 127.6,53.9 98.3,40.3 66.7,26.8 50.0,20.0" fill="none" stroke="#DD8452" stroke-width="3"/>
+<circle cx="450" cy="420" r="6" fill="#4C72B0"/>
+<circle cx="50" cy="20" r="6" fill="#DD8452"/>
+<text x="90" y="345" font-size="12" fill="#555">thin sliver, favours blacks</text>
+</svg>
+
+- Same steeper schedules as Figure 2, but now twice as many whites as blacks. The blue curve gets squeezed flat against the fifty mark, since there are only fifty blacks to tolerate.
+- The mixed equilibrium is gone. Whites simply outnumber blacks into leaving, unless the very first mixture happens to fall in the thin sliver near the top left [@schelling1969models].
+
+## Figure 4, Capping Entry {.smaller}
+
+<svg viewBox="0 0 480 460" width="440" height="422" xmlns="http://www.w3.org/2000/svg">
+<line x1="50" y1="420" x2="450" y2="420" stroke="#888" stroke-width="2"/>
+<line x1="50" y1="420" x2="50" y2="20" stroke="#888" stroke-width="2"/>
+<text x="50" y="438" font-size="14" text-anchor="middle">0</text>
+<text x="450" y="438" font-size="14" text-anchor="middle">100</text>
+<text x="38" y="424" font-size="14" text-anchor="end">0</text>
+<text x="38" y="24" font-size="14" text-anchor="end">50</text>
+<text x="250" y="454" font-size="15" text-anchor="middle">Whites present (W), up to 100</text>
+<text x="18" y="220" font-size="15" text-anchor="middle" transform="rotate(-90 18 220)">Blacks present (B), up to 50</text>
+<line x1="250" y1="420" x2="250" y2="20" stroke="#4C72B0" stroke-width="4" stroke-dasharray="2,4"/>
+<text x="258" y="34" font-size="12" fill="#4C72B0">wall at fifty whites</text>
+<polyline points="50.0,420.0 82.7,406.4 113.2,392.9 141.4,379.3 167.2,365.8 190.8,352.2 212.0,338.6 231.0,325.1 247.6,311.5 262.0,298.0 274.1,284.4 283.8,270.8 291.3,257.3 296.5,243.7 299.4,230.2 299.9,216.6 298.2,203.1 294.2,189.5 287.9,175.9 279.2,162.4 268.3,148.8 255.1,135.3 239.6,121.7 221.8,108.1 201.7,94.6 179.3,81.0 154.6,67.5 127.6,53.9 98.3,40.3 66.7,26.8 50.0,20.0" fill="none" stroke="#DD8452" stroke-width="3"/>
+<circle cx="250" cy="130.6" r="7" fill="#2e6b1f"/>
+<text x="258" y="126" font-size="13" fill="#2e6b1f">new equilibrium, 50 and 36</text>
+</svg>
+
+- Starting from Figure 3, cap how many whites the area will ever admit at fifty, whether by a hard rule or by assuming half of whites are absolutely intolerant. Either way the whites' curve becomes a vertical wall.
+- That wall crosses the unchanged blacks' curve at fifty whites and thirty six blacks, restoring a stable mixed point where none existed a moment ago [@schelling1969models].
+
+## Two Findings Worth Remembering
+
+- More tolerance does not automatically mean more integration. Schelling shows a case where making most of the population somewhat more intolerant actually produces a stable mixed outcome, because it changes which equilibrium the dynamics settle into.
+- Neither result requires anyone to actually dislike the other group. The same tolerance numbers can equally be read as the point where a genuine preference for mixing is simply outweighed by numbers, and the diagram comes out exactly the same either way [@schelling1969models].
+
+## From a Line to a Grid
+
+- The two demonstrations above are exactly what appears in the 1969 paper. The two dimensional, checkerboard version most people picture today, including the live simulation, extends this same logic across a grid rather than a line.
+- Walking through a small grid version makes the same point the line already made, that local moves can ripple outward in ways nobody intended, but is easier to see happening in two directions at once.
+
+<style>
+.schelling-grid { position: relative; width: 536px; height: 316px; margin: 10px auto; background-color: #f2f2f2; border-radius: 10px; }
+.schelling-cell { position: absolute; width: 96px; height: 96px; border-radius: 10px; }
+.group-a { background-color: #4C72B0; }
+.group-b { background-color: #DD8452; }
+.vacant { background: repeating-linear-gradient(45deg, #e2e2e2, #e2e2e2 8px, #ececec 8px, #ececec 16px); border: 2px dashed #aaa; }
+.unhappy { outline: 5px solid #c0392b; outline-offset: 3px; }
+</style>
+
+## A Rule Worth Stating Precisely
+
+- Every agent looks only at its four occupied neighbours, up, down, left, and right. Empty cells are ignored, they are neither similar nor different.
+- An agent is content if at least half of its occupied neighbours share its colour, and moves to the nearest vacant cell otherwise.
+- With that rule fixed, we can trace exactly what one move does, not just to the agent who moves, but to the neighbours it leaves and the neighbours it joins.
+
+## Step 0, A Mixed Neighbourhood {auto-animate="true"}
+
+::: {.schelling-grid}
+<div class="schelling-cell group-a" data-id="a1" style="left:0px; top:0px;"></div>
+<div class="schelling-cell group-a" data-id="a2" style="left:110px; top:0px;"></div>
+<div class="schelling-cell group-a" data-id="a3" style="left:220px; top:0px;"></div>
+<div class="schelling-cell vacant" data-id="v1" style="left:330px; top:0px;"></div>
+<div class="schelling-cell group-b" data-id="b1" style="left:440px; top:0px;"></div>
+<div class="schelling-cell group-a" data-id="a4" style="left:0px; top:110px;"></div>
+<div class="schelling-cell group-b unhappy" data-id="M" style="left:110px; top:110px;"></div>
+<div class="schelling-cell group-b" data-id="S" style="left:220px; top:110px;"></div>
+<div class="schelling-cell vacant" data-id="v2" style="left:330px; top:110px;"></div>
+<div class="schelling-cell group-b" data-id="b2" style="left:440px; top:110px;"></div>
+<div class="schelling-cell vacant" data-id="v3" style="left:0px; top:220px;"></div>
+<div class="schelling-cell vacant" data-id="v4" style="left:110px; top:220px;"></div>
+<div class="schelling-cell vacant" data-id="v5" style="left:220px; top:220px;"></div>
+<div class="schelling-cell group-b" data-id="b4" style="left:330px; top:220px;"></div>
+<div class="schelling-cell group-b" data-id="b3" style="left:440px; top:220px;"></div>
+:::
+
+- The outlined agent has three occupied neighbours, two of the other colour and one its own, two-thirds dissimilar, so it is unhappy.
+- Its neighbour just to its right has one occupied neighbour of each colour, exactly half, which counts as content under our rule, for now.
+
+## Step 1, One Agent Moves {auto-animate="true"}
+
+::: {.schelling-grid}
+<div class="schelling-cell group-a" data-id="a1" style="left:0px; top:0px;"></div>
+<div class="schelling-cell group-a" data-id="a2" style="left:110px; top:0px;"></div>
+<div class="schelling-cell group-a unhappy" data-id="a3" style="left:220px; top:0px;"></div>
+<div class="schelling-cell group-b" data-id="M" style="left:330px; top:0px;"></div>
+<div class="schelling-cell group-b" data-id="b1" style="left:440px; top:0px;"></div>
+<div class="schelling-cell group-a" data-id="a4" style="left:0px; top:110px;"></div>
+<div class="schelling-cell group-b unhappy" data-id="S" style="left:220px; top:110px;"></div>
+<div class="schelling-cell vacant" data-id="v2" style="left:330px; top:110px;"></div>
+<div class="schelling-cell group-b" data-id="b2" style="left:440px; top:110px;"></div>
+<div class="schelling-cell vacant" data-id="v3" style="left:0px; top:220px;"></div>
+<div class="schelling-cell vacant" data-id="v4" style="left:110px; top:220px;"></div>
+<div class="schelling-cell vacant" data-id="v5" style="left:220px; top:220px;"></div>
+<div class="schelling-cell group-b" data-id="b4" style="left:330px; top:220px;"></div>
+<div class="schelling-cell group-b" data-id="b3" style="left:440px; top:220px;"></div>
+:::
+
+- The mover relocated to a vacant cell where it is now content, one neighbour of each colour.
+- Its departure has a real effect only on neighbours it actually had. The agent that used to sit just to its right has lost its one same coloured neighbour, and is now unhappy on its own, unchanged position.
+- Its arrival has a real effect only on its new neighbours. The agent it moved next to now has an extra neighbour of the other colour, and has tipped from exactly half to a majority, so it too is now unhappy.
+
+## Step 2, A Second Agent Moves {auto-animate="true"}
+
+::: {.schelling-grid}
+<div class="schelling-cell group-a" data-id="a1" style="left:0px; top:0px;"></div>
+<div class="schelling-cell group-a" data-id="a2" style="left:110px; top:0px;"></div>
+<div class="schelling-cell group-a" data-id="a3" style="left:220px; top:0px;"></div>
+<div class="schelling-cell group-b" data-id="M" style="left:330px; top:0px;"></div>
+<div class="schelling-cell group-b" data-id="b1" style="left:440px; top:0px;"></div>
+<div class="schelling-cell group-a" data-id="a4" style="left:0px; top:110px;"></div>
+<div class="schelling-cell group-b" data-id="S" style="left:330px; top:110px;"></div>
+<div class="schelling-cell group-b" data-id="b2" style="left:440px; top:110px;"></div>
+<div class="schelling-cell vacant" data-id="v3" style="left:0px; top:220px;"></div>
+<div class="schelling-cell vacant" data-id="v4" style="left:110px; top:220px;"></div>
+<div class="schelling-cell vacant" data-id="v5" style="left:220px; top:220px;"></div>
+<div class="schelling-cell group-b" data-id="b4" style="left:330px; top:220px;"></div>
+<div class="schelling-cell group-b" data-id="b3" style="left:440px; top:220px;"></div>
+:::
+
+- The second unhappy agent moved next to the first, where all its occupied neighbours now share its colour.
+- Its departure removes the extra dissimilar neighbour it had been giving the agent to its upper left, which drops back to exactly half, content again.
+- For this small patch, everyone is content for the moment. On a larger grid, this same process keeps finding new unhappy agents elsewhere.
+
+## After Many Such Moves {auto-animate="true"}
+
+::: {.schelling-grid}
+<div class="schelling-cell group-a" data-id="a1" style="left:0px; top:0px;"></div>
+<div class="schelling-cell group-a" data-id="a2" style="left:110px; top:0px;"></div>
+<div class="schelling-cell vacant" data-id="v3" style="left:220px; top:0px;"></div>
+<div class="schelling-cell group-b" data-id="M" style="left:330px; top:0px;"></div>
+<div class="schelling-cell group-b" data-id="b1" style="left:440px; top:0px;"></div>
+<div class="schelling-cell group-a" data-id="a3" style="left:0px; top:110px;"></div>
+<div class="schelling-cell group-a" data-id="a4" style="left:110px; top:110px;"></div>
+<div class="schelling-cell vacant" data-id="v4" style="left:220px; top:110px;"></div>
+<div class="schelling-cell group-b" data-id="S" style="left:330px; top:110px;"></div>
+<div class="schelling-cell group-b" data-id="b2" style="left:440px; top:110px;"></div>
+<div class="schelling-cell vacant" data-id="v5" style="left:220px; top:220px;"></div>
+<div class="schelling-cell group-b" data-id="b4" style="left:330px; top:220px;"></div>
+<div class="schelling-cell group-b" data-id="b3" style="left:440px; top:220px;"></div>
+:::
+
+- This last panel is a hand drawn illustration of where the process tends to head, not a computed continuation of the exact two moves above.
+- Repeated many times over a much larger grid, this same local rule, move if fewer than half your neighbours match, is what produces the segregated blocks the live simulation shows next.
+
+## Conclusion {.smaller}
+
+- Across both of Schelling's demonstrations, the same lesson holds. Small, even mild individual limits on how outnumbered someone will tolerate being can produce an outcome, near total segregation, that nobody in the model was aiming for.
+- The line model shows the very same population can look content or completely segregated depending only on how far "neighbour" is defined to reach. The tolerance diagram shows a mixed outcome can be individually acceptable to everyone and still not be a stable resting point.
+- Because of this gap between individual limits and collective results, Schelling warns that we cannot read attitudes off an aggregate pattern. A segregated city does not, by itself, prove its residents wanted segregation, or that greater tolerance alone would fix it [@schelling1969models].
+
+## Try It Yourself
+
+- Live simulation: [simulations4all.com/simulations/schelling-segregation](https://simulations4all.com/simulations/schelling-segregation)
+- Adjust the tolerance threshold and watch how quickly a randomly mixed grid tips into segregated blocks.
+
+# Reading Two, The Standing Ovation Problem
+
+## Premise
+
+- A performance ends and the applause builds. A few audience members stand. Does the whole room rise, or does the moment fizzle out?
+- Miller and Page treat this everyday scene as a stand in for a much wider class of problems, whether to send children to public or private school, join a strike, or drop out of school.
+- Each of these is a binary decision shaped by watching what people around you are doing, not made in isolation [@millerpage2004standing].
+
+## Assumptions {.smaller}
+
+- Agents are seated in a rectangular auditorium, arranged in rows and seats.
+- Each agent first forms a private, random assessment of the performance's quality, and stands immediately if that assessment clears a threshold shared by everyone.
+- After that first move, agents stop consulting their own opinion. They simply follow a majority rule, standing if most of the people they can see are standing, sitting otherwise.
+- Agents can see only a limited neighbourhood, for instance the people directly ahead and to either side, not the whole auditorium.
+
+## Where These Assumptions Can Break Down {.smaller}
+
+- Real audience members do not share one identical standing threshold. Age, status, energy, and how much they want to be seen enjoying the show all vary from person to person.
+- Quality assessments are not drawn independently. Everyone just watched the same performance, so opinions are correlated by shared context, advance reviews, and expectations, not random noise.
+- People are not limited to a binary choice. Clapping harder without standing, or standing briefly then sitting back down, are real intermediate options the model leaves out entirely.
+- Miller and Page themselves stress this point, noting that whether agents update all at once, one at a time, or in an order driven by incentives changes the outcome sharply, and no one timing rule is obviously the right one for a real auditorium [@millerpage2004standing].
+
+## The Model {.smaller}
+
+- This is a computational model, run seat by seat on a computer, because the interesting behaviour comes from timing and interaction, not a formula.
+
+<style>
+.sop-grid { position: relative; width: 380px; height: 380px; margin: 6px auto; }
+.sop-seat { position: absolute; width: 80px; height: 80px; border-radius: 8px; }
+.sop-sit { background-color: #4C72B0; }
+.sop-stand { background-color: #DD8452; }
+.sop-flip { outline: 5px solid #2e6b1f; outline-offset: 3px; }
+</style>
+
+## A Small Auditorium, Sixteen Seats {auto-animate="true"}
+
+::: {.sop-grid}
+<div class="sop-seat sop-stand" data-id="s00" style="left:0px; top:0px;"></div>
+<div class="sop-seat sop-stand" data-id="s01" style="left:100px; top:0px;"></div>
+<div class="sop-seat sop-stand" data-id="s02" style="left:200px; top:0px;"></div>
+<div class="sop-seat sop-sit" data-id="s03" style="left:300px; top:0px;"></div>
+<div class="sop-seat sop-stand" data-id="s10" style="left:0px; top:100px;"></div>
+<div class="sop-seat sop-sit" data-id="s11" style="left:100px; top:100px;"></div>
+<div class="sop-seat sop-stand" data-id="s12" style="left:200px; top:100px;"></div>
+<div class="sop-seat sop-sit" data-id="s13" style="left:300px; top:100px;"></div>
+<div class="sop-seat sop-stand" data-id="s20" style="left:0px; top:200px;"></div>
+<div class="sop-seat sop-stand" data-id="s21" style="left:100px; top:200px;"></div>
+<div class="sop-seat sop-stand" data-id="s22" style="left:200px; top:200px;"></div>
+<div class="sop-seat sop-sit" data-id="s23" style="left:300px; top:200px;"></div>
+<div class="sop-seat sop-sit" data-id="s30" style="left:0px; top:300px;"></div>
+<div class="sop-seat sop-sit" data-id="s31" style="left:100px; top:300px;"></div>
+<div class="sop-seat sop-sit" data-id="s32" style="left:200px; top:300px;"></div>
+<div class="sop-seat sop-sit" data-id="s33" style="left:300px; top:300px;"></div>
+:::
+
+- Every seat first decides using only its own opinion of the show. Orange stands, blue stays seated.
+
+## Then Everyone Checks Their Neighbours {auto-animate="true"}
+
+::: {.sop-grid}
+<div class="sop-seat sop-stand" data-id="s00" style="left:0px; top:0px;"></div>
+<div class="sop-seat sop-stand" data-id="s01" style="left:100px; top:0px;"></div>
+<div class="sop-seat sop-stand" data-id="s02" style="left:200px; top:0px;"></div>
+<div class="sop-seat sop-sit" data-id="s03" style="left:300px; top:0px;"></div>
+<div class="sop-seat sop-stand" data-id="s10" style="left:0px; top:100px;"></div>
+<div class="sop-seat sop-stand sop-flip" data-id="s11" style="left:100px; top:100px;"></div>
+<div class="sop-seat sop-stand" data-id="s12" style="left:200px; top:100px;"></div>
+<div class="sop-seat sop-sit" data-id="s13" style="left:300px; top:100px;"></div>
+<div class="sop-seat sop-stand" data-id="s20" style="left:0px; top:200px;"></div>
+<div class="sop-seat sop-stand" data-id="s21" style="left:100px; top:200px;"></div>
+<div class="sop-seat sop-stand" data-id="s22" style="left:200px; top:200px;"></div>
+<div class="sop-seat sop-sit" data-id="s23" style="left:300px; top:200px;"></div>
+<div class="sop-seat sop-sit" data-id="s30" style="left:0px; top:300px;"></div>
+<div class="sop-seat sop-sit" data-id="s31" style="left:100px; top:300px;"></div>
+<div class="sop-seat sop-sit" data-id="s32" style="left:200px; top:300px;"></div>
+<div class="sop-seat sop-sit" data-id="s33" style="left:300px; top:300px;"></div>
+:::
+
+- Each seat switches to match whichever action most of its four visible neighbours are taking.
+- The outlined seat privately disliked the show, but all four of its neighbours were standing, so it now stands too.
+
+## Timing Decides the Rest {.smaller}
+
+- Miller and Page also test who updates first, all at once, one at a time in random order, or in an order driven by who is most out of step with their neighbours.
+- The same starting room settles differently depending only on this choice, a detail with no equivalent in most textbook models [@millerpage2004standing].
+
+## Conclusion
+
+- The audience can converge on a standing ovation even when most people privately thought the show was mediocre. The system can settle on the wrong outcome.
+- Timing changes everything. The same starting room produces different results depending only on whether people update together, one at a time, or in an incentive driven order, a detail with no equivalent in most textbook models.
+- People who can be seen by more of the room, such as those in the front rows, have outsized influence over the eventual outcome, regardless of whether their opinion of the show was any better informed [@millerpage2004standing].
+
+# Reading Three, Threshold Models of Collective Behavior
+
+## Premise
+
+- Traditional accounts of collective behaviour, riots, strikes, protests, tend to explain them by pointing to shared norms or beliefs that emerge in the crowd.
+- Granovetter objects that even knowing everyone's individual preference is not enough. We also need a model of how those preferences interact and add up.
+- His running example is a riot. Does a crowd's willingness to riot depend only on the average appetite for rioting, or on something more specific [@granovetter1978threshold]?
+
+## Assumptions {.smaller}
+
+- Every actor faces a binary choice, for instance to join a riot or not, and behaves rationally given their own perception of costs and benefits.
+- The cost or benefit of each choice depends on how many other people have already made it. Joining a riot is less risky once a crowd has already formed.
+- Each person has a threshold, the proportion of the group they need to see already acting before they act too. Radicals have low thresholds, instigators as low as zero, conservatives have high ones.
+- Thresholds are distributed across the population according to some frequency distribution, and it is this distribution, not any single person's threshold, that is the real object of interest.
+
+## Where These Assumptions Can Break Down {.smaller}
+
+- People do not always perceive the true proportion already acting. Crowds are large, information travels unevenly, and someone may badly over or underestimate how many others have already joined.
+- Thresholds are not fixed traits a person carries everywhere. The same individual can have a low threshold in one riot and a high one in another, depending on mood, provocation, or the arrival of police.
+- The basic model assumes everyone can see everyone else. Real crowds are spread across space and time, so a person's actual threshold may never be tested if they never see enough others acting.
+- Granovetter himself flags a further complication. Some people's willingness to join can rise and then fall again as participation grows, a pattern the simplest version of the model cannot handle at all [@granovetter1978threshold].
+
+## The Model {.smaller}
+
+- Line everyone up by threshold. The proportion rioting at the next moment equals the proportion whose threshold has already been reached, and this repeats until nothing changes.
+
+<style>
+.gran-row { position: relative; width: 700px; height: 130px; margin: 6px auto; }
+.gran-person { position: absolute; top: 20px; width: 80px; height: 80px; border-radius: 50%; background-color: #ccc; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; color: #333; }
+.gran-riot { background-color: #c0392b; color: white; }
+</style>
+
+## Six People, Thresholds Zero to Five {auto-animate="true"}
+
+::: {.gran-row}
+<div class="gran-person" data-id="p0" style="left:0px;">0</div>
+<div class="gran-person" data-id="p1" style="left:120px;">1</div>
+<div class="gran-person" data-id="p2" style="left:240px;">2</div>
+<div class="gran-person" data-id="p3" style="left:360px;">3</div>
+<div class="gran-person" data-id="p4" style="left:480px;">4</div>
+<div class="gran-person" data-id="p5" style="left:600px;">5</div>
+:::
+
+- Each number is how many others must already be rioting before that person joins in.
+
+## The Instigator Needs Nobody {auto-animate="true"}
+
+::: {.gran-row}
+<div class="gran-person gran-riot" data-id="p0" style="left:0px;">0</div>
+<div class="gran-person" data-id="p1" style="left:120px;">1</div>
+<div class="gran-person" data-id="p2" style="left:240px;">2</div>
+<div class="gran-person" data-id="p3" style="left:360px;">3</div>
+<div class="gran-person" data-id="p4" style="left:480px;">4</div>
+<div class="gran-person" data-id="p5" style="left:600px;">5</div>
+:::
+
+- Threshold zero acts alone. Now one person is rioting.
+
+## Which Is Enough for Threshold One {auto-animate="true"}
+
+::: {.gran-row}
+<div class="gran-person gran-riot" data-id="p0" style="left:0px;">0</div>
+<div class="gran-person gran-riot" data-id="p1" style="left:120px;">1</div>
+<div class="gran-person" data-id="p2" style="left:240px;">2</div>
+<div class="gran-person" data-id="p3" style="left:360px;">3</div>
+<div class="gran-person" data-id="p4" style="left:480px;">4</div>
+<div class="gran-person" data-id="p5" style="left:600px;">5</div>
+:::
+
+- Now two are rioting, which is enough for threshold two, then three, then four, then five.
+
+## The Whole Crowd Joins {auto-animate="true"}
+
+::: {.gran-row}
+<div class="gran-person gran-riot" data-id="p0" style="left:0px;">0</div>
+<div class="gran-person gran-riot" data-id="p1" style="left:120px;">1</div>
+<div class="gran-person gran-riot" data-id="p2" style="left:240px;">2</div>
+<div class="gran-person gran-riot" data-id="p3" style="left:360px;">3</div>
+<div class="gran-person gran-riot" data-id="p4" style="left:480px;">4</div>
+<div class="gran-person gran-riot" data-id="p5" style="left:600px;">5</div>
+:::
+
+- One low threshold was enough to trigger a chain reaction through all six.
+
+## Now Swap Just One Person {auto-animate="true"}
+
+::: {.gran-row}
+<div class="gran-person" data-id="p0" style="left:0px;">0</div>
+<div class="gran-person" data-id="p1" style="left:120px;">2</div>
+<div class="gran-person" data-id="p2" style="left:240px;">2</div>
+<div class="gran-person" data-id="p3" style="left:360px;">3</div>
+<div class="gran-person" data-id="p4" style="left:480px;">4</div>
+<div class="gran-person" data-id="p5" style="left:600px;">5</div>
+:::
+
+- Replace the threshold-one person with another threshold-two person. The crowd looks almost identical.
+
+## The Cascade Stops at One {auto-animate="true"}
+
+::: {.gran-row}
+<div class="gran-person gran-riot" data-id="p0" style="left:0px;">0</div>
+<div class="gran-person" data-id="p1" style="left:120px;">2</div>
+<div class="gran-person" data-id="p2" style="left:240px;">2</div>
+<div class="gran-person" data-id="p3" style="left:360px;">3</div>
+<div class="gran-person" data-id="p4" style="left:480px;">4</div>
+<div class="gran-person" data-id="p5" style="left:600px;">5</div>
+:::
+
+- The instigator still acts alone. Nobody else's threshold is low enough to be triggered, so the riot ends at one person, not six [@granovetter1978threshold].
+
+## Conclusion
+
+- Outcomes are extremely sensitive to the exact shape of a group's threshold distribution, not just its average level of enthusiasm. Two nearly identical crowds can produce wildly different results.
+- Because of this, Granovetter warns against reading a riot as proof that most participants shared strong convictions, or a non-event as proof that no one did.
+- The model deliberately says nothing about where thresholds come from. It only shows that, once individual preferences are given, an explicit model of aggregation is still needed to predict what a group will do [@granovetter1978threshold].
+
+# Tying the Three Readings Together
+
+## The Common Thread
+
+- Each reading uses a different setting, a neighbourhood, a theatre, a crowd, but the underlying question is the same. What happens when individual decisions depend on what others around you are doing?
+- In every case, the aggregate outcome does not simply mirror individual preferences. It can overshoot, undershoot, or tip suddenly from one extreme to another.
+- All three explicitly warn against the same mistake, inferring individual motives or beliefs directly from an observed collective outcome.
+
+## Where These Models Fall Short
+
+- Each model assumes people already have fixed preferences or thresholds before the story begins. None explains where those preferences come from.
+- Each strips away history, culture, and specific circumstance to isolate one mechanism. Real segregation, real riots, and real audiences carry all of that context.
+- A model can show that an outcome is possible under certain assumptions. It cannot, on its own, tell us that this is what actually happened in any one city, theatre, or crowd.
+
+## Carrying This Forward
+
+- The value of these models lies not in their realism but in the caution they teach. Aggregate numbers can mislead us about the individuals who produced them.
+- Before reading intention into any collective statistic, a segregated neighbourhood, a viral trend, a wave of unrest, ask what simple, even mild, individual rule could have produced it without anyone intending the outcome.
+- This scepticism about jumping from aggregate patterns to individual motives will return throughout the rest of this course.
+
+## References {.smaller}
+
+::: {#refs}
+:::

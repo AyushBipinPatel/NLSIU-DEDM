@@ -722,27 +722,110 @@ format:
 
 ## Premise
 
-- Traditional accounts of collective behaviour, riots, strikes, protests, tend to explain them by pointing to shared norms or beliefs that emerge in the crowd.
-- Granovetter objects that even knowing everyone's individual preference is not enough. We also need a model of how those preferences interact and add up.
-- His running example is a riot. Does a crowd's willingness to riot depend only on the average appetite for rioting, or on something more specific [@granovetter1978threshold]?
+- Sociological theory usually explains behaviour through shared norms and values.
+- When behaviour breaks from norms, the usual move is to say new norms have emerged.
+- Granovetter argues this skips a step. Knowing everyone's preference is not enough. We also need a model of how preferences interact and add up [@granovetter1978threshold].
 
-## Assumptions {.smaller}
+## Assumptions
 
-- Every actor faces a binary choice, for instance to join a riot or not, and behaves rationally given their own perception of costs and benefits.
-- The cost or benefit of each choice depends on how many other people have already made it. Joining a riot is less risky once a crowd has already formed.
-- Each person has a threshold, the proportion of the group they need to see already acting before they act too. Radicals have low thresholds, instigators as low as zero, conservatives have high ones.
-- Thresholds are distributed across the population according to some frequency distribution, and it is this distribution, not any single person's threshold, that is the real object of interest.
+- Every actor faces a binary choice. Join a riot, or not.
+- The cost and benefit of each choice depends on how many others have already chosen it.
+- Actors are rational. Given their goals and their read of the situation, they act to maximise their own benefit [@granovetter1978threshold].
 
-## Where These Assumptions Can Break Down {.smaller}
+## What This Model Does Not Attempt
 
-- People do not always perceive the true proportion already acting. Crowds are large, information travels unevenly, and someone may badly over or underestimate how many others have already joined.
-- Thresholds are not fixed traits a person carries everywhere. The same individual can have a low threshold in one riot and a high one in another, depending on mood, provocation, or the arrival of police.
-- The basic model assumes everyone can see everyone else. Real crowds are spread across space and time, so a person's actual threshold may never be tested if they never see enough others acting.
-- Granovetter himself flags a further complication. Some people's willingness to join can rise and then fall again as participation grows, a pattern the simplest version of the model cannot handle at all [@granovetter1978threshold].
+- The model takes preferences as given.
+- It does not explain how or why any individual came to hold their preference.
+- That question is set aside on purpose, to focus fully on what happens once preferences already exist [@granovetter1978threshold].
 
-## The Model {.smaller}
+## What a Threshold Cannot Tell Us
 
-- Line everyone up by threshold. The proportion rioting at the next moment equals the proportion whose threshold has already been reached, and this repeats until nothing changes.
+- A threshold only says when someone acts, once activated they simply maximise their own benefit under the current conditions.
+- It says nothing about whether the resulting equilibrium is actually good for that person, or for anyone.
+- From the threshold distribution alone, we cannot tell whether the outcome reached is better or worse than some other outcome would have been [@granovetter1978threshold].
+
+## Threshold, Defined
+
+- A person's threshold is the proportion of the group they need to see already acting, before they act too.
+- It marks the exact point where perceived benefits start to exceed perceived costs, for that person [@granovetter1978threshold].
+
+## Radical, Instigator, Conservative
+
+- A low threshold means high personal benefit, low personal risk. Call this person a radical.
+- Threshold zero needs nobody else first. This person is an instigator.
+- A high threshold, near 100 percent, means the opposite. Call this person a conservative [@granovetter1978threshold].
+
+## Same Threshold, Different Politics
+
+- Two people can share the exact same threshold for very different reasons.
+- One may love the cause. Another may simply be bored and looking for excitement.
+- Granovetter calls this "strange bedfellows." A threshold reveals when someone acts, not why [@granovetter1978threshold].
+
+## Acting Against Your Own Norms
+
+- Granovetter cites Matza's interviews with delinquent boys who stole cars.
+- Most did not privately think stealing was right, and did not really want to do it.
+- But admitting this once others had already acted would cost them status. Their threshold for joining was low anyway [@granovetter1978threshold].
+- The outcome, most of the group stealing cars, does not mean most of the group approved of it.
+
+## A Threshold Belongs to One Situation
+
+- A threshold is not a fixed personality trait carried from one riot to the next.
+- It comes from that situation's particular costs and benefits, for that person, at that time.
+- The same person can have a low threshold in one crowd and a high one in another [@granovetter1978threshold].
+
+## Eight Other Binary Choices, Part One
+
+- Adopting an innovation. Villagers waiting to see how many neighbours adopt first.
+- Rumours and disease. Needing to hear something from enough people before repeating it, or being exposed enough times before catching it.
+- Strikes. Workers watching how many colleagues have already committed.
+- Voting. A bandwagon effect, support building on visible support [@granovetter1978threshold].
+
+## Eight Other Binary Choices, Part Two
+
+- Going to college. Partly a personal choice, partly shaped by how many peers also go.
+- Leaving a lecture or a party. Waiting until enough other people leave first.
+- Migration. Chain migration, moving once enough others from home already have.
+- Conformity experiments. Behaviour shifting with the number of other people already agreeing [@granovetter1978threshold].
+
+## Where These Assumptions Can Break Down
+
+- People do not always perceive the true number already acting. Crowds are large and information travels unevenly.
+- The model assumes everyone can see everyone else. Real crowds are spread across space and time.
+- Some people's willingness can rise, then fall again, as participation grows further. The simplest version of the model cannot handle that [@granovetter1978threshold].
+
+## The Mathematical Form
+
+- Granovetter gives this idea an exact form.
+- Four small pieces build up to one equation. Let's take them one at a time.
+
+## Threshold, Written x
+
+- Each person has a threshold. Call it x.
+- x is the proportion of the group that must already be acting before this person acts too [@granovetter1978threshold].
+
+## How Common Each Threshold Is
+
+- Some thresholds are more common than others in the crowd.
+- f(x) is the frequency distribution, how many people have threshold x.
+- F(x) is the cumulative distribution, the proportion of the crowd with threshold x or lower [@granovetter1978threshold].
+
+## How Many Have Already Joined
+
+- Time moves in discrete steps, t.
+- r(t) is the proportion of the crowd who have joined by time t [@granovetter1978threshold].
+
+## The Key Logic Step
+
+- Suppose we already know r(t).
+- By the very definition of threshold, the next period's rioters are exactly those whose threshold is at or below r(t).
+- That proportion is, by definition, F applied to r(t) [@granovetter1978threshold].
+
+## The Difference Equation
+
+- Putting the last step into symbols: $r(t+1) = F[r(t)]$.
+- Repeat this rule and the process settles once $r(t+1) = r(t)$.
+- That resting value is the equilibrium.
 
 <style>
 .gran-row { position: relative; width: 700px; height: 130px; margin: 6px auto; }
@@ -761,7 +844,7 @@ format:
 <div class="gran-person" data-id="p5" style="left:600px;">5</div>
 :::
 
-- Each number is how many others must already be rioting before that person joins in.
+- Each number is that person's threshold.
 
 ## The Instigator Needs Nobody {auto-animate="true"}
 
@@ -774,7 +857,7 @@ format:
 <div class="gran-person" data-id="p5" style="left:600px;">5</div>
 :::
 
-- Threshold zero acts alone. Now one person is rioting.
+- r(0) equals 0. Threshold zero needs nobody, so they act. Now r(1) equals 1.
 
 ## Which Is Enough for Threshold One {auto-animate="true"}
 
@@ -787,7 +870,7 @@ format:
 <div class="gran-person" data-id="p5" style="left:600px;">5</div>
 :::
 
-- Now two are rioting, which is enough for threshold two, then three, then four, then five.
+- r(1) equals 1, enough for threshold one. Now r(2) equals 2, enough for threshold two, and so on.
 
 ## The Whole Crowd Joins {auto-animate="true"}
 
@@ -800,7 +883,7 @@ format:
 <div class="gran-person gran-riot" data-id="p5" style="left:600px;">5</div>
 :::
 
-- One low threshold was enough to trigger a chain reaction through all six.
+- The equation ran to r(6) equals 6. Everyone has joined.
 
 ## Now Swap Just One Person {auto-animate="true"}
 
@@ -826,13 +909,179 @@ format:
 <div class="gran-person" data-id="p5" style="left:600px;">5</div>
 :::
 
-- The instigator still acts alone. Nobody else's threshold is low enough to be triggered, so the riot ends at one person, not six [@granovetter1978threshold].
+- r(1) equals 1 again. But now r(2) also equals 1, nobody's threshold is 1 anymore. The equation has already settled [@granovetter1978threshold].
+
+## Reading the Equilibrium Off a Graph
+
+- Granovetter shows this same result can be found graphically, no equation solving needed.
+- Plot the threshold x on one axis, F(x) on the other, plus the 45 degree line where F(x) equals x.
+- Wherever the curve first crosses that line from above, that is the equilibrium [@granovetter1978threshold].
+
+## The Cobweb Procedure
+
+- Start at r(t) on the horizontal axis.
+- Go straight up to the curve. That height is r(t+1).
+- Go straight across to the 45 degree line. That point's x-position is r(t+1), ready for the next step.
+- Repeat [@granovetter1978threshold].
+
+<style>
+.cobweb-svg { display: block; margin: 6px auto; }
+</style>
+
+## Figure 1, Thresholds against the Cumulative Distribution {auto-animate="true"}
+
+::: {.cobweb-svg}
+<svg viewBox="0 0 480 460" width="440" height="422" xmlns="http://www.w3.org/2000/svg">
+<line data-id="xaxis" x1="50" y1="420" x2="450" y2="420" stroke="#888" stroke-width="2"/>
+<line data-id="yaxis" x1="50" y1="420" x2="50" y2="20" stroke="#888" stroke-width="2"/>
+<line data-id="diag" x1="50" y1="420" x2="450" y2="20" stroke="#ccc" stroke-dasharray="4,4"/>
+<polyline data-id="curve" points="50.0,363.3 60.0,358.2 70.0,352.8 80.0,347.0 90.0,340.9 100.0,334.3 110.0,327.4 120.0,320.1 130.0,312.4 140.0,304.4 150.0,296.0 160.0,287.3 170.0,278.3 180.0,269.0 190.0,259.5 200.0,249.8 210.0,239.9 220.0,230.0 230.0,220.0 240.0,210.0 250.0,200.1 260.0,190.2 270.0,180.5 280.0,171.0 290.0,161.7 300.0,152.7 310.0,144.0 320.0,135.6 330.0,127.6 340.0,119.9 350.0,112.6 360.0,105.7 370.0,99.1 380.0,93.0 390.0,87.2 400.0,81.8 410.0,76.7 420.0,72.0 430.0,67.7 440.0,63.6 450.0,59.9" fill="none" stroke="#4C72B0" stroke-width="3"/>
+<text data-id="xlabel" x="250" y="440" font-size="14" text-anchor="middle">threshold, x</text>
+<text data-id="ylabel" x="20" y="220" font-size="14" text-anchor="middle" transform="rotate(-90 20 220)">F(x)</text>
+<text data-id="diaglabel" x="360" y="105" font-size="12" fill="#999">F(x) = x</text>
+</svg>
+:::
+
+- Horizontal axis, threshold x. Vertical axis, F(x), the share of the crowd with threshold at or below x.
+- The dashed line marks every point where F(x) equals x [@granovetter1978threshold].
+
+## Tracing r(t) to Equilibrium {auto-animate="true"}
+
+::: {.cobweb-svg}
+<svg viewBox="0 0 480 460" width="440" height="422" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrowg" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#2e6b1f"/></marker>
+</defs>
+<line data-id="xaxis" x1="50" y1="420" x2="450" y2="420" stroke="#888" stroke-width="2"/>
+<line data-id="yaxis" x1="50" y1="420" x2="50" y2="20" stroke="#888" stroke-width="2"/>
+<line data-id="diag" x1="50" y1="420" x2="450" y2="20" stroke="#ccc" stroke-dasharray="4,4"/>
+<polyline data-id="curve" points="50.0,363.3 60.0,358.2 70.0,352.8 80.0,347.0 90.0,340.9 100.0,334.3 110.0,327.4 120.0,320.1 130.0,312.4 140.0,304.4 150.0,296.0 160.0,287.3 170.0,278.3 180.0,269.0 190.0,259.5 200.0,249.8 210.0,239.9 220.0,230.0 230.0,220.0 240.0,210.0 250.0,200.1 260.0,190.2 270.0,180.5 280.0,171.0 290.0,161.7 300.0,152.7 310.0,144.0 320.0,135.6 330.0,127.6 340.0,119.9 350.0,112.6 360.0,105.7 370.0,99.1 380.0,93.0 390.0,87.2 400.0,81.8 410.0,76.7 420.0,72.0 430.0,67.7 440.0,63.6 450.0,59.9" fill="none" stroke="#4C72B0" stroke-width="3"/>
+<text data-id="xlabel" x="250" y="440" font-size="14" text-anchor="middle">threshold, x</text>
+<text data-id="ylabel" x="20" y="220" font-size="14" text-anchor="middle" transform="rotate(-90 20 220)">F(x)</text>
+<polyline data-id="cobweb" points="250.0,420.0 250.0,200.1 269.9,200.1 269.9,180.6 289.4,180.6 289.4,162.3 307.7,162.3 307.7,146.0 324.0,146.0 324.0,132.3 337.7,132.3 337.7,121.7 348.3,121.7 348.3,113.8 356.2,113.8" fill="none" stroke="#2e6b1f" stroke-width="2" marker-end="url(#arrowg)"/>
+<text data-id="startlabel" x="225" y="436" font-size="12" fill="#2e6b1f">r(t) starts here</text>
+<text data-id="endlabel" x="320" y="108" font-size="12" fill="#2e6b1f" font-weight="bold">climbing toward equilibrium</text>
+</svg>
+:::
+
+- Start at some r(t) below equilibrium. Up to the curve, across to the diagonal, repeat.
+- Because F is a cumulative distribution, it can never decrease. That is why r(t) only ever climbs steadily here, left to right, never overshooting and bouncing back [@granovetter1978threshold].
+
+## Stability of Equilibrium
+
+- An equilibrium can be found. But is it a safe resting point, or a knife's edge?
+- Granovetter treats this as its own question, separate from finding the number itself [@granovetter1978threshold].
+
+## When Is an Equilibrium Stable? {.smaller}
+
+- Nudge r(t) slightly away from the equilibrium and trace the cobweb again.
+- If it spirals back to the same point, the equilibrium is stable.
+- If it spirals away instead, toward some other resting point, the equilibrium is unstable.
+
+## A Second Experiment, Varying the Spread {.smaller}
+
+- Take 100 people again, thresholds now normally distributed, mean fixed at 25.
+- Vary sigma, how spread out thresholds are around that mean. Small sigma means everyone thinks alike. Large sigma means thresholds range widely [@granovetter1978threshold].
+- Starting from nobody rioting, what equilibrium does the crowd settle at, as sigma grows?
+
+## From a Few Rioters to Nearly Everyone {.smaller}
+
+- For small sigma, the equilibrium creeps up gradually as sigma grows, reaching only about six rioters.
+- Cross one particular value of sigma, and the equilibrium jumps almost straight to nearly 100.
+- Past that point, the outcome slowly declines again, heading toward a limiting value of 50 [@granovetter1978threshold].
+
+<style>
+.fig2-svg { display: block; margin: 6px auto; }
+</style>
+
+## Figure 2, Equilibrium against Standard Deviation {.smaller}
+
+::: {.fig2-svg}
+<svg viewBox="0 0 480 460" width="440" height="422" xmlns="http://www.w3.org/2000/svg">
+<line x1="50" y1="420" x2="450" y2="420" stroke="#888" stroke-width="2"/>
+<line x1="50" y1="420" x2="50" y2="20" stroke="#888" stroke-width="2"/>
+<text x="50" y="438" font-size="13" text-anchor="middle">0</text>
+<text x="450" y="438" font-size="13" text-anchor="middle">50</text>
+<text x="38" y="424" font-size="13" text-anchor="end">0</text>
+<text x="38" y="24" font-size="13" text-anchor="end">100</text>
+<text x="250" y="454" font-size="14" text-anchor="middle">standard deviation, sigma</text>
+<text x="18" y="220" font-size="14" text-anchor="middle" transform="rotate(-90 18 220)">equilibrium rioters</text>
+<polyline points="54.0,420.0 87.3,420.0 120.6,419.0 137.2,413.7 147.2,400.4 150.5,20.0 180.5,20.0 210.4,20.0 250.3,20.6 300.3,23.6 350.2,30.8 400.1,42.6 450.0,58.1" fill="none" stroke="#4C72B0" stroke-width="3"/>
+<line x1="148" y1="20" x2="148" y2="420" stroke="#c0392b" stroke-dasharray="4,4"/>
+<text x="154" y="200" font-size="12" fill="#c0392b" font-weight="bold">critical sigma, about 12.2</text>
+</svg>
+:::
+
+- The nearly vertical jump is not a drawing error. A tiny change in sigma, right at the critical point, swings the outcome from about six rioters to nearly a hundred [@granovetter1978threshold].
+
+## The Point Where Everything Changes {.smaller}
+
+- Just below the critical sigma, the curve crosses the diagonal three times, a low stable point, an unstable point above it, then a high stable point.
+- At the critical sigma, the low stable crossing and the unstable one merge into a single point, tangent to the diagonal.
+- Push sigma past that point, and the low crossing is simply gone. Only the high one remains [@granovetter1978threshold].
+
+## Reading Stability Off the Crossing {.smaller}
+
+- A crossing where the curve is clearly above the diagonal just before, and clearly below it just after, snaps back quickly. Stable.
+- A crossing where the curve barely grazes the diagonal, nearly tangent rather than cutting across it, has almost no restoring force. Fragile.
+- Granovetter finds exactly this at the critical standard deviation of the normal distribution, where two crossings merge into a single point tangent to the 45 degree line [@granovetter1978threshold].
+
+## Two Equilibria Granovetter Calls Unstable {.smaller}
+
+- The uniform distribution's equilibrium, everyone rioting, is one.
+- The normal distribution's equilibrium right at its critical standard deviation is the other.
+- In both cases the curve barely crosses the diagonal at all, so the smallest disturbance can move the outcome somewhere else entirely [@granovetter1978threshold].
+- The next slides show two disturbances, friendship and sampling, that do exactly this.
+
+## Friends Count Double
+
+- Suppose friends influence someone twice as much as strangers do.
+- A person with a 50 percent threshold stands in a crowd of 100. 48 have rioted, 52 have not.
+- Going only by the raw count, 48 of 100, this person stays put [@granovetter1978threshold].
+
+## The Same Nudge, Counted by Who You Know
+
+- This person knows 20 people in the crowd. 15 of them have already rioted.
+- Counting friends twice: rioters seen as $15 \times 2 + 33 \times 1 = 63$.
+- Non-rioters seen as $5 \times 2 + 47 \times 1 = 57$.
+
+## A Small Shift Past the Threshold
+
+- Perceived proportion: $63 / (63+57) = 63/120 = 0.525$.
+- The raw number, 48 percent, was under this person's threshold. The perceived number, 52.5 percent, is over it.
+- Friendship alone was enough to tip this person into joining [@granovetter1978threshold].
+
+## Not Everyone Sees Everyone
+
+- The basic model assumes full connectedness, everyone reacting to everyone.
+- Real crowds form in fragments, spread across space and time.
+- A crowd of 100 is often really a random sample from a much larger population [@granovetter1978threshold].
+
+## Sometimes the Instigator Never Shows Up
+
+- Take the uniform distribution again. In the full population, one person in a hundred is the threshold-zero instigator.
+- If a crowd of 100 is drawn at random, what is the chance no instigator is in it?
+- $(1-0.01)^{100} \approx 0.37$. More than a third of the time, nobody starts the riot at all [@granovetter1978threshold].
+
+## Two Outcomes Cover More Than Half the Cases
+
+- There is also a chance the instigator shows up, but the threshold-one person does not.
+- That combination works out to about 0.14.
+- Add the two together: $0.37 + 0.14 = 0.51$. Over half the time, this crowd produces zero or one rioter, not the full 100 the formula predicts [@granovetter1978threshold].
+
+## Bigger Cities, More Chances
+
+- The same underlying population, drawn again and again, can look wildly different from one crowd to the next.
+- Granovetter connects this to Spilerman's finding that a city's black population size predicted riot activity better than almost anything else.
+- More draws from the same distribution simply means more chances that one of them reaches the unstable, fully-mobilised outcome [@granovetter1978threshold].
 
 ## Conclusion
 
-- Outcomes are extremely sensitive to the exact shape of a group's threshold distribution, not just its average level of enthusiasm. Two nearly identical crowds can produce wildly different results.
-- Because of this, Granovetter warns against reading a riot as proof that most participants shared strong convictions, or a non-event as proof that no one did.
-- The model deliberately says nothing about where thresholds come from. It only shows that, once individual preferences are given, an explicit model of aggregation is still needed to predict what a group will do [@granovetter1978threshold].
+- Groups with nearly identical average preferences can produce completely different collective outcomes.
+- Because of this, Granovetter warns against reading a riot as proof most participants shared strong convictions, or a non-event as proof nobody did.
+- The model does not explain where preferences come from. It shows that, once given, an explicit model of aggregation is still needed to predict what a group will do [@granovetter1978threshold].
+
+
 
 # Tying the Three Readings Together
 
@@ -852,7 +1101,6 @@ format:
 
 - The value of these models lies not in their realism but in the caution they teach. Aggregate numbers can mislead us about the individuals who produced them.
 - Before reading intention into any collective statistic, a segregated neighbourhood, a viral trend, a wave of unrest, ask what simple, even mild, individual rule could have produced it without anyone intending the outcome.
-- This scepticism about jumping from aggregate patterns to individual motives will return throughout the rest of this course.
 
 ## References {.smaller}
 

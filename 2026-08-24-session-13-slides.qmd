@@ -1,0 +1,303 @@
+---
+title: "Data, Evidence, and Decision Making (with R)"
+author: "Ayush Patel"
+subtitle: "Session 13: Data Collection and Bias"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute: 
+  echo: true
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+```{r}
+#| label: libs
+#| echo: false
+#| warning: false
+
+extrafont::loadfonts(device = "all")
+library(tidyverse)
+library(ggiraph)
+library(hrbrthemes)
+
+```
+
+# Goal
+
+> The aim for this lecture is to understand where data comes from, and why the way it is collected can shape, or distort, the conclusions we draw from it.
+
+# From Population to Sample
+
+<br>
+
+> A population is the full set of people, cases, or units we actually care about. A sample is the subset we observe. Almost everything we do in statistics is an attempt to say something true about the population using only the sample.
+
+## Population and Sample
+
+<br>
+
+::: {.incremental}
+- The **population** is the complete group a question is about, for example every FIR filed in Karnataka last year
+- The **sample** is the subset we actually collect data on, for example 500 FIRs pulled from court records
+- A sample is useful only if it represents the population reasonably well
+- If the way a sample was collected makes it systematically different from the population, no amount of clever analysis afterwards can fix that
+:::
+
+## Why This Matters for Law and Policy
+
+<br>
+
+Legal and policy questions are rarely answered using the full population.
+
+<br>
+
+::: {.incremental}
+- Court records only capture cases that were filed, not disputes that were settled or never pursued
+- Hospital data only captures patients who sought treatment
+- Survey data only captures people who agreed to respond
+:::
+
+<br>
+
+[In each case, the data available to us is already a sample, often shaped by decisions we did not make and cannot see.]{.fragment}
+
+# Sampling Methods
+
+<br>
+
+> How a sample is drawn determines whether it is likely to represent the population. Some methods are designed to give every unit a fair chance. Others are not, even when they feel reasonable.
+
+## Simple Random Sampling
+
+Every unit in the population has an equal chance of being selected.
+
+<br>
+
+::: {.incremental}
+- Think of drawing names out of a hat. Every name has the same chance of being pulled
+- Knowing that one unit was selected tells you nothing about whether any other unit was selected
+:::
+
+## Simple Random Sampling: A Visual
+
+```{r}
+#| label: srs-illustration
+#| echo: false
+#| fig-height: 7
+
+set.seed(11)
+pop <- tibble(
+    x = runif(60, 0, 1),
+    y = runif(60, 0, 1)
+)
+
+samp <- pop |>
+    slice_sample(n = 15)
+
+pop |>
+    ggplot(aes(x, y)) +
+    geom_point(size = 3, colour = "#4C78A8", alpha = 0.4) +
+    geom_point(data = samp, colour = "#F58518", size = 5) +
+    labs(title = "Every unit had an equal chance of being one of the orange points") +
+    theme_ipsum_es() +
+    theme(axis.text = element_blank(), axis.title = element_blank())
+```
+
+## Stratified Sampling
+
+Divide the population into groups (strata) first, then sample randomly within each group.
+
+<br>
+
+::: {.incremental}
+- Strata work best when the cases inside each one are similar to each other with respect to what you are measuring
+- Example: sampling FIRs separately from each district, so a small district is not left out simply because it has fewer cases
+- When strata are internally similar, the estimate from each stratum is more precise, and combining across strata gives a more precise overall estimate than a simple random sample of the same size
+:::
+
+## Cluster Sampling {.smaller}
+
+Divide the population into naturally occurring clusters, randomly select a few whole clusters, and collect data on everyone within those clusters.
+
+<br>
+
+::: {.incremental}
+- Useful when a full list of individual units does not exist, but a list of clusters does
+- Example: randomly selecting 10 police stations, then examining every case filed at those stations, rather than trying to sample individual cases from across the state
+- Cluster sampling works best when each cluster is internally diverse and the clusters resemble each other overall, for example if every station's mix of case types looks broadly similar to the state as a whole
+- If cases within a cluster tend to be similar to each other, for example a station whose caseload is dominated by one offence type, cluster sampling gives less precise estimates than a simple random sample of the same size, since adding more cases from an already-similar group adds little new information
+:::
+
+# When Sampling Goes Wrong
+
+<br>
+
+> A biased sample is not a smaller version of the population. It is a distorted one. The danger is that a biased sample can still produce a clean-looking number, with no visible warning sign.
+
+## Selection Bias
+
+<br>
+
+Selection bias occurs when the way units enter the sample is related to the outcome being studied.
+
+<br>
+
+::: {.incremental}
+- Surveying people outside a courthouse about trust in the justice system captures only those who had reason to be there that day
+- Studying "successful" startups to learn what makes startups succeed, while ignoring the many that failed and are no longer around to study
+- If who gets included is connected to the thing you are measuring, your estimate will be systematically off, not just noisy
+:::
+
+## Survivorship Bias
+
+<br>
+
+A specific and common form of selection bias, where only the cases that "survived" some process are visible to you.
+
+<br>
+
+::: {.incremental}
+- Studying the judgments of judges who have long tenures tells you little about the judgments of those who resigned or were transferred early
+- Looking only at completed litigation ignores cases that were withdrawn, settled, or abandoned along the way
+- The units that dropped out are often exactly the ones that would have changed your conclusion
+:::
+
+## Non-response Bias
+
+<br>
+
+Occurs when the people who respond to a survey or request differ systematically from those who do not.
+
+<br>
+
+::: {.incremental}
+- A survey on satisfaction with a government scheme that only the most frustrated, or the most satisfied, bother to answer
+- Response rates are rarely random. People with strong opinions, more time, or more trust in the process are more likely to reply
+- A low response rate is a warning sign, but even a high response rate does not guarantee the responders look like the non-responders
+:::
+
+## Administrative Data Has Its Own Biases {.smaller}
+
+<br>
+
+Court records, hospital data, and census figures feel objective because they are official. They are not automatically representative.
+
+<br>
+
+::: {.incremental}
+- **Court records** only include disputes that were formally filed, not the much larger set of disputes that were resolved informally or never pursued at all
+- **Hospital data** only includes people who sought and could access treatment, missing those who could not afford it or lived too far away
+- **Census and government data** depend on who could be counted, which is shaped by geography, language, and trust in the state
+- For a law or policy student, this matters directly. The absence of a case from the record is itself information, and treating administrative data as the full picture can quietly bake in the very inequities you might be trying to study
+:::
+
+# Classroom Activity: Spot the Bias
+
+<br>
+
+Three claims, each built on a real sampling choice.
+
+<br>
+
+::: {.incremental}
+1. "Only 4% of surveyed litigants said the process was unfair," based on a survey handed out to people waiting in court corridors
+2. "Startups founded by first-time entrepreneurs have a 60% success rate," based on a study of currently operating companies
+3. "Domestic violence complaints have doubled," based on a count of FIRs filed with the police
+:::
+
+<br>
+
+[In pairs, identify what kind of bias is at play in each claim, and what population is actually being described versus the population the claim implies.]{.fragment}
+
+# What Have We Seen?
+
+<br><br>
+
+[A sample is only as useful as the process that produced it. Random sampling methods are designed to give every unit a fair and known chance of inclusion.]{.fragment fragment-index='1'}
+
+<br><br>
+
+[Selection, survivorship, and non-response bias can all produce clean-looking numbers that are systematically wrong, and administrative data is not exempt from this.]{.fragment fragment-index='2'}
+
+# Check Your Understanding
+
+<br>
+
+Quick questions to test today's ideas. Think first, then click to reveal.
+
+## Question 1
+
+<br>
+
+A researcher wants to study the average income of lawyers in Karnataka. She surveys every member of the Bangalore Bar Association. What is wrong with treating this as a sample of "lawyers in Karnataka"?
+
+<br>
+
+[Bar association membership is not the same as the population of practicing lawyers, and Bangalore is not representative of the whole state. This is a selection bias problem: the sampling frame does not match the population the claim is about.]{.fragment}
+
+## Question 2 {.smaller}
+
+<br>
+
+Why might cluster sampling give a less precise estimate than simple random sampling, even with the same total sample size?
+
+<br>
+
+[Cluster sampling loses precision specifically when the selected clusters turn out to be internally homogeneous, that is, when the units inside one cluster resemble each other more than they resemble the population as a whole. In that case, sampling many cases from the same cluster does not add much new information, since they were already alike. A police station whose caseload is dominated by one offence type is an example. Cluster sampling performs well only when clusters are internally diverse and resemble each other, which is not guaranteed just because you drew the clusters at random.]{.fragment}
+
+## Question 3
+
+<br>
+
+A dataset of hospital admissions shows that a particular illness is rare in a rural district. A colleague concludes the illness has low prevalence there. What alternative explanation should you consider first?
+
+<br>
+
+[The low count could reflect low access to hospitals in that district rather than low prevalence of the illness. People who are sick but cannot reach a hospital never enter the data. This is a case of administrative data bias, where absence from the record is not the same as absence in reality.]{.fragment}
+
+## Question 4
+
+<br>
+
+A 90% response rate on a survey is generally considered very good. Does a high response rate guarantee the sample is unbiased?
+
+<br>
+
+[No. Even a small non-responding group can differ systematically from responders in ways connected to the outcome being measured. A high response rate reduces the risk of non-response bias but does not eliminate it, and it says nothing about selection bias introduced earlier, in how people were invited to respond in the first place.]{.fragment}
+
+# Apply What You've Learned
+
+<br>
+
+> An authentic task, similar in spirit to what you will do in your midterm and final projects.
+
+## Authentic Task {.smaller}
+
+<br>
+
+You are asked to evaluate a claim: "Only 12% of consumer complaints filed with a district forum result in compensation for the consumer," based on a dataset the forum makes publicly available online.
+
+<br>
+
+::: {.incremental}
+- Identify what population this dataset is actually drawn from, and what population the 12% figure is implicitly being generalised to
+- List at least three ways complaints might fail to enter this dataset in the first place, for example being withdrawn, settled outside the forum, or never digitised
+- For each pathway you identify, describe whether it would make the true compensation rate look higher or lower than 12% if it were included
+- Propose one additional piece of data or one design change to the data collection process that would let you check whether this bias is serious
+- Write two or three sentences stating how confidently you would present the 12% figure in a report, and what caveat you would attach to it
+:::

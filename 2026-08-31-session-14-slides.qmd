@@ -1,0 +1,419 @@
+---
+title: "Data, Evidence, and Decision Making (with R)"
+author: "Ayush Patel"
+subtitle: "Session 14: Sampling and Missing Data in R"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute: 
+  echo: true
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+```{r}
+#| label: libs
+#| echo: false
+#| warning: false
+
+library(tidyverse)
+
+```
+
+# Goal
+
+> Real data is never complete, and we almost never work with the whole population. Today we learn how R handles the gaps, and how R draws a fair sample from what remains.
+
+# Why This Matters
+
+<br>
+
+::: {.incremental}
+- Last week we discussed non-response bias, some people simply do not answer a question
+- That gap does not disappear when the data reaches you, it shows up as missing values
+- How you handle those gaps can change your conclusions, sometimes quietly
+- And every sample you draw, even a well designed one, will vary a little from the population it came from
+:::
+
+## Two Kinds of Missing
+
+<br>
+
+> Not all missing data behaves the same way, and the difference matters for what you can safely conclude.
+
+<br>
+
+::: {.incremental}
+- **Missing at random (MAR)**: the chance a value is missing has nothing to do with the value itself. A scanner randomly fails to log 5% of survey forms, regardless of what was written on them
+- **Missing not at random (MNAR)**: the chance a value is missing is connected to the value itself. People with very high incomes are less likely to report their exact income
+:::
+
+## Why the Difference Matters
+
+<br>
+
+::: {.incremental}
+- MNAR is the more dangerous case. If missingness is tied to the answer, simply dropping those rows can bias your conclusion in a specific direction, not just shrink your sample
+- R cannot tell you which kind you have. That judgement call is yours, informed by how the data was collected
+:::
+
+# Working With Missing Values in R
+
+<br>
+
+> R4DS Chapters 13 and 18 introduce the core tools for finding and handling missing values. We will use the `airquality` dataset, a built in dataset of daily air measurements in New York, which has real gaps in it.
+
+## Meet `airquality`
+
+```{r}
+#| label: meet-airquality
+
+glimpse(airquality)
+```
+
+<br>
+
+[This dataset has 153 rows and 6 columns. Two columns, Ozone and Solar.R, have missing readings on some days.]{.fragment}
+
+## `is.na()`
+
+<br>
+
+`is.na()` checks, value by value, whether something is missing. It returns `TRUE` or `FALSE`.
+
+```{r}
+#| label: is-na-demo
+
+sum(is.na(airquality$Ozone))
+```
+
+<br>
+
+[Wrapping it in `sum()` counts how many `TRUE` values there are, since R treats `TRUE` as 1 and `FALSE` as 0. 37 of the 153 days are missing an Ozone reading.]{.fragment}
+
+## `filter(!is.na())`
+
+<br>
+
+The `!` flips `TRUE` to `FALSE` and back. Combined with `filter()`, this keeps only the rows where a value is **not** missing.
+
+```{r}
+#| label: filter-is-na-demo
+
+airquality |>
+    filter(!is.na(Ozone)) |>
+    nrow()
+```
+
+<br>
+
+[153 days minus 37 missing Ozone readings leaves 116 complete rows for that column.]{.fragment}
+
+## Practice: `is.na()` and `filter()`
+
+<br>
+
+Using `airquality`:
+
+<br>
+
+::: {.incremental}
+1. How many days are missing a **Solar.R** reading?
+2. Use `filter()` to keep only the days with a complete Solar.R reading. How many rows remain?
+:::
+
+## Solution: `is.na()` and `filter()`
+
+```{r}
+#| label: solution-is-na-filter
+
+sum(is.na(airquality$Solar.R))
+
+airquality |>
+    filter(!is.na(Solar.R)) |>
+    nrow()
+```
+
+<br>
+
+[7 days are missing a Solar.R reading. Filtering them out leaves 153 minus 7, which is 146 rows.]{.fragment}
+
+## `drop_na()`
+
+<br>
+
+`drop_na()`, from the tidyr package, removes any row with a missing value. Used with no arguments, it checks **every** column.
+
+```{r}
+#| label: drop-na-demo
+
+airquality |>
+    drop_na() |>
+    nrow()
+```
+
+<br>
+
+[111 rows survive once *any* missing Ozone or Solar.R reading removes that row entirely. You can also name specific columns, drop_na(Ozone), to only check those.]{.fragment}
+
+## Practice: `drop_na()`
+
+<br>
+
+Using `airquality`, compare two approaches:
+
+<br>
+
+::: {.incremental}
+1. `drop_na()` with no arguments, checking every column
+2. `drop_na(Ozone, Solar.R)`, checking only these two columns
+:::
+
+<br>
+
+[How many rows remain under each approach? Are the two results the same? Why might that be, given what you found in the earlier practice question?]{.fragment}
+
+## Solution: `drop_na()`
+
+```{r}
+#| label: solution-drop-na
+
+airquality |> drop_na() |> nrow()
+
+airquality |> drop_na(Ozone, Solar.R) |> nrow()
+```
+
+<br>
+
+[Both give 111 rows. This is not a coincidence: Ozone and Solar.R are the *only* two columns in this dataset that have any missing values at all. Checking those two columns specifically has exactly the same effect as checking all six.]{.fragment}
+
+## A Quiet Trap: `na.rm`
+
+<br>
+
+Missing values do not just disappear when you compute a summary statistic. They can silently break it.
+
+```{r}
+#| label: na-rm-trap
+
+mean(airquality$Ozone)
+
+mean(airquality$Ozone, na.rm = TRUE)
+```
+
+<br>
+
+[R will not warn you. A single missing value in a column of thousands can turn a whole calculation into `NA`. Checking for missing values before you summarise is not optional, it is part of doing the analysis correctly.]{.fragment}
+
+# Sampling in R
+
+<br>
+
+> We rarely have access to an entire population. `sample()` lets us draw a random subset, and `set.seed()` lets us draw the *same* random subset again, which is what makes an analysis reproducible.
+
+## `set.seed()` and `sample()`
+
+<br>
+
+`sample()` draws random values. Without a seed, you get a different result every time you run it.
+
+```{r}
+#| label: seed-sample-demo
+
+set.seed(123)
+sample(1:10, 5)
+
+set.seed(123)
+sample(1:10, 5)
+```
+
+<br>
+
+[Setting the same seed before calling sample() guarantees the exact same "random" draw, every time, on every computer. A different seed gives a different draw.]{.fragment}
+
+## Sampling a Data Frame
+
+<br>
+
+`slice_sample()` applies the same idea to rows of a data frame, drawing a random subset of cases rather than random numbers.
+
+```{r}
+#| label: slice-sample-demo
+
+set.seed(1)
+
+airquality |>
+    drop_na(Ozone) |>
+    slice_sample(n = 10) |>
+    select(Ozone, Month, Day)
+```
+
+## Practice: `set.seed()` and `slice_sample()`
+
+<br>
+
+Using the built in `mtcars` dataset:
+
+<br>
+
+::: {.incremental}
+1. Set the seed to 2024
+2. Use `slice_sample()` to draw a random sample of 10 cars
+3. What is the mean `mpg` of your sample?
+4. How does it compare to the mean `mpg` of the full `mtcars` dataset?
+:::
+
+## Solution: `set.seed()` and `slice_sample()`
+
+```{r}
+#| label: solution-sample-mtcars
+
+set.seed(2024)
+
+mtcars |>
+    slice_sample(n = 10) |>
+    summarise(mean_mpg = mean(mpg))
+
+mtcars |>
+    summarise(mean_mpg = mean(mpg))
+```
+
+<br>
+
+[The sample of 10 gives a mean of about 19.4 miles per gallon. The full dataset's mean is about 20.1. Close, but not identical, this gap is sampling variation, not a mistake.]{.fragment}
+
+## Comparing a Sample to the Full Data {.smaller}
+
+<br>
+
+The gap you just saw is not unusual, it is the point. Every sample carries some variation away from the true population value. Watch what happens with the `diamonds` dataset (53,940 rows) as we draw five different samples of only 100 rows each.
+
+```{r}
+#| label: sampling-variation-demo
+
+diamonds |> summarise(mean_price = mean(price))
+
+for (s in 1:5) {
+    set.seed(s)
+    sample_mean <- diamonds |>
+        slice_sample(n = 100) |>
+        summarise(mean_price = mean(price)) |>
+        pull(mean_price)
+    cat("Seed", s, "-> sample mean price:", round(sample_mean, 2), "\n")
+}
+```
+
+<br>
+
+[The true population mean is 3932.80. Every sample lands somewhere near it, but never exactly on it, and the five samples do not agree with each other either. This is sampling variation: real, unavoidable, and something we will learn to quantify in the next session.]{.fragment}
+
+# Apply What You've Learned
+
+<br>
+
+> An authentic task pulling together missing data, sampling, and the numeric exploratory tools from Chapter 5 of IMS, which you have already used in earlier sessions: mean, median, standard deviation, and a plot to check distribution shape.
+
+## Authentic Task: The `starwars` Dataset {.smaller}
+
+<br>
+
+`starwars`, built into the dplyr package, records physical characteristics of Star Wars characters. Some values are missing.
+
+<br>
+
+::: {.incremental}
+1. How many characters are missing a `mass` value? Use `is.na()` to find out
+2. Create a cleaned version of the dataset containing only characters with a recorded mass. How many characters remain?
+3. In this cleaned dataset, compute the mean, median, and standard deviation of `mass`. Is the mean noticeably different from the median? What might that suggest about the shape of the distribution?
+4. Produce a histogram or boxplot of `mass` in the cleaned dataset. Does the plot support your answer to (3)?
+5. Set the seed to 7 and draw a random sample of 20 characters using `slice_sample()`. Compute the mean `mass` of your sample. Compare it to the mean of the full cleaned dataset. If the two are quite different, investigate: which characters are in your sample, and does one of them stand out?
+:::
+
+## Authentic Task: Solution, Parts 1-2
+
+```{r}
+#| label: starwars-solution-1-2
+
+sum(is.na(starwars$mass))
+
+starwars_clean <- starwars |>
+    filter(!is.na(mass))
+
+nrow(starwars_clean)
+```
+
+<br>
+
+[28 characters are missing a mass value. 59 characters remain once they are removed.]{.fragment}
+
+## Authentic Task: Solution, Part 3
+
+```{r}
+#| label: starwars-solution-3
+
+starwars_clean |>
+    summarise(
+        mean_mass = mean(mass),
+        median_mass = median(mass),
+        sd_mass = sd(mass)
+    )
+```
+
+<br>
+
+[The mean (97.3) is well above the median (79), and the standard deviation (169.5) is very large relative to either. This is a strong signal of a right skewed distribution: a small number of unusually heavy characters are pulling the mean upward.]{.fragment}
+
+## Authentic Task: Solution, Part 4
+
+```{r}
+#| label: starwars-solution-4
+#| fig-height: 5.5
+
+starwars_clean |>
+    ggplot(aes(mass)) +
+    geom_boxplot() +
+    theme_minimal() +
+    labs(title = "Distribution of character mass", x = "Mass (kg)")
+```
+
+<br>
+
+[The boxplot confirms it: one point sits far to the right of everyone else, exactly the kind of outlier that would pull a mean well above the median.]{.fragment}
+
+## Authentic Task: Solution, Part 5 {.smaller}
+
+```{r}
+#| label: starwars-solution-5
+
+set.seed(7)
+
+starwars_sample <- starwars_clean |>
+    slice_sample(n = 20)
+
+starwars_sample |>
+    summarise(mean_mass = mean(mass))
+
+starwars_sample |>
+    filter(mass == max(mass)) |>
+    select(name, mass)
+```
+
+<br>
+
+[The sample mean is about 137, noticeably higher than the full cleaned dataset's mean of 97.3. Checking who is in the sample explains why: Jabba the Hutt, at 1358 kg, more than eight times heavier than the next heaviest character, happened to be drawn into this particular sample of just 20. One unusual case, in a small sample, moved the average by 40 kg. This is exactly the kind of sampling variation the next session will teach you to measure.]{.fragment}
+
+# End of Session

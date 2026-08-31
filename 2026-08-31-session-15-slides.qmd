@@ -1,0 +1,676 @@
+---
+title: "Data, Evidence, and Decision Making (with R)"
+author: "Ayush Patel"
+subtitle: "Session 15: Estimation and Uncertainty"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute: 
+  echo: true
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+```{r}
+#| label: libs
+#| echo: false
+#| warning: false
+
+library(tidyverse)
+library(infer)
+
+```
+
+# Goal
+
+> A point estimate is a single number. It hides how much that number could have looked different if your sample had come out differently. Today we learn how to attach an honest range to an estimate, using a technique that needs almost nothing beyond the sample you already have.
+
+# Why We Need Confidence Intervals
+
+## One Sample, One Estimate
+
+<br>
+
+::: {.incremental}
+- Last session we drew several different samples from `diamonds` and got a different mean price every time, even though every sample came from the exact same population
+- Whatever number you report from your one real sample is just one draw from that same swarm of possible answers
+- A single number, reported alone, hides this. It looks exact even when it is not
+:::
+
+## The Question a Confidence Interval Answers
+
+<br>
+
+> Given the one sample I actually collected, what range of values is plausible for the true population value?
+
+<br>
+
+[A confidence interval is not a claim about certainty. It is an honest description of how much wiggle room your estimate has, based on how variable your data is and how large your sample is.]{.fragment}
+
+## Reading a Confidence Interval {.smaller}
+
+<br>
+
+A 95% confidence interval of, say, [34,000 to 38,000] for an average salary is read as:
+
+<br>
+
+::: {.incremental}
+- "We estimate the true average is somewhere in this range, and our method for building this kind of range gets it right about 95% of the time"
+- **Not**: "There is a 95% chance the true value is in this specific interval." The true value is fixed, it is our interval that varies from sample to sample
+- This distinction trips up even published researchers. Getting it right in plain language is worth the extra care
+:::
+
+## Width Reflects Uncertainty
+
+<br>
+
+::: {.incremental}
+- A **narrow** interval says: this estimate is fairly precise, repeated sampling would not move it much
+- A **wide** interval says: this estimate could easily have come out quite different, treat it cautiously
+- Width usually shrinks as sample size grows, and grows as the underlying data becomes more variable
+- A point estimate with no interval attached is not necessarily wrong, but it is incomplete. It cannot tell you which kind of estimate you are looking at
+:::
+
+# The Bootstrap Idea
+
+## The Problem
+
+<br>
+
+::: {.incremental}
+- To know how much an estimate would vary, the honest approach is to draw many samples from the population and see how much the estimate bounces around
+- In real research, you almost never get to do that. Collecting one good sample is often already expensive and slow
+- We have exactly one sample. We need a way to learn about sample-to-sample variation without ever collecting a second one
+:::
+
+## The Bootstrap Insight
+
+<br>
+
+> If your sample is a reasonable stand-in for the population, then resampling from your sample is a reasonable stand-in for resampling from the population.
+
+<br>
+
+[Treat your one sample as if it were the population. Draw a new "sample" from it, **with replacement**, the same size as the original. Repeat this thousands of times. The spread of results approximates the spread you would have seen from truly repeated sampling.]{.fragment}
+
+## Your One Sample {auto-animate="true"}
+
+```{=html}
+<svg viewBox="0 0 1150 560" style="width:100%;height:auto;display:block;">
+  <text x="20" y="30" font-size="24" fill="#333">62 patients, 3 had a complication</text>
+  <g id="dots">
+    <circle data-id="d1" cx="60" cy="90" r="18" fill="#880800"/>
+    <circle data-id="d2" cx="168" cy="90" r="18" fill="#880800"/>
+    <circle data-id="d3" cx="276" cy="90" r="18" fill="#880800"/>
+    <circle data-id="d4" cx="384" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d5" cx="492" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d6" cx="600" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d7" cx="708" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d8" cx="816" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d9" cx="924" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d10" cx="1032" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d11" cx="60" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d12" cx="168" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d13" cx="276" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d14" cx="384" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d15" cx="492" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d16" cx="600" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d17" cx="708" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d18" cx="816" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d19" cx="924" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d20" cx="1032" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d21" cx="60" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d22" cx="168" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d23" cx="276" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d24" cx="384" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d25" cx="492" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d26" cx="600" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d27" cx="708" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d28" cx="816" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d29" cx="924" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d30" cx="1032" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d31" cx="60" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d32" cx="168" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d33" cx="276" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d34" cx="384" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d35" cx="492" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d36" cx="600" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d37" cx="708" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d38" cx="816" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d39" cx="924" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d40" cx="1032" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d41" cx="60" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d42" cx="168" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d43" cx="276" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d44" cx="384" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d45" cx="492" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d46" cx="600" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d47" cx="708" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d48" cx="816" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d49" cx="924" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d50" cx="1032" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d51" cx="60" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d52" cx="168" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d53" cx="276" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d54" cx="384" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d55" cx="492" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d56" cx="600" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d57" cx="708" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d58" cx="816" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d59" cx="924" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d60" cx="1032" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d61" cx="60" cy="450" r="18" fill="#4C78A8"/>
+    <circle data-id="d62" cx="168" cy="450" r="18" fill="#4C78A8"/>
+  </g>
+  <text x="20" y="530" font-size="20" fill="#666">This is the only data you have. Proportion with a complication: 3/62.</text>
+</svg>
+```
+
+## Resample, With Replacement {auto-animate="true"}
+
+```{=html}
+<svg viewBox="0 0 1150 560" style="width:100%;height:auto;display:block;">
+  <text x="20" y="30" font-size="24" fill="#333">Draw 62 patients again, from the same 62, replacing each time</text>
+  <g id="dots">
+    <circle data-id="d1" cx="60" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d2" cx="168" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d3" cx="276" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d4" cx="384" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d5" cx="492" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d6" cx="600" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d7" cx="708" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d8" cx="816" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d9" cx="924" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d10" cx="1032" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d11" cx="60" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d12" cx="168" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d13" cx="276" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d14" cx="384" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d15" cx="492" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d16" cx="600" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d17" cx="708" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d18" cx="816" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d19" cx="924" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d20" cx="1032" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d21" cx="60" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d22" cx="168" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d23" cx="276" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d24" cx="384" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d25" cx="492" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d26" cx="600" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d27" cx="708" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d28" cx="816" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d29" cx="924" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d30" cx="1032" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d31" cx="60" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d32" cx="168" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d33" cx="276" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d34" cx="384" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d35" cx="492" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d36" cx="600" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d37" cx="708" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d38" cx="816" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d39" cx="924" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d40" cx="1032" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d41" cx="60" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d42" cx="168" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d43" cx="276" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d44" cx="384" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d45" cx="492" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d46" cx="600" cy="330" r="18" fill="#880800"/>
+    <circle data-id="d47" cx="708" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d48" cx="816" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d49" cx="924" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d50" cx="1032" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d51" cx="60" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d52" cx="168" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d53" cx="276" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d54" cx="384" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d55" cx="492" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d56" cx="600" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d57" cx="708" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d58" cx="816" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d59" cx="924" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d60" cx="1032" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d61" cx="60" cy="450" r="18" fill="#4C78A8"/>
+    <circle data-id="d62" cx="168" cy="450" r="18" fill="#4C78A8"/>
+  </g>
+  <text x="20" y="530" font-size="20" fill="#666">This resample happened to draw only 1 complication case. Purely by chance.</text>
+</svg>
+```
+
+## Compute the Statistic {auto-animate="true"}
+
+```{=html}
+<svg viewBox="0 0 1150 610" style="width:100%;height:auto;display:block;">
+  <text x="20" y="30" font-size="24" fill="#333">Draw 62 patients again, from the same 62, replacing each time</text>
+  <g id="dots">
+    <circle data-id="d1" cx="60" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d2" cx="168" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d3" cx="276" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d4" cx="384" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d5" cx="492" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d6" cx="600" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d7" cx="708" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d8" cx="816" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d9" cx="924" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d10" cx="1032" cy="90" r="18" fill="#4C78A8"/>
+    <circle data-id="d11" cx="60" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d12" cx="168" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d13" cx="276" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d14" cx="384" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d15" cx="492" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d16" cx="600" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d17" cx="708" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d18" cx="816" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d19" cx="924" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d20" cx="1032" cy="150" r="18" fill="#4C78A8"/>
+    <circle data-id="d21" cx="60" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d22" cx="168" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d23" cx="276" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d24" cx="384" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d25" cx="492" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d26" cx="600" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d27" cx="708" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d28" cx="816" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d29" cx="924" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d30" cx="1032" cy="210" r="18" fill="#4C78A8"/>
+    <circle data-id="d31" cx="60" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d32" cx="168" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d33" cx="276" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d34" cx="384" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d35" cx="492" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d36" cx="600" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d37" cx="708" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d38" cx="816" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d39" cx="924" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d40" cx="1032" cy="270" r="18" fill="#4C78A8"/>
+    <circle data-id="d41" cx="60" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d42" cx="168" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d43" cx="276" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d44" cx="384" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d45" cx="492" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d46" cx="600" cy="330" r="18" fill="#880800"/>
+    <circle data-id="d47" cx="708" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d48" cx="816" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d49" cx="924" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d50" cx="1032" cy="330" r="18" fill="#4C78A8"/>
+    <circle data-id="d51" cx="60" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d52" cx="168" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d53" cx="276" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d54" cx="384" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d55" cx="492" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d56" cx="600" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d57" cx="708" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d58" cx="816" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d59" cx="924" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d60" cx="1032" cy="390" r="18" fill="#4C78A8"/>
+    <circle data-id="d61" cx="60" cy="450" r="18" fill="#4C78A8"/>
+    <circle data-id="d62" cx="168" cy="450" r="18" fill="#4C78A8"/>
+  </g>
+  <rect x="330" y="480" width="480" height="60" rx="8" fill="#F58518" opacity="0.15" stroke="#F58518" stroke-width="2"/>
+  <text x="350" y="518" font-size="24" fill="#F58518" font-weight="bold">This resample's proportion: 1/62 = 0.0161</text>
+</svg>
+```
+
+## Repeat, Thousands of Times
+
+<br>
+
+::: {.incremental}
+- Draw another resample of 62, with replacement. Compute its proportion. Maybe you get 5/62 this time
+- Draw another. Maybe 0/62
+- Draw another. Maybe 3/62
+- Do this 10,000 times. You now have 10,000 proportions, one from each resample
+:::
+
+<br>
+
+[Each resample is a little different, purely by chance, since replacement lets the same patient be drawn more than once, or not at all. That is exactly the kind of chance variation we are trying to measure.]{.fragment}
+
+## The Bootstrap Distribution {.smaller}
+
+```{r}
+#| label: consultant-boot-hist
+#| echo: false
+#| fig-height: 5.5
+
+consultant_data <- tibble(complication = c(rep("yes", 3), rep("no", 59)))
+
+set.seed(42)
+consultant_boot <- consultant_data |>
+    rep_sample_n(size = 62, replace = TRUE, reps = 10000) |>
+    group_by(replicate) |>
+    summarise(p_hat = mean(complication == "yes")) |>
+    pull(p_hat)
+
+tibble(p_hat = consultant_boot) |>
+    ggplot(aes(p_hat)) +
+    geom_histogram(fill = "#4C78A8", colour = "white") +
+    theme_minimal(base_size = 16) +
+    labs(title = "10,000 resample proportions, stacked up", x = "Proportion with a complication", y = "Count")
+```
+
+<br>
+
+[This spread of 10,000 numbers is the bootstrap distribution. Its shape tells you how much your estimate would plausibly move around if you had collected a different sample. Notice it leans to the right, with a longer tail out toward higher proportions. That is not a mistake, and it does not mean the Central Limit Theorem has failed: when the true rate is small, a resample cannot go much below zero, but it can occasionally draw several complications at once, so the distribution stretches further on the high side. Rare events genuinely produce lopsided distributions like this, especially with a moderate sample size like 62. With a larger sample, or a proportion closer to 50%, this same distribution would look far more symmetric.]{.fragment}
+
+## The Bootstrap Confidence Interval {.smaller}
+
+```{r}
+#| label: consultant-boot-ci
+#| echo: false
+#| fig-height: 5.5
+
+lower <- quantile(consultant_boot, 0.025)
+upper <- quantile(consultant_boot, 0.975)
+
+tibble(p_hat = consultant_boot) |>
+    ggplot(aes(p_hat)) +
+    geom_histogram(fill = "#4C78A8", colour = "white") +
+    geom_vline(xintercept = c(lower, upper), colour = "#880800", linewidth = 1.2, linetype = "dashed") +
+    theme_minimal(base_size = 16) +
+    labs(title = "Cut off the middle 95%", x = "Proportion with a complication", y = "Count")
+```
+
+<br>
+
+[Keep the middle 95% of the 10,000 values and read off where it starts and ends. Those two numbers are your 95% bootstrap confidence interval. Because the distribution leans right, the interval itself is not symmetric around the point estimate, it reaches further on the high side than the low side. A good confidence interval reflects the real shape of the uncertainty, not a tidy assumption about it.]{.fragment}
+
+## When Does the Bootstrap Work?
+
+<br>
+
+::: {.incremental}
+- The bootstrap needs one thing above everything else: **your original sample must be a reasonably random, representative sample from the population you care about**
+- If your sample is biased, for example the selection and non-response biases we discussed a few sessions ago, the bootstrap will faithfully reproduce that same bias in every single resample
+- The bootstrap can tell you how much your estimate would vary due to chance. It cannot tell you whether your sample was collected fairly in the first place
+- Garbage in, garbage out, just resampled ten thousand times
+:::
+
+# Worked Example: The Medical Consultant
+
+<br>
+
+> A hospital consultant is present for 62 heart procedures. 3 of them involve a complication. What is a 95% confidence interval for the true complication rate?
+
+## The Data
+
+```{r}
+#| label: consultant-data
+
+consultant_data <- tibble(
+    complication = c(rep("yes", 3), rep("no", 59))
+)
+
+consultant_data |> count(complication)
+
+consultant_data |> summarise(p_hat = mean(complication == "yes"))
+```
+
+<br>
+
+[The point estimate is 3/62, about 4.8%. Our question is: how much could this plausibly differ from the true rate?]{.fragment}
+
+## The Answer
+
+<br>
+
+We already built the bootstrap distribution for this exact data earlier, when we introduced the idea. Reading off the middle 95% of that distribution:
+
+```{r}
+#| label: consultant-answer
+
+tibble(p_hat = consultant_boot) |>
+    summarise(lower = quantile(p_hat, 0.025), upper = quantile(p_hat, 0.975))
+```
+
+<br>
+
+[The 95% bootstrap confidence interval for the true complication rate is about [0, 0.11]. In plain language: our best single estimate is 4.8%, but based on this sample size, the true rate could plausibly be anywhere from 0% to about 11%. That is a wide interval, a signal that 62 procedures is not a lot of data to pin down a rare event precisely.]{.fragment}
+
+# Programming Walkthrough
+
+<br>
+
+> We have now walked through the bootstrap by hand, using the medical consultant's data. To see the full pipeline in R, we will switch to a different dataset: a real workplace survey. This also gives us a chance to see a bootstrap distribution for a more typical, well-behaved variable, one that is not a rare event, and so has a shape closer to what you will see in most applications.
+
+## Meet `attitude`
+
+<br>
+
+`attitude`, built into base R, is a real survey of 30 clerical employees at a financial company, recording the percentage of favourable responses to several workplace questions.
+
+```{r}
+#| label: attitude-data
+
+glimpse(attitude)
+```
+
+## The Point Estimate
+
+```{r}
+#| label: attitude-point-estimate
+
+attitude |> summarise(mean_rating = mean(rating))
+```
+
+<br>
+
+[The point estimate for the average overall rating is 64.6. Our question is the same as before: how much could this plausibly differ from the true average, if we had surveyed a different 30 employees?]{.fragment}
+
+## Step 1: One Resample With `rep_sample_n()` {.smaller}
+
+<br>
+
+`rep_sample_n()`, from the `infer` package, draws a resample of a chosen size, `reps` times, and returns it all as one long, tidy table.
+
+```{r}
+#| label: one-rep
+
+set.seed(42)
+
+attitude |>
+    rep_sample_n(size = 30, replace = TRUE, reps = 1) |>
+    head(4)
+```
+
+<br>
+
+[This resample has 30 rows in full (only the first 4 are shown here), drawn with replacement from the original 30 employees. Some rows appear more than once, some not at all, exactly like the patients in our earlier example.]{.fragment}
+
+## Step 2: Many Resamples at Once {.smaller}
+
+<br>
+
+Raise `reps` and every resample gets its own `replicate` number, stacked into the same table.
+
+```{r}
+#| label: many-reps
+
+set.seed(42)
+
+attitude |>
+    rep_sample_n(size = 30, replace = TRUE, reps = 10000) |>
+    head(4)
+```
+
+<br>
+
+[300,000 rows total: 10,000 replicates of 30 employees each. This is the pipeline you already know, `group_by()` and `summarise()`, about to do the rest of the work.]{.fragment}
+
+## Step 3: Compute the Statistic in Each Resample {.smaller}
+
+```{r}
+#| label: boot-dist-full
+
+set.seed(42)
+
+boot_dist <- attitude |>
+    rep_sample_n(size = 30, replace = TRUE, reps = 10000) |>
+    group_by(replicate) |>
+    summarise(mean_rating = mean(rating))
+
+boot_dist
+```
+
+<br>
+
+[`group_by(replicate)` treats each of the 10,000 resamples as its own group. `summarise()` collapses each group down to one number: its mean rating. Swap what goes inside `summarise()` and this exact same pipeline works for a proportion, a median, or a correlation, nothing else about the code needs to change.]{.fragment}
+
+## Step 4: Visualise the Bootstrap Distribution {.smaller}
+
+```{r}
+#| label: boot-dist-plot
+#| fig-height: 5.5
+
+boot_dist |>
+    ggplot(aes(mean_rating)) +
+    geom_histogram(fill = "#4C78A8", colour = "white") +
+    theme_minimal(base_size = 16) +
+    labs(title = "10,000 bootstrap estimates of the average rating",
+         x = "Mean rating", y = "Count")
+```
+
+<br>
+
+[This time the distribution is close to symmetric, a smooth, bell-like shape centred on the point estimate. This is what a bootstrap distribution typically looks like for an ordinary, non-rare variable like this one, quite different from the lopsided shape we saw for the complication rate, and a good illustration of why that earlier shape was about the rarity of the event, not a flaw in the method.]{.fragment}
+
+## Step 5: Compute the Confidence Interval
+
+<br>
+
+`quantile()` finds the values that cut off the requested percentage of the distribution.
+
+```{r}
+#| label: boot-ci
+
+boot_dist |>
+    summarise(
+        lower = quantile(mean_rating, 0.025),
+        upper = quantile(mean_rating, 0.975)
+    )
+```
+
+<br>
+
+[The 95% bootstrap confidence interval for the average rating is about [60.3, 68.8]. In plain language: our best single estimate is 64.6, but based on this survey of 30 employees, the true average rating across all employees could plausibly be anywhere from about 60 to 69.]{.fragment}
+
+# Practice
+
+## Practice: A Different Proportion
+
+<br>
+
+The built in `mpg` dataset records fuel economy data for 234 cars.
+
+<br>
+
+::: {.incremental}
+1. What proportion of cars in `mpg` have four wheel drive (`drv == "4"`)?
+2. Use `rep_sample_n()` to build a bootstrap distribution of this proportion, with 5,000 replicates
+3. Compute a 95% confidence interval using `quantile()`
+4. Plot the bootstrap distribution. Is it narrow or wide? What does that tell you about how confident you should be in the point estimate?
+:::
+
+## Solution: A Different Proportion {.smaller}
+
+```{r}
+#| label: solution-mpg-prop
+#| fig-height: 5
+
+mpg |> summarise(prop_4wd = mean(drv == "4"))
+
+set.seed(10)
+boot_mpg <- mpg |>
+    rep_sample_n(size = nrow(mpg), replace = TRUE, reps = 5000) |>
+    group_by(replicate) |>
+    summarise(prop_4wd = mean(drv == "4"))
+
+boot_mpg |> summarise(lower = quantile(prop_4wd, 0.025), upper = quantile(prop_4wd, 0.975))
+
+boot_mpg |> ggplot(aes(prop_4wd)) + geom_histogram(fill = "#4C78A8", colour = "white") + theme_minimal(base_size = 14)
+```
+
+<br>
+
+[The point estimate is 44%, and the 95% interval runs from about 37.6% to 50.4%, fairly narrow, since 234 cars is a reasonably large sample for a proportion this common.]{.fragment}
+
+# Apply What You've Learned
+
+<br>
+
+> An authentic task combining last session's missing data skills with this session's bootstrap confidence interval, on a new numeric variable.
+
+## Authentic Task: Mammal Sleep Data {.smaller}
+
+<br>
+
+The built in `msleep` dataset (from `ggplot2`) records sleep habits for 83 mammal species, including `sleep_rem`, hours of REM sleep per day. Some values are missing.
+
+<br>
+
+::: {.incremental}
+1. How many species are missing a `sleep_rem` value? Use `is.na()` to find out
+2. Create a cleaned version of the dataset with only species that have a recorded `sleep_rem` value
+3. What is the mean `sleep_rem` in the cleaned data? This is your point estimate
+4. Use `rep_sample_n()` on the cleaned data to build a bootstrap distribution of the mean, with 5,000 replicates
+5. Compute a 95% confidence interval. In one or two sentences, state what it tells you in plain language, and note whether the missing data you removed in step 2 could have biased this estimate, and why
+:::
+
+## Authentic Task: Solution, Parts 1-3
+
+```{r}
+#| label: solution-msleep-1-3
+
+sum(is.na(msleep$sleep_rem))
+
+msleep_clean <- msleep |> filter(!is.na(sleep_rem))
+nrow(msleep_clean)
+
+msleep_clean |> summarise(mean_rem = mean(sleep_rem))
+```
+
+<br>
+
+[22 of 83 species are missing a sleep_rem value. 61 remain after cleaning. The mean REM sleep among them is about 1.88 hours per day.]{.fragment}
+
+## Authentic Task: Solution, Parts 4-5 {.smaller}
+
+```{r}
+#| label: solution-msleep-4-5
+#| fig-height: 5
+
+set.seed(21)
+
+boot_rem <- msleep_clean |>
+    rep_sample_n(size = nrow(msleep_clean), replace = TRUE, reps = 5000) |>
+    group_by(replicate) |>
+    summarise(mean_rem = mean(sleep_rem))
+
+boot_rem |> summarise(lower = quantile(mean_rem, 0.025), upper = quantile(mean_rem, 0.975))
+
+boot_rem |> ggplot(aes(mean_rem)) + geom_histogram(fill = "#4C78A8", colour = "white") + theme_minimal(base_size = 14)
+```
+
+<br>
+
+[The 95% interval runs from about 1.56 to 2.21 hours. On the bias question: if which species have missing REM data is not random, for example if REM sleep is harder to measure in animals that sleep in short, fragmented bursts, then removing those rows does not just shrink the sample, it can shift the estimate in a particular direction. The bootstrap interval describes chance variation in the 61 species we kept. It says nothing about whether those 61 are a fair stand-in for all 83.]{.fragment}
+
+
+# End of Session

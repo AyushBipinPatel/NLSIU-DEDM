@@ -428,6 +428,9 @@ If no errors appear, the setup is complete.
 11. [Session 10](2026-8-10-session-10-slides.html)
 12. [Session 11](2026-08-14-session-11-slides.html)
 13. [Session 12](2026-08-17-session-12-slides.html)
+14. [Session 13](2026-08-24-session-13-slides.html)
+15. [Session 14](2026-08-31-session-14-slides.html)
+16. [Sesison 15](2026-08-31-session-15-slides.html)
 
 ## data
 

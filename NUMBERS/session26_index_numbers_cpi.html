@@ -991,7 +991,7 @@ margin-right: 0; }
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Numbers</h1>
-  <p class="subtitle">Session 23: Growth Rates, Simple vs Compound</p>
+  <p class="subtitle">Session 26: Measuring a Moving Target, Index Numbers and the CPI</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -1006,638 +1006,1684 @@ Ayush Patel
 
   <p class="date">01 Sep, 2026</p>
 </section>
-<section id="how-to-use-these-slides" class="slide level2">
-<h2>How to Use These Slides</h2>
-<p>These slides are written to be <strong>read on their own</strong>. You do not need a lecturer talking over them.</p>
-<ul>
-<li>Each slide makes <strong>one main point</strong>, stated plainly in the text</li>
-<li>Worked examples show <strong>every step</strong>, not just the final answer</li>
-<li>Key formulas are boxed with a short explanation of every symbol</li>
-<li>A <strong>summary table</strong> and a <strong>worked answer key</strong> are included at the end</li>
-</ul>
-</section>
-<section id="todays-goals" class="slide level2">
-<h2>Today’s Goals</h2>
-<p>By the end of this session, you should be able to:</p>
-<ul>
-<li>Tell apart <strong>absolute change</strong> and <strong>relative (%) growth</strong>. Know when each is more useful.</li>
-<li>State the formula for <strong>simple (linear) growth</strong>. Explain what each symbol means.</li>
-<li>State the formula for <strong>compound growth</strong>, and know when it produces a true exponential curve.</li>
-<li>Apply both models to two everyday examples: <strong>interest on savings</strong> and <strong>GDP growth</strong></li>
-<li>Explain why economists and journalists almost always quote growth as a <strong>compound</strong> rate</li>
-</ul>
-</section>
-<section id="absolute-vs.-relative-change" class="slide level2 smaller">
-<h2>Absolute vs. Relative Change</h2>
-<p>There are two ways to describe how much something grew. Mixing them up is a common source of confusion.</p>
-<p><strong>Absolute change</strong> is the plain difference between the new and old value.</p>
-<p><span class="math display">\[\Delta V = V_t - V_0\]</span></p>
-<p><strong>Relative (percentage) growth rate</strong> expresses that same change as a share of the starting value.</p>
-<p><span class="math display">\[r = \frac{V_t - V_0}{V_0} \times 100\%\]</span></p>
-<p><strong>Worked example:</strong> India’s GDP moves from ₹200 lakh crore to ₹212 lakh crore in one year.</p>
-<ul>
-<li>Absolute change = ₹212 minus ₹200 = <strong>₹12 lakh crore</strong></li>
-<li>Relative growth rate = (12 ÷ 200) × 100 = <strong>6%</strong></li>
-</ul>
-</section>
-<section id="why-relative-growth-matters-more" class="slide level2 smaller">
-<h2>Why Relative Growth Matters More</h2>
-<p>A ₹12 lakh crore increase sounds large. But “large” only makes sense relative to something.</p>
-<ul>
-<li>For a ₹200 lakh crore economy, ₹12 lakh crore is a 6% increase. That is solid growth.</li>
-<li>For a ₹20 lakh crore economy, the same ₹12 lakh crore increase would be a 60% increase. That is extraordinary, and unlikely to happen in one year.</li>
-<li>The absolute number alone cannot tell these two situations apart. The <strong>relative rate</strong> can.</li>
-</ul>
-<p><strong>Takeaway:</strong> growth is almost always reported as a percentage rate rather than a raw number. It lets us compare figures of very different sizes, and compare the same economy or investment across different points in time.</p>
-</section>
-<section id="two-models-of-growth" class="slide level2 smaller">
-<h2>Two Models of Growth</h2>
-<p>Growth over time behaves in one of two basic ways. Recognising which one applies is the most important skill in this session.</p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><strong>Simple (Linear) Growth</strong></p>
-<ul>
-<li>The <strong>same absolute amount</strong> is added in every period</li>
-<li>Growth is calculated on the <strong>original, unchanging base</strong></li>
-<li>Plotted over time, it traces a <strong>straight line</strong></li>
-</ul>
-</div><div class="column" style="width:50%;">
-<p><strong>Compound Growth</strong></p>
-<ul>
-<li>The <strong>same percentage</strong> is added in every period</li>
-<li>Growth is calculated on the <strong>latest total</strong>, which already includes past growth</li>
-<li>Plotted over time, it traces a <strong>curve</strong>. Slow at first, then increasingly steep.</li>
-</ul>
-</div></div>
-<p>A later slide clarifies when this curve is a true exponential, and when it is not.</p>
-</section>
-<section id="simple-growth-formula" class="slide level2 smaller">
-<h2>Simple Growth: Formula</h2>
-<p><span class="math display">\[V_t = V_0 \,(1 + r \times t)\]</span></p>
-<p><strong>What each symbol means:</strong></p>
-<ul>
-<li><span class="math inline">\(V_0\)</span>: the initial (starting) value</li>
-<li><span class="math inline">\(r\)</span>: the growth rate per period, written as a decimal (e.g. 8% = 0.08)</li>
-<li><span class="math inline">\(t\)</span>: the number of <strong>periods</strong> that have passed</li>
-<li><span class="math inline">\(V_t\)</span>: the value after <span class="math inline">\(t\)</span> periods</li>
-</ul>
-<p><strong>Note:</strong> a “period” can be any consistent unit of time (a year, a quarter, a month), as long as <span class="math inline">\(r\)</span> is the growth rate for that same unit. <strong>Applied to simple interest</strong>, a period is almost always a <strong>year</strong>, so the formula is usually written as:</p>
-<p><span class="math display">\[I = P \times r \times t \qquad\qquad A = P(1 + rt)\]</span></p>
-<p>Here <span class="math inline">\(P\)</span> is the principal, <span class="math inline">\(I\)</span> is the interest earned, <span class="math inline">\(A\)</span> is the final amount, <span class="math inline">\(r\)</span> is the annual rate, and <span class="math inline">\(t\)</span> is the number of <strong>years</strong>. If a rate is quoted for a different period, convert it to a yearly basis first.</p>
-</section>
-<section id="simple-growth-worked-example" class="slide level2 smaller">
-<h2>Simple Growth: Worked Example</h2>
-<p>Principal <span class="math inline">\(P = ₹1{,}00{,}000\)</span>, simple interest rate <span class="math inline">\(8\%\)</span> per year, for 5 years.</p>
-<p>Simple interest is always calculated on the <strong>original ₹1,00,000</strong>. So the interest earned is exactly the same every single year: ₹8,000.</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Year</th>
-<th style="text-align: center;">Opening Balance</th>
-<th style="text-align: center;">Interest Added</th>
-<th style="text-align: center;">Closing Balance</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">1,00,000</td>
-<td style="text-align: center;">8,000</td>
-<td style="text-align: center;">1,08,000</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">2</td>
-<td style="text-align: center;">1,08,000</td>
-<td style="text-align: center;">8,000</td>
-<td style="text-align: center;">1,16,000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">1,16,000</td>
-<td style="text-align: center;">8,000</td>
-<td style="text-align: center;">1,24,000</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">1,24,000</td>
-<td style="text-align: center;">8,000</td>
-<td style="text-align: center;">1,32,000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">1,32,000</td>
-<td style="text-align: center;">8,000</td>
-<td style="text-align: center;">1,40,000</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Reading the table:</strong> the <em>closing balance</em> grows each year, but the <em>interest added</em> column never changes. That constant ₹8,000 addition is the signature of simple growth.</p>
-</section>
-<section id="compound-growth-formula" class="slide level2 smaller">
-<h2>Compound Growth: Formula</h2>
-<p><span class="math display">\[V_t = V_0\,(1 + r)^t\]</span></p>
-<p><strong>What each symbol means:</strong> the same <span class="math inline">\(V_0\)</span>, <span class="math inline">\(r\)</span>, and <span class="math inline">\(V_t\)</span> as before. <span class="math inline">\(t\)</span> is again the number of <strong>periods</strong>, matching whatever period <span class="math inline">\(r\)</span> is quoted for. Growth is now applied to the <strong>running total</strong>, not the original base. Each period’s growth becomes part of the base for the next period’s growth.</p>
-<p><strong>Applied to compound interest</strong>, a period is almost always a <strong>year</strong>:</p>
-<p><span class="math display">\[A = P(1 + r)^t \qquad\qquad I = A - P\]</span></p>
-<p>Here <span class="math inline">\(A\)</span> is the final amount, <span class="math inline">\(r\)</span> is the annual rate, and <span class="math inline">\(t\)</span> is the number of <strong>years</strong>. <span class="math inline">\(I = A - P\)</span> is the total interest earned. <strong>Note:</strong> this formula assumes interest compounds <strong>once a year</strong>. The next slide covers compounding more than once a year, where “period” and “year” mean different things.</p>
-</section>
-<section id="compound-growth-worked-example" class="slide level2 smaller">
-<h2>Compound Growth: Worked Example</h2>
-<p>Same ₹1,00,000, now earning <span class="math inline">\(8\%\)</span> <strong>compounded annually</strong>, for 5 years.</p>
-<p>Unlike simple interest, the interest earned <strong>grows every year</strong>. From Year 2 onward, interest is earned on the previous year’s interest as well as the principal.</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Year</th>
-<th style="text-align: center;">Opening Balance</th>
-<th style="text-align: center;">Interest Added</th>
-<th style="text-align: center;">Closing Balance</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">1,00,000</td>
-<td style="text-align: center;">8,000</td>
-<td style="text-align: center;">1,08,000</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">2</td>
-<td style="text-align: center;">1,08,000</td>
-<td style="text-align: center;">8,640</td>
-<td style="text-align: center;">1,16,640</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">1,16,640</td>
-<td style="text-align: center;">9,331</td>
-<td style="text-align: center;">1,25,971</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">1,25,971</td>
-<td style="text-align: center;">10,078</td>
-<td style="text-align: center;">1,36,049</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">1,36,049</td>
-<td style="text-align: center;">10,884</td>
-<td style="text-align: center;">1,46,933</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Reading the table:</strong> the <em>interest added</em> column rises every year. That is the signature of compound growth. After 5 years, the compound total (₹1,46,933) is higher than the simple total from before (₹1,40,000). This gap widens every additional year.</p>
-</section>
-<section id="compounding-more-than-once-a-year" class="slide level2 smaller">
-<h2>Compounding More Than Once a Year</h2>
-<p>The formula <span class="math inline">\(A = P(1+r)^t\)</span> assumes interest is added <strong>once a year</strong>. Many banks and bonds compound more often: quarterly, monthly, or even daily. The general formula adjusts for this.</p>
-<p><span class="math display">\[A = P\left(1 + \frac{r}{n}\right)^{nt}\]</span></p>
-<p><strong>What each symbol means:</strong></p>
-<ul>
-<li><span class="math inline">\(P\)</span>: the principal</li>
-<li><span class="math inline">\(r\)</span>: the <strong>nominal annual rate</strong> (the quoted yearly rate, before adjusting for compounding frequency)</li>
-<li><span class="math inline">\(n\)</span>: the number of times compounding happens <strong>per year</strong> (12 for monthly, 4 for quarterly, 365 for daily)</li>
-<li><span class="math inline">\(t\)</span>: the number of years, exactly as before</li>
-<li><span class="math inline">\(A\)</span>: the final amount</li>
-</ul>
-<p><strong>Worked example:</strong> ₹1,00,000 at a nominal 8% annual rate, compounded <strong>quarterly</strong>, for 5 years. Here <span class="math inline">\(n = 4\)</span>.</p>
-<p><span class="math display">\[A = 1{,}00{,}000\left(1 + \frac{0.08}{4}\right)^{4 \times 5} = 1{,}00{,}000(1.02)^{20} \approx ₹1{,}48{,}595\]</span></p>
-<p><strong>Reading this result:</strong> compounding quarterly (₹1,48,595) beats compounding annually (₹1,46,933) at the same 8% nominal rate. Compounding more often means interest starts earning interest sooner, so the total grows faster even though the quoted rate is the same.</p>
-</section>
-<section id="effective-annual-rate-ear" class="slide level2 smaller">
-<h2>Effective Annual Rate (EAR)</h2>
-<p>The <strong>nominal rate</strong> (<span class="math inline">\(r\)</span>) is the quoted rate. The <strong>effective annual rate</strong> is the single once-a-year rate that would produce the same growth in one year.</p>
-<p><span class="math display">\[EAR = \left(1 + \frac{r}{n}\right)^n - 1\]</span></p>
-<p><strong>Worked example:</strong> a nominal 8% rate compounded quarterly (<span class="math inline">\(n = 4\)</span>).</p>
-<p><span class="math display">\[EAR = \left(1 + \frac{0.08}{4}\right)^4 - 1 = (1.02)^4 - 1 \approx 0.0824 = 8.24\%\]</span></p>
-<p><strong>Reading this result:</strong> 8% compounded quarterly behaves like <strong>8.24%</strong> compounded once a year. The EAR is always slightly higher than the nominal rate whenever compounding happens more than once a year. Use the EAR, not the nominal rate, whenever a formula (like the Rule of 70) assumes annual compounding.</p>
-</section>
-<section id="periods-vs.-years-quick-reference" class="slide level2 smaller">
-<h2>Periods vs. Years: Quick Reference</h2>
-<p>It is easy to mix up “period” and “year.” Here is how each formula uses them.</p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Formula</th>
-<th>What counts as one “period”</th>
-<th>What <span class="math inline">\(t\)</span> means</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(V_t = V_0(1+rt)\)</span> or <span class="math inline">\(V_t = V_0(1+r)^t\)</span></td>
-<td>Whatever unit <span class="math inline">\(r\)</span> is quoted in</td>
-<td>Number of periods, in that same unit</td>
-</tr>
-<tr class="even">
-<td>Simple interest: <span class="math inline">\(A = P(1+rt)\)</span></td>
-<td>One year (by convention)</td>
-<td>Number of years</td>
-</tr>
-<tr class="odd">
-<td>Compound interest, once a year: <span class="math inline">\(A = P(1+r)^t\)</span></td>
-<td>One year (by convention)</td>
-<td>Number of years</td>
-</tr>
-<tr class="even">
-<td>Multiple compounding: <span class="math inline">\(A = P\left(1+\dfrac{r}{n}\right)^{nt}\)</span></td>
-<td>One compounding interval (e.g. one month, if <span class="math inline">\(n=12\)</span>)</td>
-<td>Number of <strong>years</strong> elapsed, not periods</td>
-</tr>
-</tbody>
-</table>
-<p><strong>The one rule to remember:</strong> whenever <span class="math inline">\(r\)</span> is an <strong>annual</strong> rate, <span class="math inline">\(t\)</span> is always in <strong>years</strong>. The exponent <span class="math inline">\(nt\)</span> in the multiple-compounding formula is the <strong>total number of compounding periods</strong>, which is a separate count from <span class="math inline">\(t\)</span>. Do not confuse the two: <span class="math inline">\(t\)</span> tracks elapsed years, <span class="math inline">\(nt\)</span> tracks how many times interest has actually been added.</p>
-</section>
-<section id="is-compound-growth-always-exponential" class="slide level2 smaller">
-<h2>Is Compound Growth Always Exponential?</h2>
-<p>Not quite. Compound growth is a true exponential curve only under one condition: <strong>the growth rate stays the same every period.</strong></p>
-<ul>
-<li>If <span class="math inline">\(r\)</span> is constant, <span class="math inline">\(V_t = V_0(1+r)^t\)</span> is a genuine exponential function. Its curve has the smooth, ever-steepening shape shown on the next slide.</li>
-<li>Real growth rates are rarely constant. GDP might grow 7% one year and 4% the next. This is still <strong>compound growth</strong>, since each year’s growth builds on the previous year’s total, but the resulting curve is not a smooth exponential. It bends up and down with each year’s actual rate.</li>
-<li><strong>CAGR</strong> and the <strong>geometric mean</strong> (seen earlier) are exactly the tools used to summarise this uneven, real-world compounding with a single constant rate, so it can be compared or plotted as if it were exponential.</li>
-</ul>
-<p><strong>Takeaway:</strong> “compound” describes <em>how</em> growth builds (on the latest total, not the original base). “Exponential” describes the <em>shape</em> this produces only when the rate is held constant.</p>
-</section>
-<section id="simple-vs.-compound-visually" class="slide level2">
-<h2>Simple vs. Compound: Visually</h2>
-<p>The chart plots ₹1,00,000 growing at the same 8% rate over 20 years, once under each model. The blue (compound) line starts out barely ahead of the red (simple) line, but visibly pulls away as the years pass. This is the “snowball effect” of compounding.</p>
+<section>
+<section id="where-we-left-off-and-where-were-going" class="title-slide slide level1 center">
+<h1>Where we left off, and where we’re going</h1>
 
-<img role="img" data-src="data:image/png;base64,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" width="1344" class="r-stretch"></section>
-<section id="from-interest-rates-to-gdp" class="slide level2 smaller">
-<h2>From Interest Rates to GDP</h2>
-<p>The same two models describe economic growth, not just money in a bank account.</p>
-<ul>
-<li><strong>Simple/linear GDP growth</strong> would mean the economy adds the same <em>absolute</em> rupee amount every year. This is rare in practice. It is not how real economies actually behave.</li>
-<li><strong>Compound GDP growth</strong> means the economy grows by the same <em>percentage</em> each year, on an ever larger base. This is the <strong>standard way GDP growth is measured and reported</strong>.</li>
-</ul>
-<p><strong>Takeaway:</strong> when a news report says “India’s GDP grew at 7% this year,” it is almost always describing a <strong>compound</strong>, year-on-year percentage rate. It is not a fixed absolute rupee amount.</p>
 </section>
-<section id="cagr-compound-annual-growth-rate" class="slide level2 smaller">
-<h2>CAGR: Compound Annual Growth Rate</h2>
-<p>Sometimes we know only the value at the <strong>start</strong> and the value at the <strong>end</strong> of several years, but not the year-by-year path in between. CAGR backs out the <em>average annual compound rate</em> that would explain the total change.</p>
-<p><span class="math display">\[CAGR = \left(\frac{V_t}{V_0}\right)^{1/t} - 1\]</span></p>
-<p><strong>What each symbol means:</strong></p>
-<ul>
-<li><span class="math inline">\(V_0\)</span>: the value in the starting year</li>
-<li><span class="math inline">\(V_t\)</span>: the value <span class="math inline">\(t\)</span> years later</li>
-<li><span class="math inline">\(t\)</span>: the number of years between the two values</li>
-<li>The result answers: “What constant annual percentage growth rate would take <span class="math inline">\(V_0\)</span> to <span class="math inline">\(V_t\)</span> over <span class="math inline">\(t\)</span> years?”</li>
-</ul>
+<section id="last-session-in-one-line" class="slide level2 center">
+<h2>Last session, in one line</h2>
+<div class="r-fit-text">
+<p>Small rules build big patterns</p>
+</div>
+<div class="fragment fade-up">
+<p>Today’s big pattern: a single number that summarises what happened to thousands of prices at once.</p>
+</div>
 </section>
-<section id="cagr-worked-example" class="slide level2">
-<h2>CAGR: Worked Example</h2>
-<p>Suppose an economy’s GDP was <strong>₹150 lakh crore</strong> in Year 0 and grew to <strong>₹225 lakh crore</strong> after <strong>6 years</strong>.</p>
-<p><span class="math display">\[CAGR = \left(\frac{225}{150}\right)^{1/6} - 1 = (1.5)^{1/6} - 1 \approx 0.070 = 7.0\%\]</span></p>
-<p><strong>Reading this result:</strong> the economy grew 50% in total over 6 years. The CAGR tells us this is <em>equivalent to</em> growing at a steady 7.0% every single year, compounded. CAGR turns a multi-year total into a single, comparable annual figure.</p>
+<section id="how-today-works" class="slide level2 center">
+<h2>How today works</h2>
+<div class="fragment fade-up">
+<p>We follow one book, in order. <em>A Practical Introduction to Index Numbers</em> by Ralph, O’Neill and Winton.</p>
+</div>
+<div class="fragment fade-up">
+<p>Every idea is built up step by step, with a worked example, before we look at any formula.</p>
+</div>
+<div class="fragment fade-up">
+<p>At the end, we test all of it against a real case. India’s CPI, and what happened to it during the COVID-19 lockdown.</p>
+</div>
 </section>
-<section id="a-common-pitfall-dont-average-percentages" class="slide level2 smaller">
-<h2>A Common Pitfall: Don’t Average Percentages</h2>
-<ul>
-<li><strong>Wrong approach:</strong> “GDP grew 50% over 6 years, so that’s roughly 50 ÷ 6 ≈ 8.3% per year”</li>
-<li><strong>Correct approach:</strong> use the CAGR formula. Take the <span class="math inline">\(t\)</span>-th root of the total growth factor, as shown on the previous slide. This gives 7.0%, not 8.3%.</li>
-</ul>
-<p><strong>Why this matters:</strong> percentages compound, they don’t simply add up. Dividing total percentage growth by the number of years always <strong>overstates</strong> the true annual growth rate. The size of this error grows larger the longer the time period and the higher the growth rate involved.</p>
-</section>
-<section id="averaging-growth-rates-across-several-years" class="slide level2 smaller">
-<h2>Averaging Growth Rates Across Several Years</h2>
-<p>CAGR works when you only know the <strong>start</strong> and <strong>end</strong> values. Sometimes you already know the growth rate for <em>each individual year</em>, say <span class="math inline">\(r_1, r_2, r_3, \dots, r_n\)</span>, and want a single average rate that summarises them. The correct average is the <strong>geometric mean</strong>, not a simple arithmetic average.</p>
-<p><span class="math display">\[\bar{r} = \sqrt[n]{(1+r_1)(1+r_2)(1+r_3)\cdots(1+r_n)} \; - \; 1\]</span></p>
-<p><strong>What this formula does:</strong> it multiplies together each year’s <em>growth factor</em> <span class="math inline">\((1+r_i)\)</span>, takes the <span class="math inline">\(n\)</span>-th root of that product, and subtracts 1 to convert the result back into a rate. You already know this tool as the <strong>geometric mean</strong>. A later slide shows exactly why this gives the same answer as CAGR.</p>
-</section>
-<section id="two-forms-of-the-geometric-mean" class="slide level2 smaller">
-<h2>Two Forms of the Geometric Mean</h2>
-<p>You may have seen the geometric mean written more generally, for any set of positive values:</p>
-<p><span class="math display">\[GM = \sqrt[n]{X_1 \times X_2 \times \cdots \times X_n}\]</span></p>
-<p>where <span class="math inline">\(X\)</span> stands for the values in your dataset and <span class="math inline">\(n\)</span> is how many values there are. This is exactly the same formula used on the previous slide. Both are correct: the growth-rate version is just the general geometric mean applied to a specific choice of <span class="math inline">\(X\)</span>.</p>
-<p><strong>The connection:</strong> set each <span class="math inline">\(X_i\)</span> equal to a <strong>growth factor</strong>, <span class="math inline">\(X_i = 1 + r_i\)</span>, then subtract 1 at the end to convert the answer back from a factor into a rate:</p>
-<p><span class="math display">\[\bar{r} = \underbrace{\sqrt[n]{(1+r_1)(1+r_2)\cdots(1+r_n)}}_{GM(1+r_1,\, \dots,\, 1+r_n)} - 1\]</span></p>
-<p><strong>Why not take the geometric mean of the raw rates <span class="math inline">\(r_i\)</span> directly?</strong> Growth rates can be zero or negative, but geometric mean is only defined for positive numbers. Growth factors <span class="math inline">\((1+r_i)\)</span> are always positive for any realistic rate, and multiplying them together correctly mirrors how compounding actually works. That is why we convert to factors first, average, then convert back.</p>
-</section>
-<section id="averaging-growth-rates-worked-example" class="slide level2 smaller">
-<h2>Averaging Growth Rates: Worked Example</h2>
-<p>Suppose GDP growth was <strong>5% in Year 1</strong>, <strong>8% in Year 2</strong>, and <strong>3% in Year 3</strong>.</p>
-<p><strong>Wrong approach (arithmetic mean):</strong> <span class="math inline">\((5 + 8 + 3) / 3 = 5.33\%\)</span> per year</p>
-<p><strong>Correct approach (geometric mean):</strong></p>
-<p><span class="math display">\[\bar{r} = \sqrt[3]{(1.05)(1.08)(1.03)} - 1 = \sqrt[3]{1.16802} - 1 \approx 1.0531 - 1 = 5.31\%\]</span></p>
-<p><strong>Reading this result:</strong> the geometric mean (5.31%) is always less than or equal to the arithmetic mean (5.33%) whenever growth rates vary from year to year. The two are only equal when every year’s rate is identical. The gap is small here because the rates are close together. It widens sharply when growth rates swing more, or turn negative in some years.</p>
-</section>
-<section id="cagr-is-a-geometric-mean" class="slide level2 smaller">
-<h2>CAGR Is a Geometric Mean</h2>
-<p>You have already met the geometric mean. CAGR is just that same idea applied to growth rates. The two formulas compute the exact same number.</p>
-<p><span class="math display">\[CAGR = \left(\frac{V_t}{V_0}\right)^{1/t} - 1 \qquad\qquad \bar{r} = \sqrt[n]{(1+r_1)(1+r_2)\cdots(1+r_n)} - 1\]</span></p>
-<p><strong>Why they match:</strong> each year’s value is last year’s value times its own growth factor. Multiplying this out across all <span class="math inline">\(n\)</span> years gives:</p>
-<p><span class="math display">\[V_t = V_0 (1+r_1)(1+r_2)\cdots(1+r_n)\]</span></p>
-<p>So <span class="math inline">\(\dfrac{V_t}{V_0} = (1+r_1)(1+r_2)\cdots(1+r_n)\)</span>. This is exactly the product inside the geometric mean formula. CAGR is the geometric mean of the yearly growth factors, minus 1.</p>
-<ul>
-<li><strong>Know only start and end values?</strong> Use the CAGR formula. It gives you the geometric mean without needing the yearly path.</li>
-<li><strong>Know every year’s rate?</strong> Take their geometric mean directly. It gives you the same answer as CAGR would.</li>
-</ul>
-</section>
-<section id="rule-of-70-a-quick-mental-shortcut" class="slide level2 smaller">
-<h2>Rule of 70: A Quick Mental Shortcut</h2>
-<p>For compound growth, there is a simple approximation for how long a value takes to <strong>double</strong> in size.</p>
-<p><span class="math display">\[t_{double} \approx \frac{70}{r\,(\%)}\]</span></p>
-<p>Here <span class="math inline">\(r\)</span> is the annual growth rate expressed as a whole number percentage. Use “7” for 7%, not “0.07”. <span class="math inline">\(t_{double}\)</span> comes out in <strong>years</strong>, matching the annual rate.</p>
-<p><strong>Important caveat:</strong> this shortcut assumes interest compounds <strong>once a year</strong>. If your rate compounds more often (monthly, quarterly), first convert it to the <strong>effective annual rate</strong> (covered earlier in this deck) before applying the Rule of 70. Plugging in a nominal rate directly will give a slightly wrong answer.</p>
-<p><strong>Worked example:</strong> an economy compounding annually at a steady 7% per year doubles in size in roughly</p>
-<p><span class="math display">\[\frac{70}{7} = 10 \text{ years}\]</span></p>
-<p>This shortcut is useful for quickly judging how fast a given annual rate really is, without a calculator or logarithms.</p>
-</section>
-<section id="simple-vs.-compound-summary-table" class="slide level2 smaller">
-<h2>Simple vs. Compound: Summary Table</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>Simple Growth</th>
-<th>Compound Growth</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Base for growth</td>
-<td>Original value only</td>
-<td>Latest (running) value</td>
-</tr>
-<tr class="even">
-<td>Shape of curve</td>
-<td>Straight line</td>
-<td>Curved, snowballs. Exponential only if the rate stays constant every period.</td>
-</tr>
-<tr class="odd">
-<td>Formula</td>
-<td><span class="math inline">\(V_0(1+rt)\)</span></td>
-<td><span class="math inline">\(V_0(1+r)^t\)</span></td>
-</tr>
-<tr class="even">
-<td>Interest example</td>
-<td>Simple interest</td>
-<td>Compound interest</td>
-</tr>
-<tr class="odd">
-<td>Economic example</td>
-<td>Rare in practice</td>
-<td>Standard GDP growth, CAGR</td>
-</tr>
-<tr class="even">
-<td>Long-run effect</td>
-<td>Grows steadily</td>
-<td>Grows increasingly faster</td>
-</tr>
-<tr class="odd">
-<td>Averaging over <span class="math inline">\(n\)</span> years</td>
-<td>Simple arithmetic mean is fine</td>
-<td>Geometric mean of growth factors. CAGR is this same calculation from start/end values.</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="practice-questions" class="slide level2 smaller">
-<h2>Practice Questions</h2>
-<p>Try these on your own before checking the answer key on the next slide.</p>
+<section id="roadmap" class="slide level2 smaller">
+<h2>Roadmap</h2>
 <ol type="1">
-<li>A country’s population is 40 million and grows by a <strong>constant 2 lakh people</strong> every year. What will it be after 10 years? Is this simple or compound growth?</li>
-<li>An investment of ₹50,000 earns <strong>6% compound interest</strong> annually. Find its value after 4 years.</li>
-<li>GDP rises from ₹80 lakh crore to ₹107 lakh crore over 5 years. Calculate the <strong>CAGR</strong>.</li>
-<li>At a compound growth rate of 10% per year, roughly how many years will an economy take to <strong>double</strong> in size? Use the Rule of 70.</li>
-<li>A firm’s revenue grew <strong>10% in Year 1</strong>, <strong>minus 4% in Year 2</strong> (a decline), and <strong>6% in Year 3</strong>. Find the average annual growth rate using the geometric mean. Compare it to the (incorrect) arithmetic mean.</li>
-<li>₹80,000 is invested at a nominal 10% annual rate, <strong>compounded monthly</strong>, for 3 years. Find the final amount. (Use <span class="math inline">\(n = 12\)</span>.)</li>
+<li class="fragment">Chapter 1. What is an index number.</li>
+<li class="fragment">Chapter 2. Index numbers and change.</li>
+<li class="fragment">Chapter 4. Introducing price and quantity.</li>
+<li class="fragment">Chapter 5. Laspeyres and Paasche indices.</li>
+<li class="fragment">Case study. Compiling India’s CPI.</li>
 </ol>
+</section></section>
+<section>
+<section id="part-1-chapter-1-what-is-an-index-number" class="title-slide slide level1 center">
+<h1>Part 1: Chapter 1, What Is an Index Number</h1>
+
 </section>
-<section id="answer-key" class="slide level2 smaller">
-<h2>Answer Key</h2>
-<p><strong>Q1. Simple growth.</strong> Population adds a fixed <em>absolute</em> amount (2 lakh) each year. Use <span class="math inline">\(V_t = V_0(1 + rt)\)</span> in absolute-amount form: <span class="math inline">\(40{,}000{,}000 + (200{,}000 \times 10) = 42{,}000{,}000\)</span>. That is <strong>42 million</strong> after 10 years.</p>
-<p><strong>Q2. Compound growth.</strong> <span class="math inline">\(A = 50{,}000 \times (1.06)^4 \approx 50{,}000 \times 1.2625 \approx\)</span> <strong>₹63,124</strong>.</p>
-<p><strong>Q3. CAGR.</strong> <span class="math inline">\(CAGR = \left(\dfrac{107}{80}\right)^{1/5} - 1 \approx (1.3375)^{0.2} - 1 \approx\)</span> <strong>5.98%</strong>, roughly <strong>6% per year</strong>.</p>
-<p><strong>Q4. Rule of 70.</strong> <span class="math inline">\(t_{double} \approx 70 / 10 =\)</span> <strong>7 years</strong>.</p>
-<p><strong>Q5. Geometric mean.</strong> <span class="math inline">\(\bar{r} = \sqrt[3]{(1.10)(0.96)(1.06)} - 1 = \sqrt[3]{1.11936} - 1 \approx 1.0383 - 1 =\)</span> <strong>3.83%</strong>. The arithmetic mean would give <span class="math inline">\((10 - 4 + 6)/3 = 4.00\%\)</span>, noticeably higher, because it ignores the compounding effect of the Year 2 decline.</p>
-<p><strong>Q6. Monthly compounding.</strong> <span class="math inline">\(A = 80{,}000\left(1 + \dfrac{0.10}{12}\right)^{36} \approx\)</span> <strong>₹1,07,855</strong>.</p>
+<section id="what-is-an-index-number" class="slide level2 center">
+<h2>1.1 What is an index number?</h2>
 </section>
-<section id="present-value-discounting" class="slide level2 center">
-<h2>Present Value Discounting</h2>
-</section>
-<section id="from-growing-forward-to-discounting-back" class="slide level2">
-<h2>From Growing Forward to Discounting Back</h2>
-<p>You already know how to project a value <strong>forward</strong> in time using compound growth.</p>
-<p><span class="math display">\[V_t = V_0(1+r)^t\]</span></p>
-<p>Present value asks the exact opposite question. If you know what something is worth <strong>later</strong>, what is it worth <strong>today</strong>?</p>
-<p>This is the same formula, solved backward for (V_0) instead of (V_t).</p>
-</section>
-<section id="what-is-present-value" class="slide level2">
-<h2>What Is Present Value?</h2>
-<p>Money today is worth more than the same amount of money in the future. Money in hand now can be invested and can start earning a return immediately.</p>
-<p><strong>Present value (PV)</strong> is the amount you would need today to end up with a given future amount, at a given rate of return.</p>
-<p>The process of converting a future amount into its present value is called <strong>discounting</strong>. It is the mirror image of compounding.</p>
-</section>
-<section id="the-discount-factor" class="slide level2">
-<h2>The Discount Factor</h2>
-<p>Before the full formula, look at the one piece doing all the work.</p>
-<p><span class="math display">\[\text{discount factor} = \frac{1}{(1+r)^t}\]</span></p>
-<p>This factor is always less than 1. Multiplying a future amount by it always shrinks the number, exactly the opposite of the growth factor ((1+r)^t), which always grows it.</p>
-<p>The further away the future payment, or the higher the discount rate, the smaller this factor becomes, and the less a future rupee is worth today.</p>
-</section>
-<section id="present-value-formula" class="slide level2">
-<h2>Present Value: Formula</h2>
-<div title="Formula">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="a-companys-sales-year-after-year" class="slide level2">
+<h2>A company’s sales, year after year</h2>
+<div class="fragment fade-up">
+<p>Here is the total value of retail sales in Great Britain, in billions of pounds.</p>
 </div>
-<p><strong>Formula</strong></p>
-</div>
-<div class="callout-content">
-<p><span class="math display">\[PV = \frac{FV}{(1+r)^t}\]</span></p>
-<p>What each symbol means:</p>
-<ul>
-<li>(FV): the future value, the known amount to be received at time (t)</li>
-<li>(r): the discount rate per period, as a decimal (e.g. 8% = 0.08)</li>
-<li>(t): the number of periods between today and the payment</li>
-<li>(PV): the present value, what that future amount is worth today</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<p>Note the family resemblance: this is simply (V_t = V_0(1+r)^t), rearranged to solve for (V_0).</p>
-</section>
-<section id="present-value-worked-example" class="slide level2">
-<h2>Present Value: Worked Example</h2>
-<p>What is the present value of <strong>₹1,46,933</strong>, to be received in <strong>5 years</strong>, if the discount rate is <strong>8%</strong>?</p>
-<p><span class="math display">\[PV = \frac{1{,}46{,}933}{(1.08)^5} = \frac{1{,}46{,}933}{1.4693} \approx ₹1{,}00{,}000\]</span></p>
-<p>Reading this result: this is exactly the compound interest example from earlier in this deck, run in reverse. ₹1,00,000 grown at 8% for 5 years becomes ₹1,46,933. Discounted back at the same 8%, it returns exactly to ₹1,00,000.</p>
-</section>
-<section id="choosing-a-discount-rate" class="slide level2">
-<h2>Choosing a Discount Rate</h2>
-<p>The discount rate is not a fixed number. It represents what you could otherwise earn on your money, its <strong>opportunity cost</strong>.</p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Context</th>
-<th>A typical discount rate reflects</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>A bank deposit</td>
-<td>The interest rate on offer</td>
-</tr>
-<tr class="even">
-<td>A business project</td>
-<td>The company’s required rate of return</td>
-</tr>
-<tr class="odd">
-<td>A government evaluating a policy</td>
-<td>The social rate of time preference</td>
-</tr>
-</tbody>
-</table>
-<p>A higher discount rate means a smaller present value for the same future amount. The next few slides show this in practice.</p>
-</section>
-<section id="present-value-of-multiple-cash-flows-formula" class="slide level2">
-<h2>Present Value of Multiple Cash Flows: Formula</h2>
-<p>Most real decisions involve more than one future payment. A project might pay out every year for several years.</p>
-<p>Each cash flow is discounted separately, back to today, then added together.</p>
-<div title="Formula">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Formula</strong></p>
-</div>
-<div class="callout-content">
-<p><span class="math display">\[PV = \frac{CF_1}{(1+r)^1} + \frac{CF_2}{(1+r)^2} + \cdots + \frac{CF_n}{(1+r)^n}\]</span></p>
-<p>(CF_1, CF_2, , CF_n) are the cash flows received at the end of each period, and (r) is the same discount rate applied throughout.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="present-value-of-multiple-cash-flows-worked-example" class="slide level2">
-<h2>Present Value of Multiple Cash Flows: Worked Example</h2>
-<p>A project pays <strong>₹50,000</strong> at the end of each of the next 3 years. The discount rate is <strong>10%</strong>.</p>
+<div class="fragment fade-up">
 <table class="caption-top">
 <thead>
 <tr class="header">
 <th>Year</th>
-<th>Cash flow</th>
-<th>Discount factor</th>
-<th>Present value</th>
+<th>Sales (£bn)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1</td>
-<td>50,000</td>
-<td>0.9091</td>
-<td>45,454.55</td>
+<td>2005</td>
+<td>281.450</td>
 </tr>
 <tr class="even">
-<td>2</td>
-<td>50,000</td>
-<td>0.8264</td>
-<td>41,322.31</td>
+<td>2006</td>
+<td>292.110</td>
 </tr>
 <tr class="odd">
-<td>3</td>
-<td>50,000</td>
-<td>0.7513</td>
-<td>37,565.74</td>
+<td>2007</td>
+<td>303.621</td>
 </tr>
 <tr class="even">
-<td><strong>Total</strong></td>
-<td></td>
-<td></td>
-<td><strong>₹1,24,342.60</strong></td>
+<td>2008</td>
+<td>321.178</td>
 </tr>
 </tbody>
 </table>
-<p>Reading this result: even though ₹50,000 is received three times, ₹1,50,000 in total, its present value is only about ₹1,24,343. Later cash flows are worth less today than earlier ones, even though they are the same size.</p>
+</div>
+<div class="fragment fade-up">
+<p>Sales are clearly rising. But how much easier would it be to read that change if we did not have to do the arithmetic ourselves?</p>
+</div>
 </section>
-<section id="net-present-value-npv-the-decision-rule" class="slide level2">
-<h2>Net Present Value (NPV): The Decision Rule</h2>
-<p>Present value becomes a decision tool once you compare it to what the investment actually costs today.</p>
-<div title="Formula">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="pick-a-year-to-compare-everything-to" class="slide level2">
+<h2>Pick a year to compare everything to</h2>
+<div class="fragment fade-up">
+<p>Choose one year as your reference point. Call it the <strong>base period</strong>.</p>
 </div>
-<p><strong>Formula</strong></p>
+<div class="fragment fade-up">
+<p>Let’s choose 2005.</p>
 </div>
-<div class="callout-content">
-<p><span class="math display">\[NPV = \left(\sum_{i=1}^{n} \frac{CF_i}{(1+r)^i}\right) - \text{Initial investment}\]</span></p>
+<div class="fragment fade-up">
+<p>Now give 2005 a clean, memorable value. Not £281.450 billion. Just <strong>100</strong>.</p>
 </div>
-</div>
-</div>
-</div>
-<p><strong>The rule:</strong> if NPV is positive, the project is worth more than it costs, accept it. If NPV is negative, it costs more than it is worth, reject it.</p>
 </section>
-<section id="npv-worked-example" class="slide level2">
-<h2>NPV: Worked Example</h2>
-<p>Using the same project (₹50,000 a year for 3 years, discounted at 10%), suppose it requires an initial investment of <strong>₹1,20,000</strong> today.</p>
-<p><span class="math display">\[NPV = ₹1{,}24{,}342.60 - ₹1{,}20{,}000 = ₹4{,}342.60\]</span></p>
-<p>Reading this result: the NPV is positive, so this project is worth accepting. It returns slightly more, in today’s money, than it costs to undertake.</p>
+<section id="rescaling-the-series" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Rescaling the series</h2>
+<div style="text-align:center; margin-top:80px; font-size:1.6em;">
+<p>2005: £281.450bn becomes <strong>100</strong></p>
+</div>
 </section>
-<section id="practice-questions-1" class="slide level2">
-<h2>Practice Questions</h2>
-<p>Try these before checking the answer key on the next slide.</p>
-<ol type="1">
-<li>Find the present value of ₹50,000 to be received in 4 years, at a discount rate of 6%.</li>
-<li>Find the present value of ₹1,00,000 to be received in 3 years, at a discount rate of 9%.</li>
-<li>A project pays ₹20,000 at the end of each of the next 3 years. The discount rate is 8%. Find the total present value of these cash flows.</li>
-<li>Using the project in Question 3, suppose it requires an initial investment of ₹45,000 today. Find the NPV, and state whether the project should be accepted.</li>
-</ol>
+<section id="rescaling-the-series-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Rescaling the series</h2>
+<div style="text-align:center; margin-top:60px; font-size:1.4em;">
+<p>2005: £281.450bn becomes <strong>100</strong></p>
+</div>
+<div class="fragment fade-up" style="text-align:center; margin-top:30px; font-size:1.4em;">
+<p>Every other year is scaled by the same factor.</p>
+</div>
+<div class="fragment fade-up" style="text-align:center; margin-top:20px; font-size:1.4em;">
+<p>2006: £292.110bn becomes <strong>103.79</strong></p>
+</div>
 </section>
-<section id="answer-key-1" class="slide level2">
-<h2>Answer Key</h2>
-<p><strong>Q1.</strong> (PV = ) <strong>₹39,604.68</strong></p>
-<p><strong>Q2.</strong> (PV = ) <strong>₹77,218.35</strong></p>
-<p><strong>Q3.</strong> Discount each ₹20,000 payment separately and add: ( + + ) <strong>₹51,541.94</strong></p>
-<p><strong>Q4.</strong> (NPV = 51{,}541.94 - 45{,}000 ) <strong>₹6,541.94</strong>. Positive NPV, so the project should be <strong>accepted</strong>.</p>
+<section id="the-rescaled-series" class="slide level2">
+<h2>The rescaled series</h2>
+<div class="fragment fade-up">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Year</th>
+<th>Sales (£bn)</th>
+<th>Index (2005 = 100)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2005</td>
+<td>281.450</td>
+<td>100.00</td>
+</tr>
+<tr class="even">
+<td>2006</td>
+<td>292.110</td>
+<td>103.79</td>
+</tr>
+<tr class="odd">
+<td>2007</td>
+<td>303.621</td>
+<td>107.88</td>
+</tr>
+<tr class="even">
+<td>2008</td>
+<td>321.178</td>
+<td>114.12</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment fade-up">
+<p>This rescaled column is a set of <strong>index numbers</strong>. Now the change is readable at a glance.</p>
+</div>
 </section>
-<section id="key-takeaways" class="slide level2 smaller">
-<h2>Key Takeaways</h2>
+<section id="reading-the-index-number" class="slide level2">
+<h2>Reading the index number</h2>
+<div class="fragment fade-up">
+<p>Look at 2007. The index value is <strong>107.88</strong>.</p>
+</div>
+<div class="fragment fade-up">
+<p>That single number tells you sales were <strong>7.88% higher</strong> in 2007 than in 2005.</p>
+</div>
+<div class="fragment fade-up">
+<p>You did not need a calculator to see that. The scaling did the work for you.</p>
+</div>
+</section>
+<section id="what-did-we-gain-and-what-did-we-lose" class="slide level2">
+<h2>What did we gain, and what did we lose?</h2>
+<div class="fragment fade-up">
+<p>We gained a direct, readable measure of <strong>change</strong>.</p>
+</div>
+<div class="fragment fade-up">
+<p>We lost the actual monetary values. The index alone does not tell you sales were £303.621 billion in 2007.</p>
+</div>
+<div class="fragment fade-up">
+<p>That trade-off is usually worth it. Often we care about the <em>change</em> far more than the <em>level</em>.</p>
+</div>
+</section>
+<section id="example-the-consumer-prices-index" class="slide level2 center">
+<h2>1.2 Example: the Consumer Prices Index</h2>
+</section>
+<section id="from-sales-to-prices" class="slide level2">
+<h2>From sales to prices</h2>
+<div class="fragment fade-up">
+<p>The same rescaling idea applies to prices. This gives us the <strong>Consumer Prices Index</strong>, or CPI.</p>
+</div>
+<div class="fragment fade-up">
+<p>The CPI tracks the general level of prices of consumer goods and services, month by month.</p>
+</div>
+</section>
+<section id="reading-a-real-cpi-table" class="slide level2">
+<h2>Reading a real CPI table</h2>
+<div class="fragment fade-up">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Month</th>
+<th>Index (2005 = 100)</th>
+<th>1-month rate</th>
+<th>12-month rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sep 2012</td>
+<td>123.5</td>
+<td>0.4</td>
+<td>2.2</td>
+</tr>
+<tr class="even">
+<td>Oct 2012</td>
+<td>124.2</td>
+<td>0.5</td>
+<td>2.7</td>
+</tr>
+<tr class="odd">
+<td>Nov 2012</td>
+<td>124.4</td>
+<td>0.2</td>
+<td>2.7</td>
+</tr>
+<tr class="even">
+<td>Dec 2012</td>
+<td>125.0</td>
+<td>0.5</td>
+<td>2.7</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment fade-up">
+<p>In September 2012, prices were 23.5% above their 2005 level.</p>
+</div>
+</section>
+<section id="checking-the-1-month-rate-ourselves" class="slide level2">
+<h2>Checking the 1-month rate ourselves</h2>
+<div class="fragment fade-up">
+<p>The 1-month rate compares each month only to the <strong>one before it</strong>, using the same percentage change formula from Chapter 2.</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[g^{s,t} = \frac{I^{0,t} - I^{0,s}}{I^{0,s}} \times 100\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p>November’s index was 124.4. December’s was 125.0.</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[\frac{125.0 - 124.4}{124.4} \times 100 = 0.48\% \approx 0.5\%\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p>This matches the table. The 12-month rate works the same way, just compared to the same month a year earlier instead of the month before.</p>
+</div>
+<div class="fragment fade-up" style="border-left: 6px solid #b03; padding-left: 20px;">
+<p>A caution: try this with September to October instead, and you get 0.6%, not the 0.5% shown. The published rate is calculated from <strong>unrounded</strong> source data, then rounded for display, separately from the index values themselves. Recalculating from the rounded index can occasionally land one tenth of a point off.</p>
+</div>
+</section>
+<section id="the-number-that-actually-matters" class="slide level2">
+<h2>The number that actually matters</h2>
+<div class="fragment fade-up">
+<p>Here is a subtlety worth sitting with. The <strong>level</strong> of the CPI is not published as a headline figure, and it is not very informative on its own.</p>
+</div>
+<div class="fragment fade-up">
+<p>It is the <strong>rate of change</strong>, the 12-month rate, that is the headline statistic. That rate of change is what we call <strong>inflation</strong>.</p>
+</div>
+<div class="fragment fade-up">
+<p>This is why inflation, not “the price level,” leads the news every month.</p>
+</div>
+</section>
+<section id="how-the-cpi-is-actually-built-in-one-sentence" class="slide level2">
+<h2>How the CPI is actually built, in one sentence</h2>
+<div class="fragment fade-up">
+<p>A representative <strong>basket</strong> of about 700 goods and services is chosen.</p>
+</div>
+<div class="fragment fade-up">
+<p>About 180,000 individual prices are collected for these items every month, across a sample of shops and locations.</p>
+</div>
+<div class="fragment fade-up">
+<p>We will unfold exactly how these prices get combined into one number later today.</p>
+</div>
+</section>
+<section id="example-ftse-100" class="slide level2 center">
+<h2>1.3 Example: FTSE 100</h2>
+</section>
+<section id="a-different-kind-of-index" class="slide level2">
+<h2>A different kind of index</h2>
+<div class="fragment fade-up">
+<p>The <strong>FTSE 100</strong> tracks the share prices of the 100 largest companies listed on the London Stock Exchange.</p>
+</div>
+<div class="fragment fade-up">
+<p>Each company’s share price counts more or less depending on the company’s size, its <strong>market capitalisation</strong>.</p>
+</div>
+<div class="fragment fade-up">
+<p>It is updated every 15 seconds during trading hours.</p>
+</div>
+</section>
+<section id="an-important-twist-the-base-need-not-be-100" class="slide level2">
+<h2>An important twist: the base need not be 100</h2>
+<div class="fragment fade-up">
+<p>The FTSE 100 was first produced in 1984. Its starting value was not 100.</p>
+</div>
+<div class="fragment fade-up">
+<div class="r-fit-text">
+<p>It started at <strong>1000</strong></p>
+</div>
+</div>
+<div class="fragment fade-up">
+<p>There is no strict rule that the base value must be 100. It is simply a convenient, common choice. The FTSE 100 has since risen past 6000, several times its starting value.</p>
+</div>
+</section>
+<section id="example-the-multidimensional-poverty-index" class="slide level2 center">
+<h2>1.4 Example: the Multidimensional Poverty Index</h2>
+</section>
+<section id="combining-things-that-are-not-prices-at-all" class="slide level2">
+<h2>Combining things that are not prices at all</h2>
+<div class="fragment fade-up">
+<p>So far, every index combined quantities of the <strong>same type</strong>. Pounds of sales, prices of goods.</p>
+</div>
+<div class="fragment fade-up">
+<p>What if the things you want to combine are not even measured in the same units?</p>
+</div>
+<div class="fragment fade-up">
+<p>This is called a <strong>composite indicator</strong>. The Multidimensional Poverty Index, or MPI, is a classic example.</p>
+</div>
+</section>
+<section id="what-goes-into-the-mpi" class="slide level2">
+<h2>What goes into the MPI</h2>
+<div class="fragment fade-up">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>Indicator</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Health</td>
+<td>Child mortality</td>
+<td>1/6</td>
+</tr>
+<tr class="even">
+<td>Health</td>
+<td>Health</td>
+<td>1/6</td>
+</tr>
+<tr class="odd">
+<td>Education</td>
+<td>Years of schooling</td>
+<td>1/6</td>
+</tr>
+<tr class="even">
+<td>Education</td>
+<td>Child school attendance</td>
+<td>1/6</td>
+</tr>
+<tr class="odd">
+<td>Living standard</td>
+<td>Electricity</td>
+<td>1/18</td>
+</tr>
+<tr class="even">
+<td>Living standard</td>
+<td>Drinking water</td>
+<td>1/18</td>
+</tr>
+<tr class="odd">
+<td>Living standard</td>
+<td>Sanitation, flooring, cooking fuel, assets</td>
+<td>1/18 each</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment fade-up">
+<p>Ten very different indicators, each with a weight, combined into one poverty score per country.</p>
+</div>
+</section>
+<section id="example-the-gender-inequality-index" class="slide level2 center">
+<h2>1.5 Example: the Gender Inequality Index</h2>
+</section>
+<section id="a-second-composite-indicator" class="slide level2">
+<h2>A second composite indicator</h2>
+<div class="fragment fade-up">
+<p>The <strong>Gender Inequality Index</strong>, produced by the United Nations, measures inequality in achievement between men and women.</p>
+</div>
+<div class="fragment fade-up">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>Indicator</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Health</td>
+<td>Maternal mortality ratio</td>
+</tr>
+<tr class="even">
+<td>Health</td>
+<td>Adolescent birth rate</td>
+</tr>
+<tr class="odd">
+<td>Empowerment</td>
+<td>Parliamentary representation</td>
+</tr>
+<tr class="even">
+<td>Empowerment</td>
+<td>Educational attainment</td>
+</tr>
+<tr class="odd">
+<td>Labour market</td>
+<td>Labour market participation</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment fade-up">
+<p>Each country gets one overall score, built from five very different indicators. Countries can then be ranked and compared, across time as well as across countries.</p>
+</div>
+</section>
+<section id="representing-the-world-with-index-numbers" class="slide level2 center">
+<h2>1.6 Representing the world with index numbers</h2>
+</section>
+<section id="the-upside-and-the-downside" class="slide level2">
+<h2>The upside and the downside</h2>
+<div class="fragment fade-up">
+<p>On the upside, a single index number can summarise something genuinely complex. That supports clear communication and policy making.</p>
+</div>
+<div class="fragment fade-up">
+<p>On the downside, the same summarising power can flatten a complex reality into a misleadingly simple number.</p>
+</div>
+<div class="fragment fade-up">
+<p>A poor underlying model, or poor data, produces a poor indicator, no matter how official the final number looks.</p>
+</div>
+</section>
+<section id="the-one-idea-behind-every-example-so-far" class="slide level2">
+<h2>The one idea behind every example so far</h2>
+<div class="fragment fade-up">
+<p>Retail sales, the CPI, the FTSE 100, the MPI, the Gender Inequality Index. Five very different things.</p>
+</div>
+<div class="fragment fade-up">
+<p>Every single one follows the same construction: raw data, combined according to some model, into one number.</p>
+</div>
+<div class="fragment fade-up">
+<p>The rest of today unfolds exactly how that combination is actually done, for prices.</p>
+</div>
+</section>
+<section id="chapter-summary" class="slide level2 center">
+<h2>1.7 Chapter summary</h2>
 <ul>
-<li><strong>Absolute change</strong> tells you the raw amount of change. <strong>Relative growth</strong> tells you the rate. Always be clear on which one you are looking at.</li>
-<li><strong>Simple growth</strong> adds a fixed amount each period, calculated on the <em>original</em> base.</li>
-<li><strong>Compound growth</strong> adds a fixed <em>percentage</em> each period, calculated on the <em>latest</em> base. It snowballs over time.</li>
-<li>Real-world economic growth (GDP, investments, populations) is almost always modelled as <strong>compound</strong>.</li>
-<li>Use <strong>CAGR</strong> to annualise growth measured over multiple periods. Never simply divide total percentage growth by the number of years.</li>
+<li class="fragment">An index number rescales a series so change is easy to read.</li>
+<li class="fragment">The base period does not have to equal 100, though it usually does.</li>
+<li class="fragment">The level of an index is often less interesting than its rate of change.</li>
+<li class="fragment">The same basic idea, combine data into one number, extends far beyond prices.</li>
 </ul>
-</section>
-<section id="key-takeaways-1" class="slide level2">
-<h2>Key Takeaways</h2>
-<ul>
-<li>Present value discounting is compound growth run in reverse: it answers what a future amount is worth today.</li>
-<li>The discount rate represents opportunity cost, what your money could otherwise earn.</li>
-<li>A higher discount rate or a longer time horizon always shrinks present value.</li>
-<li>NPV compares the present value of future cash flows to an upfront cost. Positive NPV means accept, negative means reject.</li>
-</ul>
-</section>
-<section id="end-of-session" class="title-slide slide level1 center">
-<h1>End of Session</h1>
+</section></section>
+<section>
+<section id="part-2-chapter-2-index-numbers-and-change" class="title-slide slide level1 center">
+<h1>Part 2: Chapter 2, Index Numbers and Change</h1>
 
 </section>
+<section id="calculating-an-index-series-from-a-data-series" class="slide level2 center">
+<h2>2.1 Calculating an index series from a data series</h2>
+</section>
+<section id="turning-the-idea-into-a-recipe" class="slide level2">
+<h2>Turning the idea into a recipe</h2>
+<div class="fragment fade-up">
+<p>Chapter 1 showed <em>what</em> an index number does. Now we build the exact recipe for <em>how</em> to calculate one.</p>
+</div>
+<div class="fragment fade-up">
+<p>Call the value of something at the base period <span class="math inline">\(x^0\)</span>, and its value now, at period <span class="math inline">\(t\)</span>, simply <span class="math inline">\(x^t\)</span>.</p>
+</div>
+</section>
+<section id="building-the-formula-step-by-step" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Building the formula, step by step</h2>
+<div style="text-align:center; margin-top:100px; font-size:1.6em;">
+<p>Take today’s value</p>
+</div>
+</section>
+<section id="building-the-formula-step-by-step-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Building the formula, step by step</h2>
+<div style="text-align:center; margin-top:60px; font-size:1.5em;">
+<p>Take today’s value, divide by the base period’s value</p>
+</div>
+<div class="fragment fade-up" style="text-align:center; margin-top:30px; font-size:1.5em;">
+<p>Multiply by 100</p>
+</div>
+</section>
+<section id="building-the-formula-step-by-step-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Building the formula, step by step</h2>
+<div style="text-align:center; margin-top:120px;">
+<p><span class="math display">\[I^{0,t} = 100 \times \frac{x^t}{x^0}\]</span></p>
+</div>
+<div class="fragment fade-up" style="text-align:center; font-size:1.3em; margin-top:20px;">
+<p>This is the exact formula behind the rescaling we did by hand in Chapter 1.</p>
+</div>
+</section>
+<section id="worked-example-a-companys-turnover" class="slide level2">
+<h2>Worked example: a company’s turnover</h2>
+<div class="fragment fade-up">
+<p>Company A’s annual turnover, in £ million, 2002 to 2013.</p>
+</div>
+<div class="fragment fade-up">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Year</th>
+<th>2002</th>
+<th>2003</th>
+<th>2004</th>
+<th>2005</th>
+<th>2006</th>
+<th>2007</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Turnover</td>
+<td>17.9</td>
+<td>18.5</td>
+<td>18.1</td>
+<td>18.6</td>
+<td>19.0</td>
+<td>19.1</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Year</th>
+<th>2008</th>
+<th>2009</th>
+<th>2010</th>
+<th>2011</th>
+<th>2012</th>
+<th>2013</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Turnover</td>
+<td>19.3</td>
+<td>20.2</td>
+<td>20.3</td>
+<td>20.0</td>
+<td>20.5</td>
+<td>20.4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="calculating-the-first-few-index-values" class="slide level2">
+<h2>Calculating the first few index values</h2>
+<div class="fragment fade-up">
+<p>Base period is 2002. So <span class="math inline">\(x^0 = 17.9\)</span>.</p>
+</div>
+<div class="fragment fade-up">
+<p>For 2002 itself: <span class="math inline">\(100 \times \dfrac{17.9}{17.9} = 100.0\)</span></p>
+</div>
+<div class="fragment fade-up">
+<p>For 2003: <span class="math inline">\(100 \times \dfrac{18.5}{17.9} = 103.4\)</span></p>
+</div>
+<div class="fragment fade-up">
+<p>For 2012: <span class="math inline">\(100 \times \dfrac{20.5}{17.9} = 114.5\)</span></p>
+</div>
+</section>
+<section id="the-full-index-series" class="slide level2">
+<h2>The full index series</h2>
+<div class="fragment fade-up">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Year</th>
+<th>2002</th>
+<th>2003</th>
+<th>2004</th>
+<th>2005</th>
+<th>2006</th>
+<th>2007</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Index</td>
+<td>100.0</td>
+<td>103.4</td>
+<td>101.1</td>
+<td>103.9</td>
+<td>106.1</td>
+<td>106.7</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Year</th>
+<th>2008</th>
+<th>2009</th>
+<th>2010</th>
+<th>2011</th>
+<th>2012</th>
+<th>2013</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Index</td>
+<td>107.8</td>
+<td>112.8</td>
+<td>113.4</td>
+<td>111.7</td>
+<td>114.5</td>
+<td>114.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="calculating-percentage-change" class="slide level2 center">
+<h2>2.2 Calculating percentage change</h2>
+</section>
+<section id="level-versus-change" class="slide level2">
+<h2>Level versus change</h2>
+<div class="fragment fade-up">
+<p>An index series is really a measure of change. What we usually care about is not the level of the index, but how much it grew.</p>
+</div>
+<div class="fragment fade-up">
+<p>The UK’s headline figures for GDP and the CPI are both, at heart, reported as percentage changes in an index series.</p>
+</div>
+</section>
+<section id="the-general-percentage-change-formula" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">The general percentage change formula</h2>
+<div style="text-align:center; margin-top:100px; font-size:1.6em;">
+<p>(New value minus old value), divided by old value</p>
+</div>
+</section>
+<section id="the-general-percentage-change-formula-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">The general percentage change formula</h2>
+<div style="text-align:center; margin-top:120px;">
+<p><span class="math display">\[\text{percentage change} = \frac{B - A}{A} \times 100\]</span></p>
+</div>
+</section>
+<section id="applying-it-to-an-index-series" class="slide level2">
+<h2>Applying it to an index series</h2>
+<div class="fragment fade-up">
+<p>Between two periods <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span>, where <span class="math inline">\(s\)</span> comes before <span class="math inline">\(t\)</span>:</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[g^{s,t} = \frac{I^{0,t} - I^{0,s}}{I^{0,s}} \times 100\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p>There is a shortcut when comparing back to the base period itself.</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[g^{0,t} = I^{0,t} - 100\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p>This is exactly why we chose 100 as the base value. It makes reading percentage change effortless.</p>
+</div>
+</section>
+<section id="worked-example-percentage-change-for-company-a" class="slide level2">
+<h2>Worked example: percentage change for Company A</h2>
+<div class="fragment fade-up">
+<p>Using the index series we just built, base period 2002.</p>
+</div>
+<ul>
+<li class="fragment">2002 to 2004: <span class="math inline">\(\dfrac{101.1 - 100}{100} \times 100 = 1.1\%\)</span></li>
+<li class="fragment">2002 to 2013: <span class="math inline">\(\dfrac{114.0 - 100}{100} \times 100 = 14.0\%\)</span></li>
+<li class="fragment">2005 to 2007: <span class="math inline">\(\dfrac{106.7 - 103.9}{103.9} \times 100 = 2.7\%\)</span></li>
+</ul>
+<div class="fragment fade-up">
+<p>Notice the last one is not a shortcut calculation. Neither period is the base period, so we need the full formula.</p>
+</div>
+</section>
+<section id="comparing-data-series-with-index-numbers" class="slide level2 center">
+<h2>2.3 Comparing data series with index numbers</h2>
+</section>
+<section id="a-comparison-problem" class="slide level2">
+<h2>A comparison problem</h2>
+<div class="fragment fade-up">
+<p>Suppose we want to compare population growth across the European Union, Germany, the United Kingdom, and Cyprus, from 1995 to 2011.</p>
+</div>
+<div class="fragment fade-up">
+<p>The EU’s population is roughly 500 million. Cyprus’s is under a million. Plotted on the same raw scale, Cyprus is a flat line near zero.</p>
+</div>
+<div class="fragment fade-up">
+<p>The raw numbers make comparing <em>growth rates</em> almost impossible, even though that is exactly what we want to compare.</p>
+</div>
+</section>
+<section id="rebasing-solves-it" class="slide level2">
+<h2>Rebasing solves it</h2>
+<div class="fragment fade-up">
+<p>Convert all four population series to index numbers, with a common base period, 2000 equals 100.</p>
+</div>
+<div class="fragment fade-up">
+<p>Now every series starts at the same point, and their <em>shapes</em> become directly comparable.</p>
+</div>
+<div class="fragment fade-up">
+<p>The result: Cyprus’s population rose in percentage terms <strong>more than three times</strong> as much as the UK’s, over this period. A fact the raw population chart completely hid.</p>
+</div>
+</section>
+<section id="why-this-matters" class="slide level2">
+<h2>Why this matters</h2>
+<div class="fragment fade-up">
+<p>Index numbers are not just a display trick. They let us compare things that live on wildly different scales, fairly, using the same yardstick.</p>
+</div>
+</section>
+<section id="converting-from-an-index-series-to-a-data-series" class="slide level2 center">
+<h2>2.4 Converting from an index series to a data series</h2>
+</section>
+<section id="the-reverse-problem" class="slide level2">
+<h2>The reverse problem</h2>
+<div class="fragment fade-up">
+<p>Sometimes you only have an index series, and you want back the original data. For example, you might have GDP as an index, but want to know the actual amount in rupees or pounds.</p>
+</div>
+<div class="fragment fade-up">
+<p>This needs one more piece of information: the actual data value at any single point in time.</p>
+</div>
+</section>
+<section id="recovering-the-data" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Recovering the data</h2>
+<div style="text-align:center; margin-top:100px;">
+<p><span class="math display">\[x^t = \frac{I^{0,t} \times x^s}{I^{0,s}}\]</span></p>
+</div>
+</section>
+<section id="recovering-the-data-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Recovering the data</h2>
+<div style="text-align:center; margin-top:60px;">
+<p><span class="math display">\[x^t = \frac{I^{0,t} \times x^s}{I^{0,s}}\]</span></p>
+</div>
+<div class="fragment fade-up" style="text-align:center; margin-top:30px; font-size:1.3em;">
+<p>If the known value happens to be the base period itself, this simplifies:</p>
+</div>
+<div class="fragment fade-up" style="text-align:center; font-size:1.5em;">
+<p><span class="math display">\[x^t = \frac{I^{0,t} \times x^0}{100}\]</span></p>
+</div>
+</section>
+<section id="worked-example-recovering-turnover" class="slide level2">
+<h2>Worked example: recovering turnover</h2>
+<div class="fragment fade-up">
+<p>We are told Company A’s turnover in 2006 was exactly <strong>£19.0 million</strong>, and we have the index series from before. Can we recover every other year?</p>
+</div>
+<div class="fragment fade-up">
+<p>For 2002: <span class="math inline">\(\dfrac{100.0 \times 19.0}{106.1} = 17.9\)</span></p>
+</div>
+<div class="fragment fade-up">
+<p>For 2003: <span class="math inline">\(\dfrac{103.4 \times 19.0}{106.1} = 18.5\)</span></p>
+</div>
+<div class="fragment fade-up">
+<p>Exactly the turnover figures we started with. The index series really does carry the full shape of the data, just not its scale.</p>
+</div>
+</section>
+<section id="chapter-summary-1" class="slide level2 center">
+<h2>2.5 Chapter summary</h2>
+<ul>
+<li class="fragment">We now have the exact recipe to build an index series from data.</li>
+<li class="fragment">Percentage change, not the level, is usually the statistic that matters.</li>
+<li class="fragment">Rebasing to a common base period lets us fairly compare series on different scales.</li>
+<li class="fragment">The recipe also runs backward. An index series plus one known data point recovers the whole data series.</li>
+</ul>
+</section>
+<section id="a-short-gap-in-the-book-before-we-continue" class="slide level2 center">
+<h2>A short gap in the book, before we continue</h2>
+<div class="fragment fade-up">
+<p>Chapter 3 of the book covers the wider range of uses of inflation figures.</p>
+</div>
+<div class="fragment fade-up">
+<p>We pick the story back up at Chapter 4, where the book asks a sharper question. How do we build a price index out of <em>many</em> items at once?</p>
+</div>
+</section></section>
+<section>
+<section id="part-3-chapter-4-introducing-price-and-quantity" class="title-slide slide level1 center">
+<h1>Part 3: Chapter 4, Introducing Price and Quantity</h1>
+
+</section>
+<section id="measuring-price-change" class="slide level2 center">
+<h2>4.1 Measuring price change</h2>
+</section>
+<section id="starting-as-small-as-possible" class="slide level2">
+<h2>Starting as small as possible</h2>
+<div class="fragment fade-up">
+<p>Before measuring price change for an entire economy, start with a single item.</p>
+</div>
+<div class="fragment fade-up">
+<p>A bottle of washing-up liquid cost <strong>£1.30</strong> in January 2014, and <strong>£1.40</strong> in July 2014.</p>
+</div>
+</section>
+<section id="building-the-price-relative" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Building the price relative</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div style="border: 3px solid #444; border-radius: 12px; padding: 20px 40px; text-align: center; font-size: 1.4em;">
+<p>Price now, July</p>
+</div>
+</div><div class="column" style="width:10%;">
+
+</div><div class="column" style="width:45%;">
+<div style="border: 3px solid #444; border-radius: 12px; padding: 20px 40px; text-align: center; font-size: 1.4em;">
+<p>Price then, January</p>
+</div>
+</div></div>
+</section>
+<section id="building-the-price-relative-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Building the price relative</h2>
+<div class="columns">
+<div class="column" style="width:42%;">
+<div style="border: 3px solid #444; border-radius: 12px; padding: 20px 40px; text-align: center; font-size: 1.4em;">
+<p>£1.40</p>
+</div>
+</div><div class="column" style="width:16%;">
+<div style="text-align: center; font-size: 2em; margin-top: 40px;">
+<p>÷</p>
+</div>
+</div><div class="column" style="width:42%;">
+<div style="border: 3px solid #444; border-radius: 12px; padding: 20px 40px; text-align: center; font-size: 1.4em;">
+<p>£1.30</p>
+</div>
+</div></div>
+</section>
+<section id="building-the-price-relative-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Building the price relative</h2>
+<div style="text-align:center; margin-top:100px;">
+<p><span class="math display">\[R^{0,t} = \frac{p^t}{p^0} = \frac{1.40}{1.30} = 1.0769\]</span></p>
+</div>
+<div class="fragment fade-up" style="text-align:center; font-size:1.4em; margin-top:20px;">
+<p>This ratio is called the <strong>price relative</strong>.</p>
+</div>
+</section>
+<section id="turning-the-price-relative-into-a-percentage" class="slide level2">
+<h2>Turning the price relative into a percentage</h2>
+<div class="fragment fade-up">
+<p><span class="math display">\[\% \text{ change in price} = 100 \times (R^{0,t} - 1)\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[100 \times (1.0769 - 1) = 7.69\%\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p>We would say inflation between January and July 2014, for this one item, was <strong>7.69%</strong>.</p>
+</div>
+<div class="fragment fade-up" style="border-left: 6px solid #b03; padding-left: 20px;">
+<p>A note: the printed textbook states this example works out to 8.33%. It does not. Recomputed from its own numbers, £1.30 to £1.40 gives 7.69%, not 8.33%. This looks like an arithmetic slip in the book itself, worth mentioning if a student checks the original page.</p>
+</div>
+</section>
+<section id="from-one-item-to-a-whole-basket" class="slide level2">
+<h2>From one item to a whole basket</h2>
+<div class="fragment fade-up">
+<p>Now imagine <span class="math inline">\(N\)</span> items in a basket, not just one. Each item <span class="math inline">\(i\)</span> has its own price relative.</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[R_i^{0,t} = \frac{p_i^t}{p_i^0}\]</span></p>
+</div>
+</section>
+<section id="worked-example-five-drinks" class="slide level2">
+<h2>Worked example: five drinks</h2>
+<div class="fragment fade-up">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Drink</th>
+<th>2012</th>
+<th>2013</th>
+<th>2014</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bitter (pint)</td>
+<td>1.95</td>
+<td>1.80</td>
+<td>2.00</td>
+</tr>
+<tr class="even">
+<td>Lager (pint)</td>
+<td>2.40</td>
+<td>2.65</td>
+<td>2.60</td>
+</tr>
+<tr class="odd">
+<td>Wine (large glass)</td>
+<td>3.50</td>
+<td>3.50</td>
+<td>3.50</td>
+</tr>
+<tr class="even">
+<td>Vodka (single)</td>
+<td>2.20</td>
+<td>2.25</td>
+<td>2.30</td>
+</tr>
+<tr class="odd">
+<td>Lemonade (half pint)</td>
+<td>0.80</td>
+<td>0.90</td>
+<td>0.95</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment fade-up">
+<p>Bitter, 2012 to 2014: <span class="math inline">\(\dfrac{2.00}{1.95} = 1.026\)</span>, up 2.6%.</p>
+</div>
+<div class="fragment fade-up">
+<p>Vodka, 2012 to 2013: <span class="math inline">\(\dfrac{2.25}{2.20} = 1.023\)</span>, up 2.3%.</p>
+</div>
+</section>
+<section id="simple-un-weighted-indices-for-price-change" class="slide level2 center">
+<h2>4.2 Simple, un-weighted indices for price change</h2>
+</section>
+<section id="the-next-question" class="slide level2">
+<h2>The next question</h2>
+<div class="fragment fade-up">
+<p>We can now find a price relative for any single item. But a real price index needs to summarise <em>all five</em> drinks in <strong>one</strong> number.</p>
+</div>
+<div class="fragment fade-up">
+<p>This fixed collection of items is called a <strong>basket of goods and services</strong>. A shopping basket that we track, month after month.</p>
+</div>
+<div class="fragment fade-up">
+<p>The UK CPI basket, for example, includes milk, bread, bacon and beer. It also includes gas and electricity bills, fridges, cars, holidays, and even concert tickets.</p>
+</div>
+<div class="fragment fade-up">
+<p>So, with five price relatives in hand, how do we combine them into one?</p>
+</div>
+</section>
+<section id="method-1-just-average-them" class="slide level2">
+<h2>Method 1: just average them</h2>
+<div class="fragment fade-up">
+<p>The simplest idea. Add up the price relatives, divide by how many there are. The plain arithmetic mean.</p>
+</div>
+<div class="fragment fade-up">
+<p>This is called the <strong>Carli</strong> index.</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[P^{0,t}_{\text{Carli}} = 100 \times \frac{1}{n}\sum_{i=1}^{n} R_i^{0,t}\]</span></p>
+</div>
+</section>
+<section id="method-2-average-them-multiplicatively" class="slide level2">
+<h2>Method 2: average them multiplicatively</h2>
+<div class="fragment fade-up">
+<p>Instead of adding the relatives, multiply them together, then take the <span class="math inline">\(n\)</span>-th root. The geometric mean.</p>
+</div>
+<div class="fragment fade-up">
+<p>This is called the <strong>Jevons</strong> index.</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[P^{0,t}_{\text{Jevons}} = 100 \times \left(\prod_{i=1}^{n} R_i^{0,t}\right)^{1/n}\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p>Intuition: a price that doubles and a price that halves cancel out exactly under Jevons. Under Carli, they do not.</p>
+</div>
+</section>
+<section id="method-3-average-the-prices-first" class="slide level2">
+<h2>Method 3: average the prices first</h2>
+<div class="fragment fade-up">
+<p>Instead of averaging the <em>relatives</em>, average the raw prices in each period first, then take the ratio of those two averages.</p>
+</div>
+<div class="fragment fade-up">
+<p>This is called the <strong>Dutot</strong> index.</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[P^{0,t}_{\text{Dutot}} = 100 \times \frac{\frac{1}{n}\sum p_i^t}{\frac{1}{n}\sum p_i^0}\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p>Dutot silently gives more influence to items with a <strong>higher price</strong>, since it averages pounds and pence, not ratios.</p>
+</div>
+</section>
+<section id="method-4-the-harmonic-mean" class="slide level2">
+<h2>Method 4: the harmonic mean</h2>
+<div class="fragment fade-up">
+<p>A less obvious average. Take the reciprocal of each price relative, average those, then take the reciprocal of the result.</p>
+</div>
+<div class="fragment fade-up">
+<p>This is the <strong>Harmonic</strong> index.</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[P^{0,t}_{\text{Harmonic}} = 100 \times \frac{n}{\sum_{i=1}^{n} \frac{1}{R_i^{0,t}}}\]</span></p>
+</div>
+</section>
+<section id="method-5-split-the-difference" class="slide level2">
+<h2>Method 5: split the difference</h2>
+<div class="fragment fade-up">
+<p>Carli tends to sit a little high. Harmonic tends to sit a little low. Why not average the two?</p>
+</div>
+<div class="fragment fade-up">
+<p>The <strong>CSWD</strong> index (Carruthers, Selwood, Ward and Dalen) is the geometric mean of Carli and Harmonic.</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[P^{0,t}_{\text{CSWD}} = \sqrt{P^{0,t}_{\text{Carli}} \times P^{0,t}_{\text{Harmonic}}}\]</span></p>
+</div>
+</section>
+<section id="same-data-five-different-answers" class="slide level2">
+<h2>Same data, five different answers</h2>
+<div class="fragment fade-up">
+<p>Price relatives for the five drinks, 2012 to 2013: 0.923, 1.104, 1.000, 1.023, 1.125.</p>
+</div>
+<div class="fragment fade-up">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Index value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Carli</td>
+<td>103.5</td>
+</tr>
+<tr class="even">
+<td>Jevons</td>
+<td>103.2</td>
+</tr>
+<tr class="odd">
+<td>Dutot</td>
+<td>102.3</td>
+</tr>
+<tr class="even">
+<td>Harmonic</td>
+<td>103.0</td>
+</tr>
+<tr class="odd">
+<td>CSWD</td>
+<td>103.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment fade-up">
+<p>The estimate of inflation ranges from <strong>2.3% to 3.5%</strong>, using the exact same price data. The choice of formula is not a technicality. It changes the answer.</p>
+</div>
+</section>
+<section id="simple-quantity-indices" class="slide level2 center">
+<h2>4.2.2 Simple quantity indices</h2>
+<div class="fragment fade-up">
+<p>Every one of the five formulas we just saw has an exact mirror image for <strong>quantities</strong>. Just replace each price relative with a quantity relative.</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[\tilde{R}_i^{0,t} = \frac{q_i^t}{q_i^0}\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p>Carli, Jevons, Dutot, Harmonic, and CSWD all work exactly the same way, just applied to quantities bought instead of prices paid.</p>
+</div>
+</section>
+<section id="price-quantity-and-value" class="slide level2 center">
+<h2>4.3 Price, quantity and value</h2>
+</section>
+<section id="the-relationship-at-the-heart-of-it-all" class="slide level2">
+<h2>The relationship at the heart of it all</h2>
+<div class="fragment fade-up">
+<p>Price, quantity, and value are linked in the simplest possible way.</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[\text{value} = \text{price} \times \text{quantity}\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p>For a whole basket of <span class="math inline">\(n\)</span> items, the total value at period <span class="math inline">\(t\)</span> is:</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[V^t = \sum_{i=1}^{n} p_i^t q_i^t\]</span></p>
+</div>
+</section>
+<section id="what-drives-a-change-in-value" class="slide level2">
+<h2>What drives a change in value?</h2>
+<div class="fragment fade-up">
+<p><span class="math display">\[V^{0,t} = \frac{\sum p_i^t q_i^t}{\sum p_i^0 q_i^0}\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p>If your weekly shopping bill goes up, is it because prices rose, because you bought more, or some mix of both?</p>
+</div>
+<div class="fragment fade-up">
+<p>Price change and quantity change are often tangled together. In fact, they are usually negatively related. When something gets pricier, people tend to buy less of it.</p>
+</div>
+<div class="fragment fade-up">
+<p>Untangling this is exactly the problem the next chapter solves.</p>
+</div>
+</section></section>
+<section>
+<section id="part-4-chapter-5-laspeyres-and-paasche-indices" class="title-slide slide level1 center">
+<h1>Part 4: Chapter 5, Laspeyres and Paasche Indices</h1>
+
+</section>
+<section id="a-fruit-basket-three-items" class="slide level2">
+<h2>A fruit basket, three items</h2>
+<div class="fragment fade-up">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Fruit</th>
+<th>2012 price</th>
+<th>2013 price</th>
+<th>Price relative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Apples</td>
+<td>£0.40</td>
+<td>£0.42</td>
+<td>1.050</td>
+</tr>
+<tr class="even">
+<td>Bananas</td>
+<td>£0.50</td>
+<td>£0.55</td>
+<td>1.100</td>
+</tr>
+<tr class="odd">
+<td>Pineapple</td>
+<td>£1.25</td>
+<td>£2.00</td>
+<td>1.600</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment fade-up">
+<p>Apples rose 5%. Bananas rose 10%. Pineapples rose a dramatic 60%.</p>
+</div>
+</section>
+<section id="combining-them-the-old-way" class="slide level2">
+<h2>Combining them the old way</h2>
+<div class="fragment fade-up">
+<p>Using three of the five formulas from Chapter 4:</p>
+</div>
+<div class="fragment fade-up">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>2013 index</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Carli</td>
+<td>125.0</td>
+</tr>
+<tr class="even">
+<td>Dutot</td>
+<td>138.1</td>
+</tr>
+<tr class="odd">
+<td>Jevons</td>
+<td>122.7</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment fade-up">
+<p>Every one of these answers is dragged upward by the pineapple’s huge price jump.</p>
+</div>
+</section>
+<section id="but-is-that-fair" class="slide level2">
+<h2>But is that fair?</h2>
+<div class="fragment fade-up">
+<p>In 2012, this basket actually contained <strong>220 apples</strong>, <strong>230 bananas</strong>, and just <strong>50 pineapples</strong>.</p>
+</div>
+<div class="fragment fade-up">
+<p>Pineapples were a small part of what people actually bought. Should their 60% jump really dominate the overall answer, as much as it just did?</p>
+</div>
+<div class="fragment fade-up">
+<p>We are missing a crucial ingredient. <strong>How much of each item was actually bought.</strong></p>
+</div>
+</section>
+<section id="the-laspeyres-price-index" class="slide level2 center">
+<h2>5.1 The Laspeyres price index</h2>
+</section>
+<section id="the-idea" class="slide level2">
+<h2>The idea</h2>
+<div class="fragment fade-up">
+<p>What if we weight each item’s price change by how much of it we bought, back in the <strong>base period</strong>?</p>
+</div>
+<div class="fragment fade-up">
+<p>That is exactly the <strong>Laspeyres price index</strong>.</p>
+</div>
+<div class="fragment fade-up">
+<p>It answers a very specific question. How has the cost of this basket changed, if I buy the <em>same quantities</em> as I did in the base period?</p>
+</div>
+</section>
+<section id="the-formula" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">The formula</h2>
+<div style="text-align:center; margin-top:100px;">
+<p><span class="math display">\[P^{0,t}_{\text{Laspeyres}} = 100 \times \frac{\sum p_i^t q_i^0}{\sum p_i^0 q_i^0}\]</span></p>
+</div>
+</section>
+<section id="the-formula-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">The formula</h2>
+<div style="text-align:center; margin-top:60px;">
+<p><span class="math display">\[P^{0,t}_{\text{Laspeyres}} = 100 \times \frac{\sum p_i^t q_i^0}{\sum p_i^0 q_i^0}\]</span></p>
+</div>
+<div class="fragment fade-up" style="text-align:center; font-size:1.3em; margin-top:20px;">
+<p>Notice the quantity term, <span class="math inline">\(q^0\)</span>, is the <strong>same in top and bottom</strong>. Only price changes. Quantities are frozen at base-period levels.</p>
+</div>
+</section>
+<section id="calculating-it-for-the-fruit-basket" class="slide level2">
+<h2>Calculating it for the fruit basket</h2>
+<div class="fragment fade-up">
+<p>Top: <span class="math inline">\((0.42\times220) + (0.55\times230) + (2.00\times50) = 319\)</span></p>
+</div>
+<div class="fragment fade-up">
+<p>Bottom: <span class="math inline">\((0.40\times220) + (0.50\times230) + (1.25\times50) = 266\)</span></p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[100 \times \frac{319}{266} = 120.1\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p>Compare this to Carli’s 125.0, Jevons’s 122.7, and Dutot’s 138.1. Weighting by real quantities pulled the answer down, because pineapples matter less than their price jump alone suggested.</p>
+</div>
+</section>
+<section id="the-paasche-price-index" class="slide level2 center">
+<h2>5.2 The Paasche price index</h2>
+</section>
+<section id="a-different-equally-valid-choice" class="slide level2">
+<h2>A different, equally valid choice</h2>
+<div class="fragment fade-up">
+<p>Laspeyres freezes quantities at the base period. But why the base period, and not the current one?</p>
+</div>
+<div class="fragment fade-up">
+<p>There is no obvious theoretical reason to prefer one over the other.</p>
+</div>
+<div class="fragment fade-up">
+<p>The <strong>Paasche price index</strong> freezes quantities at the <strong>current</strong> period instead.</p>
+</div>
+</section>
+<section id="the-formula-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">The formula</h2>
+<div style="text-align:center; margin-top:100px;">
+<p><span class="math display">\[P^{0,t}_{\text{Paasche}} = 100 \times \frac{\sum p_i^t q_i^t}{\sum p_i^0 q_i^t}\]</span></p>
+</div>
+</section>
+<section id="the-formula-3" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">The formula</h2>
+<div style="text-align:center; margin-top:60px;">
+<p><span class="math display">\[P^{0,t}_{\text{Paasche}} = 100 \times \frac{\sum p_i^t q_i^t}{\sum p_i^0 q_i^t}\]</span></p>
+</div>
+<div class="fragment fade-up" style="text-align:center; font-size:1.3em; margin-top:20px;">
+<p>This time <span class="math inline">\(q^t\)</span>, the <strong>current</strong> quantity, appears in both top and bottom.</p>
+</div>
+</section>
+<section id="calculating-it-for-the-fruit-basket-1" class="slide level2">
+<h2>Calculating it for the fruit basket</h2>
+<div class="fragment fade-up">
+<p>By 2013, quantities sold had shifted. 300 apples, only 170 bananas, and just 30 pineapples.</p>
+</div>
+<div class="fragment fade-up">
+<p>Top: <span class="math inline">\((0.42\times300) + (0.55\times170) + (2.00\times30) = 279.5\)</span></p>
+</div>
+<div class="fragment fade-up">
+<p>Bottom: <span class="math inline">\((0.40\times300) + (0.50\times170) + (1.25\times30) = 242.5\)</span></p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[100 \times \frac{279.5}{242.5} = 115.3\]</span></p>
+</div>
+</section>
+<section id="ranking-every-answer-we-now-have" class="slide level2">
+<h2>Ranking every answer we now have</h2>
+<ul>
+<li class="fragment">Paasche: 115.3</li>
+<li class="fragment">Laspeyres: 120.1</li>
+<li class="fragment">Jevons: 122.7</li>
+<li class="fragment">Carli: 125.0</li>
+<li class="fragment">Dutot: 138.1</li>
+</ul>
+<div class="fragment fade-up">
+<p>Same underlying prices. Five different pictures of “how much did prices rise.”</p>
+</div>
+</section>
+<section id="laspeyres-and-paasche-quantity-indices" class="slide level2 center">
+<h2>5.3 Laspeyres and Paasche quantity indices</h2>
+<div class="fragment fade-up">
+<p>Just as with the simple indices, both formulas have quantity-index mirror images. Swap the roles of price and quantity.</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[Q^{0,t}_{\text{Laspeyres}} = 100 \times \frac{\sum p_i^0 q_i^t}{\sum p_i^0 q_i^0}
+\qquad
+Q^{0,t}_{\text{Paasche}} = 100 \times \frac{\sum p_i^t q_i^t}{\sum p_i^t q_i^0}\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p>A worked DIY-tools example in the book (screwdrivers, drills, ladders, hammers, saws) gives Laspeyres price 110.2, Paasche price 110.3, and both quantity indices 96.6.</p>
+</div>
+</section>
+<section id="laspeyres-and-paasche-mind-your-ps-and-qs" class="slide level2 center">
+<h2>5.4 Laspeyres and Paasche: mind your Ps and Qs</h2>
+</section>
+<section id="a-more-useful-way-to-write-laspeyres" class="slide level2">
+<h2>A more useful way to write Laspeyres</h2>
+<div class="fragment fade-up">
+<p>The Laspeyres formula can be rewritten using only price relatives and <strong>value shares</strong>. In practice, this form is far more common.</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[P^{0,t}_{\text{Laspeyres}} = 100 \times \sum_{i=1}^{n} R_i^{0,t} \cdot s_i^0\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p>Here <span class="math inline">\(s_i^0\)</span> is item <span class="math inline">\(i\)</span>’s <strong>share of total spending</strong> in the base period.</p>
+</div>
+<div class="fragment fade-up">
+<p>This is a <strong>weighted average of price relatives</strong>, where the weight is exactly how much of the household budget went on that item.</p>
+</div>
+</section>
+<section id="and-the-paasche-version" class="slide level2">
+<h2>And the Paasche version</h2>
+<div class="fragment fade-up">
+<p>Paasche has the same intuition, but with a twist. It is a weighted <strong>harmonic</strong> mean, not a weighted arithmetic mean, using <strong>current-period</strong> value shares.</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[P^{0,t}_{\text{Paasche}} = 100 \times \frac{1}{\sum_{i=1}^{n} \frac{s_i^t}{R_i^{0,t}}}\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p>The same asymmetry we saw in Chapter 4, arithmetic mean versus harmonic mean, shows up again here.</p>
+</div>
+</section>
+<section id="laspeyres-paasche-and-the-index-number-problem" class="slide level2 center">
+<h2>5.5 Laspeyres, Paasche and the Index Number Problem</h2>
+</section>
+<section id="a-problem-worth-naming" class="slide level2">
+<h2>A problem worth naming</h2>
+<div class="fragment fade-up">
+<blockquote>
+<p><strong>The Index Number Problem.</strong> How to combine the relative changes in the prices and quantities of various products into a single measure of the relative change of the overall price level, and a single measure of the relative change of the overall quantity level.</p>
+<p><em>(OECD definition)</em></p>
+</blockquote>
+</div>
+</section>
+<section id="a-neat-solution" class="slide level2">
+<h2>A neat solution</h2>
+<div class="fragment fade-up">
+<p>The total change in value can always be split into a price part and a quantity part.</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[V^{0,t} = P^{0,t}_{\text{Laspeyres}} \times Q^{0,t}_{\text{Paasche}}\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[V^{0,t} = P^{0,t}_{\text{Paasche}} \times Q^{0,t}_{\text{Laspeyres}}\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p>Laspeyres and Paasche fit together perfectly to solve the Index Number Problem, as long as you pair a price index with the <em>opposite</em> quantity index.</p>
+</div>
+</section>
+<section id="laspeyres-or-paasche" class="slide level2 center">
+<h2>5.6 Laspeyres or Paasche?</h2>
+</section>
+<section id="the-practical-trade-off" class="slide level2">
+<h2>The practical trade-off</h2>
+<div class="fragment fade-up">
+<p><strong>Laspeyres</strong> only needs quantity data from one period, the base period. That makes it cheap and quick to calculate every month.</p>
+</div>
+<div class="fragment fade-up">
+<p><strong>Paasche</strong> needs fresh quantity data in <em>every</em> period. That is expensive, slow, and often simply not available in time.</p>
+</div>
+<div class="fragment fade-up">
+<p>But Laspeyres pays a price for that convenience. It can go out of date, since it never updates to reflect changing buying habits.</p>
+</div>
+</section>
+<section id="when-the-two-can-diverge-sharply" class="slide level2">
+<h2>When the two can diverge sharply</h2>
+<div class="fragment fade-up">
+<p>A supermarket sells two nearly identical coffee brands. In January, both cost <strong>£2.50</strong>, and 500 jars of each were sold.</p>
+</div>
+<div class="fragment fade-up">
+<p>In February, Brand A rises to £4.00. Brand B stays at £2.50. Shoppers notice, and switch. Only 100 jars of A sell, but 900 jars of B.</p>
+</div>
+</section>
+<section id="two-very-different-answers" class="slide level2">
+<h2>Two very different answers</h2>
+<div class="fragment fade-up">
+<p>Laspeyres, using January’s equal 500/500 split as weights:</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[100 \times \frac{(4.00\times500)+(2.50\times500)}{(2.50\times500)+(2.50\times500)} = 130.0\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p>Paasche, using February’s actual 100/900 split:</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[100 \times \frac{(4.00\times100)+(2.50\times900)}{(2.50\times100)+(2.50\times900)} = 106.0\]</span></p>
+</div>
+<div class="fragment fade-up">
+<p>Laspeyres overstates the price rise, since it ignores the switch to Brand B. Paasche understates it, since it barely weights Brand A’s big price jump at all.</p>
+</div>
+</section>
+<section id="a-more-practical-alternative" class="slide level2 center">
+<h2>5.7 A more practical alternative</h2>
+</section>
+<section id="neither-base-period-nor-current-period" class="slide level2">
+<h2>Neither base period nor current period</h2>
+<div class="fragment fade-up">
+<p>What if we fix quantities at some <em>other</em> period, <span class="math inline">\(b\)</span>, ideally a bit before the base period, giving statisticians time to actually collect reliable weight data?</p>
+</div>
+<div class="fragment fade-up">
+<p>This is the <strong>Lowe index</strong>.</p>
+</div>
+<div class="fragment fade-up">
+<p><span class="math display">\[P_{\text{Lowe}} = \frac{\sum p_i^t q_i^b}{\sum p_i^0 q_i^b}\]</span></p>
+</div>
+</section>
+<section id="the-fact-that-matters-most-today" class="slide level2">
+<h2>The fact that matters most today</h2>
+<div class="fragment fade-up">
+<div style="font-size: 1.3em; border-left: 6px solid #b03; padding-left: 20px;">
+<p>Almost every National Statistical Institute in the world, including the one that compiles India’s CPI, actually uses the Lowe index, not a pure Laspeyres or Paasche index.</p>
+</div>
+</div>
+<div class="fragment fade-up">
+<p>Laspeyres and Paasche are the special cases. Real statistical offices sit in between, using older, reliable weights.</p>
+</div>
+</section>
+<section id="chapter-summary-2" class="slide level2 center">
+<h2>5.8 Chapter summary</h2>
+<ul>
+<li class="fragment">Chapter 4’s simple indices ignore quantities entirely, and can be dominated by one volatile item.</li>
+<li class="fragment">Laspeyres and Paasche fix that, by weighting price relatives with quantities, from the base period or the current period respectively.</li>
+<li class="fragment">Neither is perfect. Laspeyres is cheap but can go stale. Paasche is current but expensive to collect.</li>
+<li class="fragment">In practice, real statistical offices use the Lowe index, a practical compromise between the two.</li>
+</ul>
+</section></section>
+<section>
+<section id="part-5-case-study-compiling-indias-cpi" class="title-slide slide level1 center">
+<h1>Part 5: Case Study, Compiling India’s CPI</h1>
+
+</section>
+<section id="from-the-book-to-the-real-thing" class="slide level2 center">
+<h2>From the book to the real thing</h2>
+<div class="fragment fade-up">
+<p>Basket, price relatives, weights, Laspeyres-type aggregation. Every mechanism from today is at work, every single month, in India’s actual Consumer Price Index.</p>
+</div>
+<div class="fragment fade-up">
+<p>We now look at how the National Statistical Office builds it, and what happened when the COVID-19 lockdown broke the normal process.</p>
+</div>
+</section>
+<section id="who-builds-indias-cpi" class="slide level2">
+<h2>Who builds India’s CPI?</h2>
+<div class="fragment fade-up">
+<p>The <strong>National Statistical Office (NSO)</strong>, under the Ministry of Statistics and Programme Implementation, compiles All-India and state-wise CPI.</p>
+</div>
+<div class="fragment fade-up">
+<p>It covers <strong>Rural</strong>, <strong>Urban</strong>, and <strong>Combined</strong> sectors, and is released on the 12th of every month.</p>
+</div>
+</section>
+<section id="where-the-raw-prices-come-from" class="slide level2">
+<h2>Where the raw prices come from</h2>
+<ul>
+<li class="fragment">Monthly price data comes from <strong>1,114 selected urban markets</strong> and <strong>1,181 selected villages</strong>.</li>
+<li class="fragment">Field staff collect it through personal visits, on a weekly roster.</li>
+<li class="fragment">Prices are uploaded, then scrutinised and validated centrally before they enter the index.</li>
+</ul>
+</section>
+<section id="the-cpis-basket-structure" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">The CPI’s basket structure</h2>
+<div style="text-align:center; font-size:1.6em; margin-top:60px;">
+<p>Items build sub-groups. Sub-groups build groups. Groups build the General Index.</p>
+</div>
+</section>
+<section id="the-cpis-basket-structure-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">The CPI’s basket structure</h2>
+<div style="text-align:center; font-size:1.3em; margin-top:20px;">
+<p>Items build sub-groups. Sub-groups build groups. Groups build the General Index.</p>
+</div>
+<div style="margin-top:30px; font-size:1.1em;">
+<ul>
+<li class="fragment">Six major groups. Food and beverages, Clothing and footwear, Housing, Fuel and light, Pan, tobacco and intoxicants, and Miscellaneous.</li>
+<li class="fragment">These break into 23 sub-groups, such as Cereals, Vegetables, Clothing, Health, and Transport.</li>
+<li class="fragment">Each carries its own weight, estimated separately for Rural, Urban, and Combined.</li>
+</ul>
+</div>
+</section>
+<section id="where-each-chapter-shows-up-in-practice" class="slide level2">
+<h2>Where each chapter shows up in practice</h2>
+<ul>
+<li class="fragment"><strong>Elementary indices.</strong> Multiple price quotes for one good are combined with a simple geometric mean. This is the Jevons method from Chapter 4.</li>
+<li class="fragment"><strong>Aggregation.</strong> Elementary indices combine into sub-group and group indices using expenditure weights. This is the Laspeyres-type, Lowe-style logic from Chapter 5.</li>
+</ul>
+</section>
+<section id="from-state-to-national-indices" class="slide level2">
+<h2>From state to national indices</h2>
+<ul>
+<li class="fragment">This is done first for each State and Union Territory, separately for Rural, Urban, and Combined.</li>
+<li class="fragment">All-India indices are then built by aggregating the weighted State and UT indices.</li>
+</ul>
+</section>
+<section id="a-worked-example-reading-the-real-numbers" class="slide level2">
+<h2>A worked example: reading the real numbers</h2>
+<div class="fragment fade-up">
+<p>India’s CPI, Combined, base 2012 equals 100.</p>
+</div>
+<div class="fragment fade-up">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>April 2020</th>
+<th>May 2020</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>General Index (All Groups)</strong></td>
+<td>151.4</td>
+<td>150.9</td>
+</tr>
+<tr class="even">
+<td><strong>Food &amp; Beverages</strong></td>
+<td>154.0</td>
+<td>152.7</td>
+</tr>
+<tr class="odd">
+<td><strong>Housing</strong></td>
+<td>155.6</td>
+<td>155.6</td>
+</tr>
+<tr class="even">
+<td><strong>Fuel and light</strong></td>
+<td>144.1</td>
+<td>142.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment fade-up">
+<p>Overall prices were about 51% above 2012 levels in April, easing slightly in May. Housing stayed flat while fuel prices fell.</p>
+</div>
+</section>
+<section id="when-the-machine-breaks" class="slide level2">
+<h2>When the machine breaks</h2>
+<div class="fragment fade-up">
+<p>The nation-wide COVID-19 lockdown made it infeasible for field staff to visit retail outlets and collect price quotations.</p>
+</div>
+<div class="fragment fade-up">
+<p>Market transactions were themselves limited. Many items simply were not being bought and sold as usual.</p>
+</div>
+<div class="fragment fade-up">
+<p>Price data on all commodities was not available. Of 23 sub-groups, only 13 could be compiled for April 2020, and only 15 for May 2020.</p>
+</div>
+</section>
+<section id="what-the-international-community-said" class="slide level2">
+<h2>What the international community said</h2>
+<div class="fragment fade-up">
+<p>NSO consulted the World Bank, ILO, ADB, IMF, Eurostat, OECD, and others through the Inter-Secretariat Working Group on Price Statistics.</p>
+</div>
+<div class="fragment fade-up" style="border-left: 6px solid #b03; padding-left:20px;">
+<p>Their guidance: if a whole index is missing, impute it using the next level up. If oranges are missing, use the citrus index, and so on up to the all-items index.</p>
+</div>
+</section>
+<section id="imputation-the-general-idea" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Imputation, the general idea</h2>
+<div style="text-align:center; margin-top:100px;">
+<div class="r-fit-text">
+<p>If it is missing, estimate it from what you do know.</p>
+</div>
+</div>
+</section>
+<section id="micro-level-imputation" class="slide level2">
+<h2>Micro-level imputation</h2>
+<div class="fragment fade-up">
+<p>A <strong>temporarily missing</strong> individual price is estimated from last month’s price for that same item.</p>
+</div>
+<div class="fragment fade-up">
+<p>It is adjusted by the average price movement seen in the quotations that are still available. Same logic as the elementary aggregates in Chapter 4.</p>
+</div>
+</section>
+<section id="macro-level-imputation" class="slide level2">
+<h2>Macro-level imputation</h2>
+<div class="fragment fade-up">
+<p>An <strong>entire missing</strong> sub-group or group index is estimated using the movement of the next level up that could still be calculated.</p>
+</div>
+<div class="fragment fade-up">
+<p>The parent is the Food and Beverages Group index for food sub-groups. It is the General CPI itself for non-food sub-groups.</p>
+</div>
+</section>
+<section id="macro-imputation-built-step-by-step" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Macro imputation, built step by step</h2>
+<div style="text-align:center; font-size:1.5em; margin-top:60px;">
+<p>Last known index of the missing sub-group</p>
+</div>
+</section>
+<section id="macro-imputation-built-step-by-step-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Macro imputation, built step by step</h2>
+<div style="text-align:center; font-size:1.4em; margin-top:40px;">
+<p>Last known index, multiplied by how much the parent index moved</p>
+</div>
+<div class="fragment fade-up" style="text-align:center; margin-top:40px; font-size:1.2em;">
+<p>Parent is Food &amp; Beverages Group, if the sub-group is a food item</p>
+</div>
+<div class="fragment fade-up" style="text-align:center; font-size:1.2em;">
+<p>Parent is General CPI, if the sub-group is a non-food item</p>
+</div>
+</section>
+<section id="worked-example-prepared-meals-snacks-sweets" class="slide level2">
+<h2>Worked example: prepared meals, snacks, sweets</h2>
+<ul>
+<li class="fragment">Last observed index, March 2020: <strong>160.0</strong></li>
+<li class="fragment">Food &amp; Beverages Group index, April 2020: <strong>150.1</strong></li>
+<li class="fragment">Food &amp; Beverages Group index, March 2020: <strong>148.2</strong></li>
+</ul>
+<div class="fragment fade-up" style="text-align:center; font-size:1.5em; margin-top:30px;">
+<p>160.0 × (150.1 ÷ 148.2) = <strong>162.1</strong>, the imputed April index</p>
+</div>
+<div class="fragment fade-up" style="border-left: 6px solid #b03; padding-left: 20px; font-size: 0.9em;">
+<p>The NSO’s own published note states 162.2 here. Recomputed from the published 150.1 and 148.2, the arithmetic gives 162.05, which rounds to 162.1. The likely cause: the Food &amp; Beverages index is published to one decimal place, but the actual imputation was almost certainly run on unrounded internal figures.</p>
+</div>
+</section>
+<section id="worked-example-clothing" class="slide level2">
+<h2>Worked example: clothing</h2>
+<ul>
+<li class="fragment">Last observed index, March 2020: <strong>153.4</strong></li>
+<li class="fragment">General CPI, April 2020: <strong>150.3</strong></li>
+<li class="fragment">General CPI, March 2020: <strong>149.8</strong></li>
+</ul>
+<div class="fragment fade-up" style="text-align:center; font-size:1.5em; margin-top:30px;">
+<p>153.4 × (150.3 ÷ 149.8) = <strong>153.9</strong>, the imputed April index</p>
+</div>
+<div class="fragment fade-up">
+<p>The logic is identical to the meals example. Only the parent index changes, since clothing is a non-food item.</p>
+</div>
+</section>
+<section id="after-imputation" class="slide level2">
+<h2>After imputation</h2>
+<div class="fragment fade-up">
+<p>Once every missing sub-group is filled this way, the General CPI is recalculated for all 23 sub-groups.</p>
+</div>
+<div class="fragment fade-up">
+<p>NSO flagged every imputed cell in its published tables. It described the series as a business-continuity estimate, not an ordinary observed index.</p>
+</div>
+</section>
+<section id="why-this-matters-beyond-statistics-class" class="slide level2">
+<h2>Why this matters beyond statistics class</h2>
+<ul>
+<li class="fragment">Any wage revision or contract that referenced CPI in April and May 2020 was partly relying on an estimated number.</li>
+<li class="fragment">Building an index, and patching it when data fails, involves judgment calls with real distributive consequences.</li>
+<li class="fragment">This is the same “small rule, big pattern” idea this course keeps returning to.</li>
+</ul>
+</section></section>
+<section>
+<section id="wrap-up" class="title-slide slide level1 center">
+<h1>Wrap-up</h1>
+
+</section>
+<section id="key-takeaways-chapters-1-and-2" class="slide level2">
+<h2>Key takeaways: Chapters 1 and 2</h2>
+<ul>
+<li class="fragment">An index number rescales a series so change is easy to read, anchored at a base period.</li>
+<li class="fragment">The same construction, raw data combined into one number, shows up in the CPI, the FTSE 100, and composite indicators like the MPI.</li>
+<li class="fragment">Index numbers make comparison across very different scales possible.</li>
+</ul>
+</section>
+<section id="key-takeaways-chapters-4-and-5" class="slide level2">
+<h2>Key takeaways: Chapters 4 and 5</h2>
+<ul>
+<li class="fragment">Combining many price relatives into one number is not automatic. Five different averaging methods give five different answers, from the same data.</li>
+<li class="fragment">Weighting by quantities, Laspeyres or Paasche, fixes the biggest weakness of unweighted indices.</li>
+<li class="fragment">Real statistical offices use a practical compromise, the Lowe index.</li>
+</ul>
+</section>
+<section id="key-takeaways-the-case-study" class="slide level2">
+<h2>Key takeaways: the case study</h2>
+<ul>
+<li class="fragment">India’s CPI applies every one of these mechanisms every month, at national scale.</li>
+<li class="fragment">When normal data collection broke down in 2020, the same underlying logic kept the series alive.</li>
+<li class="fragment">Borrow information from the next level up, transparently, using clearly stated formulas.</li>
+</ul>
+</section>
+<section id="next-session" class="slide level2 center">
+<h2>Next session</h2>
+<div class="r-fit-text">
+<p>From measuring prices, to measuring everything else</p>
+</div>
+</section>
+<section id="references" class="slide level2 smaller">
+<h2>References</h2>
+<ul>
+<li>Ralph, J., O’Neill, R., and Winton, J. (2015) <em>A Practical Introduction to Index Numbers</em>, First Edition. John Wiley &amp; Sons, Ltd. Chapters 1, 2, 4, and 5.</li>
+<li>National Statistical Office, Ministry of Statistics and Programme Implementation, Government of India. Compilation of Consumer Price Index, a Technical Note, on imputation methodology during the April to May 2020 lockdown.</li>
+</ul>
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -2630,8 +3676,8 @@ window.QuartoSupport = function () {
 'controlsAuto': true,
 'previewLinksAuto': false,
 'pdfSeparateFragments': false,
-'autoAnimateEasing': "ease",
-'autoAnimateDuration': 1,
+'autoAnimateEasing': "ease-in-out",
+'autoAnimateDuration': 0.7,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
@@ -2814,82 +3860,6 @@ window.QuartoSupport = function () {
         ]
       });
     </script>
-    
-
-    <script>
-
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-
-      // slide changes (different for each slide format).
-
-      (function () {
-
-        // dispatch for htmlwidgets
-
-        function fireSlideEnter() {
-
-          const event = window.document.createEvent("Event");
-
-          event.initEvent("slideenter", true, true);
-
-          window.document.dispatchEvent(event);
-
-        }
-
-    
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          fireSlideEnter();
-
-    
-
-          // dispatch for shiny
-
-          if (window.jQuery) {
-
-            if (previousSlide) {
-
-              window.jQuery(previousSlide).trigger("hidden");
-
-            }
-
-            if (currentSlide) {
-
-              window.jQuery(currentSlide).trigger("shown");
-
-            }
-
-          }
-
-        }
-
-    
-
-        // hookup for slidy
-
-        if (window.w3c_slidy) {
-
-          window.w3c_slidy.add_observer(function (slide_num) {
-
-            // slide_num starts at position 1
-
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-
-          });
-
-        }
-
-    
-
-      })();
-
-    </script>
-
-    
-
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

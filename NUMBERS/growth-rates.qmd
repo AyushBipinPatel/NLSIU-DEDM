@@ -371,6 +371,163 @@ Try these on your own before checking the answer key on the next slide.
 
 **Q6. Monthly compounding.** $A = 80{,}000\left(1 + \dfrac{0.10}{12}\right)^{36} \approx$ **₹1,07,855**.
 
+## Present Value Discounting {.center}
+
+## From Growing Forward to Discounting Back
+
+You already know how to project a value **forward** in time using compound growth.
+
+$$V_t = V_0(1+r)^t$$
+
+Present value asks the exact opposite question. If you know what something is
+worth **later**, what is it worth **today**?
+
+This is the same formula, solved backward for \(V_0\) instead of \(V_t\).
+
+## What Is Present Value?
+
+Money today is worth more than the same amount of money in the future. Money in
+hand now can be invested and can start earning a return immediately.
+
+**Present value (PV)** is the amount you would need today to end up with a given
+future amount, at a given rate of return.
+
+The process of converting a future amount into its present value is called
+**discounting**. It is the mirror image of compounding.
+
+## The Discount Factor
+
+Before the full formula, look at the one piece doing all the work.
+
+$$\text{discount factor} = \frac{1}{(1+r)^t}$$
+
+This factor is always less than 1. Multiplying a future amount by it always
+shrinks the number, exactly the opposite of the growth factor \((1+r)^t\), which
+always grows it.
+
+The further away the future payment, or the higher the discount rate, the smaller
+this factor becomes, and the less a future rupee is worth today.
+
+## Present Value: Formula
+
+::: {.callout-note title="Formula"}
+$$PV = \frac{FV}{(1+r)^t}$$
+
+What each symbol means:
+
+- \(FV\): the future value, the known amount to be received at time \(t\)
+- \(r\): the discount rate per period, as a decimal (e.g. 8% = 0.08)
+- \(t\): the number of periods between today and the payment
+- \(PV\): the present value, what that future amount is worth today
+:::
+
+Note the family resemblance: this is simply \(V_t = V_0(1+r)^t\), rearranged to
+solve for \(V_0\).
+
+## Present Value: Worked Example
+
+What is the present value of **₹1,46,933**, to be received in **5 years**, if the
+discount rate is **8%**?
+
+$$PV = \frac{1{,}46{,}933}{(1.08)^5} = \frac{1{,}46{,}933}{1.4693} \approx ₹1{,}00{,}000$$
+
+Reading this result: this is exactly the compound interest example from earlier in
+this deck, run in reverse. ₹1,00,000 grown at 8% for 5 years becomes ₹1,46,933.
+Discounted back at the same 8%, it returns exactly to ₹1,00,000.
+
+## Choosing a Discount Rate
+
+The discount rate is not a fixed number. It represents what you could otherwise
+earn on your money, its **opportunity cost**.
+
+| Context | A typical discount rate reflects |
+|---|---|
+| A bank deposit | The interest rate on offer |
+| A business project | The company's required rate of return |
+| A government evaluating a policy | The social rate of time preference |
+
+A higher discount rate means a smaller present value for the same future amount.
+The next few slides show this in practice.
+
+## Present Value of Multiple Cash Flows: Formula
+
+Most real decisions involve more than one future payment. A project might pay out
+every year for several years.
+
+Each cash flow is discounted separately, back to today, then added together.
+
+::: {.callout-note title="Formula"}
+$$PV = \frac{CF_1}{(1+r)^1} + \frac{CF_2}{(1+r)^2} + \cdots + \frac{CF_n}{(1+r)^n}$$
+
+\(CF_1, CF_2, \dots, CF_n\) are the cash flows received at the end of each period,
+and \(r\) is the same discount rate applied throughout.
+:::
+
+## Present Value of Multiple Cash Flows: Worked Example
+
+A project pays **₹50,000** at the end of each of the next 3 years. The discount
+rate is **10%**.
+
+| Year | Cash flow | Discount factor | Present value |
+|---|---|---|---|
+| 1 | 50,000 | 0.9091 | 45,454.55 |
+| 2 | 50,000 | 0.8264 | 41,322.31 |
+| 3 | 50,000 | 0.7513 | 37,565.74 |
+| **Total** | | | **₹1,24,342.60** |
+
+Reading this result: even though ₹50,000 is received three times, ₹1,50,000 in
+total, its present value is only about ₹1,24,343. Later cash flows are worth less
+today than earlier ones, even though they are the same size.
+
+## Net Present Value (NPV): The Decision Rule
+
+Present value becomes a decision tool once you compare it to what the investment
+actually costs today.
+
+::: {.callout-note title="Formula"}
+$$NPV = \left(\sum_{i=1}^{n} \frac{CF_i}{(1+r)^i}\right) - \text{Initial investment}$$
+:::
+
+**The rule:** if NPV is positive, the project is worth more than it costs, accept
+it. If NPV is negative, it costs more than it is worth, reject it.
+
+## NPV: Worked Example
+
+Using the same project (₹50,000 a year for 3 years, discounted at 10%), suppose it
+requires an initial investment of **₹1,20,000** today.
+
+$$NPV = ₹1{,}24{,}342.60 - ₹1{,}20{,}000 = ₹4{,}342.60$$
+
+Reading this result: the NPV is positive, so this project is worth accepting. It
+returns slightly more, in today's money, than it costs to undertake.
+
+## Practice Questions
+
+Try these before checking the answer key on the next slide.
+
+1. Find the present value of ₹50,000 to be received in 4 years, at a discount rate
+   of 6%.
+2. Find the present value of ₹1,00,000 to be received in 3 years, at a discount
+   rate of 9%.
+3. A project pays ₹20,000 at the end of each of the next 3 years. The discount rate
+   is 8%. Find the total present value of these cash flows.
+4. Using the project in Question 3, suppose it requires an initial investment of
+   ₹45,000 today. Find the NPV, and state whether the project should be accepted.
+
+## Answer Key
+
+**Q1.** \(PV = \dfrac{50{,}000}{(1.06)^4} \approx\) **₹39,604.68**
+
+**Q2.** \(PV = \dfrac{1{,}00{,}000}{(1.09)^3} \approx\) **₹77,218.35**
+
+**Q3.** Discount each ₹20,000 payment separately and add:
+\(\dfrac{20{,}000}{1.08} + \dfrac{20{,}000}{1.08^2} + \dfrac{20{,}000}{1.08^3} \approx\)
+**₹51,541.94**
+
+**Q4.** \(NPV = 51{,}541.94 - 45{,}000 \approx\) **₹6,541.94**. Positive NPV, so the
+project should be **accepted**.
+
+
 ## Key Takeaways {.smaller}
 
 - **Absolute change** tells you the raw amount of change. **Relative growth** tells you the rate. Always be clear on which one you are looking at.
@@ -378,3 +535,15 @@ Try these on your own before checking the answer key on the next slide.
 - **Compound growth** adds a fixed *percentage* each period, calculated on the *latest* base. It snowballs over time.
 - Real-world economic growth (GDP, investments, populations) is almost always modelled as **compound**.
 - Use **CAGR** to annualise growth measured over multiple periods. Never simply divide total percentage growth by the number of years.
+
+## Key Takeaways
+
+- Present value discounting is compound growth run in reverse: it answers what a
+  future amount is worth today.
+- The discount rate represents opportunity cost, what your money could otherwise
+  earn.
+- A higher discount rate or a longer time horizon always shrinks present value.
+- NPV compares the present value of future cash flows to an upfront cost. Positive
+  NPV means accept, negative means reject.
+
+# End of Session

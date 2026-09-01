@@ -1,0 +1,1626 @@
+---
+title: "Numbers"
+author: "Ayush Patel"
+subtitle: "Session 26: Measuring a Moving Target, Index Numbers and the CPI"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute:
+  echo: false
+  warning: false
+format:
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+    incremental: false
+    auto-animate-easing: ease-in-out
+    auto-animate-duration: 0.7
+    auto-animate-unmatched: true
+---
+
+# Where we left off, and where we're going
+
+## Last session, in one line {.center}
+
+::: {.r-fit-text}
+Small rules build big patterns
+:::
+
+::: {.fragment .fade-up}
+Today's big pattern: a single number that summarises what happened to thousands of
+prices at once.
+:::
+
+## How today works {.center}
+
+::: {.fragment .fade-up}
+We follow one book, in order. *A Practical Introduction to Index Numbers* by Ralph,
+O'Neill and Winton.
+:::
+
+::: {.fragment .fade-up}
+Every idea is built up step by step, with a worked example, before we look at any
+formula.
+:::
+
+::: {.fragment .fade-up}
+At the end, we test all of it against a real case. India's CPI, and what happened to
+it during the COVID-19 lockdown.
+:::
+
+## Roadmap {.smaller}
+
+::: {.incremental}
+1. Chapter 1. What is an index number.
+2. Chapter 2. Index numbers and change.
+3. Chapter 4. Introducing price and quantity.
+4. Chapter 5. Laspeyres and Paasche indices.
+5. Case study. Compiling India's CPI.
+:::
+
+# Part 1: Chapter 1, What Is an Index Number
+
+## 1.1 What is an index number? {.center}
+
+## A company's sales, year after year
+
+::: {.fragment .fade-up}
+Here is the total value of retail sales in Great Britain, in billions of pounds.
+:::
+
+::: {.fragment .fade-up}
+| Year | Sales (£bn) |
+|---|---|
+| 2005 | 281.450 |
+| 2006 | 292.110 |
+| 2007 | 303.621 |
+| 2008 | 321.178 |
+:::
+
+::: {.fragment .fade-up}
+Sales are clearly rising. But how much easier would it be to read that change if we
+did not have to do the arithmetic ourselves?
+:::
+
+## Pick a year to compare everything to
+
+::: {.fragment .fade-up}
+Choose one year as your reference point. Call it the **base period**.
+:::
+
+::: {.fragment .fade-up}
+Let's choose 2005.
+:::
+
+::: {.fragment .fade-up}
+Now give 2005 a clean, memorable value. Not £281.450 billion. Just **100**.
+:::
+
+## Rescaling the series {auto-animate="true"}
+
+::: {style="text-align:center; margin-top:80px; font-size:1.6em;"}
+2005: £281.450bn becomes **100**
+:::
+
+## Rescaling the series {auto-animate="true"}
+
+::: {style="text-align:center; margin-top:60px; font-size:1.4em;"}
+2005: £281.450bn becomes **100**
+:::
+
+::: {.fragment .fade-up style="text-align:center; margin-top:30px; font-size:1.4em;"}
+Every other year is scaled by the same factor.
+:::
+
+::: {.fragment .fade-up style="text-align:center; margin-top:20px; font-size:1.4em;"}
+2006: £292.110bn becomes **103.79**
+:::
+
+## The rescaled series
+
+::: {.fragment .fade-up}
+| Year | Sales (£bn) | Index (2005 = 100) |
+|---|---|---|
+| 2005 | 281.450 | 100.00 |
+| 2006 | 292.110 | 103.79 |
+| 2007 | 303.621 | 107.88 |
+| 2008 | 321.178 | 114.12 |
+:::
+
+::: {.fragment .fade-up}
+This rescaled column is a set of **index numbers**. Now the change is readable at a
+glance.
+:::
+
+## Reading the index number
+
+::: {.fragment .fade-up}
+Look at 2007. The index value is **107.88**.
+:::
+
+::: {.fragment .fade-up}
+That single number tells you sales were **7.88% higher** in 2007 than in 2005.
+:::
+
+::: {.fragment .fade-up}
+You did not need a calculator to see that. The scaling did the work for you.
+:::
+
+## What did we gain, and what did we lose?
+
+::: {.fragment .fade-up}
+We gained a direct, readable measure of **change**.
+:::
+
+::: {.fragment .fade-up}
+We lost the actual monetary values. The index alone does not tell you sales were
+£303.621 billion in 2007.
+:::
+
+::: {.fragment .fade-up}
+That trade-off is usually worth it. Often we care about the *change* far more than
+the *level*.
+:::
+
+## 1.2 Example: the Consumer Prices Index {.center}
+
+## From sales to prices
+
+::: {.fragment .fade-up}
+The same rescaling idea applies to prices. This gives us the **Consumer Prices
+Index**, or CPI.
+:::
+
+::: {.fragment .fade-up}
+The CPI tracks the general level of prices of consumer goods and services, month by
+month.
+:::
+
+## Reading a real CPI table
+
+::: {.fragment .fade-up}
+| Month | Index (2005 = 100) | 1-month rate | 12-month rate |
+|---|---|---|---|
+| Sep 2012 | 123.5 | 0.4 | 2.2 |
+| Oct 2012 | 124.2 | 0.5 | 2.7 |
+| Nov 2012 | 124.4 | 0.2 | 2.7 |
+| Dec 2012 | 125.0 | 0.5 | 2.7 |
+:::
+
+::: {.fragment .fade-up}
+In September 2012, prices were 23.5% above their 2005 level.
+:::
+
+## Checking the 1-month rate ourselves
+
+::: {.fragment .fade-up}
+The 1-month rate compares each month only to the **one before it**, using the same
+percentage change formula from Chapter 2.
+:::
+
+::: {.fragment .fade-up}
+$$g^{s,t} = \frac{I^{0,t} - I^{0,s}}{I^{0,s}} \times 100$$
+:::
+
+::: {.fragment .fade-up}
+November's index was 124.4. December's was 125.0.
+:::
+
+::: {.fragment .fade-up}
+$$\frac{125.0 - 124.4}{124.4} \times 100 = 0.48\% \approx 0.5\%$$
+:::
+
+::: {.fragment .fade-up}
+This matches the table. The 12-month rate works the same way, just compared to the
+same month a year earlier instead of the month before.
+:::
+
+::: {.fragment .fade-up style="border-left: 6px solid #b03; padding-left: 20px;"}
+A caution: try this with September to October instead, and you get 0.6%, not the
+0.5% shown. The published rate is calculated from **unrounded** source data, then
+rounded for display, separately from the index values themselves. Recalculating from
+the rounded index can occasionally land one tenth of a point off.
+:::
+
+## The number that actually matters
+
+::: {.fragment .fade-up}
+Here is a subtlety worth sitting with. The **level** of the CPI is not published as
+a headline figure, and it is not very informative on its own.
+:::
+
+::: {.fragment .fade-up}
+It is the **rate of change**, the 12-month rate, that is the headline statistic.
+That rate of change is what we call **inflation**.
+:::
+
+::: {.fragment .fade-up}
+This is why inflation, not "the price level," leads the news every month.
+:::
+
+## How the CPI is actually built, in one sentence
+
+::: {.fragment .fade-up}
+A representative **basket** of about 700 goods and services is chosen.
+:::
+
+::: {.fragment .fade-up}
+About 180,000 individual prices are collected for these items every month, across a
+sample of shops and locations.
+:::
+
+::: {.fragment .fade-up}
+We will unfold exactly how these prices get combined into one number later today.
+:::
+
+## 1.3 Example: FTSE 100 {.center}
+
+## A different kind of index
+
+::: {.fragment .fade-up}
+The **FTSE 100** tracks the share prices of the 100 largest companies listed on the
+London Stock Exchange.
+:::
+
+::: {.fragment .fade-up}
+Each company's share price counts more or less depending on the company's size, its
+**market capitalisation**.
+:::
+
+::: {.fragment .fade-up}
+It is updated every 15 seconds during trading hours.
+:::
+
+## An important twist: the base need not be 100
+
+::: {.fragment .fade-up}
+The FTSE 100 was first produced in 1984. Its starting value was not 100.
+:::
+
+::: {.fragment .fade-up}
+::: {.r-fit-text}
+It started at **1000**
+:::
+:::
+
+::: {.fragment .fade-up}
+There is no strict rule that the base value must be 100. It is simply a convenient,
+common choice. The FTSE 100 has since risen past 6000, several times its starting
+value.
+:::
+
+## 1.4 Example: the Multidimensional Poverty Index {.center}
+
+## Combining things that are not prices at all
+
+::: {.fragment .fade-up}
+So far, every index combined quantities of the **same type**. Pounds of sales,
+prices of goods.
+:::
+
+::: {.fragment .fade-up}
+What if the things you want to combine are not even measured in the same units?
+:::
+
+::: {.fragment .fade-up}
+This is called a **composite indicator**. The Multidimensional Poverty Index, or
+MPI, is a classic example.
+:::
+
+## What goes into the MPI
+
+::: {.fragment .fade-up}
+| Dimension | Indicator | Weight |
+|---|---|---|
+| Health | Child mortality | 1/6 |
+| Health | Health | 1/6 |
+| Education | Years of schooling | 1/6 |
+| Education | Child school attendance | 1/6 |
+| Living standard | Electricity | 1/18 |
+| Living standard | Drinking water | 1/18 |
+| Living standard | Sanitation, flooring, cooking fuel, assets | 1/18 each |
+:::
+
+::: {.fragment .fade-up}
+Ten very different indicators, each with a weight, combined into one poverty score
+per country.
+:::
+
+## 1.5 Example: the Gender Inequality Index {.center}
+
+## A second composite indicator
+
+::: {.fragment .fade-up}
+The **Gender Inequality Index**, produced by the United Nations, measures inequality
+in achievement between men and women.
+:::
+
+::: {.fragment .fade-up}
+| Dimension | Indicator |
+|---|---|
+| Health | Maternal mortality ratio |
+| Health | Adolescent birth rate |
+| Empowerment | Parliamentary representation |
+| Empowerment | Educational attainment |
+| Labour market | Labour market participation |
+:::
+
+::: {.fragment .fade-up}
+Each country gets one overall score, built from five very different indicators.
+Countries can then be ranked and compared, across time as well as across countries.
+:::
+
+## 1.6 Representing the world with index numbers {.center}
+
+## The upside and the downside
+
+::: {.fragment .fade-up}
+On the upside, a single index number can summarise something genuinely complex. That
+supports clear communication and policy making.
+:::
+
+::: {.fragment .fade-up}
+On the downside, the same summarising power can flatten a complex reality into a
+misleadingly simple number.
+:::
+
+::: {.fragment .fade-up}
+A poor underlying model, or poor data, produces a poor indicator, no matter how
+official the final number looks.
+:::
+
+## The one idea behind every example so far
+
+::: {.fragment .fade-up}
+Retail sales, the CPI, the FTSE 100, the MPI, the Gender Inequality Index. Five very
+different things.
+:::
+
+::: {.fragment .fade-up}
+Every single one follows the same construction: raw data, combined according to some
+model, into one number.
+:::
+
+::: {.fragment .fade-up}
+The rest of today unfolds exactly how that combination is actually done, for prices.
+:::
+
+## 1.7 Chapter summary {.center}
+
+::: {.incremental}
+- An index number rescales a series so change is easy to read.
+- The base period does not have to equal 100, though it usually does.
+- The level of an index is often less interesting than its rate of change.
+- The same basic idea, combine data into one number, extends far beyond prices.
+:::
+
+# Part 2: Chapter 2, Index Numbers and Change
+
+## 2.1 Calculating an index series from a data series {.center}
+
+## Turning the idea into a recipe
+
+::: {.fragment .fade-up}
+Chapter 1 showed *what* an index number does. Now we build the exact recipe for
+*how* to calculate one.
+:::
+
+::: {.fragment .fade-up}
+Call the value of something at the base period $x^0$, and its value now, at period
+$t$, simply $x^t$.
+:::
+
+## Building the formula, step by step {auto-animate="true"}
+
+::: {style="text-align:center; margin-top:100px; font-size:1.6em;"}
+Take today's value
+:::
+
+## Building the formula, step by step {auto-animate="true"}
+
+::: {style="text-align:center; margin-top:60px; font-size:1.5em;"}
+Take today's value, divide by the base period's value
+:::
+
+::: {.fragment .fade-up style="text-align:center; margin-top:30px; font-size:1.5em;"}
+Multiply by 100
+:::
+
+## Building the formula, step by step {auto-animate="true"}
+
+::: {style="text-align:center; margin-top:120px;"}
+$$I^{0,t} = 100 \times \frac{x^t}{x^0}$$
+:::
+
+::: {.fragment .fade-up style="text-align:center; font-size:1.3em; margin-top:20px;"}
+This is the exact formula behind the rescaling we did by hand in Chapter 1.
+:::
+
+## Worked example: a company's turnover
+
+::: {.fragment .fade-up}
+Company A's annual turnover, in £ million, 2002 to 2013.
+:::
+
+::: {.fragment .fade-up}
+| Year | 2002 | 2003 | 2004 | 2005 | 2006 | 2007 |
+|---|---|---|---|---|---|---|
+| Turnover | 17.9 | 18.5 | 18.1 | 18.6 | 19.0 | 19.1 |
+
+| Year | 2008 | 2009 | 2010 | 2011 | 2012 | 2013 |
+|---|---|---|---|---|---|---|
+| Turnover | 19.3 | 20.2 | 20.3 | 20.0 | 20.5 | 20.4 |
+:::
+
+## Calculating the first few index values
+
+::: {.fragment .fade-up}
+Base period is 2002. So $x^0 = 17.9$.
+:::
+
+::: {.fragment .fade-up}
+For 2002 itself: $100 \times \dfrac{17.9}{17.9} = 100.0$
+:::
+
+::: {.fragment .fade-up}
+For 2003: $100 \times \dfrac{18.5}{17.9} = 103.4$
+:::
+
+::: {.fragment .fade-up}
+For 2012: $100 \times \dfrac{20.5}{17.9} = 114.5$
+:::
+
+## The full index series
+
+::: {.fragment .fade-up}
+| Year | 2002 | 2003 | 2004 | 2005 | 2006 | 2007 |
+|---|---|---|---|---|---|---|
+| Index | 100.0 | 103.4 | 101.1 | 103.9 | 106.1 | 106.7 |
+
+| Year | 2008 | 2009 | 2010 | 2011 | 2012 | 2013 |
+|---|---|---|---|---|---|---|
+| Index | 107.8 | 112.8 | 113.4 | 111.7 | 114.5 | 114.0 |
+:::
+
+## 2.2 Calculating percentage change {.center}
+
+## Level versus change
+
+::: {.fragment .fade-up}
+An index series is really a measure of change. What we usually care about is not
+the level of the index, but how much it grew.
+:::
+
+::: {.fragment .fade-up}
+The UK's headline figures for GDP and the CPI are both, at heart, reported as
+percentage changes in an index series.
+:::
+
+## The general percentage change formula {auto-animate="true"}
+
+::: {style="text-align:center; margin-top:100px; font-size:1.6em;"}
+(New value minus old value), divided by old value
+:::
+
+## The general percentage change formula {auto-animate="true"}
+
+::: {style="text-align:center; margin-top:120px;"}
+$$\text{percentage change} = \frac{B - A}{A} \times 100$$
+:::
+
+## Applying it to an index series
+
+::: {.fragment .fade-up}
+Between two periods $s$ and $t$, where $s$ comes before $t$:
+:::
+
+::: {.fragment .fade-up}
+$$g^{s,t} = \frac{I^{0,t} - I^{0,s}}{I^{0,s}} \times 100$$
+:::
+
+::: {.fragment .fade-up}
+There is a shortcut when comparing back to the base period itself.
+:::
+
+::: {.fragment .fade-up}
+$$g^{0,t} = I^{0,t} - 100$$
+:::
+
+::: {.fragment .fade-up}
+This is exactly why we chose 100 as the base value. It makes reading percentage
+change effortless.
+:::
+
+## Worked example: percentage change for Company A
+
+::: {.fragment .fade-up}
+Using the index series we just built, base period 2002.
+:::
+
+::: {.incremental}
+- 2002 to 2004: $\dfrac{101.1 - 100}{100} \times 100 = 1.1\%$
+- 2002 to 2013: $\dfrac{114.0 - 100}{100} \times 100 = 14.0\%$
+- 2005 to 2007: $\dfrac{106.7 - 103.9}{103.9} \times 100 = 2.7\%$
+:::
+
+::: {.fragment .fade-up}
+Notice the last one is not a shortcut calculation. Neither period is the base
+period, so we need the full formula.
+:::
+
+## 2.3 Comparing data series with index numbers {.center}
+
+## A comparison problem
+
+::: {.fragment .fade-up}
+Suppose we want to compare population growth across the European Union, Germany,
+the United Kingdom, and Cyprus, from 1995 to 2011.
+:::
+
+::: {.fragment .fade-up}
+The EU's population is roughly 500 million. Cyprus's is under a million. Plotted on
+the same raw scale, Cyprus is a flat line near zero.
+:::
+
+::: {.fragment .fade-up}
+The raw numbers make comparing *growth rates* almost impossible, even though that is
+exactly what we want to compare.
+:::
+
+## Rebasing solves it
+
+::: {.fragment .fade-up}
+Convert all four population series to index numbers, with a common base period,
+2000 equals 100.
+:::
+
+::: {.fragment .fade-up}
+Now every series starts at the same point, and their *shapes* become directly
+comparable.
+:::
+
+::: {.fragment .fade-up}
+The result: Cyprus's population rose in percentage terms **more than three times**
+as much as the UK's, over this period. A fact the raw population chart completely
+hid.
+:::
+
+## Why this matters
+
+::: {.fragment .fade-up}
+Index numbers are not just a display trick. They let us compare things that live on
+wildly different scales, fairly, using the same yardstick.
+:::
+
+## 2.4 Converting from an index series to a data series {.center}
+
+## The reverse problem
+
+::: {.fragment .fade-up}
+Sometimes you only have an index series, and you want back the original data. For
+example, you might have GDP as an index, but want to know the actual amount in
+rupees or pounds.
+:::
+
+::: {.fragment .fade-up}
+This needs one more piece of information: the actual data value at any single point
+in time.
+:::
+
+## Recovering the data {auto-animate="true"}
+
+::: {style="text-align:center; margin-top:100px;"}
+$$x^t = \frac{I^{0,t} \times x^s}{I^{0,s}}$$
+:::
+
+## Recovering the data {auto-animate="true"}
+
+::: {style="text-align:center; margin-top:60px;"}
+$$x^t = \frac{I^{0,t} \times x^s}{I^{0,s}}$$
+:::
+
+::: {.fragment .fade-up style="text-align:center; margin-top:30px; font-size:1.3em;"}
+If the known value happens to be the base period itself, this simplifies:
+:::
+
+::: {.fragment .fade-up style="text-align:center; font-size:1.5em;"}
+$$x^t = \frac{I^{0,t} \times x^0}{100}$$
+:::
+
+## Worked example: recovering turnover
+
+::: {.fragment .fade-up}
+We are told Company A's turnover in 2006 was exactly **£19.0 million**, and we have
+the index series from before. Can we recover every other year?
+:::
+
+::: {.fragment .fade-up}
+For 2002: $\dfrac{100.0 \times 19.0}{106.1} = 17.9$
+:::
+
+::: {.fragment .fade-up}
+For 2003: $\dfrac{103.4 \times 19.0}{106.1} = 18.5$
+:::
+
+::: {.fragment .fade-up}
+Exactly the turnover figures we started with. The index series really does carry
+the full shape of the data, just not its scale.
+:::
+
+## 2.5 Chapter summary {.center}
+
+::: {.incremental}
+- We now have the exact recipe to build an index series from data.
+- Percentage change, not the level, is usually the statistic that matters.
+- Rebasing to a common base period lets us fairly compare series on different
+  scales.
+- The recipe also runs backward. An index series plus one known data point recovers
+  the whole data series.
+:::
+
+## A short gap in the book, before we continue {.center}
+
+::: {.fragment .fade-up}
+Chapter 3 of the book covers the wider range of uses of inflation figures.
+:::
+
+::: {.fragment .fade-up}
+We pick the story back up at Chapter 4, where the book asks a sharper question. How
+do we build a price index out of *many* items at once?
+:::
+
+# Part 3: Chapter 4, Introducing Price and Quantity
+
+## 4.1 Measuring price change {.center}
+
+## Starting as small as possible
+
+::: {.fragment .fade-up}
+Before measuring price change for an entire economy, start with a single item.
+:::
+
+::: {.fragment .fade-up}
+A bottle of washing-up liquid cost **£1.30** in January 2014, and **£1.40** in July
+2014.
+:::
+
+## Building the price relative {auto-animate="true"}
+
+::: columns
+::: {.column width="45%"}
+::: {style="border: 3px solid #444; border-radius: 12px; padding: 20px 40px; text-align: center; font-size: 1.4em;"}
+Price now, July
+:::
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="45%"}
+::: {style="border: 3px solid #444; border-radius: 12px; padding: 20px 40px; text-align: center; font-size: 1.4em;"}
+Price then, January
+:::
+:::
+:::
+
+## Building the price relative {auto-animate="true"}
+
+::: columns
+::: {.column width="42%"}
+::: {style="border: 3px solid #444; border-radius: 12px; padding: 20px 40px; text-align: center; font-size: 1.4em;"}
+£1.40
+:::
+:::
+
+::: {.column width="16%"}
+::: {style="text-align: center; font-size: 2em; margin-top: 40px;"}
+÷
+:::
+:::
+
+::: {.column width="42%"}
+::: {style="border: 3px solid #444; border-radius: 12px; padding: 20px 40px; text-align: center; font-size: 1.4em;"}
+£1.30
+:::
+:::
+:::
+
+## Building the price relative {auto-animate="true"}
+
+::: {style="text-align:center; margin-top:100px;"}
+$$R^{0,t} = \frac{p^t}{p^0} = \frac{1.40}{1.30} = 1.0769$$
+:::
+
+::: {.fragment .fade-up style="text-align:center; font-size:1.4em; margin-top:20px;"}
+This ratio is called the **price relative**.
+:::
+
+## Turning the price relative into a percentage
+
+::: {.fragment .fade-up}
+$$\% \text{ change in price} = 100 \times (R^{0,t} - 1)$$
+:::
+
+::: {.fragment .fade-up}
+$$100 \times (1.0769 - 1) = 7.69\%$$
+:::
+
+::: {.fragment .fade-up}
+We would say inflation between January and July 2014, for this one item, was
+**7.69%**.
+:::
+
+::: {.fragment .fade-up style="border-left: 6px solid #b03; padding-left: 20px;"}
+A note: the printed textbook states this example works out to 8.33%. It does not.
+Recomputed from its own numbers, £1.30 to £1.40 gives 7.69%, not 8.33%. This looks
+like an arithmetic slip in the book itself, worth mentioning if a student checks the
+original page.
+:::
+
+## From one item to a whole basket
+
+::: {.fragment .fade-up}
+Now imagine $N$ items in a basket, not just one. Each item $i$ has its own price
+relative.
+:::
+
+::: {.fragment .fade-up}
+$$R_i^{0,t} = \frac{p_i^t}{p_i^0}$$
+:::
+
+## Worked example: five drinks
+
+::: {.fragment .fade-up}
+| Drink | 2012 | 2013 | 2014 |
+|---|---|---|---|
+| Bitter (pint) | 1.95 | 1.80 | 2.00 |
+| Lager (pint) | 2.40 | 2.65 | 2.60 |
+| Wine (large glass) | 3.50 | 3.50 | 3.50 |
+| Vodka (single) | 2.20 | 2.25 | 2.30 |
+| Lemonade (half pint) | 0.80 | 0.90 | 0.95 |
+:::
+
+::: {.fragment .fade-up}
+Bitter, 2012 to 2014: $\dfrac{2.00}{1.95} = 1.026$, up 2.6%.
+:::
+
+::: {.fragment .fade-up}
+Vodka, 2012 to 2013: $\dfrac{2.25}{2.20} = 1.023$, up 2.3%.
+:::
+
+## 4.2 Simple, un-weighted indices for price change {.center}
+
+## The next question
+
+::: {.fragment .fade-up}
+We can now find a price relative for any single item. But a real price index needs
+to summarise *all five* drinks in **one** number.
+:::
+
+::: {.fragment .fade-up}
+This fixed collection of items is called a **basket of goods and services**. A
+shopping basket that we track, month after month.
+:::
+
+::: {.fragment .fade-up}
+The UK CPI basket, for example, includes milk, bread, bacon and beer. It also
+includes gas and electricity bills, fridges, cars, holidays, and even concert
+tickets.
+:::
+
+::: {.fragment .fade-up}
+So, with five price relatives in hand, how do we combine them into one?
+:::
+
+## Method 1: just average them
+
+::: {.fragment .fade-up}
+The simplest idea. Add up the price relatives, divide by how many there are. The
+plain arithmetic mean.
+:::
+
+::: {.fragment .fade-up}
+This is called the **Carli** index.
+:::
+
+::: {.fragment .fade-up}
+$$P^{0,t}_{\text{Carli}} = 100 \times \frac{1}{n}\sum_{i=1}^{n} R_i^{0,t}$$
+:::
+
+## Method 2: average them multiplicatively
+
+::: {.fragment .fade-up}
+Instead of adding the relatives, multiply them together, then take the $n$-th root.
+The geometric mean.
+:::
+
+::: {.fragment .fade-up}
+This is called the **Jevons** index.
+:::
+
+::: {.fragment .fade-up}
+$$P^{0,t}_{\text{Jevons}} = 100 \times \left(\prod_{i=1}^{n} R_i^{0,t}\right)^{1/n}$$
+:::
+
+::: {.fragment .fade-up}
+Intuition: a price that doubles and a price that halves cancel out exactly under
+Jevons. Under Carli, they do not.
+:::
+
+## Method 3: average the prices first
+
+::: {.fragment .fade-up}
+Instead of averaging the *relatives*, average the raw prices in each period first,
+then take the ratio of those two averages.
+:::
+
+::: {.fragment .fade-up}
+This is called the **Dutot** index.
+:::
+
+::: {.fragment .fade-up}
+$$P^{0,t}_{\text{Dutot}} = 100 \times \frac{\frac{1}{n}\sum p_i^t}{\frac{1}{n}\sum p_i^0}$$
+:::
+
+::: {.fragment .fade-up}
+Dutot silently gives more influence to items with a **higher price**, since it
+averages pounds and pence, not ratios.
+:::
+
+## Method 4: the harmonic mean
+
+::: {.fragment .fade-up}
+A less obvious average. Take the reciprocal of each price relative, average those,
+then take the reciprocal of the result.
+:::
+
+::: {.fragment .fade-up}
+This is the **Harmonic** index.
+:::
+
+::: {.fragment .fade-up}
+$$P^{0,t}_{\text{Harmonic}} = 100 \times \frac{n}{\sum_{i=1}^{n} \frac{1}{R_i^{0,t}}}$$
+:::
+
+## Method 5: split the difference
+
+::: {.fragment .fade-up}
+Carli tends to sit a little high. Harmonic tends to sit a little low. Why not
+average the two?
+:::
+
+::: {.fragment .fade-up}
+The **CSWD** index (Carruthers, Selwood, Ward and Dalen) is the geometric mean of
+Carli and Harmonic.
+:::
+
+::: {.fragment .fade-up}
+$$P^{0,t}_{\text{CSWD}} = \sqrt{P^{0,t}_{\text{Carli}} \times P^{0,t}_{\text{Harmonic}}}$$
+:::
+
+## Same data, five different answers
+
+::: {.fragment .fade-up}
+Price relatives for the five drinks, 2012 to 2013: 0.923, 1.104, 1.000, 1.023, 1.125.
+:::
+
+::: {.fragment .fade-up}
+| Method | Index value |
+|---|---|
+| Carli | 103.5 |
+| Jevons | 103.2 |
+| Dutot | 102.3 |
+| Harmonic | 103.0 |
+| CSWD | 103.2 |
+:::
+
+::: {.fragment .fade-up}
+The estimate of inflation ranges from **2.3% to 3.5%**, using the exact same price
+data. The choice of formula is not a technicality. It changes the answer.
+:::
+
+## 4.2.2 Simple quantity indices {.center}
+
+::: {.fragment .fade-up}
+Every one of the five formulas we just saw has an exact mirror image for
+**quantities**. Just replace each price relative with a quantity relative.
+:::
+
+::: {.fragment .fade-up}
+$$\tilde{R}_i^{0,t} = \frac{q_i^t}{q_i^0}$$
+:::
+
+::: {.fragment .fade-up}
+Carli, Jevons, Dutot, Harmonic, and CSWD all work exactly the same way, just applied
+to quantities bought instead of prices paid.
+:::
+
+## 4.3 Price, quantity and value {.center}
+
+## The relationship at the heart of it all
+
+::: {.fragment .fade-up}
+Price, quantity, and value are linked in the simplest possible way.
+:::
+
+::: {.fragment .fade-up}
+$$\text{value} = \text{price} \times \text{quantity}$$
+:::
+
+::: {.fragment .fade-up}
+For a whole basket of $n$ items, the total value at period $t$ is:
+:::
+
+::: {.fragment .fade-up}
+$$V^t = \sum_{i=1}^{n} p_i^t q_i^t$$
+:::
+
+## What drives a change in value?
+
+::: {.fragment .fade-up}
+$$V^{0,t} = \frac{\sum p_i^t q_i^t}{\sum p_i^0 q_i^0}$$
+:::
+
+::: {.fragment .fade-up}
+If your weekly shopping bill goes up, is it because prices rose, because you bought
+more, or some mix of both?
+:::
+
+::: {.fragment .fade-up}
+Price change and quantity change are often tangled together. In fact, they are
+usually negatively related. When something gets pricier, people tend to buy less of
+it.
+:::
+
+::: {.fragment .fade-up}
+Untangling this is exactly the problem the next chapter solves.
+:::
+
+# Part 4: Chapter 5, Laspeyres and Paasche Indices
+
+## A fruit basket, three items
+
+::: {.fragment .fade-up}
+| Fruit | 2012 price | 2013 price | Price relative |
+|---|---|---|---|
+| Apples | £0.40 | £0.42 | 1.050 |
+| Bananas | £0.50 | £0.55 | 1.100 |
+| Pineapple | £1.25 | £2.00 | 1.600 |
+:::
+
+::: {.fragment .fade-up}
+Apples rose 5%. Bananas rose 10%. Pineapples rose a dramatic 60%.
+:::
+
+## Combining them the old way
+
+::: {.fragment .fade-up}
+Using three of the five formulas from Chapter 4:
+:::
+
+::: {.fragment .fade-up}
+| Method | 2013 index |
+|---|---|
+| Carli | 125.0 |
+| Dutot | 138.1 |
+| Jevons | 122.7 |
+:::
+
+::: {.fragment .fade-up}
+Every one of these answers is dragged upward by the pineapple's huge price jump.
+:::
+
+## But is that fair?
+
+::: {.fragment .fade-up}
+In 2012, this basket actually contained **220 apples**, **230 bananas**, and just
+**50 pineapples**.
+:::
+
+::: {.fragment .fade-up}
+Pineapples were a small part of what people actually bought. Should their 60% jump
+really dominate the overall answer, as much as it just did?
+:::
+
+::: {.fragment .fade-up}
+We are missing a crucial ingredient. **How much of each item was actually bought.**
+:::
+
+## 5.1 The Laspeyres price index {.center}
+
+## The idea
+
+::: {.fragment .fade-up}
+What if we weight each item's price change by how much of it we bought, back in the
+**base period**?
+:::
+
+::: {.fragment .fade-up}
+That is exactly the **Laspeyres price index**.
+:::
+
+::: {.fragment .fade-up}
+It answers a very specific question. How has the cost of this basket changed, if I
+buy the *same quantities* as I did in the base period?
+:::
+
+## The formula {auto-animate="true"}
+
+::: {style="text-align:center; margin-top:100px;"}
+$$P^{0,t}_{\text{Laspeyres}} = 100 \times \frac{\sum p_i^t q_i^0}{\sum p_i^0 q_i^0}$$
+:::
+
+## The formula {auto-animate="true"}
+
+::: {style="text-align:center; margin-top:60px;"}
+$$P^{0,t}_{\text{Laspeyres}} = 100 \times \frac{\sum p_i^t q_i^0}{\sum p_i^0 q_i^0}$$
+:::
+
+::: {.fragment .fade-up style="text-align:center; font-size:1.3em; margin-top:20px;"}
+Notice the quantity term, $q^0$, is the **same in top and bottom**. Only price
+changes. Quantities are frozen at base-period levels.
+:::
+
+## Calculating it for the fruit basket
+
+::: {.fragment .fade-up}
+Top: $(0.42\times220) + (0.55\times230) + (2.00\times50) = 319$
+:::
+
+::: {.fragment .fade-up}
+Bottom: $(0.40\times220) + (0.50\times230) + (1.25\times50) = 266$
+:::
+
+::: {.fragment .fade-up}
+$$100 \times \frac{319}{266} = 120.1$$
+:::
+
+::: {.fragment .fade-up}
+Compare this to Carli's 125.0, Jevons's 122.7, and Dutot's 138.1. Weighting by real
+quantities pulled the answer down, because pineapples matter less than their price
+jump alone suggested.
+:::
+
+## 5.2 The Paasche price index {.center}
+
+## A different, equally valid choice
+
+::: {.fragment .fade-up}
+Laspeyres freezes quantities at the base period. But why the base period, and not
+the current one?
+:::
+
+::: {.fragment .fade-up}
+There is no obvious theoretical reason to prefer one over the other.
+:::
+
+::: {.fragment .fade-up}
+The **Paasche price index** freezes quantities at the **current** period instead.
+:::
+
+## The formula {auto-animate="true"}
+
+::: {style="text-align:center; margin-top:100px;"}
+$$P^{0,t}_{\text{Paasche}} = 100 \times \frac{\sum p_i^t q_i^t}{\sum p_i^0 q_i^t}$$
+:::
+
+## The formula {auto-animate="true"}
+
+::: {style="text-align:center; margin-top:60px;"}
+$$P^{0,t}_{\text{Paasche}} = 100 \times \frac{\sum p_i^t q_i^t}{\sum p_i^0 q_i^t}$$
+:::
+
+::: {.fragment .fade-up style="text-align:center; font-size:1.3em; margin-top:20px;"}
+This time $q^t$, the **current** quantity, appears in both top and bottom.
+:::
+
+## Calculating it for the fruit basket
+
+::: {.fragment .fade-up}
+By 2013, quantities sold had shifted. 300 apples, only 170 bananas, and just 30
+pineapples.
+:::
+
+::: {.fragment .fade-up}
+Top: $(0.42\times300) + (0.55\times170) + (2.00\times30) = 279.5$
+:::
+
+::: {.fragment .fade-up}
+Bottom: $(0.40\times300) + (0.50\times170) + (1.25\times30) = 242.5$
+:::
+
+::: {.fragment .fade-up}
+$$100 \times \frac{279.5}{242.5} = 115.3$$
+:::
+
+## Ranking every answer we now have
+
+::: {.incremental}
+- Paasche: 115.3
+- Laspeyres: 120.1
+- Jevons: 122.7
+- Carli: 125.0
+- Dutot: 138.1
+:::
+
+::: {.fragment .fade-up}
+Same underlying prices. Five different pictures of "how much did prices rise."
+:::
+
+## 5.3 Laspeyres and Paasche quantity indices {.center}
+
+::: {.fragment .fade-up}
+Just as with the simple indices, both formulas have quantity-index mirror images.
+Swap the roles of price and quantity.
+:::
+
+::: {.fragment .fade-up}
+$$Q^{0,t}_{\text{Laspeyres}} = 100 \times \frac{\sum p_i^0 q_i^t}{\sum p_i^0 q_i^0}
+\qquad
+Q^{0,t}_{\text{Paasche}} = 100 \times \frac{\sum p_i^t q_i^t}{\sum p_i^t q_i^0}$$
+:::
+
+::: {.fragment .fade-up}
+A worked DIY-tools example in the book (screwdrivers, drills, ladders, hammers,
+saws) gives Laspeyres price 110.2, Paasche price 110.3, and both quantity indices
+96.6.
+:::
+
+## 5.4 Laspeyres and Paasche: mind your Ps and Qs {.center}
+
+## A more useful way to write Laspeyres
+
+::: {.fragment .fade-up}
+The Laspeyres formula can be rewritten using only price relatives and **value
+shares**. In practice, this form is far more common.
+:::
+
+::: {.fragment .fade-up}
+$$P^{0,t}_{\text{Laspeyres}} = 100 \times \sum_{i=1}^{n} R_i^{0,t} \cdot s_i^0$$
+:::
+
+::: {.fragment .fade-up}
+Here $s_i^0$ is item $i$'s **share of total spending** in the base period.
+:::
+
+::: {.fragment .fade-up}
+This is a **weighted average of price relatives**, where the weight is exactly how
+much of the household budget went on that item.
+:::
+
+## And the Paasche version
+
+::: {.fragment .fade-up}
+Paasche has the same intuition, but with a twist. It is a weighted **harmonic**
+mean, not a weighted arithmetic mean, using **current-period** value shares.
+:::
+
+::: {.fragment .fade-up}
+$$P^{0,t}_{\text{Paasche}} = 100 \times \frac{1}{\sum_{i=1}^{n} \frac{s_i^t}{R_i^{0,t}}}$$
+:::
+
+::: {.fragment .fade-up}
+The same asymmetry we saw in Chapter 4, arithmetic mean versus harmonic mean, shows
+up again here.
+:::
+
+## 5.5 Laspeyres, Paasche and the Index Number Problem {.center}
+
+## A problem worth naming
+
+::: {.fragment .fade-up}
+> **The Index Number Problem.** How to combine the relative changes in the prices
+> and quantities of various products into a single measure of the relative change of
+> the overall price level, and a single measure of the relative change of the
+> overall quantity level.
+>
+> *(OECD definition)*
+:::
+
+## A neat solution
+
+::: {.fragment .fade-up}
+The total change in value can always be split into a price part and a quantity
+part.
+:::
+
+::: {.fragment .fade-up}
+$$V^{0,t} = P^{0,t}_{\text{Laspeyres}} \times Q^{0,t}_{\text{Paasche}}$$
+:::
+
+::: {.fragment .fade-up}
+$$V^{0,t} = P^{0,t}_{\text{Paasche}} \times Q^{0,t}_{\text{Laspeyres}}$$
+:::
+
+::: {.fragment .fade-up}
+Laspeyres and Paasche fit together perfectly to solve the Index Number Problem, as
+long as you pair a price index with the *opposite* quantity index.
+:::
+
+## 5.6 Laspeyres or Paasche? {.center}
+
+## The practical trade-off
+
+::: {.fragment .fade-up}
+**Laspeyres** only needs quantity data from one period, the base period. That makes
+it cheap and quick to calculate every month.
+:::
+
+::: {.fragment .fade-up}
+**Paasche** needs fresh quantity data in *every* period. That is expensive, slow,
+and often simply not available in time.
+:::
+
+::: {.fragment .fade-up}
+But Laspeyres pays a price for that convenience. It can go out of date, since it
+never updates to reflect changing buying habits.
+:::
+
+## When the two can diverge sharply
+
+::: {.fragment .fade-up}
+A supermarket sells two nearly identical coffee brands. In January, both cost
+**£2.50**, and 500 jars of each were sold.
+:::
+
+::: {.fragment .fade-up}
+In February, Brand A rises to £4.00. Brand B stays at £2.50. Shoppers notice, and
+switch. Only 100 jars of A sell, but 900 jars of B.
+:::
+
+## Two very different answers
+
+::: {.fragment .fade-up}
+Laspeyres, using January's equal 500/500 split as weights:
+:::
+
+::: {.fragment .fade-up}
+$$100 \times \frac{(4.00\times500)+(2.50\times500)}{(2.50\times500)+(2.50\times500)} = 130.0$$
+:::
+
+::: {.fragment .fade-up}
+Paasche, using February's actual 100/900 split:
+:::
+
+::: {.fragment .fade-up}
+$$100 \times \frac{(4.00\times100)+(2.50\times900)}{(2.50\times100)+(2.50\times900)} = 106.0$$
+:::
+
+::: {.fragment .fade-up}
+Laspeyres overstates the price rise, since it ignores the switch to Brand B.
+Paasche understates it, since it barely weights Brand A's big price jump at all.
+:::
+
+## 5.7 A more practical alternative {.center}
+
+## Neither base period nor current period
+
+::: {.fragment .fade-up}
+What if we fix quantities at some *other* period, $b$, ideally a bit before the base
+period, giving statisticians time to actually collect reliable weight data?
+:::
+
+::: {.fragment .fade-up}
+This is the **Lowe index**.
+:::
+
+::: {.fragment .fade-up}
+$$P_{\text{Lowe}} = \frac{\sum p_i^t q_i^b}{\sum p_i^0 q_i^b}$$
+:::
+
+## The fact that matters most today
+
+::: {.fragment .fade-up}
+::: {style="font-size: 1.3em; border-left: 6px solid #b03; padding-left: 20px;"}
+Almost every National Statistical Institute in the world, including the one that
+compiles India's CPI, actually uses the Lowe index, not a pure Laspeyres or Paasche
+index.
+:::
+:::
+
+::: {.fragment .fade-up}
+Laspeyres and Paasche are the special cases. Real statistical offices sit in
+between, using older, reliable weights.
+:::
+
+## 5.8 Chapter summary {.center}
+
+::: {.incremental}
+- Chapter 4's simple indices ignore quantities entirely, and can be dominated by one
+  volatile item.
+- Laspeyres and Paasche fix that, by weighting price relatives with quantities, from
+  the base period or the current period respectively.
+- Neither is perfect. Laspeyres is cheap but can go stale. Paasche is current but
+  expensive to collect.
+- In practice, real statistical offices use the Lowe index, a practical compromise
+  between the two.
+:::
+
+# Part 5: Case Study, Compiling India's CPI
+
+## From the book to the real thing {.center}
+
+::: {.fragment .fade-up}
+Basket, price relatives, weights, Laspeyres-type aggregation. Every mechanism from
+today is at work, every single month, in India's actual Consumer Price Index.
+:::
+
+::: {.fragment .fade-up}
+We now look at how the National Statistical Office builds it, and what happened when
+the COVID-19 lockdown broke the normal process.
+:::
+
+## Who builds India's CPI?
+
+::: {.fragment .fade-up}
+The **National Statistical Office (NSO)**, under the Ministry of Statistics and
+Programme Implementation, compiles All-India and state-wise CPI.
+:::
+
+::: {.fragment .fade-up}
+It covers **Rural**, **Urban**, and **Combined** sectors, and is released on the
+12th of every month.
+:::
+
+## Where the raw prices come from
+
+::: {.incremental}
+- Monthly price data comes from **1,114 selected urban markets** and **1,181
+  selected villages**.
+- Field staff collect it through personal visits, on a weekly roster.
+- Prices are uploaded, then scrutinised and validated centrally before they enter
+  the index.
+:::
+
+## The CPI's basket structure {auto-animate="true"}
+
+::: {style="text-align:center; font-size:1.6em; margin-top:60px;"}
+Items build sub-groups. Sub-groups build groups. Groups build the General Index.
+:::
+
+## The CPI's basket structure {auto-animate="true"}
+
+::: {style="text-align:center; font-size:1.3em; margin-top:20px;"}
+Items build sub-groups. Sub-groups build groups. Groups build the General Index.
+:::
+
+::: {.incremental style="margin-top:30px; font-size:1.1em;"}
+- Six major groups. Food and beverages, Clothing and footwear, Housing, Fuel and
+  light, Pan, tobacco and intoxicants, and Miscellaneous.
+- These break into 23 sub-groups, such as Cereals, Vegetables, Clothing, Health, and
+  Transport.
+- Each carries its own weight, estimated separately for Rural, Urban, and Combined.
+:::
+
+## Where each chapter shows up in practice
+
+::: {.incremental}
+- **Elementary indices.** Multiple price quotes for one good are combined with a
+  simple geometric mean. This is the Jevons method from Chapter 4.
+- **Aggregation.** Elementary indices combine into sub-group and group indices using
+  expenditure weights. This is the Laspeyres-type, Lowe-style logic from Chapter 5.
+:::
+
+## From state to national indices
+
+::: {.incremental}
+- This is done first for each State and Union Territory, separately for Rural,
+  Urban, and Combined.
+- All-India indices are then built by aggregating the weighted State and UT
+  indices.
+:::
+
+## A worked example: reading the real numbers
+
+::: {.fragment .fade-up}
+India's CPI, Combined, base 2012 equals 100.
+:::
+
+::: {.fragment .fade-up}
+| | April 2020 | May 2020 |
+|---|---|---|
+| **General Index (All Groups)** | 151.4 | 150.9 |
+| **Food & Beverages** | 154.0 | 152.7 |
+| **Housing** | 155.6 | 155.6 |
+| **Fuel and light** | 144.1 | 142.5 |
+:::
+
+::: {.fragment .fade-up}
+Overall prices were about 51% above 2012 levels in April, easing slightly in May.
+Housing stayed flat while fuel prices fell.
+:::
+
+## When the machine breaks
+
+::: {.fragment .fade-up}
+The nation-wide COVID-19 lockdown made it infeasible for field staff to visit retail
+outlets and collect price quotations.
+:::
+
+::: {.fragment .fade-up}
+Market transactions were themselves limited. Many items simply were not being bought
+and sold as usual.
+:::
+
+::: {.fragment .fade-up}
+Price data on all commodities was not available. Of 23 sub-groups, only 13 could be
+compiled for April 2020, and only 15 for May 2020.
+:::
+
+## What the international community said
+
+::: {.fragment .fade-up}
+NSO consulted the World Bank, ILO, ADB, IMF, Eurostat, OECD, and others through the
+Inter-Secretariat Working Group on Price Statistics.
+:::
+
+::: {.fragment .fade-up style="border-left: 6px solid #b03; padding-left:20px;"}
+Their guidance: if a whole index is missing, impute it using the next level up. If
+oranges are missing, use the citrus index, and so on up to the all-items index.
+:::
+
+## Imputation, the general idea {auto-animate="true"}
+
+::: {style="text-align:center; margin-top:100px;"}
+::: {.r-fit-text}
+If it is missing, estimate it from what you do know.
+:::
+:::
+
+## Micro-level imputation
+
+::: {.fragment .fade-up}
+A **temporarily missing** individual price is estimated from last month's price for
+that same item.
+:::
+
+::: {.fragment .fade-up}
+It is adjusted by the average price movement seen in the quotations that are still
+available. Same logic as the elementary aggregates in Chapter 4.
+:::
+
+## Macro-level imputation
+
+::: {.fragment .fade-up}
+An **entire missing** sub-group or group index is estimated using the movement of
+the next level up that could still be calculated.
+:::
+
+::: {.fragment .fade-up}
+The parent is the Food and Beverages Group index for food sub-groups. It is the
+General CPI itself for non-food sub-groups.
+:::
+
+## Macro imputation, built step by step {auto-animate="true"}
+
+::: {style="text-align:center; font-size:1.5em; margin-top:60px;"}
+Last known index of the missing sub-group
+:::
+
+## Macro imputation, built step by step {auto-animate="true"}
+
+::: {style="text-align:center; font-size:1.4em; margin-top:40px;"}
+Last known index, multiplied by how much the parent index moved
+:::
+
+::: {.fragment .fade-up style="text-align:center; margin-top:40px; font-size:1.2em;"}
+Parent is Food & Beverages Group, if the sub-group is a food item
+:::
+::: {.fragment .fade-up style="text-align:center; font-size:1.2em;"}
+Parent is General CPI, if the sub-group is a non-food item
+:::
+
+## Worked example: prepared meals, snacks, sweets
+
+::: {.incremental}
+- Last observed index, March 2020: **160.0**
+- Food & Beverages Group index, April 2020: **150.1**
+- Food & Beverages Group index, March 2020: **148.2**
+:::
+
+::: {.fragment .fade-up style="text-align:center; font-size:1.5em; margin-top:30px;"}
+160.0 × (150.1 ÷ 148.2) = **162.1**, the imputed April index
+:::
+
+::: {.fragment .fade-up style="border-left: 6px solid #b03; padding-left: 20px; font-size: 0.9em;"}
+The NSO's own published note states 162.2 here. Recomputed from the published
+150.1 and 148.2, the arithmetic gives 162.05, which rounds to 162.1. The likely
+cause: the Food & Beverages index is published to one decimal place, but the actual
+imputation was almost certainly run on unrounded internal figures.
+:::
+
+## Worked example: clothing
+
+::: {.incremental}
+- Last observed index, March 2020: **153.4**
+- General CPI, April 2020: **150.3**
+- General CPI, March 2020: **149.8**
+:::
+
+::: {.fragment .fade-up style="text-align:center; font-size:1.5em; margin-top:30px;"}
+153.4 × (150.3 ÷ 149.8) = **153.9**, the imputed April index
+:::
+
+::: {.fragment .fade-up}
+The logic is identical to the meals example. Only the parent index changes, since
+clothing is a non-food item.
+:::
+
+## After imputation
+
+::: {.fragment .fade-up}
+Once every missing sub-group is filled this way, the General CPI is recalculated for
+all 23 sub-groups.
+:::
+
+::: {.fragment .fade-up}
+NSO flagged every imputed cell in its published tables. It described the series as a
+business-continuity estimate, not an ordinary observed index.
+:::
+
+## Why this matters beyond statistics class
+
+::: {.incremental}
+- Any wage revision or contract that referenced CPI in April and May 2020 was partly
+  relying on an estimated number.
+- Building an index, and patching it when data fails, involves judgment calls with
+  real distributive consequences.
+- This is the same "small rule, big pattern" idea this course keeps returning to.
+:::
+
+# Wrap-up
+
+## Key takeaways: Chapters 1 and 2
+
+::: {.incremental}
+- An index number rescales a series so change is easy to read, anchored at a base
+  period.
+- The same construction, raw data combined into one number, shows up in the CPI,
+  the FTSE 100, and composite indicators like the MPI.
+- Index numbers make comparison across very different scales possible.
+:::
+
+## Key takeaways: Chapters 4 and 5
+
+::: {.incremental}
+- Combining many price relatives into one number is not automatic. Five different
+  averaging methods give five different answers, from the same data.
+- Weighting by quantities, Laspeyres or Paasche, fixes the biggest weakness of
+  unweighted indices.
+- Real statistical offices use a practical compromise, the Lowe index.
+:::
+
+## Key takeaways: the case study
+
+::: {.incremental}
+- India's CPI applies every one of these mechanisms every month, at national scale.
+- When normal data collection broke down in 2020, the same underlying logic kept the
+  series alive.
+- Borrow information from the next level up, transparently, using clearly stated
+  formulas.
+:::
+
+## Next session {.center}
+
+::: {.r-fit-text}
+From measuring prices, to measuring everything else
+:::
+
+## References {.smaller}
+
+- Ralph, J., O'Neill, R., and Winton, J. (2015) *A Practical Introduction to Index
+  Numbers*, First Edition. John Wiley & Sons, Ltd. Chapters 1, 2, 4, and 5.
+- National Statistical Office, Ministry of Statistics and Programme Implementation,
+  Government of India. Compilation of Consumer Price Index, a Technical Note, on
+  imputation methodology during the April to May 2020 lockdown.

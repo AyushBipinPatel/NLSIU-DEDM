@@ -1,0 +1,822 @@
+---
+title: "Data, Evidence, and Decision Making (with R)"
+author: "Ayush Patel"
+subtitle: "Session 16: Hypothesis Testing"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute: 
+  echo: true
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+```{r}
+#| label: libs
+#| echo: false
+#| warning: false
+
+library(tidyverse)
+library(infer)
+
+```
+
+# Goal
+
+> A confidence interval tells you a plausible range for a number. A hypothesis test answers a sharper question: is what I found surprising enough, if nothing were actually going on, that I should stop believing "nothing is going on"? Today we build the tools to answer that question honestly.
+
+# From Estimation to Testing
+
+## What We Already Know
+
+<br>
+
+::: {.incremental}
+- Last session, we built confidence intervals: a range of plausible values for a single number, built by resampling
+- Sometimes the question isn't "what is the value", it is "is there a difference at all"
+- Is the 2025 average bail amount actually different from 2024, or could this be the kind of gap you would see just from chance, even if nothing changed?
+- This is a hypothesis test. It uses the same resampling instinct, aimed at a sharper question
+:::
+
+# The Intuition of Hypothesis Testing
+
+## Two Competing Claims
+
+<br>
+
+::: {.incremental}
+- Every hypothesis test starts with two competing claims about the world
+- **Null hypothesis (H0)**: nothing is going on. Any pattern you see is just chance. The skeptical default
+- **Alternative hypothesis (HA)**: something is going on. There is a real difference, a real relationship
+- You do not get to prove HA directly. You ask: if H0 were true, how surprising would my data be? If it would be very surprising, that is evidence against H0
+:::
+
+## The Courtroom, As a Model {.smaller}
+
+<br>
+
+> A defendant is presumed innocent. The prosecution does not have to prove innocence is impossible, only that the evidence is hard to explain if the defendant were actually innocent.
+
+<br>
+
+::: {.incremental}
+- **H0**: the defendant is innocent. The default, skeptical position
+- **HA**: the defendant is guilty
+- A jury does not "accept" innocence, it either finds the evidence convincing enough to reject innocence, or it does not
+- Failing to reject H0 is not the same as proving H0 true. A not-guilty verdict does not mean the jury is certain of innocence, only that the evidence did not clear the bar
+:::
+
+## What a p-value Actually Means {.smaller}
+
+<br>
+
+> The p-value is the probability of seeing data at least this extreme, if the null hypothesis were true.
+
+<br>
+
+::: {.incremental}
+- Nothing more than that. It is a statement about how surprising your data would be in a world where H0 holds
+- A small p-value means: this would be a rare thing to see, if nothing were really going on. That is evidence against H0
+- A large p-value means: this is a perfectly ordinary thing to see under H0. You have no strong reason to abandon the skeptical default
+- The common threshold, p < 0.05, means "this would happen less than 5% of the time under H0", nothing more precise than that
+:::
+
+## What a p-value Does Not Mean {.smaller}
+
+<br>
+
+::: {.incremental}
+- It is **not** the probability that H0 is true. It says nothing about how likely your hypothesis is, only how surprising your data would be under one specific assumption
+- It is **not** the probability your result happened "by chance", every result happens partly by chance, the p-value quantifies how much
+- A small p-value does **not** mean the effect is large or important. With enough data, even a tiny, meaningless difference can produce a very small p-value
+- p < 0.05 does not mean "true". p > 0.05 does not mean "false". It means the evidence did or did not clear a chosen bar
+:::
+
+## Haruspicy {.smaller}
+
+<br>
+
+> Ancient Roman priests read the future in the entrails of sacrificed animals. Ellenberg's point: if you inspect enough entrails, in enough ways, something will eventually look meaningful, purely by chance.
+
+<br>
+
+::: {.incremental}
+- Run one test, and a 5% false-positive rate seems small
+- Run 20 tests on random noise, and you expect roughly one of them to come back "significant", not because you found something real, but because you looked 20 times
+- This is the seed of **p-hacking**: trying many variables, many subgroups, many cutoffs, until one combination clears p < 0.05, then reporting only that one
+- It is also the seed of **publication bias**: journals favour striking, significant results, so the studies that get published are a biased sample of everything that was actually tried
+- Neither requires dishonesty. It can happen simply by not tracking how many things were tried
+:::
+
+# The Bail Amounts Question, Revisited
+
+<br>
+
+> Back in an earlier session, we looked at bail amounts from 2024 and 2025. The 2025 average looked higher, but the gap was small enough that it was genuinely unclear whether it was real. Now we have the tools to answer this properly.
+
+## The Data
+
+```{r}
+#| label: bail-data
+
+bail_data <- read_csv("bail-amounts-data.csv", show_col_types = FALSE) |>
+    filter(year %in% c(2024, 2025)) |>
+    mutate(year = as.factor(year))
+
+bail_data |>
+    group_by(year) |>
+    summarise(mean_bail = mean(bail_amount_inr), n = n())
+```
+
+<br>
+
+[The 2025 average is about Rs 1,316 higher than 2024. Is that a real shift, or the kind of gap you'd see from chance alone, even if nothing actually changed?]{.fragment}
+
+## Two Tools, Same Question {.smaller}
+
+<br>
+
+::: {.incremental}
+- **H0**: the true average bail amount did not change between 2024 and 2025. Any observed gap is due to chance
+- **HA**: the true average bail amount did change
+- We will answer this two ways: a **permutation test**, which directly simulates H0, and a **bootstrap** confidence interval for the difference, which asks whether zero is a plausible value
+- Both use the same `infer` package grammar, `specify() |> generate() |> calculate()`, one general resampling engine. The `type` argument tells it *how* to resample, `"permute"` shuffles labels, `"bootstrap"` resamples with replacement, the exact same distinction as last session, just spelled out as an argument instead of two different function calls
+:::
+
+# Permutation Testing, Step by Step
+
+## The Idea
+
+<br>
+
+> If year truly has nothing to do with bail amount, then the year label attached to each case is arbitrary. Shuffle the labels, and the data shouldn't care.
+
+<br>
+
+[Take every bail amount, from both years, and pool them together. Randomly relabel each one as "2024" or "2025", keeping the same group sizes as the real data. Compute the difference in means for this fake, shuffled version. Repeat thousands of times. This builds the distribution of differences you'd see purely from chance, if H0 were true.]{.fragment}
+
+## A Small Example, With Real Numbers {auto-animate="true"}
+
+```{=html}
+<svg viewBox="0 0 1150 320" style="width:100%;height:auto;display:block;">
+  <g id="dots">
+    <circle data-id="d1" cx="90" cy="150" r="45" fill="#4C78A8"/>
+    <text data-id="t1" x="90" y="156" font-size="18" fill="white" text-anchor="middle" font-weight="bold">45k</text>
+    <text data-id="g1" x="90" y="230" font-size="16" fill="#555" text-anchor="middle">2024</text>
+    <circle data-id="d2" cx="225" cy="150" r="45" fill="#4C78A8"/>
+    <text data-id="t2" x="225" y="156" font-size="18" fill="white" text-anchor="middle" font-weight="bold">17k</text>
+    <text data-id="g2" x="225" y="230" font-size="16" fill="#555" text-anchor="middle">2024</text>
+    <circle data-id="d3" cx="360" cy="150" r="45" fill="#4C78A8"/>
+    <text data-id="t3" x="360" y="156" font-size="18" fill="white" text-anchor="middle" font-weight="bold">7k</text>
+    <text data-id="g3" x="360" y="230" font-size="16" fill="#555" text-anchor="middle">2024</text>
+    <circle data-id="d4" cx="495" cy="150" r="45" fill="#4C78A8"/>
+    <text data-id="t4" x="495" y="156" font-size="18" fill="white" text-anchor="middle" font-weight="bold">48k</text>
+    <text data-id="g4" x="495" y="230" font-size="16" fill="#555" text-anchor="middle">2024</text>
+    <circle data-id="d5" cx="630" cy="150" r="45" fill="#F58518"/>
+    <text data-id="t5" x="630" y="156" font-size="18" fill="white" text-anchor="middle" font-weight="bold">7k</text>
+    <text data-id="g5" x="630" y="230" font-size="16" fill="#555" text-anchor="middle">2025</text>
+    <circle data-id="d6" cx="765" cy="150" r="45" fill="#F58518"/>
+    <text data-id="t6" x="765" y="156" font-size="18" fill="white" text-anchor="middle" font-weight="bold">14k</text>
+    <text data-id="g6" x="765" y="230" font-size="16" fill="#555" text-anchor="middle">2025</text>
+    <circle data-id="d7" cx="900" cy="150" r="45" fill="#F58518"/>
+    <text data-id="t7" x="900" y="156" font-size="18" fill="white" text-anchor="middle" font-weight="bold">41k</text>
+    <text data-id="g7" x="900" y="230" font-size="16" fill="#555" text-anchor="middle">2025</text>
+    <circle data-id="d8" cx="1035" cy="150" r="45" fill="#F58518"/>
+    <text data-id="t8" x="1035" y="156" font-size="18" fill="white" text-anchor="middle" font-weight="bold">22k</text>
+    <text data-id="g8" x="1035" y="230" font-size="16" fill="#555" text-anchor="middle">2025</text>
+  </g>
+  <text x="20" y="270" font-size="20" fill="#666">Mean 2024 = 29,575    Mean 2025 = 21,450    Observed difference = -8,125</text>
+</svg>
+```
+
+## Shuffle the Labels, Keep the Values {auto-animate="true"}
+
+```{=html}
+<svg viewBox="0 0 1150 320" style="width:100%;height:auto;display:block;">
+  <g id="dots">
+    <circle data-id="d1" cx="90" cy="150" r="45" fill="#4C78A8"/>
+    <text data-id="t1" x="90" y="156" font-size="18" fill="white" text-anchor="middle" font-weight="bold">7k</text>
+    <text data-id="g1" x="90" y="230" font-size="16" fill="#555" text-anchor="middle">shuffled A</text>
+    <circle data-id="d2" cx="225" cy="150" r="45" fill="#4C78A8"/>
+    <text data-id="t2" x="225" y="156" font-size="18" fill="white" text-anchor="middle" font-weight="bold">17k</text>
+    <text data-id="g2" x="225" y="230" font-size="16" fill="#555" text-anchor="middle">shuffled A</text>
+    <circle data-id="d3" cx="360" cy="150" r="45" fill="#4C78A8"/>
+    <text data-id="t3" x="360" y="156" font-size="18" fill="white" text-anchor="middle" font-weight="bold">48k</text>
+    <text data-id="g3" x="360" y="230" font-size="16" fill="#555" text-anchor="middle">shuffled A</text>
+    <circle data-id="d4" cx="495" cy="150" r="45" fill="#4C78A8"/>
+    <text data-id="t4" x="495" y="156" font-size="18" fill="white" text-anchor="middle" font-weight="bold">14k</text>
+    <text data-id="g4" x="495" y="230" font-size="16" fill="#555" text-anchor="middle">shuffled A</text>
+    <circle data-id="d5" cx="630" cy="150" r="45" fill="#F58518"/>
+    <text data-id="t5" x="630" y="156" font-size="18" fill="white" text-anchor="middle" font-weight="bold">41k</text>
+    <text data-id="g5" x="630" y="230" font-size="16" fill="#555" text-anchor="middle">shuffled B</text>
+    <circle data-id="d6" cx="765" cy="150" r="45" fill="#F58518"/>
+    <text data-id="t6" x="765" y="156" font-size="18" fill="white" text-anchor="middle" font-weight="bold">7k</text>
+    <text data-id="g6" x="765" y="230" font-size="16" fill="#555" text-anchor="middle">shuffled B</text>
+    <circle data-id="d7" cx="900" cy="150" r="45" fill="#F58518"/>
+    <text data-id="t7" x="900" y="156" font-size="18" fill="white" text-anchor="middle" font-weight="bold">45k</text>
+    <text data-id="g7" x="900" y="230" font-size="16" fill="#555" text-anchor="middle">shuffled B</text>
+    <circle data-id="d8" cx="1035" cy="150" r="45" fill="#F58518"/>
+    <text data-id="t8" x="1035" y="156" font-size="18" fill="white" text-anchor="middle" font-weight="bold">22k</text>
+    <text data-id="g8" x="1035" y="230" font-size="16" fill="#555" text-anchor="middle">shuffled B</text>
+  </g>
+  <text x="20" y="270" font-size="20" fill="#666">Mean shuffled A = 21,900    Mean shuffled B = 29,125    This shuffle's difference = 7,225</text>
+</svg>
+```
+
+<br>
+
+[Notice: the eight values themselves never changed. Only which group each one belongs to changed. That is the entire mechanism of a permutation test, and it is a different mechanism from the bootstrap, where values get resampled with replacement but group membership stays fixed. The `infer` functions on the following slides do exactly this shuffle, just without us having to write the relabeling step by hand.]{.fragment}
+
+## Step 1: `specify()` {.smaller}
+
+<br>
+
+Tell `infer` which column is the outcome you care about, and which column explains it.
+
+```{r}
+#| label: perm-specify
+
+bail_data |>
+    specify(response = bail_amount_inr, explanatory = year)
+```
+
+<br>
+
+[This does not compute anything yet, it just labels the roles. `year` needs to be a factor for `infer` to treat it as a grouping variable, which is why we converted it earlier.]{.fragment}
+
+## Step 2: `hypothesise()` {.smaller}
+
+<br>
+
+State the null hypothesis explicitly, in code.
+
+```{r}
+#| label: perm-hypothesise
+
+bail_data |>
+    specify(response = bail_amount_inr, explanatory = year) |>
+    hypothesise(null = "independence")
+```
+
+<br>
+
+[`null = "independence"` is H0 written as code: it declares that `bail_amount_inr` and `year` are unrelated. Nothing about the data has changed yet, this just records the assumption we are about to simulate.]{.fragment}
+
+## Step 3: `generate()`
+
+<br>
+
+This is where the shuffling actually happens.
+
+```{r}
+#| label: perm-generate
+
+set.seed(42)
+
+bail_data |>
+    specify(response = bail_amount_inr, explanatory = year) |>
+    hypothesise(null = "independence") |>
+    generate(reps = 2000, type = "permute") |>
+    head(4)
+```
+
+<br>
+
+[`type = "permute"` shuffles the `year` labels across all 1,838 cases, independently for each of the 2,000 `reps`. The `bail_amount_inr` values themselves are untouched, exactly like the cards a moment ago.]{.fragment}
+
+## A Closer Look: One Replicate {.smaller}
+
+<br>
+
+Before jumping to all 2,000 replicates at once, look at just the first one. Set `reps = 1` and group by the shuffled labels, exactly the way you'd group real data.
+
+```{r}
+#| label: perm-one-rep
+
+set.seed(42)
+
+bail_data |>
+    specify(response = bail_amount_inr, explanatory = year) |>
+    hypothesise(null = "independence") |>
+    generate(reps = 1, type = "permute") |>
+    group_by(year) |>
+    summarise(m = mean(bail_amount_inr))
+```
+
+<br>
+
+[In this one shuffle, "2024" and "2025" are now just arbitrary labels stuck onto a randomly split pool, so their means come out close to each other (about 21,803 versus 21,380), nothing like the real 20,962 versus 22,278. `calculate()`, on the next slide, does exactly this, once per replicate, 2,000 times over.]{.fragment}
+
+## Step 4: `calculate()`, the Null Distribution {.smaller}
+
+```{r}
+#| label: perm-calculate
+
+set.seed(42)
+
+null_dist <- bail_data |>
+    specify(response = bail_amount_inr, explanatory = year) |>
+    hypothesise(null = "independence") |>
+    generate(reps = 2000, type = "permute") |>
+    calculate(stat = "diff in means", order = c("2025", "2024"))
+
+null_dist
+```
+
+<br>
+
+[`calculate()` collapses each of the 2,000 shuffled replicates down to one number, the difference in means, `order = c("2025", "2024")` fixes it as 2025 minus 2024. This `null_dist` is the same kind of object as `boot_dist` was last session, one row per replicate, one statistic per row.]{.fragment}
+
+## The Observed Statistic
+
+```{r}
+#| label: perm-obs-stat
+
+obs_stat <- bail_data |>
+    specify(response = bail_amount_inr, explanatory = year) |>
+    calculate(stat = "diff in means", order = c("2025", "2024"))
+
+obs_stat
+```
+
+<br>
+
+[The same `specify()` and `calculate()` steps, on the real, unshuffled data, no `hypothesise()` or `generate()` needed since we are not simulating anything here. This is the number we are asking "how surprising is this, under H0?"]{.fragment}
+
+## Step 5: Visualise, the Bare Distribution
+
+<br>
+
+Before adding anything, look at what `visualise()` gives you on its own. This is exactly the same kind of plot as the histograms you built by hand last session, `infer` is just drawing it for you.
+
+```{r}
+#| label: perm-viz-bare
+#| echo: false
+#| fig-height: 5.5
+
+null_dist |>
+    visualise()
+```
+
+## Step 6: Add the Observed Statistic {.smaller}
+
+```{r}
+#| label: perm-viz
+#| echo: false
+#| fig-height: 5.5
+
+null_dist |>
+    visualise() +
+    shade_p_value(obs_stat = obs_stat, direction = "both")
+```
+
+<br>
+
+[`shade_p_value()` adds two things: a red line at the actual observed value (here, +1,316, only ever one line, at the one real number we found), and shading on **both** tails, since this is a two-sided test, "at least this extreme" means at least this far from zero in *either* direction. The shading is symmetric even though the line is not, the line marks what we saw, the shading marks everything at least as extreme.]{.fragment}
+
+## Step 7: `get_p_value()`
+
+```{r}
+#| label: perm-pvalue
+
+null_dist |>
+    get_p_value(obs_stat = obs_stat, direction = "both")
+```
+
+<br>
+
+[About 9% of shuffles produced a difference at least as extreme as the real one, purely from randomly reshuffling labels. That is not rare. Using the common 0.05 threshold, we do not have strong enough evidence to reject H0, the gap between 2024 and 2025 is consistent with ordinary chance variation.]{.fragment}
+
+## Practice: A Different Comparison {.smaller}
+
+<br>
+
+The built in `ToothGrowth` dataset records tooth length in guinea pigs given vitamin C by one of two delivery methods, orange juice (`OJ`) or ascorbic acid (`VC`).
+
+<br>
+
+::: {.incremental}
+1. State H0 and HA for whether delivery method affects tooth length
+2. Using `specify()`, `hypothesise()`, `generate(type = "permute")`, and `calculate()`, build the null distribution for the difference in mean `len` between `OJ` and `VC`
+3. Find the observed difference, then visualise and compute the p-value
+4. At the 0.05 level, what do you conclude?
+:::
+
+## Solution: A Different Comparison {.smaller}
+
+```{r}
+#| label: solution-toothgrowth
+
+tooth_data <- ToothGrowth |> as_tibble()
+
+obs_tooth <- tooth_data |>
+    specify(response = len, explanatory = supp) |>
+    calculate(stat = "diff in means", order = c("OJ", "VC"))
+
+set.seed(11)
+null_tooth <- tooth_data |>
+    specify(response = len, explanatory = supp) |>
+    hypothesise(null = "independence") |>
+    generate(reps = 2000, type = "permute") |>
+    calculate(stat = "diff in means", order = c("OJ", "VC"))
+
+obs_tooth
+null_tooth |> get_p_value(obs_stat = obs_tooth, direction = "both")
+```
+
+<br>
+
+[H0: delivery method has no effect on mean tooth length. HA: it does. The observed difference is 3.7 (OJ minus VC), and the p-value is about 0.04, just under the usual 0.05 threshold. Here we reject H0: this particular gap looks like more than ordinary chance variation.]{.fragment}
+
+# Bootstrap for Difference in Means
+
+## The Idea
+
+<br>
+
+> We already know how to bootstrap a confidence interval for one number. Do it separately for each year, then look at the interval for the *difference*.
+
+<br>
+
+[Unlike permutation, bootstrap does not simulate H0 at all. It resamples with replacement *within* each year separately, keeping the real group labels fixed, and asks how much the difference in means would bounce around if we had collected the data again. If the resulting confidence interval for the difference contains zero, zero is a plausible value, we cannot rule out "no difference". Notice there is no `hypothesise()` step this time, we are estimating, not testing a claim.]{.fragment}
+
+## Step 1: `specify()` and `generate(type = "bootstrap")` {.smaller}
+
+```{r}
+#| label: boot-generate
+
+set.seed(42)
+
+bail_data |>
+    specify(response = bail_amount_inr, explanatory = year) |>
+    generate(reps = 2000, type = "bootstrap") |>
+    head(4)
+```
+
+<br>
+
+[Same `specify()` as before. `generate()` is the same function too, just `type = "bootstrap"` instead of `"permute"`, which resamples with replacement, separately within each year, rather than shuffling labels across years.]{.fragment}
+
+## A Closer Look: One Replicate {.smaller}
+
+<br>
+
+Just like before, look at a single replicate before scaling up. `reps = 1` gives one bootstrap resample of both years combined, group membership preserved this time.
+
+```{r}
+#| label: boot-one-rep
+
+set.seed(42)
+
+bail_data |>
+    specify(response = bail_amount_inr, explanatory = year) |>
+    generate(reps = 1, type = "bootstrap") |>
+    group_by(year) |>
+    summarise(m = mean(bail_amount_inr))
+```
+
+<br>
+
+[This single resample gives group means close to, but not identical to, the real data (21,905 and 22,065, versus the true 20,962 and 22,278), exactly the kind of small, chance wobble a second real sample would also show. `calculate()`, next, repeats this 2,000 times.]{.fragment}
+
+## Step 2: `calculate()`, the Bootstrap Distribution {.smaller}
+
+```{r}
+#| label: boot-calculate
+
+set.seed(42)
+
+boot_dist <- bail_data |>
+    specify(response = bail_amount_inr, explanatory = year) |>
+    generate(reps = 2000, type = "bootstrap") |>
+    calculate(stat = "diff in means", order = c("2025", "2024"))
+
+boot_dist
+```
+
+<br>
+
+[Same shape as `null_dist` before it, one row per replicate, one difference in means per row. The difference is what generated it, bootstrap resampling within each year, not shuffling across them.]{.fragment}
+
+## Step 3: Visualise, the Bare Distribution
+
+```{r}
+#| label: boot-viz-bare
+#| echo: false
+#| fig-height: 5.5
+
+boot_dist |>
+    visualise()
+```
+
+<br>
+
+[Compare the centre of this distribution to the null distribution a few slides back. This one is centred close to the real observed difference, not zero, because bootstrap is not pretending H0 is true, it is describing how much our actual estimate would wobble.]{.fragment}
+
+## Step 4: Add the Confidence Interval {.smaller}
+
+```{r}
+#| label: boot-viz
+
+ci <- boot_dist |> get_confidence_interval(level = 0.95)
+
+boot_dist |>
+    visualise() +
+    shade_confidence_interval(ci)
+```
+
+<br>
+
+[The 95% interval is about [-121, 2829]. It includes zero, only just. We cannot rule out "no real difference" with much confidence.]{.fragment}
+
+## Two Methods, One Answer {.smaller}
+
+<br>
+
+::: {.incremental}
+- **Permutation test**: p-value about 0.09. Above the usual 0.05 threshold, we do not reject H0
+- **Bootstrap CI**: [-121, 2829]. Includes zero, we cannot rule out no difference
+- The two methods ask subtly different questions (does the null distribution make the observed value look rare, versus is zero a plausible value for the difference), and they use `generate()` differently (`"permute"` versus `"bootstrap"`), but they agree here, and they usually will
+- Neither method says "there is definitely no difference." They say the same thing from two angles: the evidence in this dataset is not strong enough to confidently claim a real change
+:::
+
+## Practice: Another Comparison {.smaller}
+
+<br>
+
+The built in `PlantGrowth` dataset records dried plant weight under a control condition (`ctrl`) and two treatments. We will compare `ctrl` to `trt2`.
+
+<br>
+
+::: {.incremental}
+1. Filter to just the `ctrl` and `trt2` groups
+2. Using `specify()` and `generate(type = "bootstrap")`, build a bootstrap distribution for the difference in mean `weight` (`trt2` minus `ctrl`)
+3. Compute a 95% confidence interval and visualise it
+4. Does the interval include zero? What does that tell you?
+:::
+
+## Solution: Another Comparison {.smaller}
+
+```{r}
+#| label: solution-plantgrowth
+
+plant_data <- PlantGrowth |>
+    as_tibble() |>
+    filter(group %in% c("ctrl", "trt2")) |>
+    mutate(group = factor(as.character(group)))
+
+set.seed(11)
+boot_plant <- plant_data |>
+    specify(response = weight, explanatory = group) |>
+    generate(reps = 2000, type = "bootstrap") |>
+    calculate(stat = "diff in means", order = c("trt2", "ctrl"))
+
+ci_plant <- boot_plant |> get_confidence_interval(level = 0.95)
+ci_plant
+```
+
+<br>
+
+[The 95% interval is about [0.04, 0.93]. It does not include zero, and it sits entirely above zero, `trt2` plants are estimated to weigh more than `ctrl` plants, and we can say so with reasonable confidence, not just as a point estimate that could easily have gone either way.]{.fragment}
+
+# Testing a Single Mean
+
+## A Different Kind of Question
+
+<br>
+
+> Every test so far has compared two groups. Sometimes there is only one group, and the question is whether its average matches some specific claimed value.
+
+<br>
+
+[Is the true average mpg of this fleet of cars actually 22.5, as a manufacturer claims, or is the true average something else? There is no second group to shuffle against here, H0 is a single fixed number, not "no difference between groups". The tool changes slightly, but the logic is identical: build a null distribution assuming H0, see where the real data falls.]{.fragment}
+
+## The Data: `mtcars`
+
+```{r}
+#| label: mtcars-data
+
+mtcars_data <- mtcars |> as_tibble()
+
+mtcars_data |> summarise(mean_mpg = mean(mpg), n = n())
+```
+
+<br>
+
+[32 cars, mean fuel economy about 20.1 mpg. Suppose a manufacturer claims their whole comparable fleet averages 22.5 mpg. H0: the true mean is 22.5. HA: it is not.]{.fragment}
+
+## Step 1: `specify()`, Response Only
+
+<br>
+
+With one group, there is no `explanatory` variable, just the outcome you're testing.
+
+```{r}
+#| label: mean-specify
+
+mtcars_data |>
+    specify(response = mpg)
+```
+
+## Step 2: `hypothesise()`, a Point Null {.smaller}
+
+<br>
+
+For a single mean, the null hypothesis is one specific number, called a "point" null.
+
+```{r}
+#| label: mean-hypothesise
+
+mtcars_data |>
+    specify(response = mpg) |>
+    hypothesise(null = "point", mu = 22.5)
+```
+
+<br>
+
+[`null = "point"` together with `mu = 22.5` writes H0 as code: the true mean is exactly 22.5. This is different from `null = "independence"` used for two groups, one hypothesis is about a relationship, the other is about a single value.]{.fragment}
+
+## Step 3: `generate()`, Bootstrap Under H0 {.smaller}
+
+<br>
+
+For a point null, `generate()` uses `type = "bootstrap"`, resampling the one sample with replacement, but shifted so the null distribution is centred on the claimed value, 22.5, not on the data's own mean.
+
+```{r}
+#| label: mean-generate
+
+set.seed(42)
+
+mtcars_data |>
+    specify(response = mpg) |>
+    hypothesise(null = "point", mu = 22.5) |>
+    generate(reps = 2000, type = "bootstrap") |>
+    head(4)
+```
+
+## Step 4: `calculate()`, the Null Distribution
+
+```{r}
+#| label: mean-calculate
+
+set.seed(42)
+
+null_dist_mean <- mtcars_data |>
+    specify(response = mpg) |>
+    hypothesise(null = "point", mu = 22.5) |>
+    generate(reps = 2000, type = "bootstrap") |>
+    calculate(stat = "mean")
+
+null_dist_mean |> summarise(mean_of_null = mean(stat))
+```
+
+<br>
+
+[As expected, the null distribution is centred almost exactly on 22.5, the value we assumed under H0, not on the data's real mean.]{.fragment}
+
+## The Observed Statistic
+
+```{r}
+#| label: mean-obs-stat
+
+obs_mean <- mtcars_data |>
+    specify(response = mpg) |>
+    calculate(stat = "mean")
+
+obs_mean
+```
+
+## Step 5: Visualise
+
+```{r}
+#| label: mean-viz
+#| echo: false
+#| fig-height: 5.5
+
+null_dist_mean |>
+    visualise() +
+    shade_p_value(obs_stat = obs_mean, direction = "both")
+```
+
+<br>
+
+[The observed mean, about 20.1, sits far out in the left tail of a distribution centred on 22.5, well past where the shading begins.]{.fragment}
+
+## Step 6: `get_p_value()`
+
+```{r}
+#| label: mean-pvalue
+
+null_dist_mean |>
+    get_p_value(obs_stat = obs_mean, direction = "both")
+```
+
+<br>
+
+[The p-value is about 0.01, well under 0.05. If the true mean really were 22.5, seeing a sample mean as far away as 20.1 would be rare. We reject H0, this fleet's true average mpg is unlikely to be 22.5.]{.fragment}
+
+## Practice: Testing Another Mean {.smaller}
+
+<br>
+
+The built in `airquality` dataset records daily wind speed (`Wind`, in mph) in New York.
+
+<br>
+
+::: {.incremental}
+1. State H0 and HA for whether the true average wind speed is 10 mph
+2. Using `specify()`, `hypothesise(null = "point", mu = 10)`, `generate(type = "bootstrap")`, and `calculate()`, build the null distribution for the mean
+3. Find the observed mean, then visualise and compute the p-value
+4. At the 0.05 level, what do you conclude?
+:::
+
+## Solution: Testing Another Mean {.smaller}
+
+```{r}
+#| label: solution-wind
+
+wind_data <- airquality |> as_tibble() |> filter(!is.na(Wind))
+
+obs_wind <- wind_data |>
+    specify(response = Wind) |>
+    calculate(stat = "mean")
+
+set.seed(11)
+null_wind <- wind_data |>
+    specify(response = Wind) |>
+    hypothesise(null = "point", mu = 10) |>
+    generate(reps = 2000, type = "bootstrap") |>
+    calculate(stat = "mean")
+
+obs_wind
+null_wind |> get_p_value(obs_stat = obs_wind, direction = "both")
+```
+
+<br>
+
+[H0: the true mean wind speed is 10 mph. HA: it is not. The observed mean is about 9.96, and the p-value is about 0.93, very close to 1. This is about as ordinary as a result can look under H0, we do not reject it, 10 mph is a perfectly plausible value for the true mean.]{.fragment}
+
+# Decision Errors
+
+## Two Ways to Be Wrong
+
+<br>
+
+Every hypothesis test can go wrong in exactly two ways, and understanding the trade-off is essential.
+
+<br>
+
+::: {.incremental}
+- **Type I error**: rejecting H0 when H0 was actually true. Concluding there is an effect when there isn't one. A false positive
+- **Type II error**: failing to reject H0 when HA was actually true. Missing a real effect. A false negative
+- You cannot make both errors on the same test, but you cannot eliminate both risks at once either, reducing one tends to increase the other
+:::
+
+## Back to the Courtroom {.smaller}
+
+<br>
+
+::: {.incremental}
+- **Type I error**: convicting an innocent person. The evidence looked convincing, but the defendant was actually innocent
+- **Type II error**: acquitting a guilty person. The evidence was not convincing enough to convict, but the defendant was actually guilty
+- The US and Indian legal systems are deliberately built to make Type I errors rare, "innocent until proven guilty", "beyond reasonable doubt", even at the cost of more Type II errors, some guilty people go free
+- That is a values choice about which error is worse, not a statistical fact. Statistics tells you the trade-off exists, it does not tell you which error to prioritise avoiding
+:::
+
+## The Discernibility Level, alpha {.smaller}
+
+<br>
+
+::: {.incremental}
+- The threshold you choose for "small enough p-value to reject H0", commonly 0.05, is called alpha, the discernibility (or significance) level
+- Alpha is, by construction, your Type I error rate: if H0 is actually true, you will incorrectly reject it exactly alpha proportion of the time, purely by chance, across many studies
+- Choose a stricter alpha (say 0.01) and you cut your Type I error rate, but you also make it harder to detect real effects, raising your Type II error rate
+- There is no universally correct alpha. A screening test for a deadly disease might reasonably use a more lenient threshold, missing a real case is worse than a false alarm. A court of law wants the opposite
+:::
+
+## Where Our Own Result Sits
+
+<br>
+
+> Our bail amounts test gave a p-value of about 0.08, not below 0.05.
+
+<br>
+
+[If there genuinely is no real difference between 2024 and 2025, we made the right call not rejecting H0. But if there genuinely is a real difference and our sample simply wasn't large enough, or the effect wasn't large enough, to detect it clearly, this would be a Type II error, missing something real. From this one dataset alone, we cannot know which of these is true. That uncertainty is not a flaw in the method, it is the honest position anyone doing real inference is in.]{.fragment}
+
+
+# End of Session

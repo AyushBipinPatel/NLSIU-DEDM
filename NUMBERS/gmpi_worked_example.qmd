@@ -1,0 +1,641 @@
+---
+title: "Numbers"
+author: "Ayush Patel"
+subtitle: "Session 27: Building a Poverty Index, Step by Step"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute: 
+  echo: false
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+# Why build an index at all?
+
+## One number, many decisions
+
+A poverty index turns raw information into one number.
+
+That number can guide targeting and policy.
+
+## But it hides choices
+
+Every index makes normative choices along the way.
+
+Today we make those choices ourselves, one at a time.
+
+## Two jobs any poverty measure must do
+
+Any multidimensional poverty measure answers two questions [@alkirefoster2015].
+
+**Identification**: who counts as poor?
+
+**Aggregation**: how do we turn that into one number?
+
+## Our plan for today
+
+We will build our own small index from scratch.
+
+We will use the same method behind the global Multidimensional Poverty Index (gMPI) [@ophiundp2024].
+
+By the end, we will compute our own version of the adjusted headcount ratio.
+
+# Meet the class
+
+## A classroom of six
+
+We will track six students in a class.
+
+Aditi, Zara, Rohan, Kabir, Meera, and Dev.
+
+## What we will measure
+
+We pick six everyday indicators.
+
+They fall into three areas of student life.
+
+## Three dimensions {.smaller}
+
+**Wellbeing**: sleep, and breakfast habits.
+
+**Learning**: reading for pleasure, and homework completion.
+
+**Environment**: a quiet study space, and school supplies.
+
+This mirrors how the gMPI groups indicators into health, education, and standard of living [@ophiundp2024].
+
+# Step 1: The raw data
+
+## The achievement matrix
+
+We collect raw data for each student on each indicator.
+
+This raw table is called the achievement matrix.
+
+## Our achievement matrix {.smaller auto-animate="true"}
+
+<table id="am">
+<thead>
+<tr><th class="rowlabel">Student</th><th>Sleep<br>(hrs/night)</th><th>Breakfast<br>skipped (days/wk)</th><th>Reading<br>(min/wk)</th><th>Homework<br>done (%)</th><th>Study<br>space</th><th>Own<br>supplies</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">Aditi</td><td>8</td><td>1</td><td>120</td><td>95</td><td>Yes</td><td>Yes</td></tr>
+<tr><td class="rowlabel">Zara</td><td>6</td><td>0</td><td>90</td><td>90</td><td>Yes</td><td>Yes</td></tr>
+<tr><td class="rowlabel">Rohan</td><td>5</td><td>4</td><td>75</td><td>85</td><td>Yes</td><td>Yes</td></tr>
+<tr><td class="rowlabel">Kabir</td><td>7.5</td><td>1</td><td>20</td><td>60</td><td>Yes</td><td>Yes</td></tr>
+<tr><td class="rowlabel">Meera</td><td>8</td><td>2</td><td>30</td><td>55</td><td>No</td><td>Yes</td></tr>
+<tr><td class="rowlabel">Dev</td><td>6</td><td>1</td><td>15</td><td>50</td><td>No</td><td>Yes</td></tr>
+</tbody>
+</table>
+
+Six students. Six indicators. This is just raw data.
+
+# Step 2: Setting cutoffs
+
+## Who counts as deprived?
+
+Raw numbers alone do not tell us who is deprived.
+
+We need a line for each indicator.
+
+## A normative decision
+
+That line is called a deprivation cutoff.
+
+Someone else could draw the line differently.
+
+There is no purely mathematical answer here.
+
+## Our six cutoffs {.smaller}
+
+We treat a student as deprived in an indicator if:
+
+Sleep is below 7 hours a night.
+
+Breakfast is skipped on 3 or more days a week.
+
+Reading for pleasure is below 60 minutes a week.
+
+Homework completion is below 80 percent.
+
+There is no quiet study space at home.
+
+The student does not own the required school supplies.
+
+## Same matrix, cutoffs added {.smaller auto-animate="true"}
+
+<table id="am">
+<thead>
+<tr><th class="rowlabel">Student</th><th>Sleep<br>(hrs/night)</th><th>Breakfast<br>skipped (days/wk)</th><th>Reading<br>(min/wk)</th><th>Homework<br>done (%)</th><th>Study<br>space</th><th>Own<br>supplies</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">Aditi</td><td>8</td><td>1</td><td>120</td><td>95</td><td>Yes</td><td>Yes</td></tr>
+<tr><td class="rowlabel">Zara</td><td>6</td><td>0</td><td>90</td><td>90</td><td>Yes</td><td>Yes</td></tr>
+<tr><td class="rowlabel">Rohan</td><td>5</td><td>4</td><td>75</td><td>85</td><td>Yes</td><td>Yes</td></tr>
+<tr><td class="rowlabel">Kabir</td><td>7.5</td><td>1</td><td>20</td><td>60</td><td>Yes</td><td>Yes</td></tr>
+<tr><td class="rowlabel">Meera</td><td>8</td><td>2</td><td>30</td><td>55</td><td>No</td><td>Yes</td></tr>
+<tr><td class="rowlabel">Dev</td><td>6</td><td>1</td><td>15</td><td>50</td><td>No</td><td>Yes</td></tr>
+<tr style="background-color:#f5f0e6; font-weight:700;"><td class="rowlabel">Cutoff (z)</td><td>&lt; 7</td><td>&ge; 3</td><td>&lt; 60</td><td>&lt; 80</td><td>No</td><td>No</td></tr>
+</tbody>
+</table>
+
+The last row is the vector of deprivation cutoffs.
+
+# Step 3: The deprivation matrix
+
+## Apply the cutoffs
+
+Compare each raw value against its cutoff.
+
+If a student falls short, mark a 1.
+
+If not, mark a 0.
+
+## The deprivation matrix {.smaller auto-animate="true"}
+
+<table id="am">
+<thead>
+<tr><th class="rowlabel">Student</th><th>Sleep</th><th>Breakfast</th><th>Reading</th><th>Homework</th><th>Study<br>space</th><th>Supplies</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">Aditi</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td></tr>
+<tr><td class="rowlabel">Zara</td><td class="dep1">1</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td></tr>
+<tr><td class="rowlabel">Rohan</td><td class="dep1">1</td><td class="dep1">1</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td></tr>
+<tr><td class="rowlabel">Kabir</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep1">1</td><td class="dep1">1</td><td class="dep0">0</td><td class="dep0">0</td></tr>
+<tr><td class="rowlabel">Meera</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep1">1</td><td class="dep1">1</td><td class="dep1">1</td><td class="dep0">0</td></tr>
+<tr><td class="rowlabel">Dev</td><td class="dep1">1</td><td class="dep0">0</td><td class="dep1">1</td><td class="dep1">1</td><td class="dep1">1</td><td class="dep0">0</td></tr>
+</tbody>
+</table>
+
+1 means deprived. 0 means not deprived.
+
+## A quick read of the matrix
+
+Notice something about the Supplies column.
+
+Every student has school supplies.
+
+An indicator can exist and still show no deprivation at all.
+
+# Step 4: Weights
+
+## Not every indicator by itself
+
+We already grouped our six indicators into three dimensions.
+
+Wellbeing, Learning, and Environment.
+
+## Equal dimensions, equal indicators
+
+We treat all three dimensions as equally important.
+
+Each dimension gets one third of the total weight.
+
+## Splitting the weight within a dimension
+
+Each dimension has two indicators.
+
+So each indicator gets one half of its dimension's weight.
+
+One third split two ways is one sixth.
+
+## Our weight vector
+
+$$w = \left(\tfrac{1}{6},\ \tfrac{1}{6},\ \tfrac{1}{6},\ \tfrac{1}{6},\ \tfrac{1}{6},\ \tfrac{1}{6}\right)$$
+
+Every indicator gets a weight of one sixth.
+
+The six weights sum to one.
+
+## The weighted deprivation matrix {.smaller auto-animate="true"}
+
+<table id="am">
+<thead>
+<tr><th class="rowlabel">Student</th><th>Sleep<br>(1/6)</th><th>Breakfast<br>(1/6)</th><th>Reading<br>(1/6)</th><th>Homework<br>(1/6)</th><th>Study<br>space (1/6)</th><th>Supplies<br>(1/6)</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">Aditi</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td></tr>
+<tr><td class="rowlabel">Zara</td><td class="dep1">1/6</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td></tr>
+<tr><td class="rowlabel">Rohan</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td></tr>
+<tr><td class="rowlabel">Kabir</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep0">0</td><td class="dep0">0</td></tr>
+<tr><td class="rowlabel">Meera</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep0">0</td></tr>
+<tr><td class="rowlabel">Dev</td><td class="dep1">1/6</td><td class="dep0">0</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep0">0</td></tr>
+</tbody>
+</table>
+
+Every deprivation is now worth one sixth.
+
+# Step 5: The deprivation score
+
+## Add up each row
+
+For each student, add up their weighted deprivations.
+
+This sum is that student's deprivation score, $c$.
+
+## Deprivation scores {.smaller auto-animate="true"}
+
+<table id="am">
+<thead>
+<tr><th class="rowlabel">Student</th><th>Sleep<br>(1/6)</th><th>Breakfast<br>(1/6)</th><th>Reading<br>(1/6)</th><th>Homework<br>(1/6)</th><th>Study<br>space (1/6)</th><th>Supplies<br>(1/6)</th><th>c</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">Aditi</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td>0</td></tr>
+<tr><td class="rowlabel">Zara</td><td class="dep1">1/6</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td>1/6</td></tr>
+<tr><td class="rowlabel">Rohan</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="scorehigh">1/3</td></tr>
+<tr><td class="rowlabel">Kabir</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep0">0</td><td class="dep0">0</td><td class="scorehigh">1/3</td></tr>
+<tr><td class="rowlabel">Meera</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep0">0</td><td class="scorehigh">1/2</td></tr>
+<tr><td class="rowlabel">Dev</td><td class="dep1">1/6</td><td class="dep0">0</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep0">0</td><td class="scorehigh">2/3</td></tr>
+</tbody>
+</table>
+
+The score ranges from 0 (no deprivations) to 1 (deprived in everything).
+
+# Step 6: Identifying the poor
+
+## Two extreme rules
+
+One rule: count a student as poor if deprived in even one indicator.
+
+This is called the union approach.
+
+## The union approach is too wide
+
+By the union rule, five of our six students count as poor.
+
+Only Aditi, with a score of 0, escapes.
+
+That feels too broad to be useful.
+
+## The opposite extreme
+
+Another rule: count a student as poor only if deprived in every single indicator.
+
+This is called the intersection approach.
+
+## The intersection approach is too narrow
+
+By the intersection rule, zero students count as poor.
+
+Nobody in our class is deprived in all six indicators.
+
+That feels too narrow to be useful.
+
+## We need something in between
+
+The Alkire-Foster method uses a dual cutoff [@alkirefoster2015].
+
+One cutoff for each indicator, already set.
+
+A second cutoff for how many weighted indicators make someone poor overall.
+
+## Our poverty cutoff
+
+We set the poverty cutoff at $k = \tfrac{1}{3}$.
+
+A student is poor if their deprivation score is at least one third.
+
+This is the same poverty cutoff used in the actual gMPI [@ophiundp2024].
+
+## Who is poor? {.smaller auto-animate="true"}
+
+<table id="am">
+<thead>
+<tr><th class="rowlabel">Student</th><th>c</th><th>Poor?<br>(c &ge; 1/3)</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">Aditi</td><td>0</td><td class="nonpoor">No</td></tr>
+<tr><td class="rowlabel">Zara</td><td>1/6</td><td class="nonpoor">No</td></tr>
+<tr><td class="rowlabel">Rohan</td><td>1/3</td><td class="poor">Yes</td></tr>
+<tr><td class="rowlabel">Kabir</td><td>1/3</td><td class="poor">Yes</td></tr>
+<tr><td class="rowlabel">Meera</td><td>1/2</td><td class="poor">Yes</td></tr>
+<tr><td class="rowlabel">Dev</td><td>2/3</td><td class="poor">Yes</td></tr>
+</tbody>
+</table>
+
+Four of our six students are multidimensionally poor.
+
+# Step 7: Censoring
+
+## Focus only on the poor
+
+We only want the deprivations of poor students to count.
+
+Aditi and Zara are not poor, even though Zara has one deprivation.
+
+## Zero out the non-poor
+
+We replace every deprivation of a non-poor student with 0.
+
+This is called censoring.
+
+## The censored deprivation matrix {.smaller auto-animate="true"}
+
+<table id="am">
+<thead>
+<tr><th class="rowlabel">Student</th><th>Sleep<br>(1/6)</th><th>Breakfast<br>(1/6)</th><th>Reading<br>(1/6)</th><th>Homework<br>(1/6)</th><th>Study<br>space (1/6)</th><th>Supplies<br>(1/6)</th><th>c(k)</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">Aditi</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td class="rowlabel">Zara</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td class="rowlabel">Rohan</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep0">0</td><td class="scorehigh">1/3</td></tr>
+<tr><td class="rowlabel">Kabir</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep0">0</td><td class="dep0">0</td><td class="scorehigh">1/3</td></tr>
+<tr><td class="rowlabel">Meera</td><td class="dep0">0</td><td class="dep0">0</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep0">0</td><td class="scorehigh">1/2</td></tr>
+<tr><td class="rowlabel">Dev</td><td class="dep1">1/6</td><td class="dep0">0</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep1">1/6</td><td class="dep0">0</td><td class="scorehigh">2/3</td></tr>
+</tbody>
+</table>
+
+Zara's one deprivation in Sleep is now censored away.
+
+Only the four poor rows still carry any weight.
+
+# Step 8: Incidence
+
+## How many students are poor?
+
+The headcount ratio, $H$, is the share of the population that is poor.
+
+$$H = \frac{q}{n}$$
+
+Here $q$ is the number of poor students and $n$ is the total.
+
+## Our headcount ratio
+
+$$H = \frac{4}{6} = \frac{2}{3} \approx 0.667$$
+
+Two out of every three students in our class are poor.
+
+# Step 9: Intensity
+
+## How deprived are the poor?
+
+Incidence alone does not say how badly off poor students are.
+
+The intensity, $A$, is the average deprivation score among the poor only.
+
+$$A = \frac{\sum_{i=1}^{q} c_i}{q}$$
+
+## Our intensity
+
+$$A = \frac{\tfrac{1}{3} + \tfrac{1}{3} + \tfrac{1}{2} + \tfrac{2}{3}}{4} = \frac{11}{24} \approx 0.458$$
+
+On average, our poor students are deprived in about 45.8 percent of the weighted indicators.
+
+# Step 10: The adjusted headcount ratio
+
+## Multiply incidence by intensity
+
+The adjusted headcount ratio, $M_0$, combines both partial measures.
+
+$$M_0 = H \times A$$
+
+## Our result
+
+$$M_0 = \frac{2}{3} \times \frac{11}{24} = \frac{11}{36} \approx 0.306$$
+
+This is our class's gMPI style poverty index.
+
+## What does 0.306 mean?
+
+Our value is the share of all possible weighted deprivations that poor students actually experience.
+
+It rewards fixing both how many are poor and how badly.
+
+## Why not use H alone? {.smaller}
+
+Suppose Dev became deprived in one more indicator.
+
+$H$ would stay exactly 2/3, since Dev was already poor.
+
+But $M_0$ would rise, since Dev's deprivation score would rise.
+
+This property is called dimensional monotonicity [@alkirefoster2015].
+
+The plain headcount ratio does not have it. $M_0$ does.
+
+# Step 11: Breaking $M_0$ down by indicator
+
+## Two kinds of headcount ratio
+
+The uncensored headcount ratio of an indicator counts everyone who is deprived in it.
+
+The censored headcount ratio counts only the poor who are deprived in it.
+
+## Uncensored headcount ratios {.smaller}
+
+<table>
+<thead>
+<tr><th class="rowlabel">Indicator</th><th>Sleep</th><th>Breakfast</th><th>Reading</th><th>Homework</th><th>Study space</th><th>Supplies</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">Deprived students</td><td>3 of 6</td><td>1 of 6</td><td>3 of 6</td><td>3 of 6</td><td>2 of 6</td><td>0 of 6</td></tr>
+<tr><td class="rowlabel">Uncensored ratio</td><td>50.0%</td><td>16.7%</td><td>50.0%</td><td>50.0%</td><td>33.3%</td><td>0.0%</td></tr>
+</tbody>
+</table>
+
+This counts Zara's sleep deprivation, even though she is not poor.
+
+## Censored headcount ratios {.smaller}
+
+<table>
+<thead>
+<tr><th class="rowlabel">Indicator</th><th>Sleep</th><th>Breakfast</th><th>Reading</th><th>Homework</th><th>Study space</th><th>Supplies</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">Poor and deprived</td><td>2 of 6</td><td>1 of 6</td><td>3 of 6</td><td>3 of 6</td><td>2 of 6</td><td>0 of 6</td></tr>
+<tr><td class="rowlabel">Censored ratio, $h_j$</td><td class="scorehigh">33.3%</td><td>16.7%</td><td class="scorehigh">50.0%</td><td class="scorehigh">50.0%</td><td class="scorehigh">33.3%</td><td>0.0%</td></tr>
+</tbody>
+</table>
+
+Zara's sleep deprivation has dropped out. Rohan's has not.
+
+## $M_0$ is a weighted average of these ratios
+
+$$M_0 = \sum_{j=1}^{6} w_j \, h_j$$
+
+## Checking the arithmetic
+
+$$M_0 = \tfrac{1}{6}(0.333 + 0.167 + 0.500 + 0.500 + 0.333 + 0) = \tfrac{11}{36} \approx 0.306$$
+
+This matches the $M_0$ we already calculated from the censored matrix.
+
+# Step 12: Percentage contribution
+
+## Which indicator drives our poverty score?
+
+We can ask how much each indicator contributes to $M_0$.
+
+Our weights already sum to one, so no further rescaling is needed.
+
+$$\text{Contribution}_j = \frac{w_j \times h_j}{M_0}$$
+
+## Contribution by indicator {.smaller}
+
+<table>
+<thead>
+<tr><th class="rowlabel">Indicator</th><th>Sleep</th><th>Breakfast</th><th>Reading</th><th>Homework</th><th>Study space</th><th>Supplies</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">$w_j \times h_j$</td><td>1/18</td><td>1/36</td><td>1/12</td><td>1/12</td><td>1/18</td><td>0</td></tr>
+<tr><td class="rowlabel">Contribution (exact)</td><td>2/11</td><td>1/11</td><td>3/11</td><td>3/11</td><td>2/11</td><td>0</td></tr>
+<tr><td class="rowlabel">Contribution (%)</td><td>18.2%</td><td>9.1%</td><td>27.3%</td><td>27.3%</td><td>18.2%</td><td>0.0%</td></tr>
+</tbody>
+</table>
+
+These six exact fractions add up to $\tfrac{11}{11} = 1$, or 100 percent.
+
+## From indicators to dimensions {.smaller}
+
+Each dimension's contribution is the sum of its own indicators' exact fractions.
+
+Wellbeing: $\tfrac{2}{11} + \tfrac{1}{11} = \tfrac{3}{11} \approx 27.3\%$.  
+Learning: $\tfrac{3}{11} + \tfrac{3}{11} = \tfrac{6}{11} \approx 54.5\%$.  
+Environment: $\tfrac{2}{11} + 0 = \tfrac{2}{11} \approx 18.2\%$.
+
+```{r}
+#| label: fig-contribution-dimension
+#| fig-width: 9
+#| fig-height: 3.3
+
+library(ggplot2)
+
+indicator <- c("Sleep", "Breakfast", "Reading", "Homework", "StudySpace", "Supplies")
+dimension <- c("Wellbeing", "Wellbeing", "Learning", "Learning", "Environment", "Environment")
+w <- rep(1/6, 6)                       # indicator weights, from Step 4
+h <- c(1/3, 1/6, 1/2, 1/2, 1/3, 0)     # censored headcount ratios, from Step 11
+
+M0 <- sum(w * h)
+contribution <- (w * h) / M0
+
+df <- aggregate(contribution ~ dimension, FUN = sum)
+df$dimension <- factor(df$dimension, levels = c("Environment", "Learning", "Wellbeing"))
+df$label <- paste0(round(df$contribution * 100, 1), "%")
+
+ggplot(df, aes(x = dimension, y = contribution * 100)) +
+  geom_col(fill = "#044191", width = 0.55) +
+  geom_text(aes(label = label), hjust = -0.15, size = 6, colour = "#1f2933") +
+  coord_flip(clip = "off") +
+  scale_y_continuous(limits = c(0, 65), expand = expansion(mult = c(0, 0.18))) +
+  labs(x = NULL, y = "Percentage contribution to M0") +
+  theme_minimal(base_size = 18) +
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.text.y = element_text(face = "bold"))
+```
+
+## Why not just add the rounded percentages?
+
+$27.3\% + 27.3\%$ actually equals $54.6\%$, not $54.5\%$.
+
+Rounding each indicator separately, then adding, can drift slightly from the true total.
+
+Adding the exact fractions first, and rounding only at the end, avoids this.
+
+## Reading the bars
+
+Learning drives more than half of our class's poverty score.
+
+Wellbeing and Environment together drive the rest.
+
+The three contributions add up to 100 percent.
+
+# Step 13: Breaking $M_0$ down by group
+
+## Subgroup decomposition
+
+We can also split the class into two sections.
+
+Overall poverty is a population share weighted sum of each section's poverty [@alkirefoster2015].
+
+## Two sections
+
+<div>
+<div class="subgroup-box section-a"><strong>Section A</strong><br>Aditi, Rohan, Kabir</div>
+<div class="subgroup-box section-b"><strong>Section B</strong><br>Zara, Meera, Dev</div>
+</div>
+
+Each section has three students.
+
+## Section A's numbers
+
+Poor students in Section A: Rohan and Kabir.
+
+$$H_A = \frac{2}{3}, \quad A_A = \frac{\tfrac{1}{3}+\tfrac{1}{3}}{2} = \frac{1}{3}$$
+
+$$M_0^A = H_A \times A_A = \frac{2}{9} \approx 0.222$$
+
+## Section B's numbers
+
+Poor students in Section B: Meera and Dev.
+
+$$H_B = \frac{2}{3}, \quad A_B = \frac{\tfrac{1}{2}+\tfrac{2}{3}}{2} = \frac{7}{12}$$
+
+$$M_0^B = H_B \times A_B = \frac{7}{18} \approx 0.389$$
+
+## Putting the sections back together
+
+$$M_0 = \frac{n_A}{n} M_0^A + \frac{n_B}{n} M_0^B$$
+
+$$M_0 = \frac{1}{2}(0.222) + \frac{1}{2}(0.389) = 0.306$$
+
+This matches our original class wide $M_0$ exactly.
+
+## Why this matters for policy
+
+Both sections have the same incidence of poverty.
+
+But Section B's poor students are more intensely deprived.
+
+A single class average can hide this kind of difference.
+
+# From our classroom to the real gMPI
+
+## The same method, at a larger scale
+
+Our worked example follows the exact same nine steps as the global MPI [@ophiundp2024].
+
+Achievement matrix, cutoffs, deprivation matrix, weights, identification, censoring, incidence, intensity, and the adjusted headcount ratio.
+
+## What actually changes {.smaller}
+
+The real gMPI uses ten indicators across three dimensions: health, education, and standard of living.
+
+Health and education each have two indicators, weighted one sixth each.
+
+Standard of living has six indicators, weighted one eighteenth each.
+
+The poverty cutoff is the same as ours: a deprivation score of one third or more [@ophiundp2024].
+
+## The formulas do not change
+
+$$H = \frac{q}{n}, \qquad A = \frac{\sum_{i=1}^{q} c_i}{q}, \qquad M_0 = H \times A$$
+
+Whether the population is six students or an entire country, the formulas are identical.
+
+## Recap of what we built today
+
+We turned raw data into a deprivation matrix.
+
+We weighted it, scored it, and applied a poverty cutoff.
+
+We censored, aggregated, broke down by indicator, and decomposed by subgroup.
+
+## References
+
+::: {#refs}
+:::

@@ -1,0 +1,540 @@
+---
+title: "Numbers"
+author: "Ayush Patel"
+subtitle: "Session 27: Building a Development Index, Step by Step"
+institute: "National Law School of India University, Bengaluru"
+date: today
+date-format: "DD MMM, YYYY"
+embed-resources: false
+bibliography: citations.bib
+execute: 
+  echo: false
+  warning: false
+format: 
+  revealjs:
+    fig-height: 6
+    fig-width: 14
+    fig-retina: 1
+    embed-resources: true
+    margin-left: 50px
+    margin-right: 50px
+    slide-number: c/t
+    width: 1400
+    height: 850
+    theme: [default, custom.scss]
+    footer: "Email: ayush.ap58@gmail.com"
+---
+
+# A different kind of combining
+
+## Last time: counting deprivations
+
+Last session we built our own poverty index.
+
+We counted how many things each student lacked, and by how much.
+
+## This time: no counting
+
+Today nobody is simply deprived or not deprived.
+
+We have continuous measurements, in completely different units.
+
+## The real world problem
+
+Countries are compared on life expectancy, years of schooling, and income.
+
+Years, years, and rupees or dollars. Very different units.
+
+## The Human Development Index
+
+The Human Development Index, or HDI, solves exactly this problem [@hdr2020tech].
+
+It turns three very different measurements into one score between 0 and 1.
+
+## Same two building blocks, one difference
+
+We still need to pick our dimensions and pick a way to combine them.
+
+But there is no poor or non-poor split this time. Everyone gets a score.
+
+# Meet the class, again
+
+## The same six students
+
+Aditi, Zara, Rohan, Kabir, Meera, and Dev.
+
+This time we ask a different question about them.
+
+## Not "who lacks what"
+
+Instead we ask: how well is each student doing, on a continuous scale?
+
+## Three dimensions, HDI style
+
+HDI uses three dimensions: a long and healthy life, knowledge, and a decent standard of living [@hdr2020tech].
+
+We will use a classroom version of each.
+
+## Our three dimensions {.smaller}
+
+**A healthy routine**: how many school days a student actually attends.
+
+**Knowledge**: a vocabulary score, and books read for pleasure.
+
+**Standard of living**: weekly pocket money.
+
+# Step 1: The raw data
+
+## Four things we measure
+
+Days present out of 200 school days.
+
+A vocabulary test score out of 50.
+
+Books read this year.
+
+Weekly pocket money, in rupees.
+
+## Our achievement matrix {.smaller auto-animate="true"}
+
+<table id="hm">
+<thead>
+<tr><th class="rowlabel">Student</th><th>Days present<br>(out of 200)</th><th>Vocabulary<br>score (/50)</th><th>Books read<br>this year</th><th>Pocket money<br>(₹/week)</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">Aditi</td><td>190</td><td>45</td><td>30</td><td>300</td></tr>
+<tr><td class="rowlabel">Zara</td><td>175</td><td>35</td><td>15</td><td>150</td></tr>
+<tr><td class="rowlabel">Rohan</td><td>150</td><td>25</td><td>8</td><td>80</td></tr>
+<tr><td class="rowlabel">Kabir</td><td>165</td><td>20</td><td>5</td><td>200</td></tr>
+<tr><td class="rowlabel">Meera</td><td>140</td><td>15</td><td>10</td><td>60</td></tr>
+<tr><td class="rowlabel">Dev</td><td>130</td><td>10</td><td>3</td><td>40</td></tr>
+</tbody>
+</table>
+
+Four raw numbers per student, in four different units.
+
+# Step 2: The normalization problem
+
+## We cannot just add these up
+
+190 days plus 45 points plus ₹300 means nothing on its own.
+
+Days, test points, and rupees are not the same kind of thing.
+
+## HDI's solution
+
+Turn every raw number into an index between 0 and 1 first.
+
+Only then combine the indices.
+
+## Fixed reference points
+
+To do this, HDI sets a minimum and a maximum for each indicator [@hdr2020tech].
+
+These are called goalposts.
+
+## Goalposts are normative, again
+
+The minimum is a realistic floor. The maximum is an aspirational target.
+
+Just like our deprivation cutoffs last session, someone had to choose these.
+
+## The normalization formula
+
+$$\text{Index} = \frac{\text{actual value} - \text{minimum}}{\text{maximum} - \text{minimum}}$$
+
+This rescales any raw number onto a common 0 to 1 scale.
+
+# Step 3: Setting our goalposts
+
+## Choosing sensible bounds {.smaller}
+
+Days present: floor of 120 days, aspirational target of 195 days.
+
+Vocabulary score: floor of 0, maximum possible score of 50.
+
+Books read: floor of 0, aspirational target of 40 books a year.
+
+Pocket money: floor of ₹10 a week, aspirational target of ₹500 a week.
+
+## Same matrix, goalposts added {.smaller auto-animate="true"}
+
+<table id="hm">
+<thead>
+<tr><th class="rowlabel">Student</th><th>Days present<br>(out of 200)</th><th>Vocabulary<br>score (/50)</th><th>Books read<br>this year</th><th>Pocket money<br>(₹/week)</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">Aditi</td><td>190</td><td>45</td><td>30</td><td>300</td></tr>
+<tr><td class="rowlabel">Zara</td><td>175</td><td>35</td><td>15</td><td>150</td></tr>
+<tr><td class="rowlabel">Rohan</td><td>150</td><td>25</td><td>8</td><td>80</td></tr>
+<tr><td class="rowlabel">Kabir</td><td>165</td><td>20</td><td>5</td><td>200</td></tr>
+<tr><td class="rowlabel">Meera</td><td>140</td><td>15</td><td>10</td><td>60</td></tr>
+<tr><td class="rowlabel">Dev</td><td>130</td><td>10</td><td>3</td><td>40</td></tr>
+<tr style="background-color:#f5f0e6; font-weight:700;"><td class="rowlabel">Goalpost (min&ndash;max)</td><td>120&ndash;195</td><td>0&ndash;50</td><td>0&ndash;40</td><td>10&ndash;500</td></tr>
+</tbody>
+</table>
+
+Every column now has its own floor and ceiling.
+
+# Step 4: The health dimension
+
+## The simplest case
+
+Days present only needs one indicator.
+
+We apply the normalization formula directly.
+
+## Aditi's health index, worked out
+
+$$\text{Health}_{\text{Aditi}} = \frac{190 - 120}{195 - 120} = \frac{70}{75} \approx 0.933$$
+
+Aditi attends school almost as often as our aspirational target.
+
+## Dev's health index, worked out
+
+$$\text{Health}_{\text{Dev}} = \frac{130 - 120}{195 - 120} = \frac{10}{75} \approx 0.133$$
+
+Dev is much closer to our floor of 120 days.
+
+## Health index for everyone {.smaller auto-animate="true"}
+
+<table id="hm">
+<thead>
+<tr><th class="rowlabel">Student</th><th>Health<br>index</th><th>Vocabulary<br>score (/50)</th><th>Books read<br>this year</th><th>Pocket money<br>(₹/week)</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">Aditi</td><td class="scorehigh">0.933</td><td>45</td><td>30</td><td>300</td></tr>
+<tr><td class="rowlabel">Zara</td><td class="scorehigh">0.733</td><td>35</td><td>15</td><td>150</td></tr>
+<tr><td class="rowlabel">Rohan</td><td class="scorehigh">0.400</td><td>25</td><td>8</td><td>80</td></tr>
+<tr><td class="rowlabel">Kabir</td><td class="scorehigh">0.600</td><td>20</td><td>5</td><td>200</td></tr>
+<tr><td class="rowlabel">Meera</td><td class="scorehigh">0.267</td><td>15</td><td>10</td><td>60</td></tr>
+<tr><td class="rowlabel">Dev</td><td class="scorehigh">0.133</td><td>10</td><td>3</td><td>40</td></tr>
+</tbody>
+</table>
+
+One raw column has become one clean index, between 0 and 1.
+
+# Step 5: The knowledge dimension
+
+## Two indicators this time
+
+Knowledge has both a vocabulary score and a books-read count.
+
+Each needs its own index first.
+
+## Normalize the vocabulary score
+
+$$\text{Vocabulary index} = \frac{\text{score} - 0}{50 - 0}$$
+
+## Normalize books read
+
+$$\text{Books index} = \frac{\text{books} - 0}{40 - 0}$$
+
+## Both sub-indices for everyone {.smaller auto-animate="true"}
+
+<table id="hm">
+<thead>
+<tr><th class="rowlabel">Student</th><th>Health<br>index</th><th>Vocabulary<br>index</th><th>Books<br>index</th><th>Pocket money<br>(₹/week)</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">Aditi</td><td>0.933</td><td class="scorehigh">0.900</td><td class="scorehigh">0.750</td><td>300</td></tr>
+<tr><td class="rowlabel">Zara</td><td>0.733</td><td class="scorehigh">0.700</td><td class="scorehigh">0.375</td><td>150</td></tr>
+<tr><td class="rowlabel">Rohan</td><td>0.400</td><td class="scorehigh">0.500</td><td class="scorehigh">0.200</td><td>80</td></tr>
+<tr><td class="rowlabel">Kabir</td><td>0.600</td><td class="scorehigh">0.400</td><td class="scorehigh">0.125</td><td>200</td></tr>
+<tr><td class="rowlabel">Meera</td><td>0.267</td><td class="scorehigh">0.300</td><td class="scorehigh">0.250</td><td>60</td></tr>
+<tr><td class="rowlabel">Dev</td><td>0.133</td><td class="scorehigh">0.200</td><td class="scorehigh">0.075</td><td>40</td></tr>
+</tbody>
+</table>
+
+## Combining the two sub-indices
+
+HDI combines the two schooling-type indicators with a plain arithmetic mean [@hdr2020tech].
+
+$$\text{Knowledge} = \frac{\text{Vocabulary index} + \text{Books index}}{2}$$
+
+## Why an arithmetic mean here
+
+An arithmetic mean lets one sub-indicator make up for the other [@hdr2020tech].
+
+A student strong in vocabulary but light on reading can still land in the middle.
+
+## Knowledge index for everyone {.smaller auto-animate="true"}
+
+<table id="hm">
+<thead>
+<tr><th class="rowlabel">Student</th><th>Health<br>index</th><th>Knowledge<br>index</th><th>Pocket money<br>(₹/week)</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">Aditi</td><td>0.933</td><td class="scorehigh">0.825</td><td>300</td></tr>
+<tr><td class="rowlabel">Zara</td><td>0.733</td><td class="scorehigh">0.537</td><td>150</td></tr>
+<tr><td class="rowlabel">Rohan</td><td>0.400</td><td class="scorehigh">0.350</td><td>80</td></tr>
+<tr><td class="rowlabel">Kabir</td><td>0.600</td><td class="scorehigh">0.263</td><td>200</td></tr>
+<tr><td class="rowlabel">Meera</td><td>0.267</td><td class="scorehigh">0.275</td><td>60</td></tr>
+<tr><td class="rowlabel">Dev</td><td>0.133</td><td class="scorehigh">0.138</td><td>40</td></tr>
+</tbody>
+</table>
+
+# Step 6: The standard of living dimension
+
+## Money behaves differently
+
+Pocket money could be normalized the same simple way.
+
+But HDI treats income differently, on purpose [@hdr2020tech].
+
+## Diminishing returns
+
+An extra ₹50 means a lot to a student with ₹40 a week.
+
+That same ₹50 means far less to a student who already has ₹300 a week.
+
+## The natural logarithm
+
+To capture this, HDI takes the natural log of income before normalizing [@hdr2020tech].
+
+$$\text{Income index} = \frac{\ln(\text{actual}) - \ln(\text{minimum})}{\ln(\text{maximum}) - \ln(\text{minimum})}$$
+
+## Kabir's income index, worked out
+
+$$\text{Income}_{\text{Kabir}} = \frac{\ln(200) - \ln(10)}{\ln(500) - \ln(10)} \approx 0.766$$
+
+Kabir's pocket money looks modest in rupees, but scores fairly high after logging.
+
+## Income index for everyone {.smaller auto-animate="true"}
+
+<table id="hm">
+<thead>
+<tr><th class="rowlabel">Student</th><th>Health<br>index</th><th>Knowledge<br>index</th><th>Income<br>index</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">Aditi</td><td>0.933</td><td>0.825</td><td class="scorehigh">0.869</td></tr>
+<tr><td class="rowlabel">Zara</td><td>0.733</td><td>0.537</td><td class="scorehigh">0.692</td></tr>
+<tr><td class="rowlabel">Rohan</td><td>0.400</td><td>0.350</td><td class="scorehigh">0.532</td></tr>
+<tr><td class="rowlabel">Kabir</td><td>0.600</td><td>0.263</td><td class="scorehigh">0.766</td></tr>
+<tr><td class="rowlabel">Meera</td><td>0.267</td><td>0.275</td><td class="scorehigh">0.458</td></tr>
+<tr><td class="rowlabel">Dev</td><td>0.133</td><td>0.138</td><td class="scorehigh">0.354</td></tr>
+</tbody>
+</table>
+
+We now have three clean dimension indices for every student.
+
+# Step 7: Putting the three together
+
+## The final aggregation step
+
+HDI combines the three dimension indices with a geometric mean [@hdr2020tech].
+
+$$\text{HDI} = \left(\text{Health} \times \text{Knowledge} \times \text{Income}\right)^{1/3}$$
+
+## Aditi's HDI, worked out
+
+$$\text{HDI}_{\text{Aditi}} = \left(0.933 \times 0.825 \times 0.869\right)^{1/3} \approx 0.875$$
+
+## HDI for the whole class {.smaller auto-animate="true"}
+
+<table id="hm">
+<thead>
+<tr><th class="rowlabel">Student</th><th>Health<br>index</th><th>Knowledge<br>index</th><th>Income<br>index</th><th>HDI</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">Aditi</td><td>0.933</td><td>0.825</td><td>0.869</td><td class="scorehigh">0.875</td></tr>
+<tr><td class="rowlabel">Zara</td><td>0.733</td><td>0.537</td><td>0.692</td><td class="scorehigh">0.649</td></tr>
+<tr><td class="rowlabel">Rohan</td><td>0.400</td><td>0.350</td><td>0.532</td><td class="scorehigh">0.421</td></tr>
+<tr><td class="rowlabel">Kabir</td><td>0.600</td><td>0.263</td><td>0.766</td><td class="scorehigh">0.494</td></tr>
+<tr><td class="rowlabel">Meera</td><td>0.267</td><td>0.275</td><td>0.458</td><td class="scorehigh">0.323</td></tr>
+<tr><td class="rowlabel">Dev</td><td>0.133</td><td>0.138</td><td>0.354</td><td class="scorehigh">0.187</td></tr>
+</tbody>
+</table>
+
+## Ranking our class
+
+```{r}
+#| label: fig-hdi-ranking
+#| fig-width: 9
+#| fig-height: 4
+
+library(ggplot2)
+
+students <- c("Aditi", "Zara", "Rohan", "Kabir", "Meera", "Dev")
+hdi <- c(0.875, 0.649, 0.421, 0.494, 0.323, 0.187)   # from the table above
+
+df <- data.frame(student = students, hdi = hdi)
+df <- df[order(df$hdi), ]
+df$student <- factor(df$student, levels = df$student)
+df$label <- sprintf("%.3f", df$hdi)
+
+ggplot(df, aes(x = student, y = hdi)) +
+  geom_col(fill = "#044191", width = 0.6) +
+  geom_text(aes(label = label), hjust = -0.2, size = 6, colour = "#1f2933") +
+  coord_flip(clip = "off") +
+  scale_y_continuous(limits = c(0, 1), expand = expansion(mult = c(0, 0.15))) +
+  labs(x = NULL, y = "HDI") +
+  theme_minimal(base_size = 18) +
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.text.y = element_text(face = "bold"))
+```
+
+# Step 8: Why a geometric mean?
+
+## A different way to average
+
+We could have just averaged the three indices instead.
+
+$$\text{Arithmetic mean} = \frac{\text{Health} + \text{Knowledge} + \text{Income}}{3}$$
+
+## Look closely at Kabir
+
+Kabir's three indices are uneven: 0.600, 0.263, and 0.766.
+
+Strong in health and income, weak in knowledge.
+
+## Two ways to average Kabir's scores
+
+<div>
+<div class="subgroup-box section-a"><strong>Arithmetic mean</strong><br>$(0.600+0.263+0.766)/3$<br>$\approx 0.543$</div>
+<div class="subgroup-box section-b"><strong>Geometric mean</strong><br>$(0.600 \times 0.263 \times 0.766)^{1/3}$<br>$\approx 0.494$</div>
+</div>
+
+## What this shows
+
+The geometric mean gives Kabir a lower score than the arithmetic mean.
+
+A weak dimension pulls the geometric mean down more than a simple average.
+
+Being strong in two dimensions cannot fully cover for being weak in a third.
+
+# Step 9: Scoring the whole class
+
+## A natural next question
+
+Individual scores are useful. But what is our class's overall HDI?
+
+## The tempting shortcut
+
+We could just average everyone's HDI scores together.
+
+$$\text{Naive class HDI} = \frac{0.875+0.649+0.421+0.494+0.323+0.187}{6} \approx 0.491$$
+
+## That shortcut is not how HDI is aggregated
+
+Official HDI group figures are not an average of individual HDI values [@hdr2020tech].
+
+Instead, the raw indicators are averaged first, and the HDI formula is applied once, to those averages [@hdr2020tech].
+
+## Averaging the raw indicators first
+
+<table>
+<thead>
+<tr><th class="rowlabel">Indicator</th><th>Days present</th><th>Vocabulary score</th><th>Books read</th><th>Pocket money</th></tr>
+</thead>
+<tbody>
+<tr><td class="rowlabel">Class average</td><td>158.3</td><td>25.0</td><td>11.8</td><td>₹138.3</td></tr>
+</tbody>
+</table>
+
+## Recomputing HDI from these averages
+
+$$\text{Health} = 0.511, \quad \text{Knowledge} = 0.398, \quad \text{Income} = 0.672$$
+
+$$\text{Correct class HDI} = (0.511 \times 0.398 \times 0.672)^{1/3} \approx 0.515$$
+
+## Two answers, side by side
+
+<div>
+<div class="subgroup-box section-a"><strong>Naive shortcut</strong><br>average of individual HDIs<br>$\approx 0.491$</div>
+<div class="subgroup-box section-b"><strong>Correct method</strong><br>HDI of the class averages<br>$\approx 0.515$</div>
+</div>
+
+The two methods do not agree.
+
+## Why they disagree
+
+HDI mixes a logarithm and a geometric mean.
+
+Neither of those treats an average of outputs the same as the output of an average.
+
+## The takeaway for policy
+
+Never average already-computed HDI values across a population.
+
+Average the underlying indicators first, then apply the HDI formula once.
+
+## A contrast worth noticing
+
+Our gMPI last session could be split by section using a simple population-share sum.
+
+HDI cannot be split that way. It must be rebuilt from the raw indicators each time.
+
+# From our classroom to the real HDI
+
+## Checking our formula on a real country
+
+The technical note itself works through an example: Sudan [@hdr2020tech].
+
+We can run Sudan's numbers through our own formula and see if we agree.
+
+## Sudan's raw indicators {.smaller}
+
+Life expectancy at birth: 65.3 years.
+
+Expected years of schooling: 7.9 years.
+
+Mean years of schooling: 3.8 years.
+
+Gross national income per capita: $3,829 [@hdr2020tech].
+
+## The real HDI goalposts {.smaller}
+
+Life expectancy: floor of 20 years, target of 85 years.
+
+Expected years of schooling: floor of 0, target of 18 years.
+
+Mean years of schooling: floor of 0, target of 15 years.
+
+Income per capita: floor of \$100, target of \$75,000 [@hdr2020tech].
+
+## Computing Sudan's dimension indices
+
+$$\text{Health} \approx 0.697, \qquad \text{Education} \approx 0.346, \qquad \text{Income} \approx 0.551$$
+
+Education is the average of the expected and mean schooling indices.
+
+## Sudan's HDI, our way
+
+$$\text{HDI}_{\text{Sudan}} = (0.697 \times 0.346 \times 0.551)^{1/3} \approx 0.510$$
+
+The technical note reports 0.510 for Sudan [@hdr2020tech].
+
+## Small gaps are just rounding
+
+Our figure differs from the technical note only in the third decimal place.
+
+That gap comes from rounding the published inputs, not from a different formula.
+
+## Where Sudan sits
+
+Human development categories: very high from 0.800, high from 0.700, medium from 0.550, and low below that [@hdr2020tech].
+
+At 0.510, Sudan falls into the low human development category.
+
+# Recap
+
+## What we built today
+
+We turned four raw numbers into three dimension indices using fixed goalposts.
+
+We used an arithmetic mean within knowledge, and a log transform for income.
+
+We combined all three with a geometric mean to get HDI.
+
+## What we learned about aggregating groups
+
+A population's HDI is not the average of its members' HDI values.
+
+It comes from re-averaging the raw indicators, then applying the formula once.
+
+## References
+
+::: {#refs}
+:::
